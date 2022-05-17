@@ -1070,6 +1070,19 @@ class CompatData:
                     if os.path.isfile(srcfile):
                         try_copy(srcfile, steam_dir + tgt, prefix=self.prefix_dir, track_file=tracked_files, link_debug=True)
 
+                # CW Bug 19152. IL-2 Sturmovik: Cliffs of Dover Blitz Edition needs user's localconfig.vdf
+                if os.environ.get("SteamGameId", 0) == "754530":
+                    srcdir = os.path.join(steamdir, 'userdata')
+                    dstdir = os.path.join(self.prefix_dir, steam_dir, 'userdata')
+                    # figuring out the current user is hard, so copy the config for all users
+                    for userid in os.listdir(srcdir):
+                        srcvdf = os.path.join(srcdir, userid, 'config', 'localconfig.vdf')
+                        dstvdf = os.path.join(dstdir, userid, 'config', 'localconfig.vdf')
+                        if not os.path.exists(srcvdf):
+                            continue
+                        os.makedirs(os.path.dirname(dstvdf), exist_ok=True)
+                        shutil.copyfile(srcvdf, dstvdf)
+
                 #copy openvr files into place
                 makedirs(self.prefix_dir + "/drive_c/vrclient/bin")
                 try_copy(g_proton.lib_dir + "wine/i386-windows/vrclient.dll", "drive_c/vrclient/bin",
