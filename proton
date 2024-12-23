@@ -1327,6 +1327,7 @@ def default_compat_config():
                 "2139460", #Once Human
                 "632360", #Risk of Rain 2
                 "2531310", #The Last of Us Part II Remastered
+                "2564460", #Banter
                 ]:
             ret.add("gamedrive")
 
