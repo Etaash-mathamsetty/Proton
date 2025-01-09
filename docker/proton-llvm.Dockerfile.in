@@ -1,0 +1,70 @@
+FROM @PROTONSDK_URLBASE@/llvm-mingw:@LLVM_MINGW_VERSION@ AS llvm-mingw
+
+FROM @BASE_IMAGE@ AS base
+COPY --from=llvm-mingw            /opt/llvm-mingw /opt/llvm-mingw
+
+RUN wget -q @RUST_URLBASE@/@RUST_SOURCE_x86_64@ \
+&& echo '@RUST_SHA256_x86_64@ @RUST_SOURCE_x86_64@' | sha256sum -c - \
+&& tar xf @RUST_SOURCE_x86_64@ -C /tmp && rm @RUST_SOURCE_x86_64@ \
+&& /tmp/rust-@RUST_VERSION@-x86_64-unknown-linux-gnu/install.sh --prefix=/opt/rust \
+&& rm -rf /tmp/rust-@RUST_VERSION@-x86_64-unknown-linux-gnu
+
+RUN wget -q @RUST_URLBASE@/@RUST_SOURCE_i686@ \
+&& echo '@RUST_SHA256_i686@ @RUST_SOURCE_i686@' | sha256sum -c - \
+&& tar xf @RUST_SOURCE_i686@ -C /tmp && rm @RUST_SOURCE_i686@ \
+&& /tmp/rust-@RUST_VERSION@-i686-unknown-linux-gnu/install.sh --prefix=/opt/rust \
+  --components=rust-std-i686-unknown-linux-gnu \
+&& rm -rf /tmp/rust-@RUST_VERSION@-i686-unknown-linux-gnu
+
+RUN bash -c 'ls /opt/rust/bin/* | xargs -n1 -I{} ln -sf {} /usr/bin/'
+
+RUN bash -c 'mkdir -p /usr/lib/ccache && ls /usr/bin/{,*-}{cc,c++,gcc,g++}{,-[0-9]*} | sed -re s:/bin:/lib/ccache: | xargs -n1 ln -sf ../../bin/ccache'
+RUN bash -c 'mkdir -p /opt/llvm-mingw/bin && ls /usr/bin/{,*-}{cc,c++,gcc,g++}{,-[0-9]*} | sed -re s:/usr/bin:/opt/llvm-mingw/bin: | xargs -n1 ln -sf clang'
+ENV PATH=/usr/lib/ccache:/opt/llvm-mingw/bin:$PATH
+
+RUN apt-get update \
+&& apt-get install -y \
+  autoconf-archive \
+  fonttools \
+  fontforge \
+  libxpresent-dev \
+  libopenblas-dev \
+  python3-mako \
+  python3-pefile \
+  libcapstone-dev \
+  libutfcpp-dev \
+  libjson-perl \
+  yasm \
+  nasm \
+&& rm -rf /opt/usr/share/doc /opt/usr/share/info /opt/usr/share/man \
+&& rm -rf /var/lib/apt/lists/*
+
+RUN cd /tmp \
+&& wget -q @NINJA_URLBASE@/@NINJA_SOURCE@ \
+&& echo '@NINJA_SHA256@ @NINJA_SOURCE@' | sha256sum -c - \
+&& unzip @NINJA_SOURCE@ && rm @NINJA_SOURCE@ \
+&& cd /tmp/ninja-@NINJA_VERSION@ \
+&& mkdir build \
+&& cd build \
+&& cmake .. -DCMAKE_BUILD_TYPE=Release \
+&& make \
+&& cp ninja $(which ninja) \
+&& cd / \
+&& rm -rf /tmp/ninja-@NINJA_VERSION@
+
+RUN cd /tmp \
+&& wget -q @AFDKO_URLBASE@/@AFDKO_SOURCE@ \
+&& echo '@AFDKO_SHA256@ @AFDKO_SOURCE@' | sha256sum -c - \
+&& unzip @AFDKO_SOURCE@ && rm @AFDKO_SOURCE@ \
+&& cd /tmp/afdko-@AFDKO_VERSION@ \
+&& mkdir build \
+&& cd build \
+&& CC=clang CXX=clang++ cmake .. -DCMAKE_BUILD_TYPE=Debug \
+&& CC=clang CXX=clang++ make \
+&& cp -f bin/* /usr/libexec/afdko/  \
+&& cd / \
+&& rm -rf /tmp/afdko-@AFDKO_VERSION@
+
+ENTRYPOINT ["/usr/bin/tini-static", "-s", "-g", "--"]
+
+CMD ["/bin/bash"]

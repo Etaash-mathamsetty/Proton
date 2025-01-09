@@ -11,10 +11,12 @@ BASE_IMAGE = $(STEAMRT_URLBASE)/steamrt/sniper/sdk:0.20221017.1
 
 BINUTILS_VERSION = 2.42
 GCC_VERSION = 14.2.0
-MINGW_VERSION = 11.0.0
+MINGW_VERSION = 13.0.0
 RUST_VERSION = 1.68.0
 NINJA_VERSION = 1.13.1
 AFDKO_VERSION = 4.0.2
+LLVM_VERSION = 21.1.0
+LLVM_MINGW_VERSION = 20250910
 
 SOURCES_URLBASE = https://repo.steampowered.com/proton-sdk
 BINUTILS_URLBASE = $(SOURCES_URLBASE)
@@ -23,6 +25,8 @@ MINGW_URLBASE = $(SOURCES_URLBASE)
 RUST_URLBASE = $(SOURCES_URLBASE)
 NINJA_URLBASE = $(SOURCES_URLBASE)
 AFDKO_URLBASE = $(SOURCES_URLBASE)
+LLVM_URLBASE = $(SOURCES_URLBASE)
+LLVM_MINGW_URLBASE = $(SOURCES_URLBASE)
 
 BINUTILS_SOURCE = binutils-$(BINUTILS_VERSION).tar.xz
 GCC_SOURCE = gcc-$(GCC_VERSION).tar.xz
@@ -31,14 +35,18 @@ RUST_SOURCE_x86_64 = rust-$(RUST_VERSION)-x86_64-unknown-linux-gnu.tar.gz
 RUST_SOURCE_i686 = rust-$(RUST_VERSION)-i686-unknown-linux-gnu.tar.gz
 NINJA_SOURCE = ninja-$(NINJA_VERSION).zip
 AFDKO_SOURCE = afdko-$(AFDKO_VERSION).zip
+LLVM_SOURCE = llvm-$(LLVM_VERSION).tar.gz
+LLVM_MINGW_SOURCE = llvm-mingw-$(LLVM_MINGW_VERSION).tar.gz
 
 BINUTILS_SHA256 = f6e4d41fd5fc778b06b7891457b3620da5ecea1006c6a4a41ae998109f85a800
 GCC_SHA256 = a7b39bc69cbf9e25826c5a60ab26477001f7c08d85cec04bc0e29cabed6f3cc9
-MINGW_SHA256 = bd0ea1633bd830204cc23a696889335e9d4a32b8619439ee17f22188695fcc5f
+MINGW_SHA256 = 5afe822af5c4edbf67daaf45eec61d538f49eef6b19524de64897c6b95828caf
 RUST_SHA256_x86_64 = 7be1acdac656d0b0b7e909e5c0d4ddf61c755c203ec26ebafbd306322335b361
 RUST_SHA256_i686 = dc931adeb2943dcadfbd29546481f0296fcb97a511421053ecae6586a85869b1
 NINJA_SHA256 = 5bfe6e147f39347f53777fce2fff324811297f12f4199623a9e3d5a9dc431d69
 AFDKO_SHA256 = 33b0e83b47bb7418594d9b10bd9907dbdc1df8ed0b6a9c385400490c32a46e1c
+LLVM_SHA256 = fba0618cf8de48ec05880c446edd756a2669157eab9d29949e971c77da10275f
+LLVM_MINGW_SHA256 = 48caa362f1256a8f0719332f2555d06e3e0bdc5414d3bf8cb6809ee8ec5a5ba2
 
 DOCKER = docker
 
@@ -67,6 +75,14 @@ DOCKER = docker
 	    -re 's!@NINJA_URLBASE@!$(NINJA_URLBASE)!g' \
 	    -re 's!@NINJA_SOURCE@!$(NINJA_SOURCE)!g' \
 	    -re 's!@NINJA_SHA256@!$(NINJA_SHA256)!g' \
+	    -re 's!@LLVM_VERSION@!$(LLVM_VERSION)!g' \
+	    -re 's!@LLVM_URLBASE@!$(LLVM_URLBASE)!g' \
+	    -re 's!@LLVM_SOURCE@!$(LLVM_SOURCE)!g' \
+	    -re 's!@LLVM_SHA256@!$(LLVM_SHA256)!g' \
+	    -re 's!@LLVM_MINGW_VERSION@!$(LLVM_MINGW_VERSION)!g' \
+	    -re 's!@LLVM_MINGW_URLBASE@!$(LLVM_MINGW_URLBASE)!g' \
+	    -re 's!@LLVM_MINGW_SOURCE@!$(LLVM_MINGW_SOURCE)!g' \
+	    -re 's!@LLVM_MINGW_SHA256@!$(LLVM_MINGW_SHA256)!g' \
 	    -re 's!@AFDKO_VERSION@!$(AFDKO_VERSION)!g' \
 	    -re 's!@AFDKO_URLBASE@!$(AFDKO_URLBASE)!g' \
 	    -re 's!@AFDKO_SOURCE@!$(AFDKO_SOURCE)!g' \
@@ -213,6 +229,38 @@ endef
 
 $(eval $(call create-proton-rules))
 
+
+.PHONY: llvm-mingw
+all: llvm-mingw
+llvm-mingw: BASE_IMAGE = $(STEAMRT_URLBASE)/steamrt/sniper/sdk:$(STEAMRT_VERSION)
+llvm-mingw: llvm-mingw.Dockerfile
+	$(DOCKER) build -f $< \
+	  --cache-from=$(PROTONSDK_URLBASE)/llvm-mingw \
+	  -t $(PROTONSDK_URLBASE)/llvm-mingw:$(LLVM_MINGW_VERSION) \
+	  -t $(PROTONSDK_URLBASE)/llvm-mingw:latest \
+	  context
+pull::
+	-$(DOCKER) pull $(PROTONSDK_URLBASE)/llvm-mingw:$(LLVM_MINGW_VERSION)
+push::
+	$(DOCKER) push $(PROTONSDK_URLBASE)/llvm-mingw:$(LLVM_MINGW_VERSION)
+	$(DOCKER) push $(PROTONSDK_URLBASE)/llvm-mingw:latest
+
+.PHONY: proton-llvm
+all: proton-llvm
+proton-llvm: BASE_IMAGE = $(STEAMRT_URLBASE)/steamrt/sniper/sdk:$(STEAMRT_VERSION)
+proton-llvm: proton-llvm.Dockerfile | llvm-mingw
+	$(DOCKER) build -f $< \
+	  --cache-from=$(PROTONSDK_URLBASE) \
+	  -t $(PROTONSDK_URLBASE)/llvm:$(PROTONSDK_VERSION) \
+	  -t $(PROTONSDK_URLBASE)/llvm:latest \
+	  context
+pull::
+	-$(DOCKER) pull $(PROTONSDK_URLBASE)/llvm:$(PROTONSDK_VERSION)
+push::
+	$(DOCKER) push $(PROTONSDK_URLBASE)/llvm:$(PROTONSDK_VERSION)
+	$(DOCKER) push $(PROTONSDK_URLBASE)/llvm:latest
+
+
 sources::
 	rm -f $(BINUTILS_SOURCE)
 	rm -f $(MINGW_SOURCE)
@@ -220,15 +268,21 @@ sources::
 	rm -f $(RUST_SOURCE_x86_64)
 	rm -f $(RUST_SOURCE_i686)
 	rm -f $(NINJA_SOURCE)
+	rm -f $(LLVM_SOURCE)
+	rm -f $(LLVM_MINGW_SOURCE)
 	wget $(BINUTILS_URLBASE)/$(BINUTILS_SOURCE)
 	wget $(MINGW_URLBASE)/$(MINGW_SOURCE)
 	wget $(GCC_URLBASE)/$(GCC_SOURCE)
 	wget $(RUST_URLBASE)/$(RUST_SOURCE_x86_64)
 	wget $(RUST_URLBASE)/$(RUST_SOURCE_i686)
 	wget $(NINJA_URLBASE)/$(NINJA_SOURCE)
+	wget $(LLVM_URLBASE)/$(LLVM_SOURCE)
+	wget $(LLVM_MINGW_URLBASE)/$(LLVM_MINGW_SOURCE)
 	echo $(BINUTILS_SHA256) $(BINUTILS_SOURCE) | sha256sum -c -
 	echo $(MINGW_SHA256) $(MINGW_SOURCE) | sha256sum -c -
 	echo $(GCC_SHA256) $(GCC_SOURCE) | sha256sum -c -
 	echo $(RUST_SHA256_x86_64) $(RUST_SOURCE_x86_64) | sha256sum -c -
 	echo $(RUST_SHA256_i686) $(RUST_SOURCE_i686) | sha256sum -c -
 	echo $(NINJA_SHA256) $(NINJA_SOURCE) | sha256sum -c -
+	echo $(LLVM_SHA256) $(LLVM_SOURCE) | sha256sum -c -
+	echo $(LLVM_MINGW_SHA256) $(LLVM_MINGW_SOURCE) | sha256sum -c -
