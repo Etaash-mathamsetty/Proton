@@ -606,7 +606,6 @@ $(eval $(call rules-cmake,glslang,aarch64,unix))
 ##
 
 LSTEAMCLIENT_DEPENDS = wine
-LSTEAMCLIENT_LDFLAGS = -static-libgcc -static-libstdc++
 
 $(eval $(call rules-source,lsteamclient,$(SRCDIR)/lsteamclient))
 $(eval $(call rules-makedep,lsteamclient,i386))
@@ -886,7 +885,6 @@ endif
 ## vrclient
 ##
 
-VRCLIENT_LDFLAGS = -static-libgcc -static-libstdc++
 VRCLIENT_DEPENDS = vulkan-headers wine
 
 $(eval $(call rules-source,vrclient,$(SRCDIR)/vrclient_x64))
