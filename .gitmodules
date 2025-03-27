@@ -78,3 +78,6 @@
 [submodule "libpcap"]
 	path = libpcap
 	url = https://github.com/the-tcpdump-group/libpcap.git
+[submodule "FEX"]
+	path = FEX
+	url = https://github.com/FEX-Emu/FEX/
