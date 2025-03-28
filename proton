@@ -2183,6 +2183,8 @@ class Session:
                     f.write(json.dumps(app_config, indent=2))
                 self.env['FEX_APP_CONFIG'] = g_compatdata.fex_config_file
 
+            self.env["FEX_APP_CONFIG_LOCATION"] = os.path.join(g_proton.dist_dir, "share/fex-emu/")
+
     def run_proc(self, args, local_env=None):
         if local_env is None:
             local_env = self.env

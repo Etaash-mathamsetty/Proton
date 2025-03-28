@@ -1073,7 +1073,13 @@ FEX_WOW64_CMAKE_ARGS = \
 $(eval $(call rules-source,fex-wow64,$(SRCDIR)/FEX))
 $(eval $(call rules-cmake,fex-wow64,aarch64,windows))
 
-default_pfx: fex-arm64ec fex-wow64
+
+FEX_CONFIG_JSON := $(DST_DIR)/share/fex-emu/Config.json
+$(FEX_CONFIG_JSON): $(SRCDIR)/FEX_Config.json
+	mkdir -p $(dir $@)
+	cp -a $< $@
+
+default_pfx: fex-arm64ec fex-wow64 $(FEX_CONFIG_JSON)
 endif
 
 
