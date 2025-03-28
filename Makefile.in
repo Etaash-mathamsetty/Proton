@@ -1466,6 +1466,8 @@ ICU_x86_64_DIST_DIR := $(DST_LIBDIR)/wine/icu/x86_64-windows
 ICU_x86_64_TARBALL := icu-$(ICU_VER)-x86_64.tar.xz
 ICU_i386_DIST_DIR := $(DST_LIBDIR)/wine/icu/i386-windows
 ICU_i386_TARBALL := icu-$(ICU_VER)-x86.tar.xz
+ICU_aarch64_DIST_DIR := $(DST_LIBDIR)/wine/icu/aarch64-windows
+ICU_aarch64_TARBALL := icu-$(ICU_VER)-x86_64.tar.xz # TODO: Build ICU for arm64(ec/x).
 
 $(OBJ)/.icu-x86_64-dist: $(SRC)/icu/$(ICU_x86_64_TARBALL)
 	mkdir -p $(ICU_x86_64_DIST_DIR)
@@ -1479,7 +1481,17 @@ $(OBJ)/.icu-i386-dist: $(SRC)/icu/$(ICU_i386_TARBALL)
 	tar --no-same-owner -xf $< -C $(ICU_i386_DIST_DIR)
 	touch $@
 
+$(OBJ)/.icu-aarch64-dist: $(SRC)/icu/$(ICU_aarch64_TARBALL)
+	mkdir -p $(ICU_aarch64_DIST_DIR)
+	rm -rf $(ICU_aarch64_DIST_DIR)/*.dll
+	tar --no-same-owner -xf $< -C $(ICU_aarch64_DIST_DIR)
+	touch $@
+
 all-dist: $(OBJ)/.icu-x86_64-dist $(OBJ)/.icu-i386-dist
+
+ifneq ($(findstring aarch64,$(unix_ARCHS)),)
+all-dist: $(OBJ)/.icu-aarch64-dist
+endif
 
 ##
 ## x11 locales
