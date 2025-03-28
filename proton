@@ -617,6 +617,7 @@ class CompatData:
         self.creation_sync_guard = self.path("pfx/creation_sync_guard")
         self.version_file = self.path("version")
         self.config_info_file = self.path("config_info")
+        self.fex_config_file = self.path("proton-fex-config.json")
         self.tracked_files_file = self.path("tracked_files")
         self.prefix_lock = FileLock(self.path("pfx.lock"), timeout=-1)
         self.old_machine_guid = None
@@ -1664,6 +1665,36 @@ class Session:
         self.log_file = open(lfile_path, "a")
         return True
 
+    def generate_fex_app_config(self):
+        """
+        Translate some environment variables into FEX config which is in files.
+        """
+        app_config = {
+            "Config": {},
+            "ThunksDB": {}
+        }
+
+        # appinfo based environment variable as default
+        try:
+            app_config["Config"]["TSOEnabled"] = self.env['STEAM_FEX_TSOENABLED']
+        except (KeyError, ValueError):
+            pass
+        try:
+            app_config["Config"]["Multiblock"] = self.env['STEAM_FEX_MULTIBLOCK']
+        except (KeyError, ValueError):
+            pass
+
+        # if user has specified an override, take those values
+        try:
+            config_env = self.env['STEAM_COMPAT_FEX_CONFIG']
+            if config_env:
+                app_config["Config"]["TSOEnabled"] = "1" if ("TSOEnabled:1" in config_env) else "0"
+                app_config["Config"]["Multiblock"] = "1" if ("Multiblock:1" in config_env) else "0"
+        except KeyError:
+            pass
+
+        return app_config
+
     def init_session(self, update_prefix_files):
         self.env["WINEPREFIX"] = g_compatdata.prefix_dir
 
@@ -2127,6 +2158,14 @@ class Session:
             else:
                 s = dll + "=" + setting
         append_to_env_str(self.env, "WINEDLLOVERRIDES", s, ";")
+
+        if platform.machine() == 'aarch64':
+            if not 'FEX_APP_CONFIG' in self.env:
+                # custom per-app config driven by Steam env vars
+                app_config = self.generate_fex_app_config()
+                with open(g_compatdata.fex_config_file, 'w') as f:
+                    f.write(json.dumps(app_config, indent=2))
+                self.env['FEX_APP_CONFIG'] = g_compatdata.fex_config_file
 
     def run_proc(self, args, local_env=None):
         if local_env is None:
