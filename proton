@@ -1693,6 +1693,9 @@ class Session:
         except KeyError:
             pass
 
+        if "PROTON_LOG" in self.env:
+            app_config["Config"]["SilentLog"] = "0" if nonzero(self.env["PROTON_LOG"]) else "1"
+
         return app_config
 
     def init_session(self, update_prefix_files):
