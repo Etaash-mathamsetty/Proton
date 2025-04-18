@@ -1368,33 +1368,6 @@ def default_compat_config():
     #options to also be enabled for prerequisite setup steps
     if "STEAM_COMPAT_APP_ID" in os.environ:
         appid = os.environ["STEAM_COMPAT_APP_ID"]
-        if appid in [
-                "7000", # Tomb Raider: Legend
-                "7200", # Trackmania United Forever
-                "8000", # Tomb Raider: Anniversary
-                "11020", # TrackMania Nations Forever
-                "11450", # Overlord
-                "15750", # Oddworld: Stranger's Wrath HD
-                "22300", # Fallout 3
-                "22370", # Fallout 3: Game of the Year Edition
-                "22380", # Fallout: New Vegas
-                "72850", # The Elder Scrolls V: Skyrim
-                "377160", # Fallout 4
-                "397950", # Clustertruck
-                "489830", # The Elder Scrolls V: Skyrim Special Edition
-                "610190", # WARRIORS ALL-STARS
-                "712180", # Mugsters
-                "1818750", # MultiVersus
-                # Unity3D launchers:
-                "418620", # The TakeOver
-                "480450", # Floppy Heroes
-                "890930", # Whiskered Away
-                "931690", # Himno
-                "1050680", # Survirus
-                "3143980", # The Adventure of Ninomae Ina'nis
-                "1903340", # Clair Obscur: Expedition 33
-                ]:
-            ret.add("xalia")
 
         if appid in [
                 "255960", #Bad Mojo Redux
@@ -1710,8 +1683,10 @@ class Session:
         if "noopwr" in self.compat_config:
             self.env["WINE_DISABLE_VULKAN_OPWR"] = "1"
 
-        if "xalia" in self.compat_config and "PROTON_USE_XALIA" not in self.env:
+        if "PROTON_USE_XALIA" not in self.env:
             self.env["PROTON_USE_XALIA"] = "1"
+            if "xalia" not in self.compat_config:
+                self.env["XALIA_SUPPORTED_ONLY"] = "1"
 
         if "nohardwarescheduling" in self.compat_config and "WINE_DISABLE_HARDWARE_SCHEDULING" not in self.env:
             self.env["WINE_DISABLE_HARDWARE_SCHEDULING"] = "1"
