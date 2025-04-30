@@ -686,7 +686,7 @@ static void setup_steam_files(void)
     }
 
     pos += strappend( &buf, &buf_size, pos, "}\n" );
-    write_file( L"C:\\Program Files (x86)\\Steam\\steamapps\\libraryfolders.vdf", buf, buf_size );
+    write_file( L"C:\\Program Files (x86)\\Steam\\steamapps\\libraryfolders.vdf", buf, pos );
 }
 
 #ifndef DIRECTORY_QUERY
