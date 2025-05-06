@@ -117,6 +117,19 @@ $(eval $(call rules-source,dav1d,$(SRCDIR)/dav1d))
 $(eval $(call rules-meson,dav1d,i386,unix))
 $(eval $(call rules-meson,dav1d,x86_64,unix))
 
+##
+## xkbcommon
+##
+
+LIBXKBCOMMON_MESON_ARGS := \
+	-Denable-xkbregistry=true \
+	-Denable-docs=false \
+	-Denable-x11=false \
+	-Denable-wayland=false
+
+$(eval $(call rules-source,libxkbcommon,$(SRCDIR)/libxkbcommon))
+$(eval $(call rules-meson,libxkbcommon,i386,unix))
+$(eval $(call rules-meson,libxkbcommon,x86_64,unix))
 
 ##
 ## gst-orc
@@ -505,7 +518,8 @@ WINE_SOURCE_ARGS = \
 WINE_AUTOCONF_ARGS = \
   --enable-werror \
   --with-mingw \
-  --disable-tests
+  --disable-tests \
+  --without-ffmpeg
 
 WINE_x86_64_AUTOCONF_ARGS = \
   --enable-archs=$(call list-join,$(comma),x86_64 $(filter-out x86_64 $(unix_ARCHS),$(windows_ARCHS))) \
@@ -519,7 +533,7 @@ WINE_x86_64_AUTOCONF_ARGS += \
   VKD3D_PE_CFLAGS="-I$(VULKAN_HEADERS_x86_64_DST)/include -I$(VKD3D_x86_64_DST)/include/vkd3d" \
   VKD3D_PE_LIBS="-L$(VKD3D_x86_64_LIBDIR)/vkd3d/x86_64-windows -l:libvkd3d-1.dll -l:libvkd3d-shader-1.dll"
 
-WINE_DEPENDS = gst_orc gstreamer gst_base vkd3d ffmpeg openfst kaldi vosk
+WINE_DEPENDS = gst_orc gstreamer gst_base vkd3d ffmpeg openfst kaldi vosk libxkbcommon
 WINE_x86_64_DEPENDS = piper
 
 WINE_i386_LIBDIR = $(WINE_i386_DST)/lib

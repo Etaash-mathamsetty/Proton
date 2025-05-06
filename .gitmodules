@@ -72,3 +72,6 @@
 [submodule "protonfixes"]
 	path = protonfixes
 	url = https://github.com/Open-Wine-Components/umu-protonfixes
+[submodule "libxkbcommon"]
+	path = libxkbcommon
+	url = https://github.com/xkbcommon/libxkbcommon.git
