@@ -813,14 +813,14 @@ int main(int argc, char *argv[])
         if (env_nonzero("PROTON_WAIT_ATTACH"))
         {
             unsigned int sleep_count = 0;
-            WINE_TRACE("PROTON_WAIT_ATTACH is set, waiting for debugger...\n");
+            WINE_ERR("PROTON_WAIT_ATTACH is set, waiting for debugger...\n");
             while (!IsDebuggerPresent() && !is_ptraced())
             {
                 Sleep(100);
                 ++sleep_count;
                 if (sleep_count >= 10)
                 {
-                    WINE_TRACE("still waiting for debugger...\n");
+                    WINE_ERR("still waiting for debugger...\n");
                     sleep_count = 0;
                 }
             }
