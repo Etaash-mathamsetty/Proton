@@ -56,6 +56,12 @@
 
 WINE_DEFAULT_DEBUG_CHANNEL(steam);
 
+static bool env_equal(const char *env, char value)
+{
+    const char *v = getenv(env);
+    return v != NULL && *v && v[0] == value;
+}
+
 static bool env_nonzero(const char *env)
 {
     const char *v = getenv(env);
@@ -810,7 +816,7 @@ int main(int argc, char *argv[])
         setup_steam_registry();
         setup_steam_files();
 
-        if (env_nonzero("PROTON_WAIT_ATTACH"))
+        if (env_equal("PROTON_WAIT_ATTACH", '1'))
         {
             unsigned int sleep_count = 0;
             WINE_ERR("PROTON_WAIT_ATTACH is set, waiting for debugger...\n");
