@@ -1406,6 +1406,7 @@ def default_compat_config():
                 "931690", # Himno
                 "1050680", # Survirus
                 "3143980", # The Adventure of Ninomae Ina'nis
+                "1903340", # Clair Obscur: Expedition 33
                 ]:
             ret.add("xalia")
 
