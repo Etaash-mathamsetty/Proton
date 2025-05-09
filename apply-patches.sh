@@ -21,3 +21,6 @@ pushd ../gstreamer
 patch_am ../patches/gstreamer/5509.patch
 patch_am ../patches/gstreamer/5511.patch
 popd
+pushd ../vkd3d-proton
+patch_am ../patches/vkd3d-proton/0001-vkd3d-Load-amdxc64-when-using-AMD.patch
+popd
