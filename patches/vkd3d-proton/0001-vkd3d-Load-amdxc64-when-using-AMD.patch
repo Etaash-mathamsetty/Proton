@@ -18,7 +18,7 @@ index 2529804b..a11bf024 100644
          device->workarounds.amdgpu_broken_null_tile_mapping = true;
 +
 +        /* FSR4 requires amdxc64 to be loaded. */
-+        LoadLibraryW("amdxc64");
++        LoadLibraryA("amdxc64");
      }
  }
  
