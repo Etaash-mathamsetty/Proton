@@ -939,19 +939,7 @@ class CompatData:
 
             self.upgrade_pfx(old_ver)
 
-            # not fully-created prefix, copy it for future investigation
-            if file_exists(self.prefix_dir, follow_symlinks=True) and not file_exists(self.creation_sync_guard, follow_symlinks=True):
-                shutil.move(self.prefix_dir, self.path(f"corrupted_pfx-{time.time()}.bak"))
-
-                # remove files created for the corrupted prefix, we usually append to them
-                if file_exists(self.version_file, follow_symlinks=False):
-                    os.remove(self.version_file)
-                if file_exists(self.config_info_file, follow_symlinks=False):
-                    os.remove(self.config_info_file)
-                if file_exists(self.tracked_files_file, follow_symlinks=False):
-                    os.remove(self.tracked_files_file)
-
-            if not file_exists(self.prefix_dir, follow_symlinks=True):
+            if not file_exists(self.creation_sync_guard, follow_symlinks=False):
                 makedirs(self.prefix_dir + "/drive_c")
                 set_dir_casefold_bit(self.prefix_dir + "/drive_c")
 
