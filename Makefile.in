@@ -1260,10 +1260,13 @@ $(SRC)/contrib/$(XALIA_ZIP):
 	mkdir -p $(dir $@)
 	wget --no-use-server-timestamps -O $@ $(XALIA_ZIP_URL) || (rm $@; false)
 
-$(DIST_XALIA): $(SRC)/contrib/$(XALIA_ZIP)
+$(DIST_XALIA): $(SRC)/contrib/$(XALIA_ZIP) $(SRC)/xalia-fixups.gudl
 	rm -rf $(DIST_XALIA_DIR)
 	mkdir -p $(DIST_XALIA_DIR)
 	unzip $< -d $(DIST_XALIA_DIR)
+	mv $(DIST_XALIA_DIR)/main.gudl $(DIST_XALIA_DIR)/main.gudl.orig
+	cat $(SRC)/xalia-fixups.gudl $(DIST_XALIA_DIR)/main.gudl.orig|sed 's/\xef\xbb\xbf//' > $(DIST_XALIA_DIR)/main.gudl
+	rm $(DIST_XALIA_DIR)/main.gudl.orig
 	touch $@
 
 all-dist: $(DIST_XALIA)
