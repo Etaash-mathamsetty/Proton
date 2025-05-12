@@ -1767,6 +1767,9 @@ class Session:
                     if var in self.env:
                         self.log_file.write("Effective " + var + ": " + self.env[var] + "\n")
 
+                if "FSR4_UPGRADE" in self.env and nonzero(self.env["FSR4_UPGRADE"]):
+                        self.log_file.write("INFO: Automatic FSR4 upgrade enabled! Ensure you have amdxcffx64 installed!\n")
+
                 # check for low fd limit
                 _soft_limit, hard_limit = resource.getrlimit(resource.RLIMIT_NOFILE)
                 if hard_limit < 524288:
