@@ -1296,6 +1296,8 @@ deploy: all
 ##
 ## make redist
 ##
+BUILD_NAME_REDIST := proton-$(shell git describe --tags)
+BUILD_NAME_REDIST_INTERNAL ?= $(BUILD_NAME_REDIST)-proton
 
 .PHONY: redist
 redist: all
@@ -1308,7 +1310,14 @@ redist: all
 	cp -a $(PROTONFIXES_TARGET)/libmspack.so.0 $(REDIST_DIR)/files/lib/x86_64-linux-gnu/
 	cp $(PROTONFIXES_TARGET)/libmspack.so.0.1.0 $(REDIST_DIR)/files/lib/x86_64-linux-gnu/
 
+	sed -r -e 's|##BUILD_NAME##|$(BUILD_NAME_REDIST)|' -e \
+		's|##INTERNAL_TOOL_NAME##|$(BUILD_NAME_REDIST_INTERNAL)|' $(COMPAT_MANIFEST_TEMPLATE) > $(REDIST_DIR)/compatibilitytool.vdf
+
 	@echo "Built proton to "$(abspath $(REDIST_DIR))
+
+	tar --checkpoint=2000 --checkpoint-action=echo="#%u: %T" -cJf $(BUILD_NAME_REDIST).tar.xz $(REDIST_DIR) --transform s/redist/$(BUILD_NAME_REDIST)/
+
+	@echo "Compressed proton to "$(abspath $(BUILD_NAME_REDIST).tar.xz)
 
 
 ##
