@@ -1622,6 +1622,7 @@ class Session:
         self.check_environment("PROTON_DISABLE_NVAPI", "disablenvapi")
         self.check_environment("PROTON_FORCE_NVAPI", "forcenvapi")
         self.check_environment("PROTON_HIDE_APU", "hideapu")
+        self.check_environment("PROTON_ENABLE_WAYLAND", "enablewayland")
 
         if "noesync" in self.compat_config:
             self.env.pop("WINEESYNC", "")
@@ -1719,10 +1720,6 @@ class Session:
         if "PROTON_CRASH_REPORT_DIR" in self.env:
             self.env["WINE_CRASH_REPORT_DIR"] = self.env["PROTON_CRASH_REPORT_DIR"]
 
-        if "PROTON_USE_WAYLAND" in self.env:
-            self.dlloverrides["winex11.drv"] = "d"
-            self.dlloverrides["winewayland.drv"] = "b"
-
         # NVIDIA software may check for the "DriverStore" by querying the
         # NGXCore\NGXPath registry key via `D3DDDI_QUERYREGISTRY_SERVICEKEY` for
         # a given adapter. In the case where this path cannot be found, the
@@ -1809,6 +1806,13 @@ class Session:
 
         if "disablenvapi" not in self.compat_config or "forcenvapi" in self.compat_config:
             self.env["DXVK_ENABLE_NVAPI"] = "1"
+
+        if "enablewayland" in self.compat_config:
+            if "WAYLAND_DISPLAY" in self.env:
+                self.dlloverrides["winex11.drv"] = "d"
+                self.dlloverrides["winewayland.drv"] = "b"
+            else:
+                self.log_file.write("ERROR: No Wayland display, falling back to X11!")
 
         if "forcenvapi" in self.compat_config:
             self.env["DXVK_NVAPI_ALLOW_OTHER_DRIVERS"] = "1"
