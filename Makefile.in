@@ -1319,6 +1319,8 @@ redist: all
 
 	@echo "Compressed proton to "$(abspath $(BUILD_NAME_REDIST).tar.xz)
 
+	@echo "SHA256: "$(shell sha256sum $(BUILD_NAME_REDIST).tar.xz)
+
 
 ##
 ## make module=$dllname module[32,64]
