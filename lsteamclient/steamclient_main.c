@@ -618,9 +618,8 @@ void CDECL Steam_NotifyMissingInterface( int32_t hSteamPipe, const char *pchVers
     STEAMCLIENT_CALL( steamclient_Steam_NotifyMissingInterface, &params );
 }
 
-BOOL CDECL steamclient_init_registry(void)
+void steamclient_init_registry(void)
 {
     load_steamclient();
-    if (STEAMCLIENT_CALL( steamclient_init_registry, NULL )) return FALSE;
-    return TRUE;
+    STEAMCLIENT_CALL( steamclient_init_registry, NULL );
 }

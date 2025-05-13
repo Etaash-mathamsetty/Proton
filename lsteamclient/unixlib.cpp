@@ -685,7 +685,7 @@ static NTSTATUS steamclient_init_registry( Params *params, bool wow64 )
     {
         ERR( "Failed to connect to Steam\n" );
         if (pipe) client->BReleaseSteamPipe( pipe );
-        return -1;
+        return 0;
     }
 
     setup_steam_registry( client, pipe, user );
