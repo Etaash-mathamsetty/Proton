@@ -1812,6 +1812,7 @@ class Session:
             if "WAYLAND_DISPLAY" in self.env:
                 self.dlloverrides["winex11.drv"] = "d"
                 self.dlloverrides["winewayland.drv"] = "b"
+                self.env["WINE_WAYLAND_HACKS"] = "1"
             else:
                 self.log_file.write("ERROR: No Wayland display, falling back to X11!")
 
