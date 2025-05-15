@@ -1623,6 +1623,7 @@ class Session:
         self.check_environment("PROTON_FORCE_NVAPI", "forcenvapi")
         self.check_environment("PROTON_HIDE_APU", "hideapu")
         self.check_environment("PROTON_ENABLE_WAYLAND", "enablewayland")
+        self.check_environment("PROTON_USE_WAYLAND", "enablewayland")
 
         if "noesync" in self.compat_config:
             self.env.pop("WINEESYNC", "")
