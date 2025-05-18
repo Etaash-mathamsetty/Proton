@@ -1371,23 +1371,20 @@ all-dist: $(DIST_LICENSE) $(DIST_OFL_LICENSE) $(DIST_AV1_PATENTS)
 
 ##
 ## protonfixes
-## TODO: use dst/obj-protonfixes as well
 ##
 
+PROTONFIXES_OBJ := $(addprefix $(OBJ)/,obj-protonfixes)
 PROTONFIXES_TARGET := $(addprefix $(DST_BASE)/,protonfixes)
 $(PROTONFIXES_TARGET): $(addprefix $(SRCDIR)/,protonfixes)
 
-$(eval $(call rules-source,protonfixes,$(SRCDIR)/protonfixes))
-$(eval $(call create-rules-common,protonfixes,PROTONFIXES,x86_64,unix))
-
 $(OBJ)/.build-protonfixes:
-	cd $(PROTONFIXES_SRC) && ./build.sh
+	cd $(SRCDIR)/protonfixes && \
+	env BUILD=$(PROTONFIXES_OBJ) make
 	touch $(@)
 
 $(PROTONFIXES_TARGET): $(OBJ)/.build-protonfixes
-	cd $(PROTONFIXES_SRC) && make install
-	cp -a $(PROTONFIXES_SRC)/dist/protonfixes $(PROTONFIXES_TARGET)
-	rm -r $(PROTONFIXES_SRC)/dist
+	cd $(SRCDIR)/protonfixes && \
+	env BUILD=$(PROTONFIXES_OBJ) DIST=$(PROTONFIXES_TARGET) make install
 
 all-dist: $(PROTONFIXES_TARGET)
 
@@ -1444,14 +1441,6 @@ redist: all
 	mkdir -p $(REDIST_DIR)
 	rsync --delete -arx $(DST_BASE)/ $(REDIST_DIR)
 
-	cp $(PROTONFIXES_TARGET)/cabextract $(REDIST_DIR)/files/bin/
-	cp $(PROTONFIXES_TARGET)/unzip $(REDIST_DIR)/files/bin/
-	cp $(PROTONFIXES_TARGET)/cabextract $(REDIST_DIR)/files/bin-wow64/
-	cp $(PROTONFIXES_TARGET)/unzip $(REDIST_DIR)/files/bin-wow64/
-	cp -a $(PROTONFIXES_TARGET)/libmspack.so $(REDIST_DIR)/files/lib/x86_64-linux-gnu/
-	cp -a $(PROTONFIXES_TARGET)/libmspack.so.0 $(REDIST_DIR)/files/lib/x86_64-linux-gnu/
-	cp $(PROTONFIXES_TARGET)/libmspack.so.0.1.0 $(REDIST_DIR)/files/lib/x86_64-linux-gnu/
-
 	sed -r -e 's|##BUILD_NAME##|$(BUILD_NAME_REDIST)|' -e \
 		's|##INTERNAL_TOOL_NAME##|$(BUILD_NAME_REDIST_INTERNAL)|' $(COMPAT_MANIFEST_TEMPLATE) > $(REDIST_DIR)/compatibilitytool.vdf
 
@@ -1462,6 +1451,8 @@ redist: all
 	@echo "Compressed proton to "$(abspath $(BUILD_NAME_REDIST).tar.xz)
 
 	sha256sum $(BUILD_NAME_REDIST).tar.xz > $(BUILD_NAME_REDIST).sha256sum
+
+	@echo "Generated sha256 to "$(abspath $(BUILD_NAME_REDIST).sha256sum)
 
 
 ##
@@ -1529,21 +1520,6 @@ install: all
 	if [ ! -d $(STEAM_DIR) ]; then echo >&2 "!! "$(STEAM_DIR)" does not exist, cannot install"; return 1; fi
 	mkdir -p $(STEAM_DIR)/compatibilitytools.d/$(BUILD_NAME)
 	rsync --delete -arx $(DST_BASE)/* $(STEAM_DIR)/compatibilitytools.d/$(BUILD_NAME)
-
-	cp $(STEAM_DIR)/compatibilitytools.d/$(BUILD_NAME)/protonfixes/cabextract \
-		$(STEAM_DIR)/compatibilitytools.d/$(BUILD_NAME)/files/bin/
-	cp $(STEAM_DIR)/compatibilitytools.d/$(BUILD_NAME)/protonfixes/unzip \
-		$(STEAM_DIR)/compatibilitytools.d/$(BUILD_NAME)/files/bin/
-	cp $(STEAM_DIR)/compatibilitytools.d/$(BUILD_NAME)/protonfixes/cabextract \
-		$(STEAM_DIR)/compatibilitytools.d/$(BUILD_NAME)/files/bin-wow64/
-	cp $(STEAM_DIR)/compatibilitytools.d/$(BUILD_NAME)/protonfixes/unzip \
-		$(STEAM_DIR)/compatibilitytools.d/$(BUILD_NAME)/files/bin-wow64/
-	cp -a $(STEAM_DIR)/compatibilitytools.d/$(BUILD_NAME)/protonfixes/libmspack.so \
-		$(STEAM_DIR)/compatibilitytools.d/$(BUILD_NAME)/files/lib/x86_64-linux-gnu/
-	cp -a $(STEAM_DIR)/compatibilitytools.d/$(BUILD_NAME)/protonfixes/libmspack.so.0 \
-		$(STEAM_DIR)/compatibilitytools.d/$(BUILD_NAME)/files/lib/x86_64-linux-gnu/
-	cp $(STEAM_DIR)/compatibilitytools.d/$(BUILD_NAME)/protonfixes/libmspack.so.0.1.0 \
-		$(STEAM_DIR)/compatibilitytools.d/$(BUILD_NAME)/files/lib/x86_64-linux-gnu/
 
 	@echo "Installed Proton to "$(STEAM_DIR)/compatibilitytools.d/$(BUILD_NAME)
 	@echo "You may need to restart Steam to select this tool"
