@@ -1295,6 +1295,7 @@ def default_compat_config():
                 "3314070", #The Sims 2 Legacy Collection
                 "2709570", #Supermarket Together
                 "2623190", #The Elder Scrolls IV: Oblivion Remastered
+                "2139460", #Once Human
                 ]:
             ret.add("gamedrive")
 
