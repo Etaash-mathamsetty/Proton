@@ -85,7 +85,7 @@ def file_is_wine_builtin_dll(path):
                     '/lib/wine/i386-unix',
                     '/lib/wine/i386-windows',
                     '/lib/wine/x86_64-unix',
-                    '/lib/wine/x86_64-windows'
+                    '/lib/wine/x86_64-windows',
                     # old paths
                     '/lib/wine',
                     '/lib/wine/fakedlls',
