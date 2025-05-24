@@ -379,7 +379,6 @@ $(eval $(call rules-meson,gst_ugly,x86_64,unix))
 FFMPEG_CONFIGURE_ARGS := \
 	--enable-shared \
 	--disable-static \
-	--disable-everything \
 	--disable-programs \
 	--disable-doc \
 	--disable-inline-asm \
@@ -658,8 +657,7 @@ WINE_SOURCE_ARGS = \
 WINE_AUTOCONF_ARGS = \
   --enable-werror \
   --with-mingw \
-  --disable-tests \
-  --without-ffmpeg
+  --disable-tests
 
 WINE_x86_64_AUTOCONF_ARGS = \
   --enable-archs=$(call list-join,$(comma),x86_64 $(filter-out x86_64 $(unix_ARCHS),$(windows_ARCHS))) \
