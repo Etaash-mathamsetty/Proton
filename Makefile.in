@@ -407,6 +407,7 @@ FFMPEG_CONFIGURE_ARGS := \
 	--enable-decoder=aac \
 	--enable-demuxer=xwma \
 	--enable-demuxer=matroska \
+	--enable-demuxer=mp4 \
 
 FFMPEG_i386-unix_CONFIGURE_ARGS := \
 	--cross-prefix=i686-linux-gnu- \
