@@ -1711,6 +1711,9 @@ class Session:
             self.env["PROTON_DISABLE_HIDRAW"] = "1"
             del self.env["SDL_GAMECONTROLLER_IGNORE_DEVICES"]
 
+        if "PROTON_ENABLE_HDR" in self.env and nonzero(self.env["PROTON_ENABLE_HDR"]):
+            self.env["DXVK_HDR"] = "1"
+
         # NVIDIA software may check for the "DriverStore" by querying the
         # NGXCore\NGXPath registry key via `D3DDDI_QUERYREGISTRY_SERVICEKEY` for
         # a given adapter. In the case where this path cannot be found, the
