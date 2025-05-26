@@ -93,8 +93,8 @@ See `make help` for other build targets and options.
 ### Configuring the build
 
 ```bash
-mkdir ../build && cd ../build
-../proton/configure.sh --enable-ccache --build-name=my_build
+mkdir build && cd build && ../apply-patches.sh
+../build-prep.sh <build_name>
 ```
 
 Running `configure.sh` will create a `Makefile` allowing you to build Proton.
