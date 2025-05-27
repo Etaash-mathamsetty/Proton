@@ -1709,7 +1709,8 @@ class Session:
 
         if "PROTON_PREFER_SDL" in self.env and nonzero(self.env["PROTON_PREFER_SDL"]):
             self.env["PROTON_DISABLE_HIDRAW"] = "1"
-            del self.env["SDL_GAMECONTROLLER_IGNORE_DEVICES"]
+            if "SDL_GAMECONTROLLER_IGNORE_DEVICES" in self.env:
+                del self.env["SDL_GAMECONTROLLER_IGNORE_DEVICES"]
 
         if "PROTON_ENABLE_HDR" in self.env and nonzero(self.env["PROTON_ENABLE_HDR"]):
             self.env["DXVK_HDR"] = "1"
