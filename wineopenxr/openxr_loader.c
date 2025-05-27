@@ -237,7 +237,6 @@ static int get_extensions(char **ret_instance_extensions, char **ret_device_exte
                           uint32_t *ret_physdev_vid, uint32_t *ret_physdev_pid) {
   PFN_xrGetVulkanInstanceExtensionsKHR pxrGetVulkanInstanceExtensionsKHR;
   PFN_xrGetSystem pxrGetSystem;
-  PFN_xrGetVulkanDeviceExtensionsKHR pxrGetVulkanDeviceExtensionsKHR;
   PFN_xrGetVulkanGraphicsDeviceKHR pxrGetVulkanGraphicsDeviceKHR;
   PFN_xrGetVulkanGraphicsRequirementsKHR pxrGetVulkanGraphicsRequirementsKHR;
   PFN_xrGetInstanceProperties pxrGetInstanceProperties;
@@ -251,6 +250,8 @@ static int get_extensions(char **ret_instance_extensions, char **ret_device_exte
   VkResult vk_res;
   VkPhysicalDevice vk_physdev;
   VkPhysicalDeviceProperties vk_dev_props;
+  struct xrGetVulkanDeviceExtensionsKHR_params params;
+  NTSTATUS status;
 
   static const char *xr_extensions[] = {
       "XR_KHR_vulkan_enable",
@@ -324,8 +325,6 @@ static int get_extensions(char **ret_instance_extensions, char **ret_device_exte
 
   xrGetInstanceProcAddr(instance, "xrGetVulkanInstanceExtensionsKHR",
                         (PFN_xrVoidFunction *)&pxrGetVulkanInstanceExtensionsKHR);
-  xrGetInstanceProcAddr(instance, "xrGetVulkanDeviceExtensionsKHR",
-                        (PFN_xrVoidFunction *)&pxrGetVulkanDeviceExtensionsKHR);
   xrGetInstanceProcAddr(instance, "xrGetSystem", (PFN_xrVoidFunction *)&pxrGetSystem);
   xrGetInstanceProcAddr(instance, "xrGetVulkanGraphicsDeviceKHR", (PFN_xrVoidFunction *)&pxrGetVulkanGraphicsDeviceKHR);
   xrGetInstanceProcAddr(instance, "xrGetVulkanGraphicsRequirementsKHR",
@@ -410,7 +409,16 @@ static int get_extensions(char **ret_instance_extensions, char **ret_device_exte
   *ret_physdev_vid = vk_dev_props.vendorID;
   *ret_physdev_pid = vk_dev_props.deviceID;
 
-  res = pxrGetVulkanDeviceExtensionsKHR(instance, system, 0, &len, NULL);
+  /* Call Unix thunk directly to get the real host extensions list */
+  params.instance = instance;
+  params.systemId = system;
+  params.bufferCapacityInput = 0;
+  params.bufferCountOutput = &len;
+  params.buffer = NULL;
+  status = UNIX_CALL(xrGetVulkanDeviceExtensionsKHR, &params);
+  assert(!status && "xrGetVulkanDeviceExtensionsKHR");
+  res = params.result;
+
   if (res != XR_SUCCESS) {
     WARN("pxrGetVulkanDeviceExtensionsKHR fail: %d\n", res);
     vkDestroyInstance(vk_instance, NULL);
@@ -419,7 +427,13 @@ static int get_extensions(char **ret_instance_extensions, char **ret_device_exte
     return res;
   }
   device_extensions = malloc(len);
-  res = pxrGetVulkanDeviceExtensionsKHR(instance, system, len, &len, device_extensions);
+
+  params.bufferCapacityInput = len;
+  params.buffer = device_extensions;
+  status = UNIX_CALL(xrGetVulkanDeviceExtensionsKHR, &params);
+  assert(!status && "xrGetVulkanDeviceExtensionsKHR");
+  res = params.result;
+
   if (res != XR_SUCCESS) {
     WARN("pxrGetVulkanDeviceExtensionsKHR fail: %d\n", res);
     vkDestroyInstance(vk_instance, NULL);
