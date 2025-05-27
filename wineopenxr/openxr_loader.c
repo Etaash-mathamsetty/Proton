@@ -230,6 +230,8 @@ static XrResult wine_openxr_init_once(void) {
     return XR_ERROR_INITIALIZATION_FAILED;
   }
 
+  TRACE("g_device_extensions %s.\n", g_device_extensions);
+  __wine_set_unix_env(WINE_VULKAN_DEVICE_VARIABLE, g_device_extensions);
   return XR_SUCCESS;
 }
 
@@ -1964,8 +1966,6 @@ XrResult WINAPI __wineopenxr_GetVulkanDeviceExtensions(uint32_t buflen, uint32_t
     return XR_SUCCESS;
   }
 
-  TRACE("g_device_extensions %s.\n", g_device_extensions);
-  __wine_set_unix_env(WINE_VULKAN_DEVICE_VARIABLE, g_device_extensions);
   *outlen = strlen(WINE_VULKAN_DEVICE_EXTENSION_NAME) + 1;
   strcpy(buf, WINE_VULKAN_DEVICE_EXTENSION_NAME);
 
