@@ -2652,7 +2652,7 @@ static NTSTATUS thunk64_xrGetVulkanDeviceExtensionsKHR(void *args)
 
     TRACE("%p, 0x%s, %u, %p, %p\n", params->instance, wine_dbgstr_longlong(params->systemId), params->bufferCapacityInput, params->bufferCountOutput, params->buffer);
 
-    params->result = wine_xrGetVulkanDeviceExtensionsKHR(params->instance, params->systemId, params->bufferCapacityInput, params->bufferCountOutput, params->buffer);
+    params->result = g_xr_host_instance_dispatch_table.p_xrGetVulkanDeviceExtensionsKHR(wine_instance_from_handle(params->instance)->host_instance, params->systemId, params->bufferCapacityInput, params->bufferCountOutput, params->buffer);
     return STATUS_SUCCESS;
 }
 #endif /* _WIN64 */

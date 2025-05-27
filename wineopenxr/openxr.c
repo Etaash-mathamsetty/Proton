@@ -233,62 +233,6 @@ XrResult WINAPI wine_xrGetVulkanGraphicsDevice2KHR(XrInstance instance,
   return res;
 }
 
-XrResult WINAPI wine_xrGetVulkanDeviceExtensionsKHR(XrInstance instance,
-                                                    XrSystemId systemId,
-                                                    uint32_t bufferCapacityInput,
-                                                    uint32_t *bufferCountOutput,
-                                                    char *buffer) {
-  wine_XrInstance *wine_instance = wine_instance_from_handle(instance);
-  XrResult res;
-  uint32_t buf_len = 0;
-  char *buf;
-
-  TRACE("%p, 0x%s, %u, %p, %p\n", instance, wine_dbgstr_longlong(systemId), bufferCapacityInput, bufferCountOutput,
-        buffer);
-
-  if (!getenv(WINE_VULKAN_DEVICE_EXTENSION_NAME)) {
-    return g_xr_host_instance_dispatch_table.p_xrGetVulkanDeviceExtensionsKHR(
-        wine_instance->host_instance, systemId, bufferCapacityInput, bufferCountOutput, buffer);
-  }
-
-  if (bufferCapacityInput == 0) {
-    *bufferCountOutput = sizeof(WINE_VULKAN_DEVICE_EXTENSION_NAME);
-    return XR_SUCCESS;
-  }
-
-  if (bufferCapacityInput < sizeof(WINE_VULKAN_DEVICE_EXTENSION_NAME)) {
-    *bufferCountOutput = sizeof(WINE_VULKAN_DEVICE_EXTENSION_NAME);
-    return XR_ERROR_SIZE_INSUFFICIENT;
-  }
-
-  res = g_xr_host_instance_dispatch_table.p_xrGetVulkanDeviceExtensionsKHR(wine_instance->host_instance, systemId, 0,
-                                                                           &buf_len, NULL);
-  if (res != XR_SUCCESS) {
-    WARN("xrGetVulkanDeviceExtensionsKHR failed: %d\n", res);
-    return res;
-  }
-
-  buf = malloc(buf_len);
-
-  res = g_xr_host_instance_dispatch_table.p_xrGetVulkanDeviceExtensionsKHR(wine_instance->host_instance, systemId,
-                                                                           buf_len, &buf_len, buf);
-  if (res != XR_SUCCESS) {
-    WARN("xrGetVulkanDeviceExtensionsKHR failed: %d\n", res);
-    free(buf);
-    return res;
-  }
-
-  TRACE("got device extensions: %s\n", buf);
-  setenv(WINE_VULKAN_DEVICE_VARIABLE, buf, 1);
-
-  free(buf);
-
-  memcpy(buffer, WINE_VULKAN_DEVICE_EXTENSION_NAME, sizeof(WINE_VULKAN_DEVICE_EXTENSION_NAME));
-  *bufferCountOutput = sizeof(WINE_VULKAN_DEVICE_EXTENSION_NAME);
-
-  return XR_SUCCESS;
-}
-
 XrResult WINAPI wine_xrGetVulkanInstanceExtensionsKHR(XrInstance instance,
                                                       XrSystemId systemId,
                                                       uint32_t bufferCapacityInput,

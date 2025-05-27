@@ -143,7 +143,6 @@ MANUAL_UNIX_THUNKS = {
     "xrGetD3D12GraphicsRequirementsKHR",
     "xrGetVulkanGraphicsDeviceKHR",
     "xrGetVulkanGraphicsDevice2KHR",
-    "xrGetVulkanDeviceExtensionsKHR",
     "xrGetVulkanInstanceExtensionsKHR",
 }
 

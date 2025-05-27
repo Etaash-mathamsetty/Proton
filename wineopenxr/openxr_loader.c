@@ -1885,6 +1885,8 @@ XrResult WINAPI xrGetVulkanDeviceExtensionsKHR(XrInstance instance, XrSystemId s
     struct xrGetVulkanDeviceExtensionsKHR_params params;
     NTSTATUS _status;
 
+    /* Even while returning fixed string still call the host function, that is a part of OpenXR over Vulkan
+     * expected initialization sequence. */
     params.instance = instance;
     params.systemId = systemId;
     params.bufferCapacityInput = bufferCapacityInput;
@@ -1892,6 +1894,19 @@ XrResult WINAPI xrGetVulkanDeviceExtensionsKHR(XrInstance instance, XrSystemId s
     params.buffer = buffer;
     _status = UNIX_CALL(xrGetVulkanDeviceExtensionsKHR, &params);
     assert(!_status && "xrGetVulkanDeviceExtensionsKHR");
+
+    if (params.result == XR_SUCCESS && bufferCapacityInput)
+    {
+        __wine_set_unix_env(WINE_VULKAN_DEVICE_VARIABLE, buffer);
+        strcpy(buffer, WINE_VULKAN_DEVICE_EXTENSION_NAME);
+        *bufferCountOutput = sizeof(WINE_VULKAN_DEVICE_EXTENSION_NAME);
+        TRACE("returning %s.\n", buffer);
+    }
+    else if ((params.result == XR_SUCCESS || params.result == XR_ERROR_SIZE_INSUFFICIENT)
+            && *bufferCountOutput < sizeof(WINE_VULKAN_DEVICE_EXTENSION_NAME))
+    {
+        *bufferCountOutput = sizeof(WINE_VULKAN_DEVICE_EXTENSION_NAME);
+    }
 
     return params.result;
 }
