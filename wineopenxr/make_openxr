@@ -177,6 +177,7 @@ MANUAL_LOADER_THUNKS = {
     "xrReleaseSwapchainImage",
     "xrBeginFrame",
     "xrEndFrame",
+    "xrGetVulkanDeviceExtensionsKHR",
 }
 
 STRUCT_CHAIN_CONVERSIONS = {

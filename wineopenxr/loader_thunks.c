@@ -2383,20 +2383,6 @@ XrResult WINAPI xrGetVisibilityMaskKHR(XrSession session, XrViewConfigurationTyp
     return params.result;
 }
 
-XrResult WINAPI xrGetVulkanDeviceExtensionsKHR(XrInstance instance, XrSystemId systemId, uint32_t bufferCapacityInput, uint32_t *bufferCountOutput, char *buffer)
-{
-    struct xrGetVulkanDeviceExtensionsKHR_params params;
-    NTSTATUS _status;
-    params.instance = instance;
-    params.systemId = systemId;
-    params.bufferCapacityInput = bufferCapacityInput;
-    params.bufferCountOutput = bufferCountOutput;
-    params.buffer = buffer;
-    _status = UNIX_CALL(xrGetVulkanDeviceExtensionsKHR, &params);
-    assert(!_status && "xrGetVulkanDeviceExtensionsKHR");
-    return params.result;
-}
-
 XrResult WINAPI xrGetVulkanGraphicsDevice2KHR(XrInstance instance, const XrVulkanGraphicsDeviceGetInfoKHR *getInfo, VkPhysicalDevice *vulkanPhysicalDevice)
 {
     struct xrGetVulkanGraphicsDevice2KHR_params params;

@@ -1880,6 +1880,23 @@ XrResult WINAPI xrNegotiateLoaderRuntimeInterface(const XrNegotiateLoaderInfo *i
   return XR_SUCCESS;
 }
 
+XrResult WINAPI xrGetVulkanDeviceExtensionsKHR(XrInstance instance, XrSystemId systemId, uint32_t bufferCapacityInput, uint32_t *bufferCountOutput, char *buffer)
+{
+    struct xrGetVulkanDeviceExtensionsKHR_params params;
+    NTSTATUS _status;
+
+    params.instance = instance;
+    params.systemId = systemId;
+    params.bufferCapacityInput = bufferCapacityInput;
+    params.bufferCountOutput = bufferCountOutput;
+    params.buffer = buffer;
+    _status = UNIX_CALL(xrGetVulkanDeviceExtensionsKHR, &params);
+    assert(!_status && "xrGetVulkanDeviceExtensionsKHR");
+
+    return params.result;
+}
+
+
 /* wineopenxr API */
 XrResult WINAPI __wineopenxr_GetVulkanInstanceExtensions(uint32_t buflen, uint32_t *outlen, char *buf) {
   XrResult res;
