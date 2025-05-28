@@ -525,7 +525,11 @@ uint32_t __thiscall winIVRInput_IVRInput_004_GetSkeletalActionData(struct w_ifac
         .ulRestrictToDevice = ulRestrictToDevice,
     };
     TRACE("%p\n", _this);
-    unActionDataSize = min( unActionDataSize, sizeof(w_pActionData) );
+    if (unActionDataSize != sizeof(w_pActionData))
+    {
+        WARN("Unexpected size %u.\n", unActionDataSize);
+        return /* VRInputError_WrongType */ 2;
+    }
     if (pActionData) memcpy( &w_pActionData, pActionData, unActionDataSize );
     VRCLIENT_CALL( IVRInput_IVRInput_004_GetSkeletalActionData, &params );
     if (pActionData) memcpy( pActionData, &w_pActionData, unActionDataSize );
@@ -919,7 +923,11 @@ uint32_t __thiscall winIVRInput_IVRInput_005_GetSkeletalActionData(struct w_ifac
         .unActionDataSize = unActionDataSize,
     };
     TRACE("%p\n", _this);
-    unActionDataSize = min( unActionDataSize, sizeof(w_pActionData) );
+    if (unActionDataSize != sizeof(w_pActionData))
+    {
+        WARN("Unexpected size %u.\n", unActionDataSize);
+        return /* VRInputError_WrongType */ 2;
+    }
     if (pActionData) memcpy( &w_pActionData, pActionData, unActionDataSize );
     VRCLIENT_CALL( IVRInput_IVRInput_005_GetSkeletalActionData, &params );
     if (pActionData) memcpy( pActionData, &w_pActionData, unActionDataSize );
@@ -1441,7 +1449,11 @@ uint32_t __thiscall winIVRInput_IVRInput_006_GetSkeletalActionData(struct w_ifac
         .unActionDataSize = unActionDataSize,
     };
     TRACE("%p\n", _this);
-    unActionDataSize = min( unActionDataSize, sizeof(w_pActionData) );
+    if (unActionDataSize != sizeof(w_pActionData))
+    {
+        WARN("Unexpected size %u.\n", unActionDataSize);
+        return /* VRInputError_WrongType */ 2;
+    }
     if (pActionData) memcpy( &w_pActionData, pActionData, unActionDataSize );
     VRCLIENT_CALL( IVRInput_IVRInput_006_GetSkeletalActionData, &params );
     if (pActionData) memcpy( pActionData, &w_pActionData, unActionDataSize );
@@ -1968,7 +1980,11 @@ uint32_t __thiscall winIVRInput_IVRInput_007_GetSkeletalActionData(struct w_ifac
         .unActionDataSize = unActionDataSize,
     };
     TRACE("%p\n", _this);
-    unActionDataSize = min( unActionDataSize, sizeof(w_pActionData) );
+    if (unActionDataSize != sizeof(w_pActionData))
+    {
+        WARN("Unexpected size %u.\n", unActionDataSize);
+        return /* VRInputError_WrongType */ 2;
+    }
     if (pActionData) memcpy( &w_pActionData, pActionData, unActionDataSize );
     VRCLIENT_CALL( IVRInput_IVRInput_007_GetSkeletalActionData, &params );
     if (pActionData) memcpy( pActionData, &w_pActionData, unActionDataSize );
@@ -2534,7 +2550,11 @@ uint32_t __thiscall winIVRInput_IVRInput_010_GetSkeletalActionData(struct w_ifac
         .unActionDataSize = unActionDataSize,
     };
     TRACE("%p\n", _this);
-    unActionDataSize = min( unActionDataSize, sizeof(w_pActionData) );
+    if (unActionDataSize != sizeof(w_pActionData))
+    {
+        WARN("Unexpected size %u.\n", unActionDataSize);
+        return /* VRInputError_WrongType */ 2;
+    }
     if (pActionData) memcpy( &w_pActionData, pActionData, unActionDataSize );
     VRCLIENT_CALL( IVRInput_IVRInput_010_GetSkeletalActionData, &params );
     if (pActionData) memcpy( pActionData, &w_pActionData, unActionDataSize );

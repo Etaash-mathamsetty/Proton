@@ -147,19 +147,19 @@ SIZED_STRUCTS = {
     "VROverlayView_t",
 }
 
-STRUCTS_NEXT_IS_SIZE = [
-    "VREvent_t",
-    "VRControllerState001_t",
-    "InputAnalogActionData_t",
-    "InputDigitalActionData_t",
-    "InputPoseActionData_t",
-    "InputSkeletalActionData_t",
-    "CameraVideoStreamFrameHeader_t",
-    "Compositor_CumulativeStats",
-    "VRActiveActionSet_t",
-    "InputOriginInfo_t",
-    "InputBindingInfo_t",
-]
+STRUCTS_NEXT_IS_SIZE = {
+    "VREvent_t" : None,
+    "VRControllerState001_t" : None,
+    "InputAnalogActionData_t" : None,
+    "InputDigitalActionData_t" : None,
+    "InputPoseActionData_t" : None,
+    "InputSkeletalActionData_t" : "/* VRInputError_WrongType */ 2",
+    "CameraVideoStreamFrameHeader_t" : None,
+    "Compositor_CumulativeStats" : None,
+    "VRActiveActionSet_t" : None,
+    "InputOriginInfo_t" : None,
+    "InputBindingInfo_t" : None,
+}
 
 STRUCTS_IS_INPUT_ARRAY = [
     "VRActiveActionSet_t",
@@ -264,7 +264,6 @@ MANUAL_METHODS = {
 
 OUTSTR_PARAMS = {
 }
-
 
 def is_manual_method(klass, method, abi):
     version = re.search(r'(\d+)$', klass.version)
@@ -933,7 +932,7 @@ def handle_method_c(klass, method, winclassname, out):
         next_name, next_param = params[i + 1]
         if next_param and next_param.type.spelling == "uint32_t":
             out(f'    {declspec(param.type.get_pointee(), f"w_{name}", "w_")};\n')
-            param_sizes[name] = next_name
+            param_sizes[name] = (next_name, STRUCTS_NEXT_IS_SIZE.get(strip_ns(real_type.spelling)))
 
     out(f'    struct {method.full_name}_params params =\n')
     out(u'    {\n')
@@ -952,11 +951,18 @@ def handle_method_c(klass, method, winclassname, out):
     if 'eTextureType' in names:
         out(u'    if (eTextureType == TextureType_DirectX) FIXME( "Not implemented Direct3D API!\\n" );\n')
 
-    for name, size in param_sizes.items():
-        out(f'    {size} = min( {size}, sizeof(w_{name}) );\n')
+    for name, (size, size_check_error) in param_sizes.items():
+        if size_check_error is not None:
+            out(f'    if ({size} != sizeof(w_{name}))\n')
+            out(u'    {\n')
+            out(f'        WARN("Unexpected size %u.\\n", {size});\n')
+            out(f'        return {size_check_error};\n')
+            out(u'    }\n')
+        else:
+            out(f'    {size} = min( {size}, sizeof(w_{name}) );\n')
         out(f'    if ({name}) memcpy( &w_{name}, {name}, {size} );\n')
     out(f'    VRCLIENT_CALL( {method.full_name}, &params );\n')
-    for name, size in param_sizes.items():
+    for name, (size, _) in param_sizes.items():
         out(f'    if ({name}) memcpy( {name}, &w_{name}, {size} );\n')
 
     if method.name in OUTSTR_PARAMS and OUTSTR_PARAMS[method.name] in names:
