@@ -31,6 +31,8 @@ CREATE_TYPE_INFO_VTABLE;
 struct compositor_data compositor_data = {0};
 static BOOL vrclient_loaded;
 
+char *g_instance_extensions;
+
 BOOL WINAPI DllMain(HINSTANCE instance, DWORD reason, void *reserved)
 {
     TRACE("(%p, %lu, %p)\n", instance, reason, reserved);
@@ -61,6 +63,91 @@ BOOL WINAPI DllMain(HINSTANCE instance, DWORD reason, void *reserved)
             break;
     }
 
+    return TRUE;
+}
+
+static BOOL get_vulkan_extensions_from_registry(void)
+{
+    DWORD type, value, size = sizeof(value), wait_result;
+    LSTATUS status;
+    HANDLE event;
+    HKEY vr_key;
+    DWORD len;
+
+    if ((status = RegOpenKeyExA( HKEY_CURRENT_USER, "Software\\Wine\\VR", 0, KEY_READ, &vr_key )))
+    {
+        ERR( "Could not create key, status %#lx.\n", status );
+        return FALSE;
+    }
+
+    if ((status = RegQueryValueExA( vr_key, "state", NULL, &type, (BYTE *)&value, &size )))
+    {
+        ERR( "Could not query VR state, status %#lx\n", status );
+        RegCloseKey( vr_key );
+        return FALSE;
+    }
+    if (type != REG_DWORD)
+    {
+        ERR( "Invalid VR state type: %lx\n", type );
+        RegCloseKey( vr_key );
+        return FALSE;
+    }
+
+    if (!value)
+    {
+        event = CreateEventA( NULL, FALSE, FALSE, NULL );
+        while (1)
+        {
+            if (RegNotifyChangeKeyValue( vr_key, FALSE, REG_NOTIFY_CHANGE_LAST_SET, event, TRUE ))
+            {
+                ERR( "Error registering VR key change notification" );
+                break;
+            }
+            size = sizeof(value);
+            if ((status = RegQueryValueExA( vr_key, "state", NULL, &type, (BYTE *)&value, &size )))
+            {
+                ERR( "Couild not query VR state, status %#lx\n", status );
+                break;
+            }
+            if (value) break;
+            while ((wait_result = WaitForSingleObject( event, 1000 )) == WAIT_TIMEOUT)
+                WARN( "Waiting for VR to become ready\n" );
+
+            if (wait_result != WAIT_OBJECT_0)
+            {
+                ERR( "Wait for VR state change failed\n" );
+                break;
+            }
+        }
+        CloseHandle( event );
+    }
+
+    if (value != 1)
+    {
+        RegCloseKey( vr_key );
+        return FALSE;
+    }
+    if ((status = RegQueryValueExA( vr_key, "openvr_vulkan_instance_extensions", NULL, &type, NULL, &len )))
+    {
+        ERR( "Could not query openvr vulkan instance extensions, status %#lx\n", status );
+        RegCloseKey( vr_key );
+        return FALSE;
+    }
+    if (!(g_instance_extensions = malloc(len)))
+    {
+        RegCloseKey( vr_key );
+        return FALSE;
+    }
+
+    if ((status = RegQueryValueExA( vr_key, "openvr_vulkan_instance_extensions", NULL, &type,
+                                    (BYTE *)g_instance_extensions, &len )))
+    {
+        ERR( "Error getting openvr_vulkan_instance_extensions, status %#lx.\n", status );
+        RegCloseKey( vr_key );
+        return FALSE;
+    }
+
+    RegCloseKey( vr_key );
     return TRUE;
 }
 
@@ -107,7 +194,7 @@ struct w_iface *create_win_interface( const char *name, struct u_iface u_iface )
     return NULL;
 }
 
-static int load_vrclient(void)
+static int load_vrclient( BOOL initializing_registry )
 {
     struct vrclient_init_params params = {.winevulkan = LoadLibraryW( L"winevulkan.dll" )};
     WCHAR pathW[PATH_MAX];
@@ -122,6 +209,12 @@ static int load_vrclient(void)
 #endif
 
     if (vrclient_loaded) return 1;
+
+    if (!(initializing_registry || get_vulkan_extensions_from_registry()))
+    {
+        TRACE( "Error getting extensions from registry.\n" );
+        return 0;
+    }
 
     /* PROTON_VR_RUNTIME is provided by the proton setup script */
     if(!GetEnvironmentVariableW(L"PROTON_VR_RUNTIME", pathW, ARRAY_SIZE(pathW)))
@@ -184,7 +277,7 @@ void * __stdcall HmdSystemFactory(const char *name, int *return_code)
 {
     struct vrclient_HmdSystemFactory_params params = {.name = name, .return_code = return_code};
     TRACE("name: %s, return_code: %p\n", name, return_code);
-    if (!load_vrclient()) return NULL;
+    if (!load_vrclient( FALSE )) return NULL;
     VRCLIENT_CALL( vrclient_HmdSystemFactory, &params );
     return create_win_interface( name, params._ret );
 }
@@ -193,7 +286,7 @@ void * __stdcall VRClientCoreFactory(const char *name, int *return_code)
 {
     struct vrclient_VRClientCoreFactory_params params = {.name = name, .return_code = return_code};
     TRACE("name: %s, return_code: %p\n", name, return_code);
-    if (!load_vrclient()) return NULL;
+    if (!load_vrclient( FALSE )) return NULL;
     VRCLIENT_CALL( vrclient_VRClientCoreFactory, &params );
     return create_win_interface( name, params._ret );
 }
@@ -288,7 +381,7 @@ BOOL CDECL vrclient_init_registry(void)
         return FALSE;
     }
 
-    if (!load_vrclient())
+    if (!load_vrclient( TRUE ))
     {
         TRACE( "Failed to load vrclient\n" );
         set_vr_status( vr_key, -1 );

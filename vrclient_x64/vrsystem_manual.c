@@ -3,57 +3,6 @@
 
 WINE_DEFAULT_DEBUG_CHANNEL(vrclient);
 
-static BOOL wait_vr_key_ready( HKEY vr_key )
-{
-    DWORD type, value, size = sizeof(value), wait_result;
-    LSTATUS status;
-    HANDLE event;
-    BOOL ret;
-
-    if ((status = RegQueryValueExA(vr_key, "state", NULL, &type, (BYTE *)&value, &size)))
-    {
-        ERR("Could not query VR state, status %lx\n", status);
-        return FALSE;
-    }
-    if (type != REG_DWORD)
-    {
-        ERR("Invalid VR state type: %lx\n", type);
-        return FALSE;
-    }
-    if (value) return value == 1;
-
-    event = CreateEventA(NULL, FALSE, FALSE, NULL);
-    ret = FALSE;
-    while (1)
-    {
-        if (RegNotifyChangeKeyValue(vr_key, FALSE, REG_NOTIFY_CHANGE_LAST_SET, event, TRUE))
-        {
-            ERR("Error registering VR key change notification");
-            break;
-        }
-        size = sizeof(value);
-        if ((status = RegQueryValueExA(vr_key, "state", NULL, &type, (BYTE *)&value, &size)))
-        {
-            ERR("Couild not query VR state, status %lx\n", status);
-            break;
-        }
-        if (value)
-        {
-            ret = value == 1;
-            break;
-        }
-        while ((wait_result = WaitForSingleObject(event, 1000)) == WAIT_TIMEOUT)
-            WARN("Waiting for VR to because ready\n");
-        if (wait_result != WAIT_OBJECT_0)
-        {
-            ERR("Wait for VR state change failed\n");
-            break;
-        }
-    }
-    CloseHandle(event);
-    return ret;
-}
-
 VkResult fixup_get_output_device_pre( HMODULE winevulkan, uint32_t *texture_type, VkInstance *instance )
 {
     /* OpenVR IVRSystem::GetOutputDevice requires a VkInstance if textureType is Vulkan,
@@ -62,11 +11,9 @@ VkResult fixup_get_output_device_pre( HMODULE winevulkan, uint32_t *texture_type
     PFN_vkGetInstanceProcAddr p_vkGetInstanceProcAddr;
     PFN_vkCreateInstance p_vkCreateInstance;
     const char **instance_extension_list;
-    DWORD type, len, extension_count = 0;
     char *instance_extensions, *pos;
+    DWORD extension_count = 0;
     VkResult vk_result;
-    LSTATUS status;
-    HKEY vr_key;
 
     VkInstanceCreateInfo create_info = {
         .sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
@@ -75,37 +22,13 @@ VkResult fixup_get_output_device_pre( HMODULE winevulkan, uint32_t *texture_type
     if (*texture_type != TextureType_DirectX && *texture_type != TextureType_DirectX12 && *texture_type != TextureType_DXGISharedHandle)
         return VK_SUCCESS;
 
+    if (!g_instance_extensions)
+        return VK_ERROR_INITIALIZATION_FAILED;
+
     p_vkGetInstanceProcAddr = (void *)GetProcAddress(winevulkan, "vkGetInstanceProcAddr");
     p_vkCreateInstance = (void *)p_vkGetInstanceProcAddr(NULL, "vkCreateInstance");
 
-    if ((status = RegOpenKeyExA(HKEY_CURRENT_USER, "Software\\Wine\\VR", 0, KEY_READ, &vr_key)))
-    {
-        ERR("Failed to open OpenVR registry key, status %lx\n", status);
-        return VK_ERROR_INITIALIZATION_FAILED;
-    }
-    if (!wait_vr_key_ready(vr_key))
-    {
-        RegCloseKey(vr_key);
-        return VK_ERROR_INITIALIZATION_FAILED;
-    }
-
-    if ((status = RegQueryValueExA(vr_key, "openvr_vulkan_instance_extensions", NULL, &type, NULL, &len)))
-    {
-        ERR("Could not query openvr vulkan instance extensions, status %lx\n", status);
-        RegCloseKey(vr_key);
-        return VK_ERROR_INITIALIZATION_FAILED;
-    }
-
-    instance_extensions = calloc(len + 1, 1);
-    status = RegQueryValueExA(vr_key, "openvr_vulkan_instance_extensions", NULL, &type, (BYTE *)instance_extensions, &len);
-    RegCloseKey(vr_key);
-    if (status)
-    {
-        ERR("Could not query openvr vulkan instance extensions, status %lx\n", status);
-        free(instance_extensions);
-        return VK_ERROR_INITIALIZATION_FAILED;
-    }
-
+    instance_extensions = strdup(g_instance_extensions);
     TRACE("Creating VkInstance for IVRSystem::GetOutputDevice\n");
 
     has_get_device_properties2 = strstr(instance_extensions, VK_KHR_GET_PHYSICAL_DEVICE_PROPERTIES_2_EXTENSION_NAME) != NULL;

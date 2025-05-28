@@ -112,6 +112,8 @@ struct generic_interface
     void (*dtor)(struct w_iface *);
 };
 
+extern char *g_instance_extensions;
+
 #ifdef __dxvk_interop_h__
 extern w_Texture_t vrclient_translate_texture_dxvk( const w_Texture_t *texture, w_VRVulkanTextureData_t *vkdata,
                                                     IDXGIVkInteropSurface *dxvk_surface, IDXGIVkInteropDevice **p_dxvk_device,
