@@ -27,7 +27,7 @@ VkQueue_T *(*p_get_native_VkQueue)( VkQueue_T * );
 static PFN_vkCreateInstance p_vkCreateInstance;
 static PFN_vkDestroyInstance p_vkDestroyInstance;
 static PFN_vkEnumeratePhysicalDevices p_vkEnumeratePhysicalDevices;
-static PFN_vkGetPhysicalDeviceProperties p_vkGetPhysicalDeviceProperties;
+PFN_vkGetPhysicalDeviceProperties p_vkGetPhysicalDeviceProperties;
 
 static void *get_winevulkan_unixlib( HMODULE winevulkan )
 {
@@ -85,8 +85,9 @@ static BOOL load_vk_unwrappers( HMODULE winevulkan )
     return TRUE;
 }
 
-static BOOL load_vulkan(void)
+BOOL load_vulkan(void)
 {
+    if (vulkan) return TRUE;
     if (!(vulkan = dlopen( "libvulkan.so.1", RTLD_NOW )) &&
         !(vulkan = dlopen( "libvulkan.so", RTLD_NOW )))
     {
@@ -99,6 +100,7 @@ static BOOL load_vulkan(void)
     {                                                                           \
         ERR( "%s not found.\n", #name );                                        \
         dlclose( vulkan );                                                      \
+        vulkan = NULL;                                                          \
         return FALSE;                                                           \
     }
 
@@ -348,6 +350,8 @@ static NTSTATUS vrclient_unload( Params *params, bool wow64 )
     vrclient = NULL;
     p_HmdSystemFactory = NULL;
     p_VRClientCoreFactory = NULL;
+    if (vulkan) dlclose( vulkan );
+    vulkan = NULL;
     return 0;
 }
 

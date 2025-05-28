@@ -1,10 +1,17 @@
 #include "unix_private.h"
 
+#include <stdlib.h>
+
+#define WINE_VK_HOST
+#include <vulkan/vulkan.h>
+
 #if 0
 #pragma makedep unix
 #endif
 
 WINE_DEFAULT_DEBUG_CHANNEL(vrclient);
+
+extern PFN_vkGetPhysicalDeviceProperties p_vkGetPhysicalDeviceProperties;
 
 static const w_VRTextureWithPose_t *get_texture_with_pose( const w_Texture_t *w_texture )
 {
@@ -166,18 +173,10 @@ static u_Texture_t *unwrap_submit_texture_data( const ptr32< const w32_Texture_t
 template< typename Iface, typename Params >
 static NTSTATUS IVRCompositor_GetVulkanDeviceExtensionsRequired( Iface *iface, Params *params, bool wow64 )
 {
-    static const struct
-    {
-        const char *unix_ext;
-        const char *win_ext;
-    }
-    exts[] =
-    {
-        { "VK_KHR_external_memory_fd", "VK_KHR_external_memory_win32" },
-        { "VK_KHR_external_semaphore_fd", "VK_KHR_external_semaphore_win32" },
-    };
+    const char vrext[] = "VK_WINE_openvr_device_extensions";
     VkPhysicalDevice_T *host_device = p_get_native_VkPhysicalDevice( params->pPhysicalDevice );
-    char buffer[2048], *p, *end, *next;
+    VkPhysicalDeviceProperties prop;
+    char buffer[2048], name[64];
     uint32_t i, len;
 
     len = iface->GetVulkanDeviceExtensionsRequired( host_device, buffer, sizeof(buffer) );
@@ -188,38 +187,19 @@ static NTSTATUS IVRCompositor_GetVulkanDeviceExtensionsRequired( Iface *iface, P
         return 0;
     }
 
-    p = buffer;
-    end = p + strlen(p);
-    while (1)
-    {
-        while (isspace(*p)) ++p;
-        if (!*p) break;
-        next = p + 1;
-        while (*next && !isspace(*next)) ++next;
-        for (i = 0; i < ARRAY_SIZE(exts); ++i)
-        {
-            len = strlen( exts[i].unix_ext );
-            if (len == next - p && !memcmp( p, exts[i].unix_ext, len ))
-            {
-                len = strlen( exts[i].win_ext );
-                if (end - next + 1 + len + (p - buffer) > sizeof(buffer))
-                {
-                    ERR( "buffer overflow.\n" );
-                    params->_ret = 0;
-                    return 0;
-                }
-                memmove( p + len, next, end - next + 1 );
-                memcpy( p, exts[i].win_ext, len );
-                end = p + len + (end - next);
-                next = p + len;
-                break;
-            }
-        }
-        p = next;
-    }
-    params->_ret = end - buffer + 1;
+    params->_ret = sizeof(vrext);
     if (params->pchValue && params->unBufferSize >= params->_ret)
-        memcpy( params->pchValue, buffer, params->_ret );
+        memcpy( params->pchValue, vrext, params->_ret );
+
+    if (!load_vulkan())
+    {
+        ERR( "could not load Vulkan.\n" );
+        return 0;
+    }
+
+    p_vkGetPhysicalDeviceProperties( host_device, &prop );
+    sprintf( name, "VK_WINE_OPENVR_DEVICE_EXTS_PCIID_%04x_%04x", prop.vendorID, prop.deviceID );
+    setenv( name, buffer, 1 );
     return 0;
 }
 
