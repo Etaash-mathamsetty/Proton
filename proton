@@ -1629,9 +1629,61 @@ class Session:
             self.env["__GL_ExtensionStringVersion"] = "17700"
 
         if os.environ.get("SteamGameId", 0) in [
-                "661920",
-                "558260",
-                "386360",
+                "661920", #Claybook
+                "558260", #Gravel
+                "386360", #SMITE
+                "487720", #Agony
+                "649950", #Ashen
+                "1150080", #Azur Lane: Crosswave
+                "463150", #BARRIER X
+                "420290", #Blackwake
+                "1092660", #Blair Witch
+                "1052070", #Burning Daylight
+                "399810", #Call of Cthulhu
+                "967390", #Chronos: Before the Ashes
+                "968870", #Close to the Sun
+                "544920", #Darwin Project
+                "1055610", #Deep Space Battle Simulator
+                "682990", #Drug Dealer Simulator
+                "551770", #ECHO
+                "392110", #ENDLESS Space 2
+                "447020", #Farming Simulator 17
+                "834280", #Fishing Sim World: Pro Tour
+                "890880", #FROSTBITE: Deadly Climate
+                "433530", #Heliborne - Enhanced Edition
+                "521890", #Hello Neighbor
+                "783170", #INSOMNIA: The Ark
+                "1195460", #Last Year
+                "1029890", #Layers of Fear 2 (2019)
+                "535850", #Micro Machines World Series
+                "711750", #Monster Energy Supercross - The Official Videogame
+                "882020", #Monster Energy Supercross - The Official Videogame 2
+                "824280", #Monster Jam Steel Titans
+                "775900", #MotoGP18
+                "415200", #Motorsport Manager
+                "748360", #MY HERO ONE'S JUSTICE
+                "1058450", #MY HERO ONE'S JUSTICE 2
+                "556180", #Mysterium: A Psychic Clue Game
+                "561600", #MXGP3 - The Official Motocross Videogame
+                "798290", #MXGP PRO
+                "366870", #Narcosis
+                "485030", #PLANET ALPHA
+                "469610", #Rick and Morty: Virtual Rick-ality
+                "759740", #RIDE 3
+                "1342260", #SAMURAI SHODOWN
+                "425670", #Seraph
+                "1096570", #SONG OF HORROR COMPLETE EDITION
+                "492230", #Space Hulk: Tactics
+                "996580", #Spyro Reignited Trilogy
+                "437630", #State of Mind
+                "442780", #STRAFE: Gold Edition
+                "433100", #The Town of Light
+                "406970", #The Uncertain: Last Quiet Day
+                "451520", #theBlu: Season 1
+                "1237970", #Titanfall® 2
+                "1051200", #Trover Saves the Universe
+                "285190", #Warhammer 40,000: Dawn of War III
+                "1133320", #Westworld Awakening
                 ]:
             self.env["OPENSSL_ia32cap"] = "~0x20000000"
 
