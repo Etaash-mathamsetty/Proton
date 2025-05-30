@@ -1,4 +1,7 @@
-# Proton-EM Options
+# Proton-EM Additions
+
+
+## Options
 
 1. `PROTON_USE_SDL=1`
     - Uses SDL input instead of HIDRAW/Steam Input
@@ -14,5 +17,10 @@
     - Ensure you have the correct mesa version and pass in the correct env variables. Look here for more info: https://github.com/Etaash-mathamsetty/wine-builds/releases/tag/fsr4. This will support RDNA3 and RDNA4 without any other steps.
     - You can use optiscaler to replace DLSS with FSR4 as well just like it does on Windows.
     - RDNA2/1 requires this layer: https://github.com/doitsujin/coopmat-layer. Keep in mind the performance will be absolutely terrible :)
+
+## Notes
+
+- Use UMU to run this Proton outside of Steam
+- If something that uses electron/CEF doesn't work with winewayland try `--in-process-gpu`
 
 Have fun gaming!
