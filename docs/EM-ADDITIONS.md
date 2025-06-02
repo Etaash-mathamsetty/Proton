@@ -14,9 +14,8 @@
     - Can be used to specify primary monitor
     - `monitor_x - WAYLANDDRV_XOFFSET = 0` and `monitor_y - WAYLANDDRV_YOFFSET = 0` conditions must be met for the specified monitor to be considered the primary one
 5. `FSR4_UPRGRADE=1` enables automatic FSR4 upgrade for games with FSR 3.1
-    - Ensure you have the correct mesa version and pass in the correct env variables. Look here for more info: https://github.com/Etaash-mathamsetty/wine-builds/releases/tag/fsr4. This will support RDNA3 and RDNA4 without any other steps.
+    - Ensure you have the correct mesa version and pass in the correct env variables. Look [here](FSR4.md) for more info. This supports any RDNA gpu (including RDNA 1).
     - You can use optiscaler to replace DLSS with FSR4 as well just like it does on Windows.
-    - RDNA2/1 requires this layer: https://github.com/doitsujin/coopmat-layer. Keep in mind the performance will be absolutely terrible :)
 
 ## Notes
 
