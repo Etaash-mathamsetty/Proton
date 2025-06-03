@@ -1761,6 +1761,7 @@ class Session:
 
         if "PROTON_USE_SDL" in self.env and nonzero(self.env["PROTON_USE_SDL"]):
             self.env["PROTON_DISABLE_HIDRAW"] = "1"
+            self.env["PROTON_NO_STEAMINPUT"] = "1"
             if "SDL_GAMECONTROLLER_IGNORE_DEVICES" in self.env:
                 del self.env["SDL_GAMECONTROLLER_IGNORE_DEVICES"]
 
