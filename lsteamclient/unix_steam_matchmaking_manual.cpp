@@ -272,12 +272,13 @@ static NTSTATUS ISteamMatchmakingServers_RequestSpectatorServerList( u_ISteamMat
 template< typename Iface, typename Params >
 static NTSTATUS ISteamMatchmakingServers_RequestInternetServerList( Iface *iface, Params *params, bool wow64 )
 {
-    SteamMatchmakingServerListResponse_106 *u_response = new SteamMatchmakingServerListResponse_106( params->pRequestServersResponse, params->_ret );
+    auto w_response = params->pRequestServersResponse;
+    SteamMatchmakingServerListResponse_106 *u_response = new SteamMatchmakingServerListResponse_106( w_response, params->_ret );
     struct w_request *w_request = u_response->w_request;
 
     MatchMakingKeyValuePair_t **filters = params->ppchFilters ? new MatchMakingKeyValuePair_t *[params->nFilters] : nullptr;
     for (int i = 0; filters && i < params->nFilters; i++) filters[i] = params->ppchFilters[i];
-    w_request->u_request = iface->RequestInternetServerList( params->iApp, filters, params->nFilters, u_response );
+    w_request->u_request = iface->RequestInternetServerList( params->iApp, filters, params->nFilters, w_response ? u_response : nullptr );
     if (filters) delete[] filters;
 
     if (!w_request->u_request) delete u_response;
@@ -288,9 +289,10 @@ static NTSTATUS ISteamMatchmakingServers_RequestInternetServerList( Iface *iface
 template< typename Iface, typename Params >
 static NTSTATUS ISteamMatchmakingServers_RequestLANServerList( Iface *iface, Params *params, bool wow64 )
 {
-    SteamMatchmakingServerListResponse_106 *u_response = new SteamMatchmakingServerListResponse_106( params->pRequestServersResponse, params->_ret );
+    auto w_response = params->pRequestServersResponse;
+    SteamMatchmakingServerListResponse_106 *u_response = new SteamMatchmakingServerListResponse_106( w_response, params->_ret );
     struct w_request *w_request = u_response->w_request;
-    w_request->u_request = iface->RequestLANServerList( params->iApp, u_response );
+    w_request->u_request = iface->RequestLANServerList( params->iApp, w_response ? u_response : nullptr );
     if (!w_request->u_request) delete u_response;
     else w_request->u_response = u_response;
     return 0;
@@ -299,12 +301,13 @@ static NTSTATUS ISteamMatchmakingServers_RequestLANServerList( Iface *iface, Par
 template< typename Iface, typename Params >
 static NTSTATUS ISteamMatchmakingServers_RequestFriendsServerList( Iface *iface, Params *params, bool wow64 )
 {
-    SteamMatchmakingServerListResponse_106 *u_response = new SteamMatchmakingServerListResponse_106( params->pRequestServersResponse, params->_ret );
+    auto w_response = params->pRequestServersResponse;
+    SteamMatchmakingServerListResponse_106 *u_response = new SteamMatchmakingServerListResponse_106( w_response, params->_ret );
     struct w_request *w_request = u_response->w_request;
 
     MatchMakingKeyValuePair_t **filters = params->ppchFilters ? new MatchMakingKeyValuePair_t *[params->nFilters] : nullptr;
     for (int i = 0; filters && i < params->nFilters; i++) filters[i] = params->ppchFilters[i];
-    w_request->u_request = iface->RequestFriendsServerList( params->iApp, filters, params->nFilters, u_response );
+    w_request->u_request = iface->RequestFriendsServerList( params->iApp, filters, params->nFilters, w_response ? u_response : nullptr );
     if (filters) delete[] filters;
 
     if (!w_request->u_request) delete u_response;
@@ -315,12 +318,13 @@ static NTSTATUS ISteamMatchmakingServers_RequestFriendsServerList( Iface *iface,
 template< typename Iface, typename Params >
 static NTSTATUS ISteamMatchmakingServers_RequestFavoritesServerList( Iface *iface, Params *params, bool wow64 )
 {
-    SteamMatchmakingServerListResponse_106 *u_response = new SteamMatchmakingServerListResponse_106( params->pRequestServersResponse, params->_ret );
+    auto w_response = params->pRequestServersResponse;
+    SteamMatchmakingServerListResponse_106 *u_response = new SteamMatchmakingServerListResponse_106( w_response, params->_ret );
     struct w_request *w_request = u_response->w_request;
 
     MatchMakingKeyValuePair_t **filters = params->ppchFilters ? new MatchMakingKeyValuePair_t *[params->nFilters] : nullptr;
     for (int i = 0; filters && i < params->nFilters; i++) filters[i] = params->ppchFilters[i];
-    w_request->u_request = iface->RequestFavoritesServerList( params->iApp, filters, params->nFilters, u_response );
+    w_request->u_request = iface->RequestFavoritesServerList( params->iApp, filters, params->nFilters, w_response ? u_response : nullptr );
     if (filters) delete[] filters;
 
     if (!w_request->u_request) delete u_response;
@@ -331,12 +335,13 @@ static NTSTATUS ISteamMatchmakingServers_RequestFavoritesServerList( Iface *ifac
 template< typename Iface, typename Params >
 static NTSTATUS ISteamMatchmakingServers_RequestHistoryServerList( Iface *iface, Params *params, bool wow64 )
 {
-    SteamMatchmakingServerListResponse_106 *u_response = new SteamMatchmakingServerListResponse_106( params->pRequestServersResponse, params->_ret );
+    auto w_response = params->pRequestServersResponse;
+    SteamMatchmakingServerListResponse_106 *u_response = new SteamMatchmakingServerListResponse_106( w_response, params->_ret );
     struct w_request *w_request = u_response->w_request;
 
     MatchMakingKeyValuePair_t **filters = params->ppchFilters ? new MatchMakingKeyValuePair_t *[params->nFilters] : nullptr;
     for (int i = 0; filters && i < params->nFilters; i++) filters[i] = params->ppchFilters[i];
-    w_request->u_request = iface->RequestHistoryServerList( params->iApp, filters, params->nFilters, u_response );
+    w_request->u_request = iface->RequestHistoryServerList( params->iApp, filters, params->nFilters, w_response ? u_response : nullptr );
     delete[] filters;
 
     if (!w_request->u_request) delete u_response;
@@ -347,12 +352,13 @@ static NTSTATUS ISteamMatchmakingServers_RequestHistoryServerList( Iface *iface,
 template< typename Iface, typename Params >
 static NTSTATUS ISteamMatchmakingServers_RequestSpectatorServerList( Iface *iface, Params *params, bool wow64 )
 {
-    SteamMatchmakingServerListResponse_106 *u_response = new SteamMatchmakingServerListResponse_106( params->pRequestServersResponse, params->_ret );
+    auto w_response = params->pRequestServersResponse;
+    SteamMatchmakingServerListResponse_106 *u_response = new SteamMatchmakingServerListResponse_106( w_response, params->_ret );
     struct w_request *w_request = u_response->w_request;
 
     MatchMakingKeyValuePair_t **filters = params->ppchFilters ? new MatchMakingKeyValuePair_t *[params->nFilters] : nullptr;
     for (int i = 0; filters && i < params->nFilters; i++) filters[i] = params->ppchFilters[i];
-    w_request->u_request = iface->RequestSpectatorServerList( params->iApp, filters, params->nFilters, u_response );
+    w_request->u_request = iface->RequestSpectatorServerList( params->iApp, filters, params->nFilters, w_response ? u_response : nullptr );
     delete[] filters;
 
     if (!w_request->u_request) delete u_response;
