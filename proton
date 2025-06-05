@@ -1309,6 +1309,8 @@ def default_compat_config():
                 "2709570", #Supermarket Together
                 "2623190", #The Elder Scrolls IV: Oblivion Remastered
                 "2139460", #Once Human
+                "632360", #Risk of Rain 2
+                "2531310", #The Last of Us Part II Remastered
                 ]:
             ret.add("gamedrive")
 
