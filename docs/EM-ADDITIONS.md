@@ -21,6 +21,8 @@ If you are confused about the version numbers, just know I switched to hexdecima
 6. `FSR4_UPRGRADE=1` enables automatic FSR4 upgrade for games with FSR 3.1
     - Ensure you have the correct mesa version and pass in the correct env variables. Look [here](FSR4.md) for more info. This supports any RDNA gpu (including RDNA 1).
     - You can use optiscaler to replace DLSS with FSR4 as well just like it does on Windows.
+7. `PROTON_ENABLE_MEDIACONV=1` enables media converter for winegstreamer.
+    - This is not needed for winedmo, since the mediaconverter implementation of the codecs doesn't override the underlying implementation.
 
 ## Notes
 
