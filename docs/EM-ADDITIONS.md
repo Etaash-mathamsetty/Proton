@@ -23,6 +23,8 @@ If you are confused about the version numbers, just know I switched to hexdecima
     - You can use optiscaler to replace DLSS with FSR4 as well just like it does on Windows.
 7. `PROTON_ENABLE_MEDIACONV=1` enables media converter for winegstreamer.
     - This is not needed for winedmo, since the mediaconverter implementation of the codecs doesn't override the underlying implementation.
+8. `WAYLANDDRV_RAWINPUT=0` disables unaccelerated input and uses accelerated input. Requires Protom-EM 10.0-1e or higher
+    - Might be needed due to unaccelerated input being overly sensitive on some setups
 
 ## Notes
 
