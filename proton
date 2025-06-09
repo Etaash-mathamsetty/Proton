@@ -1610,6 +1610,8 @@ class Session:
         self.check_environment("PROTON_HIDE_APU", "hideapu")
         self.check_environment("PROTON_ENABLE_WAYLAND", "enablewayland")
         self.check_environment("PROTON_USE_WAYLAND", "enablewayland")
+        self.check_environment("PROTON_PREFER_SDL", "sdlinput")
+        self.check_environment("PROTON_USE_SDL", "sdlinput")
 
         if "noesync" in self.compat_config:
             self.env.pop("WINEESYNC", "")
@@ -1761,7 +1763,7 @@ class Session:
         if "PROTON_CRASH_REPORT_DIR" in self.env:
             self.env["WINE_CRASH_REPORT_DIR"] = self.env["PROTON_CRASH_REPORT_DIR"]
 
-        if "PROTON_USE_SDL" in self.env and nonzero(self.env["PROTON_USE_SDL"]):
+        if "sdlinput" in self.compat_config:
             self.env["PROTON_DISABLE_HIDRAW"] = "1"
             self.env["PROTON_NO_STEAMINPUT"] = "1"
             if "SDL_GAMECONTROLLER_IGNORE_DEVICES" in self.env:
