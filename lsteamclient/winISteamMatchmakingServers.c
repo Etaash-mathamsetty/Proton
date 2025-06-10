@@ -115,17 +115,6 @@ gameserveritem_t_105 * __thiscall winISteamMatchmakingServers_SteamMatchMakingSe
     return get_unix_buffer( params._ret );
 }
 
-void __thiscall winISteamMatchmakingServers_SteamMatchMakingServers001_CancelQuery(struct w_iface *_this, uint32_t eType)
-{
-    struct ISteamMatchmakingServers_SteamMatchMakingServers001_CancelQuery_params params =
-    {
-        .u_iface = _this->u_iface,
-        .eType = eType,
-    };
-    TRACE("%p\n", _this);
-    STEAMCLIENT_CALL( ISteamMatchmakingServers_SteamMatchMakingServers001_CancelQuery, &params );
-}
-
 void __thiscall winISteamMatchmakingServers_SteamMatchMakingServers001_RefreshQuery(struct w_iface *_this, uint32_t eType)
 {
     struct ISteamMatchmakingServers_SteamMatchMakingServers001_RefreshQuery_params params =
@@ -277,17 +266,6 @@ DEFINE_THISCALL_WRAPPER(winISteamMatchmakingServers_SteamMatchMakingServers002_P
 DEFINE_THISCALL_WRAPPER(winISteamMatchmakingServers_SteamMatchMakingServers002_PlayerDetails, 16)
 DEFINE_THISCALL_WRAPPER(winISteamMatchmakingServers_SteamMatchMakingServers002_ServerRules, 16)
 DEFINE_THISCALL_WRAPPER(winISteamMatchmakingServers_SteamMatchMakingServers002_CancelServerQuery, 8)
-
-void __thiscall winISteamMatchmakingServers_SteamMatchMakingServers002_CancelQuery(struct w_iface *_this, void *hRequest)
-{
-    struct ISteamMatchmakingServers_SteamMatchMakingServers002_CancelQuery_params params =
-    {
-        .u_iface = _this->u_iface,
-        .hRequest = hRequest,
-    };
-    TRACE("%p\n", _this);
-    STEAMCLIENT_CALL( ISteamMatchmakingServers_SteamMatchMakingServers002_CancelQuery, &params );
-}
 
 void __thiscall winISteamMatchmakingServers_SteamMatchMakingServers002_RefreshQuery(struct w_iface *_this, void *hRequest)
 {

@@ -265,7 +265,7 @@ MANUAL_METHODS = {
     "ISteamNetworkingSockets_ConnectP2PCustomSignaling": lambda ver, abi: abi == 'u' and ver <= 8,
     "ISteamNetworkingSockets_ReceivedP2PCustomSignal": lambda ver, abi: abi == 'u' and ver <= 8,
 
-    "ISteamMatchmakingServers_CancelQuery": lambda ver, abi: abi == 'u' and ver >= 2,
+    "ISteamMatchmakingServers_CancelQuery": lambda ver, abi: (abi == 'u' and ver >= 2) or (abi == 'w'),
     "ISteamMatchmakingServers_GetServerCount": lambda ver, abi: abi == 'u' and ver >= 2,
     "ISteamMatchmakingServers_GetServerDetails": lambda ver, abi: ver >= 2,
     "ISteamMatchmakingServers_IsRefreshing": lambda ver, abi: abi == 'u' and ver >= 2,
