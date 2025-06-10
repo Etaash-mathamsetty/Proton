@@ -11,6 +11,7 @@ void __thiscall winISteamMatchmakingServers_SteamMatchMakingServers001_CancelQue
     };
     TRACE("%p\n", _this);
     STEAMCLIENT_CALL( ISteamMatchmakingServers_SteamMatchMakingServers001_CancelQuery, &params );
+    execute_pending_callbacks();
 }
 
 void * __thiscall winISteamMatchmakingServers_SteamMatchMakingServers002_RequestInternetServerList( struct w_iface *_this, uint32_t iApp, MatchMakingKeyValuePair_t **ppchFilters, uint32_t nFilters, w_ISteamMatchmakingServerListResponse_106 *pRequestServersResponse )
@@ -182,6 +183,7 @@ void __thiscall winISteamMatchmakingServers_SteamMatchMakingServers002_CancelQue
     };
     TRACE("%p\n", _this);
     STEAMCLIENT_CALL( ISteamMatchmakingServers_SteamMatchMakingServers002_CancelQuery, &params );
+    execute_pending_callbacks();
 }
 
 void __thiscall winISteamMatchmakingServers_SteamMatchMakingServers002_ReleaseRequest( struct w_iface *_this, void *hServerListRequest )
@@ -193,7 +195,7 @@ void __thiscall winISteamMatchmakingServers_SteamMatchMakingServers002_ReleaseRe
     };
     struct w_request *request = hServerListRequest;
 
-    TRACE( "%p\n", _this );
+    TRACE( "%p %p\n", _this, hServerListRequest );
     execute_pending_callbacks(); /* execute any pending callbacks that might still need to use the request */
 
     STEAMCLIENT_CALL( ISteamMatchmakingServers_SteamMatchMakingServers002_ReleaseRequest, &params );
