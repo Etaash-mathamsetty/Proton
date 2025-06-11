@@ -1443,6 +1443,7 @@ class Session:
                 "dotnetfx35setup.exe": "b",
                 "beclient.dll": "b,n",
                 "beclient_x64.dll": "b,n",
+                "winebth.sys": "d", #disable winebth.sys as it crashes winedevice.exe
         }
 
         # CW Bug 21737. Locoland executable happens to be steam.exe.
