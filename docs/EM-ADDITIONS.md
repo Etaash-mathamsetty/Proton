@@ -18,12 +18,12 @@ If you are confused about the version numbers, just know I switched to hexdecima
     - `monitor_x - WAYLANDDRV_XOFFSET = 0` and `monitor_y - WAYLANDDRV_YOFFSET = 0` conditions must be met for the specified monitor to be considered the primary one
     - I recommend checking the log produced by `PROTON_LOG=+waylanddrv` to get your offset.
 5. Alternatively you can use `WAYLANDDRV_PRIMARY_MONITOR=name` on Proton-EM 10.0-1b and higher. Where name would be something like `eDP-1`.
-6. `FSR4_UPRGRADE=1` enables automatic FSR4 upgrade for games with FSR 3.1
+6. `PROTON_FSR4_UPRGRADE=1` (Proton-EM 10.0-20 and higher. Using this env will automatically download amdxcffx64) or `FSR4_UPGRADE=1`. Both enable automatic FSR4 upgrade for games with FSR 3.1
     - Ensure you have the correct mesa version and pass in the correct env variables. Look [here](FSR4.md) for more info. This supports any RDNA gpu (including RDNA 1).
     - You can use optiscaler to replace DLSS with FSR4 as well just like it does on Windows.
 7. `PROTON_ENABLE_MEDIACONV=1` enables media converter for winegstreamer.
     - This is not needed for winedmo, since the mediaconverter implementation of the codecs doesn't override the underlying implementation.
-8. `WAYLANDDRV_RAWINPUT=0` disables unaccelerated input and uses accelerated input. Requires Protom-EM 10.0-1e or higher
+8. `WAYLANDDRV_RAWINPUT=0` disables unaccelerated input and uses accelerated input. Requires Proton-EM 10.0-1e or higher
     - Might be needed due to unaccelerated input being overly sensitive on some setups
 
 ## Notes

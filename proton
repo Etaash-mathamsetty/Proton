@@ -930,6 +930,16 @@ class CompatData:
                 os.remove(old)
                 os.symlink(src=link, dst=old)
 
+    def setup_fsr4(self):
+        fsr4files = ["amdxcffx64"]
+
+        for f in fsr4files:
+            dst = "drive_c/windows/system32/" + f + ".dll"
+            if not file_exists(self.prefix_dir + dst, follow_symlinks=False):
+                tracked_files.write(dst + '\n')
+            if file_exists(g_proton.lib_dir + "wine/amdprop/" + f + ".dll", follow_symlinks=False):
+                self.create_symlink(self.prefix_dir + dst, g_proton.lib_dir + "wine/amdprop/" + f + ".dll")
+
     def setup_prefix(self):
         with self.prefix_lock:
             if file_exists(self.version_file, follow_symlinks=True):
@@ -1155,14 +1165,7 @@ class CompatData:
                         tracked_files.write(dst + '\n')
                     self.create_symlink(self.prefix_dir + dst, g_proton.lib_dir + "wine/icu/i386-windows/" + f + ".dll")
 
-                fsr4files = ["amdxcffx64"]
-
-                for f in fsr4files:
-                    dst = "drive_c/windows/system32/" + f + ".dll"
-                    if not file_exists(self.prefix_dir + dst, follow_symlinks=False):
-                        tracked_files.write(dst + '\n')
-                    if file_exists(g_proton.lib_dir + "wine/amdprop/" + f + ".dll", follow_symlinks=False):
-                        self.create_symlink(self.prefix_dir + dst, g_proton.lib_dir + "wine/amdprop/" + f + ".dll")
+                self.setup_fsr4()
 
                 # If the user requested the NVAPI be available, copy it into place.
                 # If they didn't, clean up any stray nvapi DLLs.
@@ -1809,8 +1812,10 @@ class Session:
 
             # 2. Update stored version
             if file_exists(g_proton.lib_dir + "wine/amdprop/amdxcffx64.dll", follow_symlinks=False):
-                with open(g_proton.lib_dir + "wine/amdprop/amdxcffx64_version", "w") as file:
-                    file.write(version + "\n")
+                g_compatdata.setup_fsr4()
+                if not version_match:
+                    with open(g_proton.lib_dir + "wine/amdprop/amdxcffx64_version", "w") as file:
+                        file.write(version + "\n")
 
         if "PROTON_ENABLE_HDR" in self.env and nonzero(self.env["PROTON_ENABLE_HDR"]):
             self.env["DXVK_HDR"] = "1"
