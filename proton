@@ -17,6 +17,7 @@ import shlex
 import uuid
 import json
 import time
+import urllib.request
 
 from ctypes import CDLL
 from ctypes import CFUNCTYPE
@@ -41,7 +42,7 @@ from random import randrange
 #To enable debug logging, copy "user_settings.sample.py" to "user_settings.py"
 #and edit it if needed.
 
-CURRENT_PREFIX_VERSION="10.0-200"
+CURRENT_PREFIX_VERSION="EM-10.0-200"
 
 PFX="Proton: "
 ld_path_var = "LD_LIBRARY_PATH"
@@ -1154,6 +1155,15 @@ class CompatData:
                         tracked_files.write(dst + '\n')
                     self.create_symlink(self.prefix_dir + dst, g_proton.lib_dir + "wine/icu/i386-windows/" + f + ".dll")
 
+                fsr4files = ["amdxcffx64"]
+
+                for f in fsr4files:
+                    dst = "drive_c/windows/system32/" + f + ".dll"
+                    if not file_exists(self.prefix_dir + dst, follow_symlinks=False):
+                        tracked_files.write(dst + '\n')
+                    if file_exists(g_proton.lib_dir + "wine/amdprop/" + f + ".dll", follow_symlinks=False):
+                        self.create_symlink(self.prefix_dir + dst, g_proton.lib_dir + "wine/amdprop/" + f + ".dll")
+
                 # If the user requested the NVAPI be available, copy it into place.
                 # If they didn't, clean up any stray nvapi DLLs.
                 if use_nvapi:
@@ -1515,6 +1525,13 @@ class Session:
             self.compat_config.discard(config_name)
         return True
 
+    def download_file(self, uri, dst):
+        try:
+            os.makedirs(os.path.dirname(dst), exist_ok=True)
+            urllib.request.urlretrieve(uri, dst)
+        except Exception:
+            pass
+
     def try_log_slr_versions(self):
         try:
             if "PRESSURE_VESSEL_RUNTIME_BASE" in self.env:
@@ -1612,6 +1629,7 @@ class Session:
         self.check_environment("PROTON_USE_WAYLAND", "enablewayland")
         self.check_environment("PROTON_PREFER_SDL", "sdlinput")
         self.check_environment("PROTON_USE_SDL", "sdlinput")
+        self.check_environment("PROTON_FSR4_UPGRADE", "fsr4")
 
         if "noesync" in self.compat_config:
             self.env.pop("WINEESYNC", "")
@@ -1769,6 +1787,31 @@ class Session:
             if "SDL_GAMECONTROLLER_IGNORE_DEVICES" in self.env:
                 del self.env["SDL_GAMECONTROLLER_IGNORE_DEVICES"]
 
+        if "fsr4" in self.compat_config:
+            self.env["FSR4_UPGRADE"] = "1"
+            version = "67A4D2BC10ad000"
+            version_match = True
+
+            # TODO: make the following code more efficent
+
+            # 0. Check downloaded version
+            if file_exists(g_proton.lib_dir + "wine/amdprop/amdxcffx64_version", follow_symlinks=False):
+                with open(g_proton.lib_dir + "wine/amdprop/amdxcffx64_version", "r") as file:
+                    first_line = file.readline()
+                    if not version in first_line:
+                        version_match = False
+            else:
+                version_match = False
+
+            # 1. Download amdxcffx64 library
+            if not file_exists(g_proton.lib_dir + "wine/amdprop/amdxcffx64.dll", follow_symlinks=False) or not version_match:
+                self.download_file("https://download.amd.com/dir/bin/amdxcffx64.dll/" + version + "/amdxcffx64.dll", g_proton.lib_dir + "wine/amdprop/amdxcffx64.dll")
+
+            # 2. Update stored version
+            if file_exists(g_proton.lib_dir + "wine/amdprop/amdxcffx64.dll", follow_symlinks=False):
+                with open(g_proton.lib_dir + "wine/amdprop/amdxcffx64_version", "w") as file:
+                    file.write(version + "\n")
+
         if "PROTON_ENABLE_HDR" in self.env and nonzero(self.env["PROTON_ENABLE_HDR"]):
             self.env["DXVK_HDR"] = "1"
 
@@ -1816,8 +1859,8 @@ class Session:
                     if var in self.env:
                         self.log_file.write("Effective " + var + ": " + self.env[var] + "\n")
 
-                if "FSR4_UPGRADE" in self.env and nonzero(self.env["FSR4_UPGRADE"]):
-                        self.log_file.write("INFO: Automatic FSR4 upgrade enabled! Ensure you have amdxcffx64 installed!\n")
+                if "fsr4" in self.compat_config:
+                    self.log_file.write("INFO: Automatic FSR4 upgrade enabled! You may need to restart proton for it to work!\n")
 
                 # check for low fd limit
                 _soft_limit, hard_limit = resource.getrlimit(resource.RLIMIT_NOFILE)
