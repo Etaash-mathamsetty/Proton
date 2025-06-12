@@ -936,7 +936,10 @@ class CompatData:
         for f in fsr4files:
             dst = "drive_c/windows/system32/" + f + ".dll"
             if not file_exists(self.prefix_dir + dst, follow_symlinks=False):
-                tracked_files.write(dst + '\n')
+                try:
+                    tracked_files.write(dst + '\n')
+                except Exception:
+                    pass
             if file_exists(g_proton.lib_dir + "wine/amdprop/" + f + ".dll", follow_symlinks=False):
                 self.create_symlink(self.prefix_dir + dst, g_proton.lib_dir + "wine/amdprop/" + f + ".dll")
 
