@@ -305,10 +305,18 @@ static void U_CDECL u_SteamNetworkingMessagesSessionFailed( SteamNetworkingMessa
     if (w_SteamNetworkingMessagesSessionFailed) queue_cdecl_func_callback( (w_cdecl_func)w_SteamNetworkingMessagesSessionFailed, dat, sizeof(*dat) );
 }
 
+static void (*W_CDECL w_SteamNetworkingFakeIPResult)( SteamNetworkingFakeIPResult_t * );
+static void U_CDECL u_SteamNetworkingFakeIPResult( SteamNetworkingFakeIPResult_t *dat )
+{
+    if (w_SteamNetworkingFakeIPResult) queue_cdecl_func_callback( (w_cdecl_func)w_SteamNetworkingFakeIPResult, dat, sizeof(*dat) );
+}
+
 template< typename Params, typename Umsg >
 static NTSTATUS ISteamNetworkingUtils_SetConfigValue( u_ISteamNetworkingUtils_SteamNetworkingUtils003 *iface, Params *params, bool wow64, Umsg const& )
 {
     void *u_fn; /* api requires passing pointer-to-pointer */
+
+    TRACE("eValue %d, pArg %p.\n", params->eValue, params->pArg);
 
     switch (params->eValue)
     {
@@ -333,6 +341,11 @@ static NTSTATUS ISteamNetworkingUtils_SetConfigValue( u_ISteamNetworkingUtils_St
     case 203 /*RelayNetworkStatusChanged*/: CASE( SteamRelayNetworkStatusChanged )
     case 204 /*MessagesSessionRequest*/: CASE( SteamNetworkingMessagesSessionRequest )
     case 205 /*MessagesSessionFailed*/: CASE( SteamNetworkingMessagesSessionFailed )
+    case 207 /*FakeIPResult*/: CASE( SteamNetworkingFakeIPResult )
+
+    case 206 /*CreateConnectionSignaling*/:
+        FIXME( "CreateConnectionSignaling not handled.\n");
+        /* fallthrough */
 
 #undef CASE
 
@@ -363,6 +376,8 @@ static NTSTATUS ISteamNetworkingUtils_SetConfigValue( u_ISteamNetworkingUtils_St
     bool ret;
     void *u_fn; /* api requires passing pointer-to-pointer */
 
+    TRACE("eValue %d, pArg %p.\n", params->eValue, params->pArg);
+
     switch (params->eValue)
     {
 
@@ -387,6 +402,11 @@ static NTSTATUS ISteamNetworkingUtils_SetConfigValue( u_ISteamNetworkingUtils_St
     case 203 /*RelayNetworkStatusChanged*/: CASE( SteamRelayNetworkStatusChanged )
     case 204 /*MessagesSessionRequest*/: CASE( SteamNetworkingMessagesSessionRequest )
     case 205 /*MessagesSessionFailed*/: CASE( SteamNetworkingMessagesSessionFailed_153a )
+    case 207 /*FakeIPResult*/: CASE( SteamNetworkingFakeIPResult )
+
+    case 206 /*CreateConnectionSignaling*/:
+        FIXME( "CreateConnectionSignaling not handled.\n");
+        /* fallthrough */
 
 #undef CASE
 
