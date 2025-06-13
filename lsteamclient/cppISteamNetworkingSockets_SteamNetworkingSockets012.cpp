@@ -5,78 +5,6 @@
 #pragma makedep unix
 #endif
 
-NTSTATUS ISteamNetworkingSockets_SteamNetworkingSockets012_CreateListenSocketIP( void *args )
-{
-    struct ISteamNetworkingSockets_SteamNetworkingSockets012_CreateListenSocketIP_params *params = (struct ISteamNetworkingSockets_SteamNetworkingSockets012_CreateListenSocketIP_params *)args;
-    struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *iface = (struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *)params->u_iface;
-    params->_ret = iface->CreateListenSocketIP( params->localAddress, params->nOptions, params->pOptions );
-    return 0;
-}
-
-#if defined(__x86_64__) || defined(__aarch64__)
-NTSTATUS wow64_ISteamNetworkingSockets_SteamNetworkingSockets012_CreateListenSocketIP( void *args )
-{
-    struct wow64_ISteamNetworkingSockets_SteamNetworkingSockets012_CreateListenSocketIP_params *params = (struct wow64_ISteamNetworkingSockets_SteamNetworkingSockets012_CreateListenSocketIP_params *)args;
-    struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *iface = (struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *)params->u_iface;
-    params->_ret = iface->CreateListenSocketIP( params->localAddress, params->nOptions, params->pOptions );
-    return 0;
-}
-#endif
-
-NTSTATUS ISteamNetworkingSockets_SteamNetworkingSockets012_ConnectByIPAddress( void *args )
-{
-    struct ISteamNetworkingSockets_SteamNetworkingSockets012_ConnectByIPAddress_params *params = (struct ISteamNetworkingSockets_SteamNetworkingSockets012_ConnectByIPAddress_params *)args;
-    struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *iface = (struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *)params->u_iface;
-    params->_ret = iface->ConnectByIPAddress( params->address, params->nOptions, params->pOptions );
-    return 0;
-}
-
-#if defined(__x86_64__) || defined(__aarch64__)
-NTSTATUS wow64_ISteamNetworkingSockets_SteamNetworkingSockets012_ConnectByIPAddress( void *args )
-{
-    struct wow64_ISteamNetworkingSockets_SteamNetworkingSockets012_ConnectByIPAddress_params *params = (struct wow64_ISteamNetworkingSockets_SteamNetworkingSockets012_ConnectByIPAddress_params *)args;
-    struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *iface = (struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *)params->u_iface;
-    params->_ret = iface->ConnectByIPAddress( params->address, params->nOptions, params->pOptions );
-    return 0;
-}
-#endif
-
-NTSTATUS ISteamNetworkingSockets_SteamNetworkingSockets012_CreateListenSocketP2P( void *args )
-{
-    struct ISteamNetworkingSockets_SteamNetworkingSockets012_CreateListenSocketP2P_params *params = (struct ISteamNetworkingSockets_SteamNetworkingSockets012_CreateListenSocketP2P_params *)args;
-    struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *iface = (struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *)params->u_iface;
-    params->_ret = iface->CreateListenSocketP2P( params->nLocalVirtualPort, params->nOptions, params->pOptions );
-    return 0;
-}
-
-#if defined(__x86_64__) || defined(__aarch64__)
-NTSTATUS wow64_ISteamNetworkingSockets_SteamNetworkingSockets012_CreateListenSocketP2P( void *args )
-{
-    struct wow64_ISteamNetworkingSockets_SteamNetworkingSockets012_CreateListenSocketP2P_params *params = (struct wow64_ISteamNetworkingSockets_SteamNetworkingSockets012_CreateListenSocketP2P_params *)args;
-    struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *iface = (struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *)params->u_iface;
-    params->_ret = iface->CreateListenSocketP2P( params->nLocalVirtualPort, params->nOptions, params->pOptions );
-    return 0;
-}
-#endif
-
-NTSTATUS ISteamNetworkingSockets_SteamNetworkingSockets012_ConnectP2P( void *args )
-{
-    struct ISteamNetworkingSockets_SteamNetworkingSockets012_ConnectP2P_params *params = (struct ISteamNetworkingSockets_SteamNetworkingSockets012_ConnectP2P_params *)args;
-    struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *iface = (struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *)params->u_iface;
-    params->_ret = iface->ConnectP2P( params->identityRemote, params->nRemoteVirtualPort, params->nOptions, params->pOptions );
-    return 0;
-}
-
-#if defined(__x86_64__) || defined(__aarch64__)
-NTSTATUS wow64_ISteamNetworkingSockets_SteamNetworkingSockets012_ConnectP2P( void *args )
-{
-    struct wow64_ISteamNetworkingSockets_SteamNetworkingSockets012_ConnectP2P_params *params = (struct wow64_ISteamNetworkingSockets_SteamNetworkingSockets012_ConnectP2P_params *)args;
-    struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *iface = (struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *)params->u_iface;
-    params->_ret = iface->ConnectP2P( params->identityRemote, params->nRemoteVirtualPort, params->nOptions, params->pOptions );
-    return 0;
-}
-#endif
-
 NTSTATUS ISteamNetworkingSockets_SteamNetworkingSockets012_AcceptConnection( void *args )
 {
     struct ISteamNetworkingSockets_SteamNetworkingSockets012_AcceptConnection_params *params = (struct ISteamNetworkingSockets_SteamNetworkingSockets012_AcceptConnection_params *)args;
@@ -491,24 +419,6 @@ NTSTATUS wow64_ISteamNetworkingSockets_SteamNetworkingSockets012_FindRelayAuthTi
 }
 #endif
 
-NTSTATUS ISteamNetworkingSockets_SteamNetworkingSockets012_ConnectToHostedDedicatedServer( void *args )
-{
-    struct ISteamNetworkingSockets_SteamNetworkingSockets012_ConnectToHostedDedicatedServer_params *params = (struct ISteamNetworkingSockets_SteamNetworkingSockets012_ConnectToHostedDedicatedServer_params *)args;
-    struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *iface = (struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *)params->u_iface;
-    params->_ret = iface->ConnectToHostedDedicatedServer( params->identityTarget, params->nRemoteVirtualPort, params->nOptions, params->pOptions );
-    return 0;
-}
-
-#if defined(__x86_64__) || defined(__aarch64__)
-NTSTATUS wow64_ISteamNetworkingSockets_SteamNetworkingSockets012_ConnectToHostedDedicatedServer( void *args )
-{
-    struct wow64_ISteamNetworkingSockets_SteamNetworkingSockets012_ConnectToHostedDedicatedServer_params *params = (struct wow64_ISteamNetworkingSockets_SteamNetworkingSockets012_ConnectToHostedDedicatedServer_params *)args;
-    struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *iface = (struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *)params->u_iface;
-    params->_ret = iface->ConnectToHostedDedicatedServer( params->identityTarget, params->nRemoteVirtualPort, params->nOptions, params->pOptions );
-    return 0;
-}
-#endif
-
 NTSTATUS ISteamNetworkingSockets_SteamNetworkingSockets012_GetHostedDedicatedServerPort( void *args )
 {
     struct ISteamNetworkingSockets_SteamNetworkingSockets012_GetHostedDedicatedServerPort_params *params = (struct ISteamNetworkingSockets_SteamNetworkingSockets012_GetHostedDedicatedServerPort_params *)args;
@@ -563,24 +473,6 @@ NTSTATUS wow64_ISteamNetworkingSockets_SteamNetworkingSockets012_GetHostedDedica
 }
 #endif
 
-NTSTATUS ISteamNetworkingSockets_SteamNetworkingSockets012_CreateHostedDedicatedServerListenSocket( void *args )
-{
-    struct ISteamNetworkingSockets_SteamNetworkingSockets012_CreateHostedDedicatedServerListenSocket_params *params = (struct ISteamNetworkingSockets_SteamNetworkingSockets012_CreateHostedDedicatedServerListenSocket_params *)args;
-    struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *iface = (struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *)params->u_iface;
-    params->_ret = iface->CreateHostedDedicatedServerListenSocket( params->nLocalVirtualPort, params->nOptions, params->pOptions );
-    return 0;
-}
-
-#if defined(__x86_64__) || defined(__aarch64__)
-NTSTATUS wow64_ISteamNetworkingSockets_SteamNetworkingSockets012_CreateHostedDedicatedServerListenSocket( void *args )
-{
-    struct wow64_ISteamNetworkingSockets_SteamNetworkingSockets012_CreateHostedDedicatedServerListenSocket_params *params = (struct wow64_ISteamNetworkingSockets_SteamNetworkingSockets012_CreateHostedDedicatedServerListenSocket_params *)args;
-    struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *iface = (struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *)params->u_iface;
-    params->_ret = iface->CreateHostedDedicatedServerListenSocket( params->nLocalVirtualPort, params->nOptions, params->pOptions );
-    return 0;
-}
-#endif
-
 NTSTATUS ISteamNetworkingSockets_SteamNetworkingSockets012_GetGameCoordinatorServerLogin( void *args )
 {
     struct ISteamNetworkingSockets_SteamNetworkingSockets012_GetGameCoordinatorServerLogin_params *params = (struct ISteamNetworkingSockets_SteamNetworkingSockets012_GetGameCoordinatorServerLogin_params *)args;
@@ -595,24 +487,6 @@ NTSTATUS wow64_ISteamNetworkingSockets_SteamNetworkingSockets012_GetGameCoordina
     struct wow64_ISteamNetworkingSockets_SteamNetworkingSockets012_GetGameCoordinatorServerLogin_params *params = (struct wow64_ISteamNetworkingSockets_SteamNetworkingSockets012_GetGameCoordinatorServerLogin_params *)args;
     struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *iface = (struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *)params->u_iface;
     params->_ret = iface->GetGameCoordinatorServerLogin( params->pLoginInfo, params->pcbSignedBlob, params->pBlob );
-    return 0;
-}
-#endif
-
-NTSTATUS ISteamNetworkingSockets_SteamNetworkingSockets012_ConnectP2PCustomSignaling( void *args )
-{
-    struct ISteamNetworkingSockets_SteamNetworkingSockets012_ConnectP2PCustomSignaling_params *params = (struct ISteamNetworkingSockets_SteamNetworkingSockets012_ConnectP2PCustomSignaling_params *)args;
-    struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *iface = (struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *)params->u_iface;
-    params->_ret = iface->ConnectP2PCustomSignaling( params->pSignaling, params->pPeerIdentity, params->nRemoteVirtualPort, params->nOptions, params->pOptions );
-    return 0;
-}
-
-#if defined(__x86_64__) || defined(__aarch64__)
-NTSTATUS wow64_ISteamNetworkingSockets_SteamNetworkingSockets012_ConnectP2PCustomSignaling( void *args )
-{
-    struct wow64_ISteamNetworkingSockets_SteamNetworkingSockets012_ConnectP2PCustomSignaling_params *params = (struct wow64_ISteamNetworkingSockets_SteamNetworkingSockets012_ConnectP2PCustomSignaling_params *)args;
-    struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *iface = (struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *)params->u_iface;
-    params->_ret = iface->ConnectP2PCustomSignaling( params->pSignaling, params->pPeerIdentity, params->nRemoteVirtualPort, params->nOptions, params->pOptions );
     return 0;
 }
 #endif
@@ -739,24 +613,6 @@ NTSTATUS wow64_ISteamNetworkingSockets_SteamNetworkingSockets012_GetFakeIP( void
     struct wow64_ISteamNetworkingSockets_SteamNetworkingSockets012_GetFakeIP_params *params = (struct wow64_ISteamNetworkingSockets_SteamNetworkingSockets012_GetFakeIP_params *)args;
     struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *iface = (struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *)params->u_iface;
     iface->GetFakeIP( params->idxFirstPort, params->pInfo );
-    return 0;
-}
-#endif
-
-NTSTATUS ISteamNetworkingSockets_SteamNetworkingSockets012_CreateListenSocketP2PFakeIP( void *args )
-{
-    struct ISteamNetworkingSockets_SteamNetworkingSockets012_CreateListenSocketP2PFakeIP_params *params = (struct ISteamNetworkingSockets_SteamNetworkingSockets012_CreateListenSocketP2PFakeIP_params *)args;
-    struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *iface = (struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *)params->u_iface;
-    params->_ret = iface->CreateListenSocketP2PFakeIP( params->idxFakePort, params->nOptions, params->pOptions );
-    return 0;
-}
-
-#if defined(__x86_64__) || defined(__aarch64__)
-NTSTATUS wow64_ISteamNetworkingSockets_SteamNetworkingSockets012_CreateListenSocketP2PFakeIP( void *args )
-{
-    struct wow64_ISteamNetworkingSockets_SteamNetworkingSockets012_CreateListenSocketP2PFakeIP_params *params = (struct wow64_ISteamNetworkingSockets_SteamNetworkingSockets012_CreateListenSocketP2PFakeIP_params *)args;
-    struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *iface = (struct u_ISteamNetworkingSockets_SteamNetworkingSockets012 *)params->u_iface;
-    params->_ret = iface->CreateListenSocketP2PFakeIP( params->idxFakePort, params->nOptions, params->pOptions );
     return 0;
 }
 #endif

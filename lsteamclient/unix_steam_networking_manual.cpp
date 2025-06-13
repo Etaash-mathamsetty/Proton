@@ -407,6 +407,62 @@ static NTSTATUS ISteamNetworkingMessages_ReceiveMessagesOnChannel( Iface *iface,
     return 0;
 }
 
+template< typename Iface, typename Params >
+static NTSTATUS ISteamNetworkingSockets_CreateListenSocketIP( Iface *iface, Params *params, bool wow64 )
+{
+    params->_ret = iface->CreateListenSocketIP( params->localAddress, params->nOptions, params->pOptions );
+    return 0;
+}
+
+template< typename Iface, typename Params >
+static NTSTATUS ISteamNetworkingSockets_ConnectP2PCustomSignaling( Iface *iface, Params *params, bool wow64, u_SteamNetworkingMessage_t_153a const & )
+{
+    params->_ret = iface->ConnectP2PCustomSignaling( params->pSignaling, params->pPeerIdentity, params->nRemoteVirtualPort, params->nOptions, params->pOptions );
+    return 0;
+}
+
+template< typename Iface, typename Params >
+static NTSTATUS ISteamNetworkingSockets_ConnectByIPAddress( Iface *iface, Params *params, bool wow64 )
+{
+    params->_ret = iface->ConnectByIPAddress( params->address, params->nOptions, params->pOptions );
+    return 0;
+}
+
+template< typename Iface, typename Params >
+static NTSTATUS ISteamNetworkingSockets_CreateListenSocketP2P( Iface *iface, Params *params, bool wow64 )
+{
+    params->_ret = iface->CreateListenSocketP2P( params->nLocalVirtualPort, params->nOptions, params->pOptions );
+    return 0;
+}
+
+template< typename Iface, typename Params >
+static NTSTATUS ISteamNetworkingSockets_ConnectP2P( Iface *iface, Params *params, bool wow64 )
+{
+    params->_ret = iface->ConnectP2P( params->identityRemote, params->nRemoteVirtualPort, params->nOptions, params->pOptions );
+    return 0;
+}
+
+template< typename Iface, typename Params >
+static NTSTATUS ISteamNetworkingSockets_ConnectToHostedDedicatedServer( Iface *iface, Params *params, bool wow64 )
+{
+    params->_ret = iface->ConnectToHostedDedicatedServer( params->identityTarget, params->nRemoteVirtualPort, params->nOptions, params->pOptions );
+    return 0;
+}
+
+template< typename Iface, typename Params >
+static NTSTATUS ISteamNetworkingSockets_CreateHostedDedicatedServerListenSocket( Iface *iface, Params *params, bool wow64 )
+{
+    params->_ret = iface->CreateHostedDedicatedServerListenSocket( params->nLocalVirtualPort, params->nOptions, params->pOptions );
+    return 0;
+}
+
+template< typename Iface, typename Params >
+static NTSTATUS ISteamNetworkingSockets_CreateListenSocketP2PFakeIP( Iface *iface, Params *params, bool wow64 )
+{
+    params->_ret = iface->CreateListenSocketP2PFakeIP( params->idxFakePort, params->nOptions, params->pOptions );
+    return 0;
+}
+
 LSTEAMCLIENT_UNIX_IMPL( ISteamNetworkingSockets, SteamNetworkingSockets002, ReceiveMessagesOnConnection, u_SteamNetworkingMessage_t_144() );
 LSTEAMCLIENT_UNIX_IMPL( ISteamNetworkingSockets, SteamNetworkingSockets002, ReceiveMessagesOnListenSocket, u_SteamNetworkingMessage_t_144() );
 
@@ -432,6 +488,14 @@ LSTEAMCLIENT_UNIX_IMPL( ISteamNetworkingSockets, SteamNetworkingSockets009, Send
 LSTEAMCLIENT_UNIX_IMPL( ISteamNetworkingSockets, SteamNetworkingSockets012, ReceiveMessagesOnConnection, u_SteamNetworkingMessage_t_153a() );
 LSTEAMCLIENT_UNIX_IMPL( ISteamNetworkingSockets, SteamNetworkingSockets012, ReceiveMessagesOnPollGroup, u_SteamNetworkingMessage_t_153a() );
 LSTEAMCLIENT_UNIX_IMPL( ISteamNetworkingSockets, SteamNetworkingSockets012, SendMessages, u_SteamNetworkingMessage_t_153a() );
+LSTEAMCLIENT_UNIX_IMPL( ISteamNetworkingSockets, SteamNetworkingSockets012, CreateListenSocketIP );
+LSTEAMCLIENT_UNIX_IMPL( ISteamNetworkingSockets, SteamNetworkingSockets012, ConnectP2PCustomSignaling, u_SteamNetworkingMessage_t_153a() );
+LSTEAMCLIENT_UNIX_IMPL( ISteamNetworkingSockets, SteamNetworkingSockets012, ConnectByIPAddress );
+LSTEAMCLIENT_UNIX_IMPL( ISteamNetworkingSockets, SteamNetworkingSockets012, CreateListenSocketP2P );
+LSTEAMCLIENT_UNIX_IMPL( ISteamNetworkingSockets, SteamNetworkingSockets012, ConnectP2P );
+LSTEAMCLIENT_UNIX_IMPL( ISteamNetworkingSockets, SteamNetworkingSockets012, ConnectToHostedDedicatedServer );
+LSTEAMCLIENT_UNIX_IMPL( ISteamNetworkingSockets, SteamNetworkingSockets012, CreateHostedDedicatedServerListenSocket );
+LSTEAMCLIENT_UNIX_IMPL( ISteamNetworkingSockets, SteamNetworkingSockets012, CreateListenSocketP2PFakeIP );
 
 LSTEAMCLIENT_UNIX_IMPL( ISteamNetworkingUtils, SteamNetworkingUtils003, AllocateMessage, u_SteamNetworkingMessage_t_147() );
 LSTEAMCLIENT_UNIX_IMPL( ISteamNetworkingUtils, SteamNetworkingUtils003, SetConfigValue, u_SteamNetworkingMessage_t_147() );
