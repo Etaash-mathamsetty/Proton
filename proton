@@ -1636,6 +1636,7 @@ class Session:
         self.check_environment("PROTON_PREFER_SDL", "sdlinput")
         self.check_environment("PROTON_USE_SDL", "sdlinput")
         self.check_environment("PROTON_FSR4_UPGRADE", "fsr4")
+        self.check_environment("PROTON_NATIVE_AGS", "nativeags")
 
         if "noesync" in self.compat_config:
             self.env.pop("WINEESYNC", "")
@@ -1769,6 +1770,11 @@ class Session:
 
         if "disablelibglesv2" in self.compat_config:
             self.dlloverrides["libglesv2"] = "d"
+
+        if "nativeags" in self.compat_config:
+            self.dlloverrides["atiadlxx"] = "b"
+            self.dlloverrides["atidxx64"] = "b"
+            self.dlloverrides["amd_ags_x64"] = "n"
 
         if "nomfdxgiman" in self.compat_config:
             self.env["WINE_DO_NOT_CREATE_DXGI_DEVICE_MANAGER"] = "1"
