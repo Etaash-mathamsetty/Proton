@@ -340,6 +340,45 @@ void *wrap_callback_cdecl( int eValue, void ***w_callback_ptr )
     return nullptr;
 }
 
+class convert_SteamNetworkingConfigValue_t_array
+{
+    private:
+        bool converted;
+
+    public:
+        SteamNetworkingConfigValue_t *converted_options;
+
+        convert_SteamNetworkingConfigValue_t_array( const SteamNetworkingConfigValue_t *options, int count )
+            : converted_options((SteamNetworkingConfigValue_t *)options), converted(false)
+        {
+            void **wrap_callback_ptr;
+            void *u_fn;
+            int i;
+
+            if (!options || !count) return;
+
+            for (i = 0; i < count; ++i)
+            {
+                TRACE( "option eValue %d, type %d, value %s.\n", options[i].m_eValue, options[i].m_eDataType, wine_dbgstr_longlong(*(int64_t *)&options[i].m_val) );
+                if (converted) converted_options[i] = options[i];
+                if ((u_fn = wrap_callback_cdecl<153>( options[i].m_eValue, &wrap_callback_ptr)))
+                {
+                    *wrap_callback_ptr = *(void **)&options[i].m_val;
+                    if (!converted)
+                    {
+                        converted_options = (SteamNetworkingConfigValue_t *)malloc( sizeof(*converted_options) * count );
+                        converted = true;
+                        memcpy( converted_options, options, (i + 1) * sizeof(*converted_options) );
+                    }
+                    *(void **)&converted_options[i].m_val = u_fn;
+                }
+            }
+        }
+        ~convert_SteamNetworkingConfigValue_t_array()
+        {
+            if (converted) free( converted_options );
+        }
+};
 
 template< typename Params, typename Umsg >
 static NTSTATUS ISteamNetworkingUtils_SetConfigValue( u_ISteamNetworkingUtils_SteamNetworkingUtils003 *iface, Params *params, bool wow64, Umsg const& )
@@ -410,56 +449,64 @@ static NTSTATUS ISteamNetworkingMessages_ReceiveMessagesOnChannel( Iface *iface,
 template< typename Iface, typename Params >
 static NTSTATUS ISteamNetworkingSockets_CreateListenSocketIP( Iface *iface, Params *params, bool wow64 )
 {
-    params->_ret = iface->CreateListenSocketIP( params->localAddress, params->nOptions, params->pOptions );
+    convert_SteamNetworkingConfigValue_t_array conv( params->pOptions, params->nOptions );
+    params->_ret = iface->CreateListenSocketIP( params->localAddress, params->nOptions, conv.converted_options );
     return 0;
 }
 
 template< typename Iface, typename Params >
 static NTSTATUS ISteamNetworkingSockets_ConnectP2PCustomSignaling( Iface *iface, Params *params, bool wow64, u_SteamNetworkingMessage_t_153a const & )
 {
-    params->_ret = iface->ConnectP2PCustomSignaling( params->pSignaling, params->pPeerIdentity, params->nRemoteVirtualPort, params->nOptions, params->pOptions );
+    convert_SteamNetworkingConfigValue_t_array conv( params->pOptions, params->nOptions );
+    params->_ret = iface->ConnectP2PCustomSignaling( params->pSignaling, params->pPeerIdentity, params->nRemoteVirtualPort, params->nOptions, conv.converted_options );
     return 0;
 }
 
 template< typename Iface, typename Params >
 static NTSTATUS ISteamNetworkingSockets_ConnectByIPAddress( Iface *iface, Params *params, bool wow64 )
 {
-    params->_ret = iface->ConnectByIPAddress( params->address, params->nOptions, params->pOptions );
+    convert_SteamNetworkingConfigValue_t_array conv( params->pOptions, params->nOptions );
+    params->_ret = iface->ConnectByIPAddress( params->address, params->nOptions, conv.converted_options );
     return 0;
 }
 
 template< typename Iface, typename Params >
 static NTSTATUS ISteamNetworkingSockets_CreateListenSocketP2P( Iface *iface, Params *params, bool wow64 )
 {
-    params->_ret = iface->CreateListenSocketP2P( params->nLocalVirtualPort, params->nOptions, params->pOptions );
+    convert_SteamNetworkingConfigValue_t_array conv( params->pOptions, params->nOptions );
+    params->_ret = iface->CreateListenSocketP2P( params->nLocalVirtualPort, params->nOptions, conv.converted_options );
     return 0;
 }
 
 template< typename Iface, typename Params >
 static NTSTATUS ISteamNetworkingSockets_ConnectP2P( Iface *iface, Params *params, bool wow64 )
 {
-    params->_ret = iface->ConnectP2P( params->identityRemote, params->nRemoteVirtualPort, params->nOptions, params->pOptions );
+    convert_SteamNetworkingConfigValue_t_array conv( params->pOptions, params->nOptions );
+    params->_ret = iface->ConnectP2P( params->identityRemote, params->nRemoteVirtualPort, params->nOptions, conv.converted_options );
     return 0;
 }
 
 template< typename Iface, typename Params >
 static NTSTATUS ISteamNetworkingSockets_ConnectToHostedDedicatedServer( Iface *iface, Params *params, bool wow64 )
 {
-    params->_ret = iface->ConnectToHostedDedicatedServer( params->identityTarget, params->nRemoteVirtualPort, params->nOptions, params->pOptions );
+    convert_SteamNetworkingConfigValue_t_array conv( params->pOptions, params->nOptions );
+    params->_ret = iface->ConnectToHostedDedicatedServer( params->identityTarget, params->nRemoteVirtualPort, params->nOptions, conv.converted_options );
     return 0;
 }
 
 template< typename Iface, typename Params >
 static NTSTATUS ISteamNetworkingSockets_CreateHostedDedicatedServerListenSocket( Iface *iface, Params *params, bool wow64 )
 {
-    params->_ret = iface->CreateHostedDedicatedServerListenSocket( params->nLocalVirtualPort, params->nOptions, params->pOptions );
+    convert_SteamNetworkingConfigValue_t_array conv( params->pOptions, params->nOptions );
+    params->_ret = iface->CreateHostedDedicatedServerListenSocket( params->nLocalVirtualPort, params->nOptions, conv.converted_options );
     return 0;
 }
 
 template< typename Iface, typename Params >
 static NTSTATUS ISteamNetworkingSockets_CreateListenSocketP2PFakeIP( Iface *iface, Params *params, bool wow64 )
 {
-    params->_ret = iface->CreateListenSocketP2PFakeIP( params->idxFakePort, params->nOptions, params->pOptions );
+    convert_SteamNetworkingConfigValue_t_array conv( params->pOptions, params->nOptions );
+    params->_ret = iface->CreateListenSocketP2PFakeIP( params->idxFakePort, params->nOptions, conv.converted_options );
     return 0;
 }
 
