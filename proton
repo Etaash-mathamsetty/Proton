@@ -1640,6 +1640,7 @@ class Session:
         self.check_environment("PROTON_USE_SDL", "sdlinput")
         self.check_environment("PROTON_FSR4_UPGRADE", "fsr4")
         self.check_environment("PROTON_NATIVE_AGS", "nativeags")
+        self.check_environment("PROTON_ENABLE_HDR", "hdr")
 
         if "noesync" in self.compat_config:
             self.env.pop("WINEESYNC", "")
@@ -1829,7 +1830,7 @@ class Session:
                     with open(g_proton.lib_dir + "wine/amdprop/amdxcffx64_version", "w") as file:
                         file.write(version + "\n")
 
-        if "PROTON_ENABLE_HDR" in self.env and nonzero(self.env["PROTON_ENABLE_HDR"]):
+        if "hdr" in self.compat_config:
             self.env["DXVK_HDR"] = "1"
 
         # NVIDIA software may check for the "DriverStore" by querying the
@@ -1877,7 +1878,10 @@ class Session:
                         self.log_file.write("Effective " + var + ": " + self.env[var] + "\n")
 
                 if "fsr4" in self.compat_config:
-                    self.log_file.write("INFO: Automatic FSR4 upgrade enabled! You may need to restart proton for it to work!\n")
+                    if file_exists(g_proton.lib_dir + "wine/amdprop/amdxcffx64.dll", follow_symlinks=False):
+                        self.log_file.write("INFO: Automatic FSR4 upgrade enabled!\n")
+                    else:
+                        self.log_file.write("ERROR: Failed to download amdxcffx64.dll!\n")
 
                 # check for low fd limit
                 _soft_limit, hard_limit = resource.getrlimit(resource.RLIMIT_NOFILE)
