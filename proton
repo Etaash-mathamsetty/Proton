@@ -1928,8 +1928,11 @@ class Session:
                 self.dlloverrides["winex11.drv"] = "d"
                 self.dlloverrides["winewayland.drv"] = "b"
                 self.env["WINE_WAYLAND_HACKS"] = "1"
-            else:
-                self.log_file.write("ERROR: No Wayland display, falling back to X11!")
+                """
+                    It is not possible for winewayland to support xalia since
+                    there is no way to position toplevel surfaces dynamically in wayland
+                """
+                self.env["PROTON_USE_XALIA"] = "0"
 
         if "forcenvapi" in self.compat_config:
             self.env["DXVK_NVAPI_ALLOW_OTHER_DRIVERS"] = "1"
