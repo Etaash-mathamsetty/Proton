@@ -2488,16 +2488,6 @@ int8_t __thiscall winISteamNetworkingSockets_SteamNetworkingSockets009_SetCertif
     return params._ret;
 }
 
-void __thiscall winISteamNetworkingSockets_SteamNetworkingSockets009_RunCallbacks(struct w_iface *_this)
-{
-    struct ISteamNetworkingSockets_SteamNetworkingSockets009_RunCallbacks_params params =
-    {
-        .u_iface = _this->u_iface,
-    };
-    TRACE("%p\n", _this);
-    STEAMCLIENT_CALL( ISteamNetworkingSockets_SteamNetworkingSockets009_RunCallbacks, &params );
-}
-
 void __thiscall winISteamNetworkingSockets_SteamNetworkingSockets009_destructor(struct w_iface *_this)
 {/* never called */}
 
@@ -3115,16 +3105,6 @@ void __thiscall winISteamNetworkingSockets_SteamNetworkingSockets012_ResetIdenti
     };
     TRACE("%p\n", _this);
     STEAMCLIENT_CALL( ISteamNetworkingSockets_SteamNetworkingSockets012_ResetIdentity, &params );
-}
-
-void __thiscall winISteamNetworkingSockets_SteamNetworkingSockets012_RunCallbacks(struct w_iface *_this)
-{
-    struct ISteamNetworkingSockets_SteamNetworkingSockets012_RunCallbacks_params params =
-    {
-        .u_iface = _this->u_iface,
-    };
-    TRACE("%p\n", _this);
-    STEAMCLIENT_CALL( ISteamNetworkingSockets_SteamNetworkingSockets012_RunCallbacks, &params );
 }
 
 int8_t __thiscall winISteamNetworkingSockets_SteamNetworkingSockets012_BeginAsyncRequestFakeIP(struct w_iface *_this, int32_t nNumPorts)

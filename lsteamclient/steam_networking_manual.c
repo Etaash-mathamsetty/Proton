@@ -463,6 +463,17 @@ void __thiscall winISteamNetworkingSockets_SteamNetworkingSockets008_SendMessage
 
 /* ISteamNetworkingSockets_SteamNetworkingSockets009 */
 
+void __thiscall winISteamNetworkingSockets_SteamNetworkingSockets009_RunCallbacks(struct w_iface *_this)
+{
+    struct ISteamNetworkingSockets_SteamNetworkingSockets009_RunCallbacks_params params =
+    {
+        .u_iface = _this->u_iface,
+    };
+    TRACE("%p\n", _this);
+    STEAMCLIENT_CALL( ISteamNetworkingSockets_SteamNetworkingSockets009_RunCallbacks, &params );
+    execute_pending_callbacks();
+}
+
 int32_t __thiscall winISteamNetworkingSockets_SteamNetworkingSockets009_ReceiveMessagesOnConnection( struct w_iface *_this,
                                                                                                      uint32_t hConn, w_SteamNetworkingMessage_t_147 **ppOutMessages,
                                                                                                      int32_t nMaxMessages )
@@ -605,6 +616,18 @@ int32_t __thiscall winISteamNetworkingMessages_SteamNetworkingMessages002_Receiv
 }
 
 /* ISteamNetworkingSockets_SteamNetworkingSockets012 */
+
+void __thiscall winISteamNetworkingSockets_SteamNetworkingSockets012_RunCallbacks(struct w_iface *_this)
+{
+    struct ISteamNetworkingSockets_SteamNetworkingSockets012_RunCallbacks_params params =
+    {
+        .u_iface = _this->u_iface,
+    };
+    TRACE("%p\n", _this);
+    STEAMCLIENT_CALL( ISteamNetworkingSockets_SteamNetworkingSockets012_RunCallbacks, &params );
+    execute_pending_callbacks();
+    TRACE("done.\n");
+}
 
 int32_t __thiscall winISteamNetworkingSockets_SteamNetworkingSockets012_ReceiveMessagesOnConnection( struct w_iface *_this,
                                                                                                      uint32_t hConn, w_SteamNetworkingMessage_t_153a **ppOutMessages,

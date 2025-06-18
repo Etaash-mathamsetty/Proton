@@ -261,6 +261,7 @@ MANUAL_METHODS = {
     "ISteamNetworkingSockets_ReceiveMessagesOnConnection": True,
     "ISteamNetworkingSockets_ReceiveMessagesOnListenSocket": True,
     "ISteamNetworkingSockets_ReceiveMessagesOnPollGroup": True,
+    "ISteamNetworkingSockets_RunCallbacks": lambda ver, abi: abi == 'w',
     "ISteamNetworkingSockets_SendMessages": True,
     "ISteamNetworkingSockets_ConnectP2PCustomSignaling": lambda ver, abi: abi == 'u' and (ver <= 8 or ver >= 12),
     "ISteamNetworkingSockets_ReceivedP2PCustomSignal": lambda ver, abi: abi == 'u' and ver <= 8,
