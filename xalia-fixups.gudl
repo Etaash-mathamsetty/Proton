@@ -3,3 +3,7 @@
 if (is_hwnd_syslink) {
     supported: true;
 }
+
+if (win32_class_name == "Rockstar Games Launcher Installer") {
+    application_supports_gamepad: true;
+}
