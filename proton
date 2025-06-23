@@ -1341,6 +1341,7 @@ def default_compat_config():
                 "2052410", #WITCH ON THE HOLY NIGHT
                 "789910", #Planet of the Apes: Last Frontier
                 "1183470", #Imperiums: Greek Wars
+                "876340", #VR Slots 3D
                 ]:
             ret.add("heapdelayfree")
 
