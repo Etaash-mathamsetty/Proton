@@ -1806,7 +1806,7 @@ class Session:
 
         if "fsr4" in self.compat_config:
             self.env["FSR4_UPGRADE"] = "1"
-            version = "67D435F7d97000"
+            versions = ["67D435F7d97000", "67A4D2BC10ad000"]
             version_match = True
 
             # TODO: make the following code more efficent
@@ -1815,21 +1815,23 @@ class Session:
             if file_exists(g_proton.lib_dir + "wine/amdprop/amdxcffx64_version", follow_symlinks=False):
                 with open(g_proton.lib_dir + "wine/amdprop/amdxcffx64_version", "r") as file:
                     first_line = file.readline()
-                    if not version in first_line:
-                        version_match = False
+                    version_match = False
+                    for version in versions:
+                        if first_line in version:
+                            version_match = True
             else:
                 version_match = False
 
             # 1. Download amdxcffx64 library
             if not file_exists(g_proton.lib_dir + "wine/amdprop/amdxcffx64.dll", follow_symlinks=False) or not version_match:
-                self.download_file("https://download.amd.com/dir/bin/amdxcffx64.dll/" + version + "/amdxcffx64.dll", g_proton.lib_dir + "wine/amdprop/amdxcffx64.dll")
+                self.download_file("https://download.amd.com/dir/bin/amdxcffx64.dll/" + versions[0] + "/amdxcffx64.dll", g_proton.lib_dir + "wine/amdprop/amdxcffx64.dll")
 
             # 2. Update stored version
             if file_exists(g_proton.lib_dir + "wine/amdprop/amdxcffx64.dll", follow_symlinks=False):
                 g_compatdata.setup_fsr4()
                 if not version_match:
                     with open(g_proton.lib_dir + "wine/amdprop/amdxcffx64_version", "w") as file:
-                        file.write(version + "\n")
+                        file.write(versions[0] + "\n")
 
         if "hdr" in self.compat_config:
             self.env["DXVK_HDR"] = "1"
