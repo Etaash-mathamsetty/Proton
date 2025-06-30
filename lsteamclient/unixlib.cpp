@@ -1545,6 +1545,13 @@ w64_SteamParamStringArray_t::w64_SteamParamStringArray_t( w32_SteamParamStringAr
     while (count--) m_ppStrings[count] = w32.m_ppStrings[count];
 }
 
+w64_SteamParamStringArray_t::w64_SteamParamStringArray_t( w64_SteamParamStringArray_t const& w64 )
+    : m_nNumStrings(w64.m_nNumStrings)
+{
+    m_ppStrings = new const char *[m_nNumStrings];
+    memcpy( m_ppStrings, w64.m_ppStrings, sizeof(*m_ppStrings) * m_nNumStrings );
+}
+
 w64_SteamParamStringArray_t::~w64_SteamParamStringArray_t()
 {
     delete[] m_ppStrings;

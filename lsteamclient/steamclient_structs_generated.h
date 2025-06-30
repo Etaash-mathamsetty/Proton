@@ -11007,6 +11007,7 @@ struct w64_SteamParamStringArray_t
 #if defined(__cplusplus) && (defined(__x86_64__) || defined(__aarch64__))
     w64_SteamParamStringArray_t() = default;
     w64_SteamParamStringArray_t( w32_SteamParamStringArray_t const& );
+    w64_SteamParamStringArray_t( w64_SteamParamStringArray_t const& );
     ~w64_SteamParamStringArray_t();
 #endif /* __cplusplus */
 };

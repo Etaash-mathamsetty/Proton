@@ -607,6 +607,7 @@ class Struct:
             out(u'#if defined(__cplusplus) && (defined(__x86_64__) || defined(__aarch64__))\n')
             out(f'    {prefix}{version}() = default;\n')
             out(f'    {prefix}{version}( w32_{version} const& );\n')
+            out(f'    {prefix}{version}( w64_{version} const& );\n')
             out(f'    ~{prefix}{version}();\n')
             out(u'#endif /* __cplusplus */\n')
 
