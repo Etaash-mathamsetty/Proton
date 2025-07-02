@@ -1837,6 +1837,12 @@ class Session:
         if "hdr" in self.compat_config:
             self.env["DXVK_HDR"] = "1"
 
+        # igdext is loaded either using the LoadLibraryExW hack on 1.3 or lower
+        # or using the INTC_ALT_DRIVER_EXTENSIONS_PATH on 2.0 or newer
+        # TODO: Load it through driver store data like it is on windows
+        # TODO: D3D11 has a different loading mechanism because why not
+        self.env["INTC_ALT_DRIVER_EXTENSIONS_PATH"] = "C:\\Windows\\System32"
+
         # NVIDIA software may check for the "DriverStore" by querying the
         # NGXCore\NGXPath registry key via `D3DDDI_QUERYREGISTRY_SERVICEKEY` for
         # a given adapter. In the case where this path cannot be found, the
