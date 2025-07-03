@@ -1636,15 +1636,21 @@ class Session:
         self.check_environment("PROTON_DISABLE_NVAPI", "disablenvapi")
         self.check_environment("PROTON_FORCE_NVAPI", "forcenvapi")
         self.check_environment("PROTON_HIDE_APU", "hideapu")
-        self.check_environment("PROTON_ENABLE_WAYLAND", "enablewayland")
-        self.check_environment("PROTON_USE_WAYLAND", "enablewayland")
+        self.check_environment("PROTON_ENABLE_WAYLAND", "wayland")
+        self.check_environment("PROTON_USE_WAYLAND", "wayland")
         self.check_environment("PROTON_PREFER_SDL", "sdlinput")
         self.check_environment("PROTON_USE_SDL", "sdlinput")
         self.check_environment("PROTON_FSR4_UPGRADE", "fsr4")
         self.check_environment("PROTON_NATIVE_AGS", "nativeags")
         self.check_environment("PROTON_ENABLE_HDR", "hdr")
+        self.check_environment("PROTON_NTSYNC", "ntsync")
 
-        if "noesync" in self.compat_config:
+        # ntsync and esync/fsync are mutually exclusive due to
+        # wineserver interactions in sync object creation
+        if "ntsync" in self.compat_config:
+            self.env["WINENTSYNC"] = "1"
+
+        if "noesync" in self.compat_config or "ntsync" in self.compat_config:
             self.env.pop("WINEESYNC", "")
         else:
             self.env["WINEESYNC"] = "1"
@@ -1652,7 +1658,7 @@ class Session:
         if "noxim" not in self.compat_config:
             self.env.pop("WINE_ALLOW_XIM")
 
-        if "nofsync" in self.compat_config:
+        if "nofsync" in self.compat_config or "ntsync" in self.compat_config:
             self.env.pop("WINEFSYNC", "")
         else:
             self.env["WINEFSYNC"] = "1"
@@ -1933,7 +1939,7 @@ class Session:
         if "disablenvapi" not in self.compat_config or "forcenvapi" in self.compat_config:
             self.env["DXVK_ENABLE_NVAPI"] = "1"
 
-        if "enablewayland" in self.compat_config:
+        if "wayland" in self.compat_config:
             if "WAYLAND_DISPLAY" in self.env:
                 self.dlloverrides["winex11.drv"] = "d"
                 self.dlloverrides["winewayland.drv"] = "b"
