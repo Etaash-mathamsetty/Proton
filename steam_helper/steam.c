@@ -121,7 +121,11 @@ static char *escape_path_unix_to_dos( const char *path )
     for (src = dos, dst = tmp; *src; src++, dst++) if ((*dst = *src) == '\\') *++dst = '\\';
 
     if (!(len = WideCharToMultiByte( CP_UTF8, 0, tmp, (dst - tmp), NULL, 0, NULL, NULL ))) goto done;
-    if ((escaped = malloc( len ))) WideCharToMultiByte( CP_UTF8, 0, tmp, (dst - tmp), escaped, len, NULL, NULL );
+    if ((escaped = malloc( len + 1 )))
+    {
+        WideCharToMultiByte( CP_UTF8, 0, tmp, (dst - tmp), escaped, len, NULL, NULL );
+        escaped[len] = '\0';
+    }
 
 done:
     HeapFree( GetProcessHeap(), 0, dos );
