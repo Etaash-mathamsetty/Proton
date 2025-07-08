@@ -1643,14 +1643,14 @@ class Session:
         self.check_environment("PROTON_FSR4_UPGRADE", "fsr4")
         self.check_environment("PROTON_NATIVE_AGS", "nativeags")
         self.check_environment("PROTON_ENABLE_HDR", "hdr")
-        self.check_environment("PROTON_NTSYNC", "ntsync")
+        self.check_environment("PROTON_NO_NTSYNC", "nontsync")
 
-        # ntsync and esync/fsync are mutually exclusive due to
-        # wineserver interactions in sync object creation
-        if "ntsync" in self.compat_config:
+        if "nontsync" in self.compat_config:
+            self.env.pop("WINENTSYNC", "")
+        else:
             self.env["WINENTSYNC"] = "1"
 
-        if "noesync" in self.compat_config or "ntsync" in self.compat_config:
+        if "noesync" in self.compat_config:
             self.env.pop("WINEESYNC", "")
         else:
             self.env["WINEESYNC"] = "1"
@@ -1658,7 +1658,7 @@ class Session:
         if "noxim" not in self.compat_config:
             self.env.pop("WINE_ALLOW_XIM")
 
-        if "nofsync" in self.compat_config or "ntsync" in self.compat_config:
+        if "nofsync" in self.compat_config:
             self.env.pop("WINEFSYNC", "")
         else:
             self.env["WINEFSYNC"] = "1"
