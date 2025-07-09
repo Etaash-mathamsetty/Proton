@@ -1643,12 +1643,12 @@ class Session:
         self.check_environment("PROTON_FSR4_UPGRADE", "fsr4")
         self.check_environment("PROTON_NATIVE_AGS", "nativeags")
         self.check_environment("PROTON_ENABLE_HDR", "hdr")
-        self.check_environment("PROTON_NO_NTSYNC", "nontsync")
+        self.check_environment("PROTON_USE_NTSYNC", "ntsync")
 
-        if "nontsync" in self.compat_config:
-            self.env.pop("WINENTSYNC", "")
-        else:
+        if "ntsync" in self.compat_config:
             self.env["WINENTSYNC"] = "1"
+        else:
+            self.env.pop("WINENTSYNC", "")
 
         if "noesync" in self.compat_config:
             self.env.pop("WINEESYNC", "")
