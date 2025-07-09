@@ -1831,14 +1831,14 @@ class Session:
 
             # 1. Download amdxcffx64 library
             if not file_exists(g_proton.lib_dir + "wine/amdprop/amdxcffx64.dll", follow_symlinks=False) or not version_match:
-                self.download_file("https://download.amd.com/dir/bin/amdxcffx64.dll/" + versions[0] + "/amdxcffx64.dll", g_proton.lib_dir + "wine/amdprop/amdxcffx64.dll")
+                self.download_file("https://download.amd.com/dir/bin/amdxcffx64.dll/" + versions[1] + "/amdxcffx64.dll", g_proton.lib_dir + "wine/amdprop/amdxcffx64.dll")
 
             # 2. Update stored version
             if file_exists(g_proton.lib_dir + "wine/amdprop/amdxcffx64.dll", follow_symlinks=False):
                 g_compatdata.setup_fsr4()
                 if not version_match:
                     with open(g_proton.lib_dir + "wine/amdprop/amdxcffx64_version", "w") as file:
-                        file.write(versions[0] + "\n")
+                        file.write(versions[1] + "\n")
 
         if "hdr" in self.compat_config:
             self.env["DXVK_HDR"] = "1"
