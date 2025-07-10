@@ -72,17 +72,17 @@ $$(OBJ)/.$(1)-$(3)-dist:
 ifneq ($(UNSTRIPPED_BUILD),)
 	cd $$($(2)_$(3)_LIBDIR) && find -type f -not '(' -iname '*.pc' -or -iname '*.cmake' -or -iname '*.a' -or -iname '*.la' -or -iname '*.def' -or -iname '*.h' ')' \
 	    -printf '--only-keep-debug\0%p\0$$(DST_LIBDIR)/%p.debug\0' | \
-	    xargs $(--verbose?) -0 -r -P$$(J) -n3 objcopy $(OBJCOPY_FLAGS)
+	    xargs $(--verbose?) -0 -r -P$$(J) -n3 $(OBJCOPY) $(OBJCOPY_FLAGS)
 	cd $$($(2)_$(3)_LIBDIR) && find -type f -not '(' -iname '*.pc' -or -iname '*.cmake' -or -iname '*.a' -or -iname '*.la' -or -iname '*.def' -or -iname '*.h' ')' \
 	    -printf '--add-gnu-debuglink=$$(DST_LIBDIR)/%p.debug\0--strip-debug\0%p\0$$(DST_LIBDIR)/%p\0' | \
-	    xargs $(--verbose?) -0 -r -P$$(J) -n4 objcopy $(OBJCOPY_FLAGS) --set-section-flags .text=contents,alloc,load,readonly,code
+	    xargs $(--verbose?) -0 -r -P$$(J) -n4 $(OBJCOPY) $(OBJCOPY_FLAGS) --set-section-flags .text=contents,alloc,load,readonly,code
 	touch $$@
 else
 	cd $$($(2)_$(3)_LIBDIR) && find -type f -not '(' -iname '*.pc' -or -iname '*.cmake' -or -iname '*.a' -or -iname '*.la' -or -iname '*.def' -or -iname '*.h' ')' \
 	    -printf '$$(DST_LIBDIR)/%p.debug\0' | xargs $(--verbose?) -0 -r -P$$(J) rm -f
 	cd $$($(2)_$(3)_LIBDIR) && find -type f -not '(' -iname '*.pc' -or -iname '*.cmake' -or -iname '*.a' -or -iname '*.la' -or -iname '*.def' -or -iname '*.h' ')' \
 	    -printf '--strip-debug\0%p\0$$(DST_LIBDIR)/%p\0' | \
-	    xargs $(--verbose?) -0 -r -P$$(J) -n3 objcopy $(OBJCOPY_FLAGS) --set-section-flags .text=contents,alloc,load,readonly,code
+	    xargs $(--verbose?) -0 -r -P$$(J) -n3 $(OBJCOPY) $(OBJCOPY_FLAGS) --set-section-flags .text=contents,alloc,load,readonly,code
 	touch $$@
 endif
 
@@ -179,10 +179,10 @@ endif
 endef
 
 ifneq ($(UNSTRIPPED_BUILD),)
-install-strip = objcopy $(OBJCOPY_FLAGS) --only-keep-debug $(1) $(2)/$(notdir $(1)).debug && \
-                objcopy $(OBJCOPY_FLAGS) --add-gnu-debuglink=$(2)/$(notdir $(1)).debug --strip-debug $(1) $(2)/$(notdir $(1))
+install-strip = $(OBJCOPY) $(OBJCOPY_FLAGS) --only-keep-debug $(1) $(2)/$(notdir $(1)).debug && \
+                $(OBJCOPY) $(OBJCOPY_FLAGS) --add-gnu-debuglink=$(2)/$(notdir $(1)).debug --strip-debug $(1) $(2)/$(notdir $(1))
 else
-install-strip = objcopy $(OBJCOPY_FLAGS) --strip-debug $(1) $(2)/$(notdir $(1)) && rm -f $(2)/$(notdir $(1)).debug
+install-strip = $(OBJCOPY) $(OBJCOPY_FLAGS) --strip-debug $(1) $(2)/$(notdir $(1)) && rm -f $(2)/$(notdir $(1)).debug
 endif
 
 i386-unix_TARGET := i686-linux-gnu

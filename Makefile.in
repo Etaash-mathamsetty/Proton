@@ -41,18 +41,6 @@ DIST_VERSION := $(DST_BASE)/version
 DEPLOY_DIR := ./deploy
 REDIST_DIR := ./redist
 
-ifneq ($(UNSTRIPPED_BUILD),)
-    STRIP :=
-    INSTALL_PROGRAM_FLAGS :=
-    MESON_STRIP_ARG :=
-else
-    STRIP := strip
-    INSTALL_PROGRAM_FLAGS := -s
-    MESON_STRIP_ARG := --strip
-endif
-
-OBJCOPY_FLAGS  := -p
-
 i386_CFLAGS    := -mstackrealign -march=nocona -mtune=core-avx2 -mfpmath=sse
 x86_64_CFLAGS  := -mcmodel=small -march=nocona -mtune=core-avx2 -mfpmath=sse
 
@@ -88,6 +76,24 @@ ifeq ($(shell cc --version|grep 'clang'),)
 	# required because SteamRT's GCC14 statically links with libstdc++ and this
 	# avoids re-exporting of its symbols in every .so created this way
 	CFLAGS += -Wl,--exclude-libs=libstdc++.a
+	TOOLCHAIN_PREFIX :=
+	OBJCOPY_FLAGS  := -p
+else
+	# CLANG-specific flags
+	TOOLCHAIN_PREFIX := llvm-
+	OBJCOPY_FLAGS  :=
+endif
+
+OBJCOPY := $(TOOLCHAIN_PREFIX)objcopy
+
+ifneq ($(UNSTRIPPED_BUILD),)
+    STRIP :=
+    INSTALL_PROGRAM_FLAGS :=
+    MESON_STRIP_ARG :=
+else
+    STRIP := $(TOOLCHAIN_PREFIX)strip
+    INSTALL_PROGRAM_FLAGS := -s
+    MESON_STRIP_ARG := --strip
 endif
 
 # all, all-dist and dist are basically synonyms
