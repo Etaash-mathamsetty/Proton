@@ -1405,6 +1405,11 @@ def default_compat_config():
         appid = os.environ["STEAM_COMPAT_APP_ID"]
 
         if appid in [
+                "3513350", #Wuthering Waves
+                ]:
+            ret.add("noxalia")
+
+        if appid in [
                 "255960", #Bad Mojo Redux
                 ]:
             ret.add("gamedrive")
@@ -1795,9 +1800,12 @@ class Session:
             self.env["WINE_DISABLE_VULKAN_OPWR"] = "1"
 
         if "PROTON_USE_XALIA" not in self.env:
-            self.env["PROTON_USE_XALIA"] = "1"
-            if "xalia" not in self.compat_config:
-                self.env["XALIA_SUPPORTED_ONLY"] = "1"
+            if "noxalia" in self.compat_config:
+                self.env["PROTON_USE_XALIA"] = "0"
+            else:
+                self.env["PROTON_USE_XALIA"] = "1"
+                if "xalia" not in self.compat_config:
+                    self.env["XALIA_SUPPORTED_ONLY"] = "1"
 
         if "nohardwarescheduling" in self.compat_config and "WINE_DISABLE_HARDWARE_SCHEDULING" not in self.env:
             self.env["WINE_DISABLE_HARDWARE_SCHEDULING"] = "1"
