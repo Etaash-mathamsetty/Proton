@@ -1,6 +1,6 @@
 [submodule "wine"]
 	path = wine
-	url = ../wine-valve
+	url = ../wine-private
 [submodule "dxvk"]
 	path = dxvk
 	url = https://github.com/doitsujin/dxvk.git
