@@ -1650,6 +1650,14 @@ class Session:
         self.check_environment("PROTON_ENABLE_HDR", "hdr")
         self.check_environment("PROTON_USE_NTSYNC", "ntsync")
 
+        if "PROTON_ADD_CONFIG" in self.env:
+            try:
+                configs = self.env["PROTON_ADD_CONFIG"].split(',')
+                for c in configs:
+                    self.compat_config.add(c)
+            except:
+                pass
+
         if "ntsync" in self.compat_config:
             self.env["WINENTSYNC"] = "1"
         else:
