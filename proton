@@ -47,6 +47,15 @@ CURRENT_PREFIX_VERSION="EM-10.0-201"
 PFX="Proton: "
 ld_path_var = "LD_LIBRARY_PATH"
 
+proton_config = set()
+if "PROTON_ADD_CONFIG" in os.environ:
+    try:
+        config = os.environ["PROTON_ADD_CONFIG"].split(',')
+        for c in config:
+            proton_config.add(c)
+    except:
+        pass
+
 def file_exists(s, *, follow_symlinks):
     if follow_symlinks:
         #'exists' returns False on broken symlinks
@@ -547,7 +556,7 @@ class Proton:
         self.wineserver_bin = self.bin_dir + "wineserver"
         self.dist_lock = FileLock(self.path("dist.lock"), timeout=-1)
 
-        if os.environ.get("PROTON_USE_WOW64", None) == "1" or not file_exists(self.wine_bin, follow_symlinks=True):
+        if os.environ.get("PROTON_USE_WOW64", None) == "1" or "wow64" in proton_config or not file_exists(self.wine_bin, follow_symlinks=True):
             self.bin_dir = self.path("files/bin-wow64/")
             self.wine_bin = self.bin_dir + "wine"
             self.wine64_bin = self.bin_dir + "wine"
@@ -1651,12 +1660,8 @@ class Session:
         self.check_environment("PROTON_NO_NTSYNC", "nontsync")
 
         if "PROTON_ADD_CONFIG" in self.env:
-            try:
-                configs = self.env["PROTON_ADD_CONFIG"].split(',')
-                for c in configs:
-                    self.compat_config.add(c)
-            except:
-                pass
+            for c in proton_config:
+                self.compat_config.add(c)
 
         if "nontsync" in self.compat_config:
             self.env.pop("WINENTSYNC", "")
