@@ -113,6 +113,7 @@ SOURCES = \
 	cppIVROverlay_IVROverlay_025.cpp \
 	cppIVROverlay_IVROverlay_026.cpp \
 	cppIVROverlay_IVROverlay_027.cpp \
+	cppIVROverlay_IVROverlay_028.cpp \
 	cppIVROverlayView_IVROverlayView_003.cpp \
 	cppIVRRenderModels_IVRRenderModels_001.cpp \
 	cppIVRRenderModels_IVRRenderModels_002.cpp \

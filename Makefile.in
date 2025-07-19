@@ -823,6 +823,12 @@ $(eval $(call rules-source,vkd3d,$(SRCDIR)/vkd3d))
 $(eval $(call rules-autoconf,vkd3d,i386,windows))
 $(eval $(call rules-autoconf,vkd3d,x86_64,windows))
 
+$(OBJ)/.vkd3d-post-source:
+	mkdir -p $(DST_LIBDIR)/vkd3d
+	rm -rf $(DST_LIBDIR)/vkd3d/version
+	echo "$(shell git -C $(SRCDIR) submodule status -- vkd3d)" > $(DST_LIBDIR)/vkd3d/version
+	touch $@
+
 $(OBJ)/.vkd3d-x86_64-post-build: $(OBJ)/.wine-$(HOST_ARCH)-tools
 	mkdir -p $(VKD3D_x86_64_LIBDIR)/vkd3d/x86_64-windows
 	$(call make-builtin,$(VKD3D_x86_64_DST)/bin/libvkd3d-1.dll)
@@ -1111,6 +1117,7 @@ $(FONTS_OBJ)/source-han/%.ttf: $$(%.ttf_CIDFONT) $$(%.ttf_FEATURES) $$(%.ttf_SEQ
 	# to run it in a dedicated temporary directory to prevent concurrent instances
 	# to step onto each other's feet
 	(TEMP_DIR=`mktemp -d` && cd $$TEMP_DIR && afdko sfntedit -a CFF=$(abspath $($(notdir $@)).cff) $(abspath $@.tmp) && rm -fr $$TEMP_DIR)
+	if [ "$(notdir $@)" = "msyh.ttf" ]; then afdko otf2ttf -o $@.tmp.ttf $@.tmp; mv -f $@.tmp.ttf $@.tmp; fi
 	mv $@.tmp $@
 
 $(FONTS_OBJ)/ume-gothic/%.ttf: $$(%.ttf_FONT) $$(%.ttf_NAMETABLE_PATCH)

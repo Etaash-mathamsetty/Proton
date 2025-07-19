@@ -44443,6 +44443,1394 @@ struct wow64_IVROverlay_IVROverlay_027_CloseMessageOverlay_params
     struct u_iface u_iface;
 };
 
+struct IVROverlay_IVROverlay_028_FindOverlay_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    const char *pchOverlayKey;
+    uint64_t *pOverlayHandle;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_FindOverlay_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    W32_PTR(const char *pchOverlayKey, pchOverlayKey, const char *);
+    W32_PTR(uint64_t *pOverlayHandle, pOverlayHandle, uint64_t *);
+};
+
+struct IVROverlay_IVROverlay_028_CreateOverlay_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    const char *pchOverlayKey;
+    const char *pchOverlayName;
+    uint64_t *pOverlayHandle;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_CreateOverlay_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    W32_PTR(const char *pchOverlayKey, pchOverlayKey, const char *);
+    W32_PTR(const char *pchOverlayName, pchOverlayName, const char *);
+    W32_PTR(uint64_t *pOverlayHandle, pOverlayHandle, uint64_t *);
+};
+
+struct IVROverlay_IVROverlay_028_CreateSubviewOverlay_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t parentOverlayHandle;
+    const char *pchSubviewOverlayKey;
+    const char *pchSubviewOverlayName;
+    uint64_t *pSubviewOverlayHandle;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_CreateSubviewOverlay_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t parentOverlayHandle;
+    W32_PTR(const char *pchSubviewOverlayKey, pchSubviewOverlayKey, const char *);
+    W32_PTR(const char *pchSubviewOverlayName, pchSubviewOverlayName, const char *);
+    W32_PTR(uint64_t *pSubviewOverlayHandle, pSubviewOverlayHandle, uint64_t *);
+};
+
+struct IVROverlay_IVROverlay_028_DestroyOverlay_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_DestroyOverlay_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+};
+
+struct IVROverlay_IVROverlay_028_GetOverlayKey_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    char *pchValue;
+    uint32_t unBufferSize;
+    uint32_t *pError;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_GetOverlayKey_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    W32_PTR(char *pchValue, pchValue, char *);
+    uint32_t unBufferSize;
+    W32_PTR(uint32_t *pError, pError, uint32_t *);
+};
+
+struct IVROverlay_IVROverlay_028_GetOverlayName_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    char *pchValue;
+    uint32_t unBufferSize;
+    uint32_t *pError;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_GetOverlayName_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    W32_PTR(char *pchValue, pchValue, char *);
+    uint32_t unBufferSize;
+    W32_PTR(uint32_t *pError, pError, uint32_t *);
+};
+
+struct IVROverlay_IVROverlay_028_SetOverlayName_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    const char *pchName;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_SetOverlayName_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    W32_PTR(const char *pchName, pchName, const char *);
+};
+
+struct IVROverlay_IVROverlay_028_GetOverlayImageData_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    void *pvBuffer;
+    uint32_t unBufferSize;
+    uint32_t *punWidth;
+    uint32_t *punHeight;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_GetOverlayImageData_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    W32_PTR(void *pvBuffer, pvBuffer, void *);
+    uint32_t unBufferSize;
+    W32_PTR(uint32_t *punWidth, punWidth, uint32_t *);
+    W32_PTR(uint32_t *punHeight, punHeight, uint32_t *);
+};
+
+struct IVROverlay_IVROverlay_028_GetOverlayErrorNameFromEnum_params
+{
+    struct u_iface u_iface;
+    struct u_buffer _ret;
+    uint32_t error;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_GetOverlayErrorNameFromEnum_params
+{
+    struct u_iface u_iface;
+    struct u_buffer _ret;
+    uint32_t error;
+};
+
+struct IVROverlay_IVROverlay_028_SetOverlayRenderingPid_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t unPID;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_SetOverlayRenderingPid_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t unPID;
+};
+
+struct IVROverlay_IVROverlay_028_GetOverlayRenderingPid_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_GetOverlayRenderingPid_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+};
+
+struct IVROverlay_IVROverlay_028_SetOverlayFlag_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t eOverlayFlag;
+    int8_t bEnabled;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_SetOverlayFlag_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t eOverlayFlag;
+    int8_t bEnabled;
+};
+
+struct IVROverlay_IVROverlay_028_GetOverlayFlag_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t eOverlayFlag;
+    int8_t *pbEnabled;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_GetOverlayFlag_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t eOverlayFlag;
+    W32_PTR(int8_t *pbEnabled, pbEnabled, int8_t *);
+};
+
+struct IVROverlay_IVROverlay_028_GetOverlayFlags_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t *pFlags;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_GetOverlayFlags_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    W32_PTR(uint32_t *pFlags, pFlags, uint32_t *);
+};
+
+struct IVROverlay_IVROverlay_028_SetOverlayColor_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    float fRed;
+    float fGreen;
+    float fBlue;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_SetOverlayColor_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    float fRed;
+    float fGreen;
+    float fBlue;
+};
+
+struct IVROverlay_IVROverlay_028_GetOverlayColor_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    float *pfRed;
+    float *pfGreen;
+    float *pfBlue;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_GetOverlayColor_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    W32_PTR(float *pfRed, pfRed, float *);
+    W32_PTR(float *pfGreen, pfGreen, float *);
+    W32_PTR(float *pfBlue, pfBlue, float *);
+};
+
+struct IVROverlay_IVROverlay_028_SetOverlayAlpha_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    float fAlpha;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_SetOverlayAlpha_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    float fAlpha;
+};
+
+struct IVROverlay_IVROverlay_028_GetOverlayAlpha_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    float *pfAlpha;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_GetOverlayAlpha_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    W32_PTR(float *pfAlpha, pfAlpha, float *);
+};
+
+struct IVROverlay_IVROverlay_028_SetOverlayTexelAspect_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    float fTexelAspect;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_SetOverlayTexelAspect_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    float fTexelAspect;
+};
+
+struct IVROverlay_IVROverlay_028_GetOverlayTexelAspect_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    float *pfTexelAspect;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_GetOverlayTexelAspect_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    W32_PTR(float *pfTexelAspect, pfTexelAspect, float *);
+};
+
+struct IVROverlay_IVROverlay_028_SetOverlaySortOrder_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t unSortOrder;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_SetOverlaySortOrder_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t unSortOrder;
+};
+
+struct IVROverlay_IVROverlay_028_GetOverlaySortOrder_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t *punSortOrder;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_GetOverlaySortOrder_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    W32_PTR(uint32_t *punSortOrder, punSortOrder, uint32_t *);
+};
+
+struct IVROverlay_IVROverlay_028_SetOverlayWidthInMeters_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    float fWidthInMeters;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_SetOverlayWidthInMeters_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    float fWidthInMeters;
+};
+
+struct IVROverlay_IVROverlay_028_GetOverlayWidthInMeters_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    float *pfWidthInMeters;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_GetOverlayWidthInMeters_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    W32_PTR(float *pfWidthInMeters, pfWidthInMeters, float *);
+};
+
+struct IVROverlay_IVROverlay_028_SetOverlayCurvature_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    float fCurvature;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_SetOverlayCurvature_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    float fCurvature;
+};
+
+struct IVROverlay_IVROverlay_028_GetOverlayCurvature_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    float *pfCurvature;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_GetOverlayCurvature_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    W32_PTR(float *pfCurvature, pfCurvature, float *);
+};
+
+struct IVROverlay_IVROverlay_028_SetOverlayPreCurvePitch_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    float fRadians;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_SetOverlayPreCurvePitch_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    float fRadians;
+};
+
+struct IVROverlay_IVROverlay_028_GetOverlayPreCurvePitch_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    float *pfRadians;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_GetOverlayPreCurvePitch_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    W32_PTR(float *pfRadians, pfRadians, float *);
+};
+
+struct IVROverlay_IVROverlay_028_SetOverlayTextureColorSpace_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t eTextureColorSpace;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_SetOverlayTextureColorSpace_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t eTextureColorSpace;
+};
+
+struct IVROverlay_IVROverlay_028_GetOverlayTextureColorSpace_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t *peTextureColorSpace;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_GetOverlayTextureColorSpace_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    W32_PTR(uint32_t *peTextureColorSpace, peTextureColorSpace, uint32_t *);
+};
+
+struct IVROverlay_IVROverlay_028_SetOverlayTextureBounds_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    const VRTextureBounds_t *pOverlayTextureBounds;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_SetOverlayTextureBounds_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    W32_PTR(const VRTextureBounds_t *pOverlayTextureBounds, pOverlayTextureBounds, const VRTextureBounds_t *);
+};
+
+struct IVROverlay_IVROverlay_028_GetOverlayTextureBounds_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    VRTextureBounds_t *pOverlayTextureBounds;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_GetOverlayTextureBounds_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    W32_PTR(VRTextureBounds_t *pOverlayTextureBounds, pOverlayTextureBounds, VRTextureBounds_t *);
+};
+
+struct IVROverlay_IVROverlay_028_GetOverlayTransformType_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t *peTransformType;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_GetOverlayTransformType_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    W32_PTR(uint32_t *peTransformType, peTransformType, uint32_t *);
+};
+
+struct IVROverlay_IVROverlay_028_SetOverlayTransformAbsolute_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t eTrackingOrigin;
+    const HmdMatrix34_t *pmatTrackingOriginToOverlayTransform;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_SetOverlayTransformAbsolute_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t eTrackingOrigin;
+    W32_PTR(const HmdMatrix34_t *pmatTrackingOriginToOverlayTransform, pmatTrackingOriginToOverlayTransform, const HmdMatrix34_t *);
+};
+
+struct IVROverlay_IVROverlay_028_GetOverlayTransformAbsolute_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t *peTrackingOrigin;
+    HmdMatrix34_t *pmatTrackingOriginToOverlayTransform;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_GetOverlayTransformAbsolute_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    W32_PTR(uint32_t *peTrackingOrigin, peTrackingOrigin, uint32_t *);
+    W32_PTR(HmdMatrix34_t *pmatTrackingOriginToOverlayTransform, pmatTrackingOriginToOverlayTransform, HmdMatrix34_t *);
+};
+
+struct IVROverlay_IVROverlay_028_SetOverlayTransformTrackedDeviceRelative_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t unTrackedDevice;
+    const HmdMatrix34_t *pmatTrackedDeviceToOverlayTransform;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_SetOverlayTransformTrackedDeviceRelative_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t unTrackedDevice;
+    W32_PTR(const HmdMatrix34_t *pmatTrackedDeviceToOverlayTransform, pmatTrackedDeviceToOverlayTransform, const HmdMatrix34_t *);
+};
+
+struct IVROverlay_IVROverlay_028_GetOverlayTransformTrackedDeviceRelative_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t *punTrackedDevice;
+    HmdMatrix34_t *pmatTrackedDeviceToOverlayTransform;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_GetOverlayTransformTrackedDeviceRelative_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    W32_PTR(uint32_t *punTrackedDevice, punTrackedDevice, uint32_t *);
+    W32_PTR(HmdMatrix34_t *pmatTrackedDeviceToOverlayTransform, pmatTrackedDeviceToOverlayTransform, HmdMatrix34_t *);
+};
+
+struct IVROverlay_IVROverlay_028_SetOverlayTransformTrackedDeviceComponent_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t unDeviceIndex;
+    const char *pchComponentName;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_SetOverlayTransformTrackedDeviceComponent_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t unDeviceIndex;
+    W32_PTR(const char *pchComponentName, pchComponentName, const char *);
+};
+
+struct IVROverlay_IVROverlay_028_GetOverlayTransformTrackedDeviceComponent_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t *punDeviceIndex;
+    char *pchComponentName;
+    uint32_t unComponentNameSize;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_GetOverlayTransformTrackedDeviceComponent_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    W32_PTR(uint32_t *punDeviceIndex, punDeviceIndex, uint32_t *);
+    W32_PTR(char *pchComponentName, pchComponentName, char *);
+    uint32_t unComponentNameSize;
+};
+
+struct IVROverlay_IVROverlay_028_SetOverlayTransformCursor_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulCursorOverlayHandle;
+    const HmdVector2_t *pvHotspot;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_SetOverlayTransformCursor_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulCursorOverlayHandle;
+    W32_PTR(const HmdVector2_t *pvHotspot, pvHotspot, const HmdVector2_t *);
+};
+
+struct IVROverlay_IVROverlay_028_GetOverlayTransformCursor_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    HmdVector2_t *pvHotspot;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_GetOverlayTransformCursor_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    W32_PTR(HmdVector2_t *pvHotspot, pvHotspot, HmdVector2_t *);
+};
+
+struct IVROverlay_IVROverlay_028_SetOverlayTransformProjection_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t eTrackingOrigin;
+    const HmdMatrix34_t *pmatTrackingOriginToOverlayTransform;
+    const VROverlayProjection_t *pProjection;
+    uint32_t eEye;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_SetOverlayTransformProjection_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t eTrackingOrigin;
+    W32_PTR(const HmdMatrix34_t *pmatTrackingOriginToOverlayTransform, pmatTrackingOriginToOverlayTransform, const HmdMatrix34_t *);
+    W32_PTR(const VROverlayProjection_t *pProjection, pProjection, const VROverlayProjection_t *);
+    uint32_t eEye;
+};
+
+struct IVROverlay_IVROverlay_028_SetSubviewPosition_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    float fX;
+    float fY;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_SetSubviewPosition_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    float fX;
+    float fY;
+};
+
+struct IVROverlay_IVROverlay_028_ShowOverlay_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_ShowOverlay_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+};
+
+struct IVROverlay_IVROverlay_028_HideOverlay_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_HideOverlay_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+};
+
+struct IVROverlay_IVROverlay_028_IsOverlayVisible_params
+{
+    struct u_iface u_iface;
+    int8_t _ret;
+    uint64_t ulOverlayHandle;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_IsOverlayVisible_params
+{
+    struct u_iface u_iface;
+    int8_t _ret;
+    uint64_t ulOverlayHandle;
+};
+
+struct IVROverlay_IVROverlay_028_GetTransformForOverlayCoordinates_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t eTrackingOrigin;
+    HmdVector2_t coordinatesInOverlay;
+    HmdMatrix34_t *pmatTransform;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_GetTransformForOverlayCoordinates_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t eTrackingOrigin;
+    HmdVector2_t coordinatesInOverlay;
+    W32_PTR(HmdMatrix34_t *pmatTransform, pmatTransform, HmdMatrix34_t *);
+};
+
+struct IVROverlay_IVROverlay_028_WaitFrameSync_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint32_t nTimeoutMs;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_WaitFrameSync_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint32_t nTimeoutMs;
+};
+
+struct IVROverlay_IVROverlay_028_PollNextOverlayEvent_params
+{
+    struct u_iface u_iface;
+    int8_t _ret;
+    uint64_t ulOverlayHandle;
+    w_VREvent_t_223 *pEvent;
+    uint32_t uncbVREvent;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_PollNextOverlayEvent_params
+{
+    struct u_iface u_iface;
+    int8_t _ret;
+    uint64_t ulOverlayHandle;
+    W32_PTR(w32_VREvent_t_223 *pEvent, pEvent, w32_VREvent_t_223 *);
+    uint32_t uncbVREvent;
+};
+
+struct IVROverlay_IVROverlay_028_GetOverlayInputMethod_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t *peInputMethod;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_GetOverlayInputMethod_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    W32_PTR(uint32_t *peInputMethod, peInputMethod, uint32_t *);
+};
+
+struct IVROverlay_IVROverlay_028_SetOverlayInputMethod_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t eInputMethod;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_SetOverlayInputMethod_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t eInputMethod;
+};
+
+struct IVROverlay_IVROverlay_028_GetOverlayMouseScale_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    HmdVector2_t *pvecMouseScale;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_GetOverlayMouseScale_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    W32_PTR(HmdVector2_t *pvecMouseScale, pvecMouseScale, HmdVector2_t *);
+};
+
+struct IVROverlay_IVROverlay_028_SetOverlayMouseScale_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    const HmdVector2_t *pvecMouseScale;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_SetOverlayMouseScale_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    W32_PTR(const HmdVector2_t *pvecMouseScale, pvecMouseScale, const HmdVector2_t *);
+};
+
+struct IVROverlay_IVROverlay_028_ComputeOverlayIntersection_params
+{
+    struct u_iface u_iface;
+    int8_t _ret;
+    uint64_t ulOverlayHandle;
+    const VROverlayIntersectionParams_t *pParams;
+    VROverlayIntersectionResults_t *pResults;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_ComputeOverlayIntersection_params
+{
+    struct u_iface u_iface;
+    int8_t _ret;
+    uint64_t ulOverlayHandle;
+    W32_PTR(const VROverlayIntersectionParams_t *pParams, pParams, const VROverlayIntersectionParams_t *);
+    W32_PTR(VROverlayIntersectionResults_t *pResults, pResults, VROverlayIntersectionResults_t *);
+};
+
+struct IVROverlay_IVROverlay_028_IsHoverTargetOverlay_params
+{
+    struct u_iface u_iface;
+    int8_t _ret;
+    uint64_t ulOverlayHandle;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_IsHoverTargetOverlay_params
+{
+    struct u_iface u_iface;
+    int8_t _ret;
+    uint64_t ulOverlayHandle;
+};
+
+struct IVROverlay_IVROverlay_028_SetOverlayIntersectionMask_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    VROverlayIntersectionMaskPrimitive_t *pMaskPrimitives;
+    uint32_t unNumMaskPrimitives;
+    uint32_t unPrimitiveSize;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_SetOverlayIntersectionMask_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    W32_PTR(VROverlayIntersectionMaskPrimitive_t *pMaskPrimitives, pMaskPrimitives, VROverlayIntersectionMaskPrimitive_t *);
+    uint32_t unNumMaskPrimitives;
+    uint32_t unPrimitiveSize;
+};
+
+struct IVROverlay_IVROverlay_028_TriggerLaserMouseHapticVibration_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    float fDurationSeconds;
+    float fFrequency;
+    float fAmplitude;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_TriggerLaserMouseHapticVibration_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    float fDurationSeconds;
+    float fFrequency;
+    float fAmplitude;
+};
+
+struct IVROverlay_IVROverlay_028_SetOverlayCursor_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint64_t ulCursorHandle;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_SetOverlayCursor_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint64_t ulCursorHandle;
+};
+
+struct IVROverlay_IVROverlay_028_SetOverlayCursorPositionOverride_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    const HmdVector2_t *pvCursor;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_SetOverlayCursorPositionOverride_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    W32_PTR(const HmdVector2_t *pvCursor, pvCursor, const HmdVector2_t *);
+};
+
+struct IVROverlay_IVROverlay_028_ClearOverlayCursorPositionOverride_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_ClearOverlayCursorPositionOverride_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+};
+
+struct IVROverlay_IVROverlay_028_SetOverlayTexture_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    const w_Texture_t *pTexture;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_SetOverlayTexture_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    W32_PTR(const w32_Texture_t *pTexture, pTexture, const w32_Texture_t *);
+};
+
+struct IVROverlay_IVROverlay_028_ClearOverlayTexture_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_ClearOverlayTexture_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+};
+
+struct IVROverlay_IVROverlay_028_SetOverlayRaw_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    void *pvBuffer;
+    uint32_t unWidth;
+    uint32_t unHeight;
+    uint32_t unBytesPerPixel;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_SetOverlayRaw_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    W32_PTR(void *pvBuffer, pvBuffer, void *);
+    uint32_t unWidth;
+    uint32_t unHeight;
+    uint32_t unBytesPerPixel;
+};
+
+struct IVROverlay_IVROverlay_028_SetOverlayFromFile_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    const char *pchFilePath;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_SetOverlayFromFile_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    W32_PTR(const char *pchFilePath, pchFilePath, const char *);
+};
+
+struct IVROverlay_IVROverlay_028_GetOverlayTexture_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    void **pNativeTextureHandle;
+    void *pNativeTextureRef;
+    uint32_t *pWidth;
+    uint32_t *pHeight;
+    uint32_t *pNativeFormat;
+    uint32_t *pAPIType;
+    uint32_t *pColorSpace;
+    VRTextureBounds_t *pTextureBounds;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_GetOverlayTexture_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    W32_PTR(void **pNativeTextureHandle, pNativeTextureHandle, void **);
+    W32_PTR(void *pNativeTextureRef, pNativeTextureRef, void *);
+    W32_PTR(uint32_t *pWidth, pWidth, uint32_t *);
+    W32_PTR(uint32_t *pHeight, pHeight, uint32_t *);
+    W32_PTR(uint32_t *pNativeFormat, pNativeFormat, uint32_t *);
+    W32_PTR(uint32_t *pAPIType, pAPIType, uint32_t *);
+    W32_PTR(uint32_t *pColorSpace, pColorSpace, uint32_t *);
+    W32_PTR(VRTextureBounds_t *pTextureBounds, pTextureBounds, VRTextureBounds_t *);
+};
+
+struct IVROverlay_IVROverlay_028_ReleaseNativeOverlayHandle_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    void *pNativeTextureHandle;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_ReleaseNativeOverlayHandle_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    W32_PTR(void *pNativeTextureHandle, pNativeTextureHandle, void *);
+};
+
+struct IVROverlay_IVROverlay_028_GetOverlayTextureSize_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t *pWidth;
+    uint32_t *pHeight;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_GetOverlayTextureSize_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    W32_PTR(uint32_t *pWidth, pWidth, uint32_t *);
+    W32_PTR(uint32_t *pHeight, pHeight, uint32_t *);
+};
+
+struct IVROverlay_IVROverlay_028_CreateDashboardOverlay_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    const char *pchOverlayKey;
+    const char *pchOverlayFriendlyName;
+    uint64_t *pMainHandle;
+    uint64_t *pThumbnailHandle;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_CreateDashboardOverlay_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    W32_PTR(const char *pchOverlayKey, pchOverlayKey, const char *);
+    W32_PTR(const char *pchOverlayFriendlyName, pchOverlayFriendlyName, const char *);
+    W32_PTR(uint64_t *pMainHandle, pMainHandle, uint64_t *);
+    W32_PTR(uint64_t *pThumbnailHandle, pThumbnailHandle, uint64_t *);
+};
+
+struct IVROverlay_IVROverlay_028_IsDashboardVisible_params
+{
+    struct u_iface u_iface;
+    int8_t _ret;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_IsDashboardVisible_params
+{
+    struct u_iface u_iface;
+    int8_t _ret;
+};
+
+struct IVROverlay_IVROverlay_028_IsActiveDashboardOverlay_params
+{
+    struct u_iface u_iface;
+    int8_t _ret;
+    uint64_t ulOverlayHandle;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_IsActiveDashboardOverlay_params
+{
+    struct u_iface u_iface;
+    int8_t _ret;
+    uint64_t ulOverlayHandle;
+};
+
+struct IVROverlay_IVROverlay_028_SetDashboardOverlaySceneProcess_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t unProcessId;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_SetDashboardOverlaySceneProcess_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t unProcessId;
+};
+
+struct IVROverlay_IVROverlay_028_GetDashboardOverlaySceneProcess_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t *punProcessId;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_GetDashboardOverlaySceneProcess_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    W32_PTR(uint32_t *punProcessId, punProcessId, uint32_t *);
+};
+
+struct IVROverlay_IVROverlay_028_ShowDashboard_params
+{
+    struct u_iface u_iface;
+    const char *pchOverlayToShow;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_ShowDashboard_params
+{
+    struct u_iface u_iface;
+    W32_PTR(const char *pchOverlayToShow, pchOverlayToShow, const char *);
+};
+
+struct IVROverlay_IVROverlay_028_GetPrimaryDashboardDevice_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_GetPrimaryDashboardDevice_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+};
+
+struct IVROverlay_IVROverlay_028_ShowKeyboard_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint32_t eInputMode;
+    uint32_t eLineInputMode;
+    uint32_t unFlags;
+    const char *pchDescription;
+    uint32_t unCharMax;
+    const char *pchExistingText;
+    uint64_t uUserValue;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_ShowKeyboard_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint32_t eInputMode;
+    uint32_t eLineInputMode;
+    uint32_t unFlags;
+    W32_PTR(const char *pchDescription, pchDescription, const char *);
+    uint32_t unCharMax;
+    W32_PTR(const char *pchExistingText, pchExistingText, const char *);
+    uint64_t uUserValue;
+};
+
+struct IVROverlay_IVROverlay_028_ShowKeyboardForOverlay_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t eInputMode;
+    uint32_t eLineInputMode;
+    uint32_t unFlags;
+    const char *pchDescription;
+    uint32_t unCharMax;
+    const char *pchExistingText;
+    uint64_t uUserValue;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_ShowKeyboardForOverlay_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    uint64_t ulOverlayHandle;
+    uint32_t eInputMode;
+    uint32_t eLineInputMode;
+    uint32_t unFlags;
+    W32_PTR(const char *pchDescription, pchDescription, const char *);
+    uint32_t unCharMax;
+    W32_PTR(const char *pchExistingText, pchExistingText, const char *);
+    uint64_t uUserValue;
+};
+
+struct IVROverlay_IVROverlay_028_GetKeyboardText_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    char *pchText;
+    uint32_t cchText;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_GetKeyboardText_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    W32_PTR(char *pchText, pchText, char *);
+    uint32_t cchText;
+};
+
+struct IVROverlay_IVROverlay_028_HideKeyboard_params
+{
+    struct u_iface u_iface;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_HideKeyboard_params
+{
+    struct u_iface u_iface;
+};
+
+struct IVROverlay_IVROverlay_028_SetKeyboardTransformAbsolute_params
+{
+    struct u_iface u_iface;
+    uint32_t eTrackingOrigin;
+    const HmdMatrix34_t *pmatTrackingOriginToKeyboardTransform;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_SetKeyboardTransformAbsolute_params
+{
+    struct u_iface u_iface;
+    uint32_t eTrackingOrigin;
+    W32_PTR(const HmdMatrix34_t *pmatTrackingOriginToKeyboardTransform, pmatTrackingOriginToKeyboardTransform, const HmdMatrix34_t *);
+};
+
+struct IVROverlay_IVROverlay_028_SetKeyboardPositionForOverlay_params
+{
+    struct u_iface u_iface;
+    uint64_t ulOverlayHandle;
+    HmdRect2_t avoidRect;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_SetKeyboardPositionForOverlay_params
+{
+    struct u_iface u_iface;
+    uint64_t ulOverlayHandle;
+    HmdRect2_t avoidRect;
+};
+
+struct IVROverlay_IVROverlay_028_ShowMessageOverlay_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    const char *pchText;
+    const char *pchCaption;
+    const char *pchButton0Text;
+    const char *pchButton1Text;
+    const char *pchButton2Text;
+    const char *pchButton3Text;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_ShowMessageOverlay_params
+{
+    struct u_iface u_iface;
+    uint32_t _ret;
+    W32_PTR(const char *pchText, pchText, const char *);
+    W32_PTR(const char *pchCaption, pchCaption, const char *);
+    W32_PTR(const char *pchButton0Text, pchButton0Text, const char *);
+    W32_PTR(const char *pchButton1Text, pchButton1Text, const char *);
+    W32_PTR(const char *pchButton2Text, pchButton2Text, const char *);
+    W32_PTR(const char *pchButton3Text, pchButton3Text, const char *);
+};
+
+struct IVROverlay_IVROverlay_028_CloseMessageOverlay_params
+{
+    struct u_iface u_iface;
+};
+
+struct wow64_IVROverlay_IVROverlay_028_CloseMessageOverlay_params
+{
+    struct u_iface u_iface;
+};
+
 struct IVRRenderModels_IVRRenderModels_001_LoadRenderModel_params
 {
     struct u_iface u_iface;
@@ -61252,6 +62640,88 @@ enum unix_funcs
     unix_IVROverlay_IVROverlay_027_SetKeyboardPositionForOverlay,
     unix_IVROverlay_IVROverlay_027_ShowMessageOverlay,
     unix_IVROverlay_IVROverlay_027_CloseMessageOverlay,
+    unix_IVROverlay_IVROverlay_028_FindOverlay,
+    unix_IVROverlay_IVROverlay_028_CreateOverlay,
+    unix_IVROverlay_IVROverlay_028_CreateSubviewOverlay,
+    unix_IVROverlay_IVROverlay_028_DestroyOverlay,
+    unix_IVROverlay_IVROverlay_028_GetOverlayKey,
+    unix_IVROverlay_IVROverlay_028_GetOverlayName,
+    unix_IVROverlay_IVROverlay_028_SetOverlayName,
+    unix_IVROverlay_IVROverlay_028_GetOverlayImageData,
+    unix_IVROverlay_IVROverlay_028_GetOverlayErrorNameFromEnum,
+    unix_IVROverlay_IVROverlay_028_SetOverlayRenderingPid,
+    unix_IVROverlay_IVROverlay_028_GetOverlayRenderingPid,
+    unix_IVROverlay_IVROverlay_028_SetOverlayFlag,
+    unix_IVROverlay_IVROverlay_028_GetOverlayFlag,
+    unix_IVROverlay_IVROverlay_028_GetOverlayFlags,
+    unix_IVROverlay_IVROverlay_028_SetOverlayColor,
+    unix_IVROverlay_IVROverlay_028_GetOverlayColor,
+    unix_IVROverlay_IVROverlay_028_SetOverlayAlpha,
+    unix_IVROverlay_IVROverlay_028_GetOverlayAlpha,
+    unix_IVROverlay_IVROverlay_028_SetOverlayTexelAspect,
+    unix_IVROverlay_IVROverlay_028_GetOverlayTexelAspect,
+    unix_IVROverlay_IVROverlay_028_SetOverlaySortOrder,
+    unix_IVROverlay_IVROverlay_028_GetOverlaySortOrder,
+    unix_IVROverlay_IVROverlay_028_SetOverlayWidthInMeters,
+    unix_IVROverlay_IVROverlay_028_GetOverlayWidthInMeters,
+    unix_IVROverlay_IVROverlay_028_SetOverlayCurvature,
+    unix_IVROverlay_IVROverlay_028_GetOverlayCurvature,
+    unix_IVROverlay_IVROverlay_028_SetOverlayPreCurvePitch,
+    unix_IVROverlay_IVROverlay_028_GetOverlayPreCurvePitch,
+    unix_IVROverlay_IVROverlay_028_SetOverlayTextureColorSpace,
+    unix_IVROverlay_IVROverlay_028_GetOverlayTextureColorSpace,
+    unix_IVROverlay_IVROverlay_028_SetOverlayTextureBounds,
+    unix_IVROverlay_IVROverlay_028_GetOverlayTextureBounds,
+    unix_IVROverlay_IVROverlay_028_GetOverlayTransformType,
+    unix_IVROverlay_IVROverlay_028_SetOverlayTransformAbsolute,
+    unix_IVROverlay_IVROverlay_028_GetOverlayTransformAbsolute,
+    unix_IVROverlay_IVROverlay_028_SetOverlayTransformTrackedDeviceRelative,
+    unix_IVROverlay_IVROverlay_028_GetOverlayTransformTrackedDeviceRelative,
+    unix_IVROverlay_IVROverlay_028_SetOverlayTransformTrackedDeviceComponent,
+    unix_IVROverlay_IVROverlay_028_GetOverlayTransformTrackedDeviceComponent,
+    unix_IVROverlay_IVROverlay_028_SetOverlayTransformCursor,
+    unix_IVROverlay_IVROverlay_028_GetOverlayTransformCursor,
+    unix_IVROverlay_IVROverlay_028_SetOverlayTransformProjection,
+    unix_IVROverlay_IVROverlay_028_SetSubviewPosition,
+    unix_IVROverlay_IVROverlay_028_ShowOverlay,
+    unix_IVROverlay_IVROverlay_028_HideOverlay,
+    unix_IVROverlay_IVROverlay_028_IsOverlayVisible,
+    unix_IVROverlay_IVROverlay_028_GetTransformForOverlayCoordinates,
+    unix_IVROverlay_IVROverlay_028_WaitFrameSync,
+    unix_IVROverlay_IVROverlay_028_PollNextOverlayEvent,
+    unix_IVROverlay_IVROverlay_028_GetOverlayInputMethod,
+    unix_IVROverlay_IVROverlay_028_SetOverlayInputMethod,
+    unix_IVROverlay_IVROverlay_028_GetOverlayMouseScale,
+    unix_IVROverlay_IVROverlay_028_SetOverlayMouseScale,
+    unix_IVROverlay_IVROverlay_028_ComputeOverlayIntersection,
+    unix_IVROverlay_IVROverlay_028_IsHoverTargetOverlay,
+    unix_IVROverlay_IVROverlay_028_SetOverlayIntersectionMask,
+    unix_IVROverlay_IVROverlay_028_TriggerLaserMouseHapticVibration,
+    unix_IVROverlay_IVROverlay_028_SetOverlayCursor,
+    unix_IVROverlay_IVROverlay_028_SetOverlayCursorPositionOverride,
+    unix_IVROverlay_IVROverlay_028_ClearOverlayCursorPositionOverride,
+    unix_IVROverlay_IVROverlay_028_SetOverlayTexture,
+    unix_IVROverlay_IVROverlay_028_ClearOverlayTexture,
+    unix_IVROverlay_IVROverlay_028_SetOverlayRaw,
+    unix_IVROverlay_IVROverlay_028_SetOverlayFromFile,
+    unix_IVROverlay_IVROverlay_028_GetOverlayTexture,
+    unix_IVROverlay_IVROverlay_028_ReleaseNativeOverlayHandle,
+    unix_IVROverlay_IVROverlay_028_GetOverlayTextureSize,
+    unix_IVROverlay_IVROverlay_028_CreateDashboardOverlay,
+    unix_IVROverlay_IVROverlay_028_IsDashboardVisible,
+    unix_IVROverlay_IVROverlay_028_IsActiveDashboardOverlay,
+    unix_IVROverlay_IVROverlay_028_SetDashboardOverlaySceneProcess,
+    unix_IVROverlay_IVROverlay_028_GetDashboardOverlaySceneProcess,
+    unix_IVROverlay_IVROverlay_028_ShowDashboard,
+    unix_IVROverlay_IVROverlay_028_GetPrimaryDashboardDevice,
+    unix_IVROverlay_IVROverlay_028_ShowKeyboard,
+    unix_IVROverlay_IVROverlay_028_ShowKeyboardForOverlay,
+    unix_IVROverlay_IVROverlay_028_GetKeyboardText,
+    unix_IVROverlay_IVROverlay_028_HideKeyboard,
+    unix_IVROverlay_IVROverlay_028_SetKeyboardTransformAbsolute,
+    unix_IVROverlay_IVROverlay_028_SetKeyboardPositionForOverlay,
+    unix_IVROverlay_IVROverlay_028_ShowMessageOverlay,
+    unix_IVROverlay_IVROverlay_028_CloseMessageOverlay,
     unix_IVRRenderModels_IVRRenderModels_001_LoadRenderModel,
     unix_IVRRenderModels_IVRRenderModels_001_FreeRenderModel,
     unix_IVRRenderModels_IVRRenderModels_001_GetRenderModelName,

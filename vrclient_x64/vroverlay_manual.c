@@ -470,3 +470,23 @@ uint32_t __thiscall winIVROverlay_IVROverlay_027_SetOverlayTexture( struct w_ifa
 
     return params._ret;
 }
+
+uint32_t __thiscall winIVROverlay_IVROverlay_028_SetOverlayTexture( struct w_iface *_this, uint64_t ulOverlayHandle,
+                                                                    const w_Texture_t *pTexture )
+{
+    struct set_overlay_texture_state state = {.texture = *pTexture};
+    struct IVROverlay_IVROverlay_028_SetOverlayTexture_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+        .pTexture = &state.texture,
+    };
+
+    TRACE( "%p\n", _this );
+
+    if (pTexture->eType == TextureType_DirectX) load_overlay_texture_dxvk( pTexture, &state );
+    VRCLIENT_CALL( IVROverlay_IVROverlay_028_SetOverlayTexture, &params );
+    if (pTexture->eType == TextureType_DirectX) free_unix_overlay_texture_dxvk( &state );
+
+    return params._ret;
+}

@@ -93,3 +93,4 @@ VRCLIENT_UNIX_IMPL( IVROverlay, 024, SetOverlayTexture );
 VRCLIENT_UNIX_IMPL( IVROverlay, 025, SetOverlayTexture );
 VRCLIENT_UNIX_IMPL( IVROverlay, 026, SetOverlayTexture );
 VRCLIENT_UNIX_IMPL( IVROverlay, 027, SetOverlayTexture );
+VRCLIENT_UNIX_IMPL( IVROverlay, 028, SetOverlayTexture );

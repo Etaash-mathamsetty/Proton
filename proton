@@ -1288,6 +1288,7 @@ def default_compat_config():
                 # Other issues arising from OWPR code path in apps, e. g., hitting unimplemented bits in
                 # d3dcompiler.
                 "230410", #Warframe
+                "3513350", #Wuthering Waves
                 ]:
             ret.add("noopwr")
 
