@@ -1,10 +1,12 @@
+#include <string>
+#include <unordered_map>
+
 #include "unix_private.h"
 
 #include <winternl.h>
 #include <dlfcn.h>
 #include <pthread.h>
 #include <stdlib.h>
-#include <unordered_map>
 
 #define WINE_VK_HOST
 #include <vulkan/vulkan.h>
@@ -319,9 +321,18 @@ static NTSTATUS vrclient_init( Params *params, bool wow64 )
         return 0;
     }
 
-    if (!(vrclient = dlopen( params->unix_path, RTLD_NOW )))
+#if defined(__x86_64__)
+    static const char arch_dir[] = "linux64";
+#elif defined(__aarch64__)
+    static const char arch_dir[] = "linuxarm64";
+#else
+    static const char arch_dir[] = "linux";
+#endif
+
+    std::string vrclient_path = std::string( params->runtime_unix_path ) + "/bin/" + arch_dir + "/vrclient.so";
+    if (!(vrclient = dlopen( vrclient_path.c_str(), RTLD_NOW )))
     {
-        TRACE( "unable to load %s\n", (const char *)params->unix_path );
+        TRACE( "unable to load %s\n", vrclient_path.c_str() );
         return 0;
     }
 

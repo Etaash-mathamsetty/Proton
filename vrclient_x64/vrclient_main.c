@@ -200,14 +200,6 @@ static int load_vrclient( BOOL initializing_registry )
     WCHAR pathW[PATH_MAX];
     DWORD sz;
 
-#if defined(__x86_64__) && !defined(__arm64ec__)
-    static const char append_path[] = "/bin/linux64/vrclient.so";
-#elif defined(__arm64ec__)
-    static const char append_path[] = "/bin/linuxarm64/vrclient.so";
-#else
-    static const char append_path[] = "/bin/vrclient.so";
-#endif
-
     if (vrclient_loaded) return 1;
 
     if (!(initializing_registry || get_vulkan_extensions_from_registry()))
@@ -252,24 +244,22 @@ static int load_vrclient( BOOL initializing_registry )
         return 0;
     }
 
-    params.unix_path = HeapAlloc( GetProcessHeap(), 0, sz + sizeof(append_path) );
+    params.runtime_unix_path = HeapAlloc( GetProcessHeap(), 0, sz );
 
-    sz = WideCharToMultiByte( CP_UNIXCP, 0, pathW, -1, params.unix_path, sz, NULL, NULL );
+    sz = WideCharToMultiByte( CP_UNIXCP, 0, pathW, -1, params.runtime_unix_path, sz, NULL, NULL );
     if(!sz)
     {
         ERR("Can't convert path to unixcp! %s\n", wine_dbgstr_w(pathW));
-        HeapFree(GetProcessHeap(), 0, params.unix_path);
+        HeapFree(GetProcessHeap(), 0, params.runtime_unix_path);
         return 0;
     }
 
-    strcat( params.unix_path, append_path );
-
-    TRACE( "got openvr runtime path: %s\n", params.unix_path );
+    TRACE( "got openvr runtime path: %s\n", params.runtime_unix_path );
 
     VRCLIENT_CALL( vrclient_init, &params );
     if (params._ret) vrclient_loaded = TRUE;
 
-    HeapFree( GetProcessHeap(), 0, params.unix_path );
+    HeapFree( GetProcessHeap(), 0, params.runtime_unix_path );
     return vrclient_loaded;
 }
 

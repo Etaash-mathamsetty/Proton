@@ -85,14 +85,14 @@ struct vrclient_init_params
 {
     int8_t _ret;
     HMODULE winevulkan;
-    char *unix_path;
+    char *runtime_unix_path;
 };
 
 struct wow64_vrclient_init_params
 {
     int8_t _ret;
     W32_PTR(HMODULE winevulkan, winevulkan, HMODULE);
-    W32_PTR(char *unix_path, unix_path, char *);
+    W32_PTR(char *runtime_unix_path, runtime_unix_path, char *);
 };
 
 struct vrclient_init_registry_params
