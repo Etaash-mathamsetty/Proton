@@ -946,7 +946,8 @@ class CompatData:
             dst = "drive_c/windows/system32/" + f + ".dll"
             if not file_exists(self.prefix_dir + dst, follow_symlinks=False):
                 try:
-                    tracked_files.write(dst + '\n')
+                    with open(self.tracked_files_file, "a") as tracked_files:
+                        tracked_files.write(dst + '\n')
                 except Exception:
                     pass
             if file_exists(g_proton.lib_dir + "wine/amdprop/" + f + ".dll", follow_symlinks=False):
@@ -1656,6 +1657,7 @@ class Session:
         self.check_environment("PROTON_PREFER_SDL", "sdlinput")
         self.check_environment("PROTON_USE_SDL", "sdlinput")
         self.check_environment("PROTON_FSR4_UPGRADE", "fsr4")
+        self.check_environment("PROTON_FSR4_RDNA3_UPGRADE", "fsr4rdna3")
         self.check_environment("PROTON_NATIVE_AGS", "nativeags")
         self.check_environment("PROTON_ENABLE_HDR", "hdr")
         self.check_environment("PROTON_NO_NTSYNC", "nontsync")
@@ -1833,34 +1835,39 @@ class Session:
             if "SDL_GAMECONTROLLER_IGNORE_DEVICES" in self.env:
                 del self.env["SDL_GAMECONTROLLER_IGNORE_DEVICES"]
 
-        if "fsr4" in self.compat_config:
+        if "fsr4" in self.compat_config or "fsr4rdna3" in self.compat_config:
             self.env["FSR4_UPGRADE"] = "1"
-            versions = ["67D435F7d97000", "67A4D2BC10ad000"]
-            version_match = True
+
+            versions = { "4.0.0": "67A4D2BC10ad000",
+                         "4.0.1": "67D435F7d97000", }
+            version = versions["4.0.0"]
+
+            if "fsr4rdna3" in self.compat_config:
+                self.env["DXIL_SPIRV_CONFIG"] = "wmma_rdna3_workaround"
 
             # TODO: make the following code more efficent
 
             # 0. Check downloaded version
-            if file_exists(g_proton.lib_dir + "wine/amdprop/amdxcffx64_version", follow_symlinks=False):
-                with open(g_proton.lib_dir + "wine/amdprop/amdxcffx64_version", "r") as file:
+            version_match = False
+            version_file = g_proton.lib_dir + "wine/amdprop/amdxcffx64_version"
+            if file_exists(version_file, follow_symlinks=False):
+                with open(version_file, "r") as file:
                     first_line = file.readline()
-                    version_match = False
-                    for version in versions:
-                        if first_line in version:
-                            version_match = True
-            else:
-                version_match = False
+                    if first_line == version:
+                        version_match = True
 
             # 1. Download amdxcffx64 library
-            if not file_exists(g_proton.lib_dir + "wine/amdprop/amdxcffx64.dll", follow_symlinks=False) or not version_match:
-                self.download_file("https://download.amd.com/dir/bin/amdxcffx64.dll/" + versions[1] + "/amdxcffx64.dll", g_proton.lib_dir + "wine/amdprop/amdxcffx64.dll")
+            fsr_dll_url = "https://download.amd.com/dir/bin/amdxcffx64.dll/" + version + "/amdxcffx64.dll"
+            fsr_dll = g_proton.lib_dir + "wine/amdprop/amdxcffx64.dll"
+            if not file_exists(fsr_dll, follow_symlinks=False) or not version_match:
+                self.download_file(fsr_dll_url, fsr_dll)
 
             # 2. Update stored version
-            if file_exists(g_proton.lib_dir + "wine/amdprop/amdxcffx64.dll", follow_symlinks=False):
+            if file_exists(fsr_dll, follow_symlinks=False):
                 g_compatdata.setup_fsr4()
                 if not version_match:
-                    with open(g_proton.lib_dir + "wine/amdprop/amdxcffx64_version", "w") as file:
-                        file.write(versions[1] + "\n")
+                    with open(version_file, "w") as file:
+                        file.write(version + "\n")
 
         if "hdr" in self.compat_config:
             self.env["DXVK_HDR"] = "1"
@@ -1915,7 +1922,7 @@ class Session:
                     if var in self.env:
                         self.log_file.write("Effective " + var + ": " + self.env[var] + "\n")
 
-                if "fsr4" in self.compat_config:
+                if "fsr4" in self.compat_config or "fsr4rdna3" in self.compat_config:
                     if file_exists(g_proton.lib_dir + "wine/amdprop/amdxcffx64.dll", follow_symlinks=False):
                         self.log_file.write("INFO: Automatic FSR4 upgrade enabled!\n")
                     else:
