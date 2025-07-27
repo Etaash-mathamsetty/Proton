@@ -1835,40 +1835,6 @@ class Session:
             if "SDL_GAMECONTROLLER_IGNORE_DEVICES" in self.env:
                 del self.env["SDL_GAMECONTROLLER_IGNORE_DEVICES"]
 
-        if "fsr4" in self.compat_config or "fsr4rdna3" in self.compat_config:
-            self.env["FSR4_UPGRADE"] = "1"
-
-            versions = { "4.0.0": "67A4D2BC10ad000",
-                         "4.0.1": "67D435F7d97000", }
-            version = versions["4.0.0"]
-
-            if "fsr4rdna3" in self.compat_config:
-                self.env["DXIL_SPIRV_CONFIG"] = "wmma_rdna3_workaround"
-
-            # TODO: make the following code more efficent
-
-            # 0. Check downloaded version
-            version_match = False
-            version_file = g_proton.lib_dir + "wine/amdprop/amdxcffx64_version"
-            if file_exists(version_file, follow_symlinks=False):
-                with open(version_file, "r") as file:
-                    first_line = file.readline()
-                    if first_line == version:
-                        version_match = True
-
-            # 1. Download amdxcffx64 library
-            fsr_dll_url = "https://download.amd.com/dir/bin/amdxcffx64.dll/" + version + "/amdxcffx64.dll"
-            fsr_dll = g_proton.lib_dir + "wine/amdprop/amdxcffx64.dll"
-            if not file_exists(fsr_dll, follow_symlinks=False) or not version_match:
-                self.download_file(fsr_dll_url, fsr_dll)
-
-            # 2. Update stored version
-            if file_exists(fsr_dll, follow_symlinks=False):
-                g_compatdata.setup_fsr4()
-                if not version_match:
-                    with open(version_file, "w") as file:
-                        file.write(version + "\n")
-
         if "hdr" in self.compat_config:
             self.env["DXVK_HDR"] = "1"
 
@@ -1951,6 +1917,40 @@ class Session:
 
         if update_prefix_files:
             g_compatdata.setup_prefix()
+
+        if "fsr4" in self.compat_config or "fsr4rdna3" in self.compat_config:
+            self.env["FSR4_UPGRADE"] = "1"
+
+            versions = { "4.0.0": "67A4D2BC10ad000",
+                         "4.0.1": "67D435F7d97000", }
+            version = versions["4.0.0"]
+
+            if "fsr4rdna3" in self.compat_config:
+                self.env["DXIL_SPIRV_CONFIG"] = "wmma_rdna3_workaround"
+
+            # TODO: make the following code more efficent
+
+            # 0. Check downloaded version
+            version_match = False
+            version_file = g_proton.lib_dir + "wine/amdprop/amdxcffx64_version"
+            if file_exists(version_file, follow_symlinks=False):
+                with open(version_file, "r") as file:
+                    first_line = file.readline()
+                    if first_line == version:
+                        version_match = True
+
+            # 1. Download amdxcffx64 library
+            fsr_dll_url = "https://download.amd.com/dir/bin/amdxcffx64.dll/" + version + "/amdxcffx64.dll"
+            fsr_dll = g_proton.lib_dir + "wine/amdprop/amdxcffx64.dll"
+            if not file_exists(fsr_dll, follow_symlinks=False) or not version_match:
+                self.download_file(fsr_dll_url, fsr_dll)
+
+            # 2. Update stored version
+            if file_exists(fsr_dll, follow_symlinks=False):
+                g_compatdata.setup_fsr4()
+                if not version_match:
+                    with open(version_file, "w") as file:
+                        file.write(version + "\n")
 
         if "nod3d11" in self.compat_config:
             self.dlloverrides["d3d11"] = ""
