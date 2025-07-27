@@ -17,6 +17,7 @@ Pass in the following environment variables to your game to adjust the features 
 4. `PROTON_ADD_CONFIG=option1,option2,option3` List of options is below:
     - `sdlinput` is equivalent to `PROTON_USE_SDL=1`
     - `fsr4` is equivalent to `PROTON_FSR4_UPGRADE=1`
+    - `fsr4rdna3` is equivalent to `PROTON_FSR4_UPGRADE=1 DXIL_SPIRV_CONFIG=wmma_rdna3_workaround`
     - `hdr` is equivalent to `PROTON_ENABLE_HDR=1`
     - `wayland` is equivalent to `PROTON_USE_WAYLAND=1`
     - `wow64` is equivalent to `PROTON_USE_WOW64=1`
