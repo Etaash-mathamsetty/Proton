@@ -1979,7 +1979,8 @@ class Session:
                 """
                 self.env["PROTON_USE_XALIA"] = "0"
                 # Steam input does not work on wayland
-                self.env["PROTON_NO_STEAMINPUT"] = "1"
+                if "PROTON_NO_STEAMINPUT" not in self.env:
+                    self.env["PROTON_NO_STEAMINPUT"] = "1"
                 # Make sure SDL will still work with the controllers, steam sets this for some dumb reason
                 if "SDL_GAMECONTROLLER_IGNORE_DEVICES" in self.env:
                     del self.env["SDL_GAMECONTROLLER_IGNORE_DEVICES"]
