@@ -59,6 +59,7 @@ x86_64_CFLAGS  := -mcmodel=small -march=nocona -mtune=core-avx2 -mfpmath=sse
 CFLAGS  = -O2 -fwrapv -fno-strict-aliasing
 CFLAGS += -ggdb -ffunction-sections -fdata-sections -fno-omit-frame-pointer
 CFLAGS += -ffile-prefix-map=$(CCACHE_BASEDIR)=.
+CFLAGS += -Wl,--exclude-libs=libstdc++.a
 
 ifneq ($(SUPPRESS_WARNINGS),)
 	CFLAGS += -w
@@ -667,6 +668,9 @@ $(eval $(call rules-cmake,vosk,x86_64,unix))
 ##
 ## wine
 ##
+
+# HACK: glib 2.0 in the runtime is old and causes a lot of errors with a newer GCC
+WINE_CFLAGS += -Wno-discarded-qualifiers
 
 WINE_SOURCE_ARGS = \
   --exclude configure \
