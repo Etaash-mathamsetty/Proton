@@ -215,6 +215,7 @@ GST_GOOD_MESON_ARGS := \
 	-Davi=enabled \
 	-Ddebugutils=enabled \
 	-Ddeinterlace=enabled \
+	-Dicydemux=enabled \
 	-Disomp4=enabled \
 	-Dmatroska=enabled \
 	-Dmpg123=enabled \
