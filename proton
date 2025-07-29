@@ -2176,6 +2176,10 @@ class Session:
         append_to_env_str(self.env, "WINEDLLOVERRIDES", s, ";")
 
         if platform.machine() == 'aarch64':
+            if os.environ.get("SteamGameId", 0) == "1167630": # Teardown
+                # https://github.com/microsoft/mimalloc/issues/958
+                self.env["MIMALLOC_DISABLE_REDIRECT"] = "1"
+
             if not 'FEX_APP_CONFIG' in self.env:
                 # custom per-app config driven by Steam env vars
                 app_config = self.generate_fex_app_config()
