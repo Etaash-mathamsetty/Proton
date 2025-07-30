@@ -807,6 +807,8 @@ int main(int argc, char *argv[])
 
     if (getenv("SteamGameId"))
     {
+        WCHAR path[MAX_PATH], *p;
+
         /* do setup only for game process */
         event = CreateEventW( NULL, FALSE, FALSE, L"Steam3Master_SharedMemLock" );
 
@@ -816,6 +818,17 @@ int main(int argc, char *argv[])
         CreateThread(NULL, 0, create_steam_windows, NULL, 0, NULL);
 
         set_active_process_pid();
+
+        SetEnvironmentVariableW(L"SteamPath", L"C:\\Program Files (x86)\\Steam");
+        *path = 0;
+        GetModuleFileNameW(NULL, path, ARRAY_SIZE(path));
+        p = path;
+        while (*p)
+        {
+            if (*p == '\\') *p = '/';
+            ++p;
+        }
+        SetEnvironmentVariableW(L"ValvePlatformMutex", path);
 
         setup_steam_registry();
         setup_steam_files();
