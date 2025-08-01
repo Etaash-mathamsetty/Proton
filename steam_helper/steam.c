@@ -658,6 +658,7 @@ static void setup_steam_files(void)
         else
         {
             pos += strappend( &buf, &buf_size, pos, "\t\"%u\"\n\t{\n\t\t\"path\"\t\t\"%s\"\n\t}\n", index, str );
+            ++index;
             free( str );
         }
     }
@@ -681,6 +682,7 @@ static void setup_steam_files(void)
         else
         {
             pos += strappend( &buf, &buf_size, pos, "\t\"%u\"\n\t{\n\t\t\"path\"\t\t\"%s\"\n\t}\n", index, str );
+            ++index;
             free( str );
         }
         free( path );
