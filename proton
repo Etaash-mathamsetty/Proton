@@ -1984,6 +1984,9 @@ class Session:
                 # Make sure SDL will still work with the controllers, steam sets this for some dumb reason
                 if "SDL_GAMECONTROLLER_IGNORE_DEVICES" in self.env:
                     del self.env["SDL_GAMECONTROLLER_IGNORE_DEVICES"]
+        else: # X11 specific changes to increase compat
+            # Surfaceless supports less formats than x11
+            self.env["GST_GL_WINDOW"] = "x11"
 
 
         if "forcenvapi" in self.compat_config:
