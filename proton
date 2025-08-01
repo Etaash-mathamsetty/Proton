@@ -1502,6 +1502,11 @@ class Session:
         elif appid in default_cpu_limit:
             self.env["WINE_CPU_TOPOLOGY"] = str(default_cpu_limit[appid])
 
+        if "WINE_HIDE_AMD_GPU" not in self.env and appid in [
+                    "1282690",
+                ]:
+            self.env["WINE_HIDE_AMD_GPU"] = "1"
+
     def init_wine(self):
         if "HOST_LC_ALL" in self.env and len(self.env["HOST_LC_ALL"]) > 0:
             #steam sets LC_ALL=C to help some games, but Wine requires the real value
