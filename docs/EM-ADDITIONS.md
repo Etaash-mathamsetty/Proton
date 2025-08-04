@@ -4,6 +4,12 @@
 
 If you are confused about the version numbers, just know I switched to hexdecimal for version numbers recently.
 
+## Notes
+
+- Use UMU to run this Proton outside of Steam
+- If something that uses electron/CEF doesn't work with winewayland try `--in-process-gpu`
+- Run steam with `-steamos3` to make steam input work with winewayland
+
 ## Options
 
 Pass in the following environment variables to your game to adjust the features available in Proton-EM.
@@ -33,9 +39,5 @@ Pass in the following environment variables to your game to adjust the features 
     - Might be needed due to unaccelerated input being overly sensitive on some setups
 9. `PROTON_NO_NTSYNC=1` disables NTsync (Proton-EM 10.0-27 and higher)
 
-## Notes
-
-- Use UMU to run this Proton outside of Steam
-- If something that uses electron/CEF doesn't work with winewayland try `--in-process-gpu`
 
 Have fun gaming!
