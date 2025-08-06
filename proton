@@ -39,6 +39,8 @@ from ctypes import c_ssize_t
 from filelock import FileLock
 from random import randrange
 
+import protonfixes
+
 #To enable debug logging, copy "user_settings.sample.py" to "user_settings.py"
 #and edit it if needed.
 
@@ -315,23 +317,7 @@ def setup_dir_drive(compat_option, drive_name, dest_dir):
         elif file_exists(drive_path, follow_symlinks=False):
             os.remove(drive_path)
 
-def is_directory_empty(dir_path):
-    # Check if the directory is empty
-    return not any(os.scandir(dir_path))
-
 def setup_game_dir_drive():
-    if os.environ.get('UMU_ID', ''):
-        drive_map = {
-            "/media": "u:",
-            "/run/media": "v:",
-            "/mnt": "w:",
-            os.path.expanduser("~"): "x:"  # Current user's home directory
-        }
-
-        for directory in drive_map.keys():
-            if os.path.exists(directory) and not is_directory_empty(directory):
-                setup_dir_drive("gamedrive", drive_map[directory], directory)
-    else:
         setup_dir_drive("gamedrive", "s:", try_get_game_library_dir())
 
 def setup_steam_dir_drive():
@@ -2077,53 +2063,14 @@ if __name__ == "__main__":
 
     g_session.init_wine()
 
-    # This is needed for protonfixes
-    os.environ["PROTON_DLL_COPY"] = "*"
-
     if g_proton.missing_default_prefix():
         g_proton.make_default_prefix()
 
     g_session.init_session(sys.argv[1] != "runinprefix")
 
-    # Allow umu clients to run winetricks verbs and be the frontend for them
-    if (
-        g_session.env.get("UMU_ID")
-        and g_session.env.get("EXE", "").endswith("winetricks")
-        and g_session.env.get("PROTON_VERB") == "waitforexitandrun"
-    ):
-        wt_verbs = " ".join(sys.argv[2:][2:])
-        g_session.env["WINE"] = g_proton.wine_bin
-        g_session.env["WINELOADER"] = g_proton.wine_bin
-        g_session.env["WINESERVER"] = g_proton.wineserver_bin
-        g_session.env["WINETRICKS_LATEST_VERSION_CHECK"] = "disabled"
-        g_session.env["LD_PRELOAD"] = ""
-
-        log(f"Running winetricks verbs in prefix: {wt_verbs}")
-        rc = subprocess.run(sys.argv[2:], check=False, env=g_session.env).returncode
-
-        sys.exit(rc)
-
-    import protonfixes
     protonfixes.setup(g_session.env, "PATH", ld_path_var, prepend_to_env_str)
-
-    # Allow umu clients to run winetricks verbs and be the frontend for them
-    if (
-        g_session.env.get("UMU_ID")
-        and g_session.env.get("EXE", "").endswith("winetricks")
-        and g_session.env.get("PROTON_VERB") == "waitforexitandrun"
-    ):
-        wt_verbs = " ".join(sys.argv[2:][2:])
-        g_session.env["WINE"] = g_proton.wine_bin
-        g_session.env["WINELOADER"] = g_proton.wine_bin
-        g_session.env["WINESERVER"] = g_proton.wineserver_bin
-        g_session.env["WINETRICKS_LATEST_VERSION_CHECK"] = "disabled"
-        g_session.env["LD_PRELOAD"] = ""
-
-        log(f"Running winetricks verbs in prefix: {wt_verbs}")
-        rc = subprocess.run(sys.argv[2:], check=False, env=g_session.env).returncode
-
-        sys.exit(rc)
-
+    protonfixes.setup_mount_drives(setup_dir_drive)
+    protonfixes.winetricks(g_session.env, g_proton.wine_bin, g_proton.wineserver_bin)
     protonfixes.execute()
 
     #determine mode
