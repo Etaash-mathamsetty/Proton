@@ -1330,6 +1330,8 @@ def default_compat_config():
                 "2531310", #The Last of Us Part II Remastered
                 "2564460", #Banter
                 "2680010", #The First Berserker: Khazan
+                "3438330", #Firefly Village Demo
+                "3393740", #Firefly Village
                 ]:
             ret.add("gamedrive")
 
