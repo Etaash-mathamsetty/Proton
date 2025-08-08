@@ -1231,11 +1231,10 @@ def default_compat_config():
                 #affected by CW bug 20240
                 "1331440", #FUSER
 
-                #CW bug 24913
-                "2620730",
-
-                #CW bug 25730
-                "2882920",
+                #affected by Unity race
+                "2620730", #DEVIATOR - CW bug 24913
+                "2882920", #SSR Wives: The Murder Of My Winter Crush Demo - CW bug 25730
+                "2712910", #Spark & Kling - CW bug 25778
                 ]:
             ret.add("nomfdxgiman")
 
