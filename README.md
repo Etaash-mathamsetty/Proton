@@ -150,6 +150,28 @@ is only useful after building Proton.
 `make dxvk` / `make vkd3d-proton` - rebuild DXVK / vkd3d-proton.
 
 
+### Figuring Out What Failed To Build
+
+Proton build system invokes builds of many subprojects in parallel. If one
+subprojects fails there can be thousands of lines printed by other sub-builds
+before the top level exits. This can make the real reason of the build failing
+hard to find.
+
+Appending `2>&1 | tee build.log` will log the full build output to a `build.log`
+file. Searching that file from the bottom up for occurrences of `Error` should
+point to the right area. E.g.:
+
+```
+make 2>&1 | tee build.log
+grep -n '] Error [0-9]' build.log
+```
+
+```
+11220:make: *** [../Makefile.in:465: /builds/proton/proton/build-dir/.kaldi-i386-configure] Error 1
+12427:make: *** [../Makefile.in:1323: deploy] Error 2
+```
+
+
 ### Debug Builds
 
 To prevent symbol stripping add `UNSTRIPPED_BUILD=1` to the `make`
