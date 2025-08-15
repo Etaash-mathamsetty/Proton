@@ -1331,6 +1331,7 @@ def default_compat_config():
                 "2680010", #The First Berserker: Khazan
                 "3438330", #Firefly Village Demo
                 "3393740", #Firefly Village
+                "2840770", #Avatar: Frontiers of Pandora
                 ]:
             ret.add("gamedrive")
 
