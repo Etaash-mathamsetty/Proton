@@ -37,6 +37,7 @@ Pass in the following environment variables to your game to adjust the features 
     - This is not needed for winedmo, since the mediaconverter implementation of the codecs doesn't override the underlying implementation.
 8. `WAYLANDDRV_RAWINPUT=0` disables unaccelerated input and uses accelerated input. Requires Proton-EM 10.0-1e or higher
     - Might be needed due to unaccelerated input being overly sensitive on some setups
+    - On Proton-EM 10.0-2D and higher you can pass in any positive real number (like 0.5) to adjust the sensitivity of rawinput
 9. `PROTON_NO_NTSYNC=1` disables NTsync (Proton-EM 10.0-27 and higher)
 
 
