@@ -383,6 +383,8 @@ FFMPEG_CONFIGURE_ARGS := \
 	--disable-programs \
 	--disable-doc \
 	--disable-inline-asm \
+	--enable-protocol='file,rtmp,rtp,rtsp' \
+	--enable-filter='scale' \
 	--enable-decoder=indeo5 \
 	--enable-decoder=adpcm_ms \
 	--enable-decoder=mpegvideo \
@@ -413,17 +415,12 @@ FFMPEG_CONFIGURE_ARGS := \
 	--enable-decoder=flac \
 	--enable-decoder=alac \
 	--enable-decoder=pcm* \
-	--enable-decoder=valve* \
 	--enable-decoder=apng \
 	--enable-decoder=libvpx_vp8 \
 	--enable-decoder=libvpx_vp9 \
 	--enable-encoder=aac \
 	--enable-encoder=h264_vaapi \
 	--enable-encoder=hevc_vaapi \
-	--enable-encoder=h264_nvenc \
-	--enable-encoder=hevc_nvenc \
-	--enable-encoder=h264_amf \
-	--enable-encoder=hevc_amf \
 	--enable-demuxer=xwma \
 	--enable-demuxer=matroska \
 	--enable-demuxer=mp4 \
@@ -436,13 +433,18 @@ FFMPEG_CONFIGURE_ARGS := \
 	--enable-demuxer=wav \
 	--enable-demuxer=flv \
 	--enable-demuxer=apng \
-	--enable-muxer=aac \
+	--enable-demuxer=asf \
+	--enable-demuxer=rtsp \
+	--enable-muxer=asf \
+	--enable-muxer=asf_stream \
 	--enable-muxer=flv \
 	--enable-muxer=mp4 \
 	--enable-muxer=dash \
 	--enable-muxer=webm \
 	--enable-parser=h264 \
-	--enable-parser=hevc
+	--enable-parser=hevc \
+	--enable-parser=vc1 \
+	--enable-parser=mpegaudio
 
 
 FFMPEG_i386-unix_CONFIGURE_ARGS := \
