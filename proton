@@ -1407,6 +1407,13 @@ def default_compat_config():
                 ]:
             ret.add("hideapu")
 
+        if appid in [
+                "249610", # Galactic Arms Race
+                "287240", # Eterium Demo
+                "280200", # Eterium
+                ]:
+            ret.add("fnad3d11")
+
     #options to also be enabled for prerequisite setup steps
     if "STEAM_COMPAT_APP_ID" in os.environ:
         appid = os.environ["STEAM_COMPAT_APP_ID"]
@@ -1838,6 +1845,9 @@ class Session:
 
         if "hdr" in self.compat_config:
             self.env["DXVK_HDR"] = "1"
+
+        if "fnad3d11" in self.compat_config and "FNA3D_FORCE_DRIVER" not in self.env:
+            self.env["FNA3D_FORCE_DRIVER"] = "D3D11"
 
         # igdext is loaded either using the LoadLibraryExW hack on 1.3 or lower
         # or using the INTC_ALT_DRIVER_EXTENSIONS_PATH on 2.0 or newer
