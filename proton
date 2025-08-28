@@ -1472,7 +1472,7 @@ class Session:
         if os.environ.get("SteamGameId", 0) == "352130":
             del self.dlloverrides["steam.exe"]
 
-        if os.environ.get("SteamGameId", 0) not in ["2767030"]:
+        if os.environ.get("SteamGameId", 0) not in ["2767030", "2274200"]:
             self.dlloverrides["opencl"] = "n,d"
 
         self.compat_config = default_compat_config()
