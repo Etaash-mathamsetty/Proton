@@ -1933,7 +1933,8 @@ class Session:
             self.env["FSR4_UPGRADE"] = "1"
 
             versions = { "4.0.0": "67A4D2BC10ad000",
-                         "4.0.1": "67D435F7d97000", }
+                         "4.0.1": "67D435F7d97000",
+                         "4.0.2": "68840348eb8000" }
             version = versions["4.0.0"]
 
             if "fsr4rdna3" in self.compat_config:
