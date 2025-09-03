@@ -7,9 +7,3 @@ if (is_hwnd_syslink) {
 if (win32_class_name == "Rockstar Games Launcher Installer") {
     application_supports_gamepad: true;
 }
-
-if (win32_class_name >= "WindowsForms10." and win32_class_name < "WindowsForms10/") {
-    // Controls that delegate IEnumVariant in winforms can crash in Wine Mono when queried, don't touch them for now.
-    recurse: false;
-    interactable: false;
-}
