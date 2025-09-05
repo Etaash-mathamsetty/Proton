@@ -63,7 +63,7 @@ NTSTATUS ISteamUser_SteamUser008_InitiateGameConnection( void *args )
 {
     struct ISteamUser_SteamUser008_InitiateGameConnection_params *params = (struct ISteamUser_SteamUser008_InitiateGameConnection_params *)args;
     struct u_ISteamUser_SteamUser008 *iface = (struct u_ISteamUser_SteamUser008 *)params->u_iface;
-    params->_ret = iface->InitiateGameConnection( params->pBlob, params->cbMaxBlob, params->steamID, &params->gameID, params->unIPServer, params->usPortServer, params->bSecure, params->pvSteam2GetEncryptionKey, params->cbSteam2GetEncryptionKey );
+    params->_ret = iface->InitiateGameConnection( params->pBlob, params->cbMaxBlob, params->steamID, params->gameID, params->unIPServer, params->usPortServer, params->bSecure, params->pvSteam2GetEncryptionKey, params->cbSteam2GetEncryptionKey );
     return 0;
 }
 
@@ -72,7 +72,7 @@ NTSTATUS wow64_ISteamUser_SteamUser008_InitiateGameConnection( void *args )
 {
     struct wow64_ISteamUser_SteamUser008_InitiateGameConnection_params *params = (struct wow64_ISteamUser_SteamUser008_InitiateGameConnection_params *)args;
     struct u_ISteamUser_SteamUser008 *iface = (struct u_ISteamUser_SteamUser008 *)params->u_iface;
-    params->_ret = iface->InitiateGameConnection( params->pBlob, params->cbMaxBlob, params->steamID, &params->gameID, params->unIPServer, params->usPortServer, params->bSecure, params->pvSteam2GetEncryptionKey, params->cbSteam2GetEncryptionKey );
+    params->_ret = iface->InitiateGameConnection( params->pBlob, params->cbMaxBlob, params->steamID, params->gameID, params->unIPServer, params->usPortServer, params->bSecure, params->pvSteam2GetEncryptionKey, params->cbSteam2GetEncryptionKey );
     return 0;
 }
 #endif

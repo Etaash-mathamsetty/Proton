@@ -315,6 +315,11 @@ MANUAL_METHODS = {
     "ISteamRemoteStorage_UpdatePublishedFile": lambda ver, abi: abi == 'u' and ver >= 5,
 }
 
+CGameID_REF_FIXUP_INTERFACES = [
+    "ISteamUser_SteamUser008",
+    "ISteamUserStats_STEAMUSERSTATS_INTERFACE_VERSION001",
+    "ISteamUserStats_STEAMUSERSTATS_INTERFACE_VERSION002",
+]
 
 DEFINE_INTERFACE_VERSION = re.compile(r'^#define\s*(?P<name>STEAM(?:\w*)_VERSION(?:\w*))\s*"(?P<version>.*)"')
 
@@ -840,12 +845,7 @@ class Class:
             # CGameID -> CGameID &
             # Windows side follows the prototype in the header while Linux
             # steamclient treats gameID parameter as pointer
-            if self.full_name == 'ISteamUser_SteamUser008' \
-               and method.name == 'InitiateGameConnection':
-                types[3] = 'CGameID *'
-
-            if self.full_name == 'ISteamUserStats_STEAMUSERSTATS_INTERFACE_VERSION001' \
-                or self.full_name == 'ISteamUserStats_STEAMUSERSTATS_INTERFACE_VERSION002':
+            if self.full_name in CGameID_REF_FIXUP_INTERFACES:
                 for i, t in enumerate(types):
                     if t == 'CGameID':
                         types[i] = 'CGameID &'
@@ -1129,13 +1129,6 @@ def handle_method_cpp(method, classname, out, wow64):
         return f'params->{name}'
 
     params = [param_call(n, p) for n, p in zip(names[1:], method.get_arguments())]
-
-    # CGameID -> CGameID &
-    # Windows side follows the prototype in the header while Linux
-    # steamclient treats gameID parameter as pointer
-    if klass.full_name == 'ISteamUser_SteamUser008' \
-       and method.name == 'InitiateGameConnection':
-        params[3] = f'&{params[3]}'
 
     out(f'iface->{method.spelling}( {", ".join(params)} );\n')
 
