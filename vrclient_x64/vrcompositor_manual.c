@@ -1782,3 +1782,162 @@ uint32_t __thiscall winIVRCompositor_IVRCompositor_028_SetSkyboxOverride( struct
     set_skybox_override_done( pTextures, unTextureCount );
     return params._ret;
 }
+
+
+uint32_t __thiscall winIVRCompositor_IVRCompositor_029_WaitGetPoses( struct w_iface *_this,
+                                                                     TrackedDevicePose_t *pRenderPoseArray, uint32_t unRenderPoseArrayCount,
+                                                                     TrackedDevicePose_t *pGamePoseArray, uint32_t unGamePoseArrayCount )
+{
+    struct IVRCompositor_IVRCompositor_029_WaitGetPoses_params params =
+    {
+        .u_iface = _this->u_iface,
+        .pRenderPoseArray = pRenderPoseArray,
+        .unRenderPoseArrayCount = unRenderPoseArrayCount,
+        .pGamePoseArray = pGamePoseArray,
+        .unGamePoseArrayCount = unGamePoseArrayCount,
+    };
+    TRACE( "%p\n", _this );
+    wait_get_poses_init( _this->u_iface );
+
+    if (compositor_data.dxvk_device && compositor_data.d3d11_explicit_handoff && !compositor_data.handoff_called)
+    {
+        struct IVRCompositor_IVRCompositor_029_PostPresentHandoff_params params = {.u_iface = _this->u_iface};
+        /* Calling handoff after submit is optional for d3d11 but mandatory for Vulkan
+         * if explicit timing mode is set. */
+        VRCLIENT_CALL( IVRCompositor_IVRCompositor_029_PostPresentHandoff, &params );
+    }
+
+    VRCLIENT_CALL( IVRCompositor_IVRCompositor_029_WaitGetPoses, &params );
+
+    if (compositor_data.dxvk_device && compositor_data.d3d11_explicit_handoff)
+    {
+        struct IVRCompositor_IVRCompositor_029_SubmitExplicitTimingData_params params = {.u_iface = _this->u_iface};
+        VRCLIENT_CALL( IVRCompositor_IVRCompositor_029_SubmitExplicitTimingData, &params );
+    }
+
+    wait_get_poses_done( _this->u_iface );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVRCompositor_IVRCompositor_029_Submit( struct w_iface *_this,
+                                                               uint32_t eEye, const w_Texture_t *pTexture,
+                                                               const VRTextureBounds_t *pBounds, uint32_t nSubmitFlags )
+{
+    struct submit_state state = {0};
+    struct IVRCompositor_IVRCompositor_029_Submit_params params =
+    {
+        .u_iface = _this->u_iface,
+        .eEye = eEye,
+        .pTexture = pTexture,
+        .pBounds = pBounds,
+        .nSubmitFlags = nSubmitFlags,
+    };
+    TRACE( "_this %p, eEye %u, pTexture %p (eType %u), pBounds %p, nSubmitFlags %#x\n", _this, eEye, pTexture, pTexture->eType, pBounds, nSubmitFlags );
+
+    compositor_data.handoff_called = FALSE;
+    params.pTexture = load_compositor_texture( eEye, pTexture, &params.nSubmitFlags, &state, ~0u );
+    VRCLIENT_CALL( IVRCompositor_IVRCompositor_029_Submit, &params );
+    free_compositor_texture( pTexture->eType, &state );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVRCompositor_IVRCompositor_029_SubmitWithArrayIndex( struct w_iface *_this,
+                                                               uint32_t eEye, const w_Texture_t *pTexture, uint32_t unTextureArrayIndex,
+                                                               const VRTextureBounds_t *pBounds, uint32_t nSubmitFlags )
+{
+    struct submit_state state = {0};
+    uint32_t ret;
+
+    TRACE( "_this %p, eEye %u, pTexture %p (eType %u), unTextureArrayIndex %u, pBounds %p, nSubmitFlags %#x\n",
+            _this, eEye, pTexture, pTexture->eType, unTextureArrayIndex, pBounds, nSubmitFlags );
+
+    compositor_data.handoff_called = FALSE;
+    if (pTexture->eType == TextureType_DirectX)
+    {
+        struct IVRCompositor_IVRCompositor_029_Submit_params params =
+        {
+            .u_iface = _this->u_iface,
+            .eEye = eEye,
+            .pTexture = pTexture,
+            .pBounds = pBounds,
+            .nSubmitFlags = nSubmitFlags,
+        };
+
+        params.pTexture = load_compositor_texture_dxvk( eEye, pTexture, &params.nSubmitFlags, &state, unTextureArrayIndex );
+        VRCLIENT_CALL( IVRCompositor_IVRCompositor_029_Submit, &params );
+        ret = params._ret;
+    }
+    else if (pTexture->eType == TextureType_DirectX12)
+    {
+        struct IVRCompositor_IVRCompositor_029_Submit_params params =
+        {
+            .u_iface = _this->u_iface,
+            .eEye = eEye,
+            .pTexture = pTexture,
+            .pBounds = pBounds,
+            .nSubmitFlags = nSubmitFlags,
+        };
+
+        params.pTexture = load_compositor_texture_d3d12( eEye, pTexture, &params.nSubmitFlags, &state, unTextureArrayIndex );
+        VRCLIENT_CALL( IVRCompositor_IVRCompositor_029_Submit, &params );
+        ret = params._ret;
+    }
+    else
+    {
+        struct IVRCompositor_IVRCompositor_029_SubmitWithArrayIndex_params params =
+        {
+            .u_iface = _this->u_iface,
+            .eEye = eEye,
+            .pTexture = pTexture,
+            .unTextureArrayIndex = unTextureArrayIndex,
+            .pBounds = pBounds,
+            .nSubmitFlags = nSubmitFlags,
+        };
+
+        VRCLIENT_CALL( IVRCompositor_IVRCompositor_029_SubmitWithArrayIndex, &params );
+        ret = params._ret;
+    }
+    free_compositor_texture( pTexture->eType, &state );
+    return ret;
+}
+
+void __thiscall winIVRCompositor_IVRCompositor_029_PostPresentHandoff( struct w_iface *_this )
+{
+    struct IVRCompositor_IVRCompositor_029_PostPresentHandoff_params params = {.u_iface = _this->u_iface};
+    TRACE( "%p\n", _this );
+    post_present_handoff_init( _this->u_iface, 28 );
+
+    if (compositor_data.dxvk_device && !compositor_data.d3d11_explicit_handoff)
+    {
+        struct IVRCompositor_IVRCompositor_029_SetExplicitTimingMode_params params =
+        {
+            .u_iface = _this->u_iface,
+            .eTimingMode = VRCompositorTimingMode_Explicit_ApplicationPerformsPostPresentHandoff,
+        };
+
+        /* PostPresentHandoff can be used with d3d11 without SetExplicitTimingMode
+         * (which is Vulkan / d3d12 only), but doing the same with Vulkan results
+         * in lockups and crashes. */
+        VRCLIENT_CALL( IVRCompositor_IVRCompositor_029_SetExplicitTimingMode, &params );
+        compositor_data.d3d11_explicit_handoff = TRUE;
+    }
+
+    VRCLIENT_CALL( IVRCompositor_IVRCompositor_029_PostPresentHandoff, &params );
+    post_present_handoff_done();
+}
+
+uint32_t __thiscall winIVRCompositor_IVRCompositor_029_SetSkyboxOverride( struct w_iface *_this,
+                                                                          const w_Texture_t *pTextures, uint32_t unTextureCount )
+{
+    struct set_skybox_override_state state = {0};
+    struct IVRCompositor_IVRCompositor_029_SetSkyboxOverride_params params =
+    {
+        .u_iface = _this->u_iface,
+        .pTextures = set_skybox_override_init( pTextures, unTextureCount, &state ),
+        .unTextureCount = unTextureCount,
+    };
+    TRACE( "%p\n", _this );
+    VRCLIENT_CALL( IVRCompositor_IVRCompositor_029_SetSkyboxOverride, &params );
+    set_skybox_override_done( pTextures, unTextureCount );
+    return params._ret;
+}

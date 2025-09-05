@@ -75,6 +75,7 @@ SOURCES = \
 	cppIVRCompositor_IVRCompositor_026.cpp \
 	cppIVRCompositor_IVRCompositor_027.cpp \
 	cppIVRCompositor_IVRCompositor_028.cpp \
+	cppIVRCompositor_IVRCompositor_029.cpp \
 	cppIVRControlPanel_IVRControlPanel_006.cpp \
 	cppIVRDriverManager_IVRDriverManager_001.cpp \
 	cppIVRExtendedDisplay_IVRExtendedDisplay_001.cpp \
@@ -141,6 +142,7 @@ SOURCES = \
 	cppIVRSystem_IVRSystem_020.cpp \
 	cppIVRSystem_IVRSystem_021.cpp \
 	cppIVRSystem_IVRSystem_022.cpp \
+	cppIVRSystem_IVRSystem_023.cpp \
 	cppIVRTrackedCamera_IVRTrackedCamera_001.cpp \
 	cppIVRTrackedCamera_IVRTrackedCamera_002.cpp \
 	cppIVRTrackedCamera_IVRTrackedCamera_003.cpp \

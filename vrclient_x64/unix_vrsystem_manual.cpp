@@ -39,3 +39,4 @@ VRCLIENT_UNIX_IMPL( IVRSystem, 019, GetOutputDevice );
 VRCLIENT_UNIX_IMPL( IVRSystem, 020, GetOutputDevice );
 VRCLIENT_UNIX_IMPL( IVRSystem, 021, GetOutputDevice );
 VRCLIENT_UNIX_IMPL( IVRSystem, 022, GetOutputDevice );
+VRCLIENT_UNIX_IMPL( IVRSystem, 023, GetOutputDevice );

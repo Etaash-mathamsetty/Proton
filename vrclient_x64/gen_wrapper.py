@@ -11,6 +11,7 @@ import os
 import re
 
 SDK_VERSIONS = [
+    "v2.12.14",
     "v2.7.1",
     "v2.5.1",
     "v2.2.3",
@@ -249,6 +250,7 @@ MANUAL_METHODS = {
     "IVRCompositor_PostPresentHandoff": lambda ver, abi: abi == 'w',
     "IVRCompositor_WaitGetPoses": lambda ver, abi: abi == 'w' and ver > 15,
     "IVRCompositor_GetVulkanDeviceExtensionsRequired": lambda ver, abi: abi == 'u',
+    "IVRCompositor_GetSubmitTexture": lambda ver, abi: abi == 'u',
     "IVRRenderModels_LoadTextureD3D11_Async": lambda ver, abi: abi == 'w',
     "IVRRenderModels_FreeTextureD3D11": lambda ver, abi: abi == 'w',
     "IVRRenderModels_LoadIntoTextureD3D11_Async": lambda ver, abi: abi == 'w',

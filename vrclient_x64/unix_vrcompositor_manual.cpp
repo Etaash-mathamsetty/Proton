@@ -242,6 +242,14 @@ static NTSTATUS IVRCompositor_SubmitWithArrayIndex( Iface *iface, Params *params
     return 0;
 }
 
+template< typename Iface, typename Params >
+static NTSTATUS IVRCompositor_GetSubmitTexture( Iface *iface, Params *params, bool wow64 )
+{
+    FIXME( "Not implemented.\n" );
+    params->_ret = 1; /* VRCompositorError_RequestFailed */;
+    return 0;
+}
+
 VRCLIENT_UNIX_IMPL( IVRCompositor, 009, SetSkyboxOverride );
 VRCLIENT_UNIX_IMPL( IVRCompositor, 009, Submit );
 VRCLIENT_UNIX_IMPL( IVRCompositor, 010, SetSkyboxOverride );
@@ -287,3 +295,8 @@ VRCLIENT_UNIX_IMPL( IVRCompositor, 028, GetVulkanDeviceExtensionsRequired );
 VRCLIENT_UNIX_IMPL( IVRCompositor, 028, SetSkyboxOverride );
 VRCLIENT_UNIX_IMPL( IVRCompositor, 028, Submit );
 VRCLIENT_UNIX_IMPL( IVRCompositor, 028, SubmitWithArrayIndex );
+VRCLIENT_UNIX_IMPL( IVRCompositor, 029, GetVulkanDeviceExtensionsRequired );
+VRCLIENT_UNIX_IMPL( IVRCompositor, 029, SetSkyboxOverride );
+VRCLIENT_UNIX_IMPL( IVRCompositor, 029, Submit );
+VRCLIENT_UNIX_IMPL( IVRCompositor, 029, SubmitWithArrayIndex );
+VRCLIENT_UNIX_IMPL( IVRCompositor, 029, GetSubmitTexture );

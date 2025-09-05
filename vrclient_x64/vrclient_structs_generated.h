@@ -1468,6 +1468,19 @@ struct VRControllerAxis_t
 };
 #pragma pack( pop )
 
+typedef struct VREyeTrackingData_t VREyeTrackingData_t;
+#pragma pack( push, 4 )
+struct VREyeTrackingData_t
+{
+    int8_t bActive;
+    int8_t bValid;
+    int8_t bTracked;
+    uint8_t __pad_3[1];
+    HmdVector3_t vGazeOrigin;
+    HmdVector3_t vGazeTarget;
+};
+#pragma pack( pop )
+
 typedef struct VROverlayIntersectionMaskPrimitive_t VROverlayIntersectionMaskPrimitive_t;
 #pragma pack( push, 4 )
 struct VROverlayIntersectionMaskPrimitive_t
@@ -4285,35 +4298,35 @@ struct u_IVRDebug_IVRDebug_001
 #endif /* __cplusplus */
 };
 
-struct w_IVRIPCResourceManagerClient_IVRIPCResourceManagerClient_001
+struct w_IVRIPCResourceManagerClient_IVRIPCResourceManagerClient_002
 {
 #ifdef __cplusplus
     virtual int8_t NewSharedVulkanImage( uint32_t, uint32_t, uint32_t, int8_t, int8_t, int8_t, uint32_t, uint32_t, uint64_t * ) = 0;
     virtual int8_t NewSharedVulkanBuffer( uint32_t, uint32_t, uint64_t * ) = 0;
-    virtual int8_t NewSharedVulkanSemaphore( uint64_t * ) = 0;
+    virtual int8_t NewSharedVulkanSemaphore( int8_t, uint64_t * ) = 0;
     virtual int8_t RefResource( uint64_t, uint64_t * ) = 0;
     virtual int8_t UnrefResource( uint64_t ) = 0;
     virtual int8_t GetDmabufFormats( uint32_t *, uint32_t * ) = 0;
     virtual int8_t GetDmabufModifiers( uint32_t, uint32_t, uint32_t *, uint64_t * ) = 0;
     virtual int8_t ImportDmabuf( uint32_t, w_DmabufAttributes_t *, uint64_t * ) = 0;
     virtual int8_t ReceiveSharedFd( uint64_t, int32_t * ) = 0;
-    virtual ~w_IVRIPCResourceManagerClient_IVRIPCResourceManagerClient_001(  ) = 0;
+    virtual ~w_IVRIPCResourceManagerClient_IVRIPCResourceManagerClient_002(  ) = 0;
 #endif /* __cplusplus */
 };
 
-struct u_IVRIPCResourceManagerClient_IVRIPCResourceManagerClient_001
+struct u_IVRIPCResourceManagerClient_IVRIPCResourceManagerClient_002
 {
 #ifdef __cplusplus
     virtual int8_t NewSharedVulkanImage( uint32_t, uint32_t, uint32_t, int8_t, int8_t, int8_t, uint32_t, uint32_t, uint64_t * ) = 0;
     virtual int8_t NewSharedVulkanBuffer( uint32_t, uint32_t, uint64_t * ) = 0;
-    virtual int8_t NewSharedVulkanSemaphore( uint64_t * ) = 0;
+    virtual int8_t NewSharedVulkanSemaphore( int8_t, uint64_t * ) = 0;
     virtual int8_t RefResource( uint64_t, uint64_t * ) = 0;
     virtual int8_t UnrefResource( uint64_t ) = 0;
     virtual int8_t GetDmabufFormats( uint32_t *, uint32_t * ) = 0;
     virtual int8_t GetDmabufModifiers( uint32_t, uint32_t, uint32_t *, uint64_t * ) = 0;
     virtual int8_t ImportDmabuf( uint32_t, u_DmabufAttributes_t *, uint64_t * ) = 0;
     virtual int8_t ReceiveSharedFd( uint64_t, int32_t * ) = 0;
-    virtual ~u_IVRIPCResourceManagerClient_IVRIPCResourceManagerClient_001(  ) = 0;
+    virtual ~u_IVRIPCResourceManagerClient_IVRIPCResourceManagerClient_002(  ) = 0;
 #endif /* __cplusplus */
 };
 
