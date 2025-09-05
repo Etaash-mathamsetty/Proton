@@ -844,6 +844,12 @@ class Class:
                and method.name == 'InitiateGameConnection':
                 types[3] = 'CGameID *'
 
+            if self.full_name == 'ISteamUserStats_STEAMUSERSTATS_INTERFACE_VERSION001' \
+                or self.full_name == 'ISteamUserStats_STEAMUSERSTATS_INTERFACE_VERSION002':
+                for i, t in enumerate(types):
+                    if t == 'CGameID':
+                        types[i] = 'CGameID &'
+
             if type(method) is Destructor:
                 out(f'    virtual ~{prefix}{self.full_name}( {", ".join(types)} ) = 0;\n')
             else:
