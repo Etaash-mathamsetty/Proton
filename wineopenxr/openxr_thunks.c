@@ -288,6 +288,18 @@ static NTSTATUS thunk64_xrCreateActionSpace(void *args)
 #endif /* _WIN64 */
 
 #ifdef _WIN64
+static NTSTATUS thunk64_xrCreateAnchorSpaceANDROID(void *args)
+{
+    struct xrCreateAnchorSpaceANDROID_params *params = args;
+
+    TRACE("%p, %p, %p\n", params->session, params->createInfo, params->anchorOutput);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrCreateAnchorSpaceANDROID(wine_session_from_handle(params->session)->host_session, params->createInfo, params->anchorOutput);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
 static NTSTATUS thunk64_xrCreateAnchorSpaceBD(void *args)
 {
     struct xrCreateAnchorSpaceBD_params *params = args;
@@ -331,6 +343,18 @@ static NTSTATUS thunk64_xrCreateBodyTrackerHTC(void *args)
     TRACE("%p, %p, %p\n", params->session, params->createInfo, params->bodyTracker);
 
     params->result = g_xr_host_instance_dispatch_table.p_xrCreateBodyTrackerHTC(wine_session_from_handle(params->session)->host_session, params->createInfo, params->bodyTracker);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrCreateDeviceAnchorPersistenceANDROID(void *args)
+{
+    struct xrCreateDeviceAnchorPersistenceANDROID_params *params = args;
+
+    TRACE("%p, %p, %p\n", params->session, params->createInfo, params->outHandle);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrCreateDeviceAnchorPersistenceANDROID(wine_session_from_handle(params->session)->host_session, params->createInfo, params->outHandle);
     return STATUS_SUCCESS;
 }
 #endif /* _WIN64 */
@@ -594,6 +618,18 @@ static NTSTATUS thunk64_xrCreatePassthroughLayerFB(void *args)
 #endif /* _WIN64 */
 
 #ifdef _WIN64
+static NTSTATUS thunk64_xrCreatePersistedAnchorSpaceANDROID(void *args)
+{
+    struct xrCreatePersistedAnchorSpaceANDROID_params *params = args;
+
+    TRACE("%p, %p, %p\n", params->handle, params->createInfo, params->anchorOutput);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrCreatePersistedAnchorSpaceANDROID(params->handle, params->createInfo, params->anchorOutput);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
 static NTSTATUS thunk64_xrCreatePlaneDetectorEXT(void *args)
 {
     struct xrCreatePlaneDetectorEXT_params *params = args;
@@ -613,6 +649,42 @@ static NTSTATUS thunk64_xrCreateReferenceSpace(void *args)
     TRACE("%p, %p, %p\n", params->session, params->createInfo, params->space);
 
     params->result = g_xr_host_instance_dispatch_table.p_xrCreateReferenceSpace(wine_session_from_handle(params->session)->host_session, params->createInfo, params->space);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrCreateRenderModelAssetEXT(void *args)
+{
+    struct xrCreateRenderModelAssetEXT_params *params = args;
+
+    TRACE("%p, %p, %p\n", params->session, params->createInfo, params->asset);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrCreateRenderModelAssetEXT(wine_session_from_handle(params->session)->host_session, params->createInfo, params->asset);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrCreateRenderModelEXT(void *args)
+{
+    struct xrCreateRenderModelEXT_params *params = args;
+
+    TRACE("%p, %p, %p\n", params->session, params->createInfo, params->renderModel);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrCreateRenderModelEXT(wine_session_from_handle(params->session)->host_session, params->createInfo, params->renderModel);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrCreateRenderModelSpaceEXT(void *args)
+{
+    struct xrCreateRenderModelSpaceEXT_params *params = args;
+
+    TRACE("%p, %p, %p\n", params->session, params->createInfo, params->space);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrCreateRenderModelSpaceEXT(wine_session_from_handle(params->session)->host_session, params->createInfo, params->space);
     return STATUS_SUCCESS;
 }
 #endif /* _WIN64 */
@@ -697,6 +769,18 @@ static NTSTATUS thunk64_xrCreateSpatialAnchorCompleteBD(void *args)
     TRACE("%p, %p, %p\n", params->provider, params->future, params->completion);
 
     params->result = g_xr_host_instance_dispatch_table.p_xrCreateSpatialAnchorCompleteBD(params->provider, params->future, params->completion);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrCreateSpatialAnchorEXT(void *args)
+{
+    struct xrCreateSpatialAnchorEXT_params *params = args;
+
+    TRACE("%p, %p, %p, %p\n", params->spatialContext, params->createInfo, params->anchorEntityId, params->anchorEntity);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrCreateSpatialAnchorEXT(params->spatialContext, params->createInfo, params->anchorEntityId, params->anchorEntity);
     return STATUS_SUCCESS;
 }
 #endif /* _WIN64 */
@@ -810,6 +894,54 @@ static NTSTATUS thunk64_xrCreateSpatialAnchorsStorageML(void *args)
 #endif /* _WIN64 */
 
 #ifdef _WIN64
+static NTSTATUS thunk64_xrCreateSpatialContextAsyncEXT(void *args)
+{
+    struct xrCreateSpatialContextAsyncEXT_params *params = args;
+
+    TRACE("%p, %p, %p\n", params->session, params->createInfo, params->future);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrCreateSpatialContextAsyncEXT(wine_session_from_handle(params->session)->host_session, params->createInfo, params->future);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrCreateSpatialContextCompleteEXT(void *args)
+{
+    struct xrCreateSpatialContextCompleteEXT_params *params = args;
+
+    TRACE("%p, %p, %p\n", params->session, params->future, params->completion);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrCreateSpatialContextCompleteEXT(wine_session_from_handle(params->session)->host_session, params->future, params->completion);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrCreateSpatialDiscoverySnapshotAsyncEXT(void *args)
+{
+    struct xrCreateSpatialDiscoverySnapshotAsyncEXT_params *params = args;
+
+    TRACE("%p, %p, %p\n", params->spatialContext, params->createInfo, params->future);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrCreateSpatialDiscoverySnapshotAsyncEXT(params->spatialContext, params->createInfo, params->future);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrCreateSpatialDiscoverySnapshotCompleteEXT(void *args)
+{
+    struct xrCreateSpatialDiscoverySnapshotCompleteEXT_params *params = args;
+
+    TRACE("%p, %p, %p\n", params->spatialContext, params->createSnapshotCompletionInfo, params->completion);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrCreateSpatialDiscoverySnapshotCompleteEXT(params->spatialContext, params->createSnapshotCompletionInfo, params->completion);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
 static NTSTATUS thunk64_xrCreateSpatialEntityAnchorBD(void *args)
 {
     struct xrCreateSpatialEntityAnchorBD_params *params = args;
@@ -817,6 +949,18 @@ static NTSTATUS thunk64_xrCreateSpatialEntityAnchorBD(void *args)
     TRACE("%p, %p, %p\n", params->provider, params->createInfo, params->anchor);
 
     params->result = g_xr_host_instance_dispatch_table.p_xrCreateSpatialEntityAnchorBD(params->provider, params->createInfo, params->anchor);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrCreateSpatialEntityFromIdEXT(void *args)
+{
+    struct xrCreateSpatialEntityFromIdEXT_params *params = args;
+
+    TRACE("%p, %p, %p\n", params->spatialContext, params->createInfo, params->spatialEntity);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrCreateSpatialEntityFromIdEXT(params->spatialContext, params->createInfo, params->spatialEntity);
     return STATUS_SUCCESS;
 }
 #endif /* _WIN64 */
@@ -834,6 +978,42 @@ static NTSTATUS thunk64_xrCreateSpatialGraphNodeSpaceMSFT(void *args)
 #endif /* _WIN64 */
 
 #ifdef _WIN64
+static NTSTATUS thunk64_xrCreateSpatialPersistenceContextAsyncEXT(void *args)
+{
+    struct xrCreateSpatialPersistenceContextAsyncEXT_params *params = args;
+
+    TRACE("%p, %p, %p\n", params->session, params->createInfo, params->future);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrCreateSpatialPersistenceContextAsyncEXT(wine_session_from_handle(params->session)->host_session, params->createInfo, params->future);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrCreateSpatialPersistenceContextCompleteEXT(void *args)
+{
+    struct xrCreateSpatialPersistenceContextCompleteEXT_params *params = args;
+
+    TRACE("%p, %p, %p\n", params->session, params->future, params->completion);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrCreateSpatialPersistenceContextCompleteEXT(wine_session_from_handle(params->session)->host_session, params->future, params->completion);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrCreateSpatialUpdateSnapshotEXT(void *args)
+{
+    struct xrCreateSpatialUpdateSnapshotEXT_params *params = args;
+
+    TRACE("%p, %p, %p\n", params->spatialContext, params->createInfo, params->snapshot);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrCreateSpatialUpdateSnapshotEXT(params->spatialContext, params->createInfo, params->snapshot);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
 static NTSTATUS thunk64_xrCreateSwapchain(void *args)
 {
     struct xrCreateSwapchain_params *params = args;
@@ -841,6 +1021,18 @@ static NTSTATUS thunk64_xrCreateSwapchain(void *args)
     TRACE("%p, %p, %p\n", params->session, params->createInfo, params->swapchain);
 
     params->result = wine_xrCreateSwapchain(params->session, params->createInfo, params->swapchain);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrCreateTrackableTrackerANDROID(void *args)
+{
+    struct xrCreateTrackableTrackerANDROID_params *params = args;
+
+    TRACE("%p, %p, %p\n", params->session, params->createInfo, params->trackableTracker);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrCreateTrackableTrackerANDROID(wine_session_from_handle(params->session)->host_session, params->createInfo, params->trackableTracker);
     return STATUS_SUCCESS;
 }
 #endif /* _WIN64 */
@@ -997,6 +1189,18 @@ static NTSTATUS thunk64_xrDestroyBodyTrackerHTC(void *args)
     TRACE("%p\n", params->bodyTracker);
 
     params->result = g_xr_host_instance_dispatch_table.p_xrDestroyBodyTrackerHTC(params->bodyTracker);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrDestroyDeviceAnchorPersistenceANDROID(void *args)
+{
+    struct xrDestroyDeviceAnchorPersistenceANDROID_params *params = args;
+
+    TRACE("%p\n", params->handle);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrDestroyDeviceAnchorPersistenceANDROID(params->handle);
     return STATUS_SUCCESS;
 }
 #endif /* _WIN64 */
@@ -1218,6 +1422,30 @@ static NTSTATUS thunk64_xrDestroyPlaneDetectorEXT(void *args)
 #endif /* _WIN64 */
 
 #ifdef _WIN64
+static NTSTATUS thunk64_xrDestroyRenderModelAssetEXT(void *args)
+{
+    struct xrDestroyRenderModelAssetEXT_params *params = args;
+
+    TRACE("%p\n", params->asset);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrDestroyRenderModelAssetEXT(params->asset);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrDestroyRenderModelEXT(void *args)
+{
+    struct xrDestroyRenderModelEXT_params *params = args;
+
+    TRACE("%p\n", params->renderModel);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrDestroyRenderModelEXT(params->renderModel);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
 static NTSTATUS thunk64_xrDestroySceneMSFT(void *args)
 {
     struct xrDestroySceneMSFT_params *params = args;
@@ -1338,6 +1566,30 @@ static NTSTATUS thunk64_xrDestroySpatialAnchorsStorageML(void *args)
 #endif /* _WIN64 */
 
 #ifdef _WIN64
+static NTSTATUS thunk64_xrDestroySpatialContextEXT(void *args)
+{
+    struct xrDestroySpatialContextEXT_params *params = args;
+
+    TRACE("%p\n", params->spatialContext);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrDestroySpatialContextEXT(params->spatialContext);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrDestroySpatialEntityEXT(void *args)
+{
+    struct xrDestroySpatialEntityEXT_params *params = args;
+
+    TRACE("%p\n", params->spatialEntity);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrDestroySpatialEntityEXT(params->spatialEntity);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
 static NTSTATUS thunk64_xrDestroySpatialGraphNodeBindingMSFT(void *args)
 {
     struct xrDestroySpatialGraphNodeBindingMSFT_params *params = args;
@@ -1350,6 +1602,30 @@ static NTSTATUS thunk64_xrDestroySpatialGraphNodeBindingMSFT(void *args)
 #endif /* _WIN64 */
 
 #ifdef _WIN64
+static NTSTATUS thunk64_xrDestroySpatialPersistenceContextEXT(void *args)
+{
+    struct xrDestroySpatialPersistenceContextEXT_params *params = args;
+
+    TRACE("%p\n", params->persistenceContext);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrDestroySpatialPersistenceContextEXT(params->persistenceContext);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrDestroySpatialSnapshotEXT(void *args)
+{
+    struct xrDestroySpatialSnapshotEXT_params *params = args;
+
+    TRACE("%p\n", params->snapshot);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrDestroySpatialSnapshotEXT(params->snapshot);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
 static NTSTATUS thunk64_xrDestroySwapchain(void *args)
 {
     struct xrDestroySwapchain_params *params = args;
@@ -1357,6 +1633,18 @@ static NTSTATUS thunk64_xrDestroySwapchain(void *args)
     TRACE("%p\n", params->swapchain);
 
     params->result = g_xr_host_instance_dispatch_table.p_xrDestroySwapchain(wine_swapchain_from_handle(params->swapchain)->host_swapchain);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrDestroyTrackableTrackerANDROID(void *args)
+{
+    struct xrDestroyTrackableTrackerANDROID_params *params = args;
+
+    TRACE("%p\n", params->trackableTracker);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrDestroyTrackableTrackerANDROID(params->trackableTracker);
     return STATUS_SUCCESS;
 }
 #endif /* _WIN64 */
@@ -1566,6 +1854,18 @@ static NTSTATUS thunk64_xrEnumerateInstanceExtensionProperties(void *args)
 #endif /* _WIN64 */
 
 #ifdef _WIN64
+static NTSTATUS thunk64_xrEnumerateInteractionRenderModelIdsEXT(void *args)
+{
+    struct xrEnumerateInteractionRenderModelIdsEXT_params *params = args;
+
+    TRACE("%p, %p, %u, %p, %p\n", params->session, params->getInfo, params->renderModelIdCapacityInput, params->renderModelIdCountOutput, params->renderModelIds);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrEnumerateInteractionRenderModelIdsEXT(wine_session_from_handle(params->session)->host_session, params->getInfo, params->renderModelIdCapacityInput, params->renderModelIdCountOutput, params->renderModelIds);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
 static NTSTATUS thunk64_xrEnumeratePerformanceMetricsCounterPathsMETA(void *args)
 {
     struct xrEnumeratePerformanceMetricsCounterPathsMETA_params *params = args;
@@ -1578,6 +1878,18 @@ static NTSTATUS thunk64_xrEnumeratePerformanceMetricsCounterPathsMETA(void *args
 #endif /* _WIN64 */
 
 #ifdef _WIN64
+static NTSTATUS thunk64_xrEnumeratePersistedAnchorsANDROID(void *args)
+{
+    struct xrEnumeratePersistedAnchorsANDROID_params *params = args;
+
+    TRACE("%p, %u, %p, %p\n", params->handle, params->anchorIdCapacityInput, params->anchorIdCountOutput, params->anchorIds);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrEnumeratePersistedAnchorsANDROID(params->handle, params->anchorIdCapacityInput, params->anchorIdCountOutput, params->anchorIds);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
 static NTSTATUS thunk64_xrEnumeratePersistedSpatialAnchorNamesMSFT(void *args)
 {
     struct xrEnumeratePersistedSpatialAnchorNamesMSFT_params *params = args;
@@ -1585,6 +1897,18 @@ static NTSTATUS thunk64_xrEnumeratePersistedSpatialAnchorNamesMSFT(void *args)
     TRACE("%p, %u, %p, %p\n", params->spatialAnchorStore, params->spatialAnchorNameCapacityInput, params->spatialAnchorNameCountOutput, params->spatialAnchorNames);
 
     params->result = g_xr_host_instance_dispatch_table.p_xrEnumeratePersistedSpatialAnchorNamesMSFT(params->spatialAnchorStore, params->spatialAnchorNameCapacityInput, params->spatialAnchorNameCountOutput, params->spatialAnchorNames);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrEnumerateRaycastSupportedTrackableTypesANDROID(void *args)
+{
+    struct xrEnumerateRaycastSupportedTrackableTypesANDROID_params *params = args;
+
+    TRACE("%p, 0x%s, %u, %p, %p\n", params->instance, wine_dbgstr_longlong(params->systemId), params->trackableTypeCapacityInput, params->trackableTypeCountOutput, params->trackableTypes);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrEnumerateRaycastSupportedTrackableTypesANDROID(wine_instance_from_handle(params->instance)->host_instance, params->systemId, params->trackableTypeCapacityInput, params->trackableTypeCountOutput, params->trackableTypes);
     return STATUS_SUCCESS;
 }
 #endif /* _WIN64 */
@@ -1609,6 +1933,18 @@ static NTSTATUS thunk64_xrEnumerateRenderModelPathsFB(void *args)
     TRACE("%p, %u, %p, %p\n", params->session, params->pathCapacityInput, params->pathCountOutput, params->paths);
 
     params->result = g_xr_host_instance_dispatch_table.p_xrEnumerateRenderModelPathsFB(wine_session_from_handle(params->session)->host_session, params->pathCapacityInput, params->pathCountOutput, params->paths);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrEnumerateRenderModelSubactionPathsEXT(void *args)
+{
+    struct xrEnumerateRenderModelSubactionPathsEXT_params *params = args;
+
+    TRACE("%p, %p, %u, %p, %p\n", params->renderModel, params->info, params->pathCapacityInput, params->pathCountOutput, params->paths);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrEnumerateRenderModelSubactionPathsEXT(params->renderModel, params->info, params->pathCapacityInput, params->pathCountOutput, params->paths);
     return STATUS_SUCCESS;
 }
 #endif /* _WIN64 */
@@ -1650,6 +1986,42 @@ static NTSTATUS thunk64_xrEnumerateSpaceSupportedComponentsFB(void *args)
 #endif /* _WIN64 */
 
 #ifdef _WIN64
+static NTSTATUS thunk64_xrEnumerateSpatialCapabilitiesEXT(void *args)
+{
+    struct xrEnumerateSpatialCapabilitiesEXT_params *params = args;
+
+    TRACE("%p, 0x%s, %u, %p, %p\n", params->instance, wine_dbgstr_longlong(params->systemId), params->capabilityCapacityInput, params->capabilityCountOutput, params->capabilities);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrEnumerateSpatialCapabilitiesEXT(wine_instance_from_handle(params->instance)->host_instance, params->systemId, params->capabilityCapacityInput, params->capabilityCountOutput, params->capabilities);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrEnumerateSpatialCapabilityComponentTypesEXT(void *args)
+{
+    struct xrEnumerateSpatialCapabilityComponentTypesEXT_params *params = args;
+
+    TRACE("%p, 0x%s, %#x, %p\n", params->instance, wine_dbgstr_longlong(params->systemId), params->capability, params->capabilityComponents);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrEnumerateSpatialCapabilityComponentTypesEXT(wine_instance_from_handle(params->instance)->host_instance, params->systemId, params->capability, params->capabilityComponents);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrEnumerateSpatialCapabilityFeaturesEXT(void *args)
+{
+    struct xrEnumerateSpatialCapabilityFeaturesEXT_params *params = args;
+
+    TRACE("%p, 0x%s, %#x, %u, %p, %p\n", params->instance, wine_dbgstr_longlong(params->systemId), params->capability, params->capabilityFeatureCapacityInput, params->capabilityFeatureCountOutput, params->capabilityFeatures);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrEnumerateSpatialCapabilityFeaturesEXT(wine_instance_from_handle(params->instance)->host_instance, params->systemId, params->capability, params->capabilityFeatureCapacityInput, params->capabilityFeatureCountOutput, params->capabilityFeatures);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
 static NTSTATUS thunk64_xrEnumerateSpatialEntityComponentTypesBD(void *args)
 {
     struct xrEnumerateSpatialEntityComponentTypesBD_params *params = args;
@@ -1657,6 +2029,54 @@ static NTSTATUS thunk64_xrEnumerateSpatialEntityComponentTypesBD(void *args)
     TRACE("%p, 0x%s, %u, %p, %p\n", params->snapshot, wine_dbgstr_longlong(params->entityId), params->componentTypeCapacityInput, params->componentTypeCountOutput, params->componentTypes);
 
     params->result = g_xr_host_instance_dispatch_table.p_xrEnumerateSpatialEntityComponentTypesBD(params->snapshot, params->entityId, params->componentTypeCapacityInput, params->componentTypeCountOutput, params->componentTypes);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrEnumerateSpatialPersistenceScopesEXT(void *args)
+{
+    struct xrEnumerateSpatialPersistenceScopesEXT_params *params = args;
+
+    TRACE("%p, 0x%s, %u, %p, %p\n", params->instance, wine_dbgstr_longlong(params->systemId), params->persistenceScopeCapacityInput, params->persistenceScopeCountOutput, params->persistenceScopes);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrEnumerateSpatialPersistenceScopesEXT(wine_instance_from_handle(params->instance)->host_instance, params->systemId, params->persistenceScopeCapacityInput, params->persistenceScopeCountOutput, params->persistenceScopes);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrEnumerateSupportedAnchorTrackableTypesANDROID(void *args)
+{
+    struct xrEnumerateSupportedAnchorTrackableTypesANDROID_params *params = args;
+
+    TRACE("%p, 0x%s, %u, %p, %p\n", params->instance, wine_dbgstr_longlong(params->systemId), params->trackableTypeCapacityInput, params->trackableTypeCountOutput, params->trackableTypes);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrEnumerateSupportedAnchorTrackableTypesANDROID(wine_instance_from_handle(params->instance)->host_instance, params->systemId, params->trackableTypeCapacityInput, params->trackableTypeCountOutput, params->trackableTypes);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrEnumerateSupportedPersistenceAnchorTypesANDROID(void *args)
+{
+    struct xrEnumerateSupportedPersistenceAnchorTypesANDROID_params *params = args;
+
+    TRACE("%p, 0x%s, %u, %p, %p\n", params->instance, wine_dbgstr_longlong(params->systemId), params->trackableTypeCapacityInput, params->trackableTypeCountOutput, params->trackableTypes);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrEnumerateSupportedPersistenceAnchorTypesANDROID(wine_instance_from_handle(params->instance)->host_instance, params->systemId, params->trackableTypeCapacityInput, params->trackableTypeCountOutput, params->trackableTypes);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrEnumerateSupportedTrackableTypesANDROID(void *args)
+{
+    struct xrEnumerateSupportedTrackableTypesANDROID_params *params = args;
+
+    TRACE("%p, 0x%s, %u, %p, %p\n", params->instance, wine_dbgstr_longlong(params->systemId), params->trackableTypeCapacityInput, params->trackableTypeCountOutput, params->trackableTypes);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrEnumerateSupportedTrackableTypesANDROID(wine_instance_from_handle(params->instance)->host_instance, params->systemId, params->trackableTypeCapacityInput, params->trackableTypeCountOutput, params->trackableTypes);
     return STATUS_SUCCESS;
 }
 #endif /* _WIN64 */
@@ -1734,6 +2154,18 @@ static NTSTATUS thunk64_xrEraseSpaceFB(void *args)
 #endif /* _WIN64 */
 
 #ifdef _WIN64
+static NTSTATUS thunk64_xrEraseSpacesMETA(void *args)
+{
+    struct xrEraseSpacesMETA_params *params = args;
+
+    TRACE("%p, %p, %p\n", params->session, params->info, params->requestId);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrEraseSpacesMETA(wine_session_from_handle(params->session)->host_session, params->info, params->requestId);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
 static NTSTATUS thunk64_xrFreeWorldMeshBufferML(void *args)
 {
     struct xrFreeWorldMeshBufferML_params *params = args;
@@ -1801,6 +2233,30 @@ static NTSTATUS thunk64_xrGetActionStateVector2f(void *args)
     TRACE("%p, %p, %p\n", params->session, params->getInfo, params->state);
 
     params->result = g_xr_host_instance_dispatch_table.p_xrGetActionStateVector2f(wine_session_from_handle(params->session)->host_session, params->getInfo, params->state);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrGetAllTrackablesANDROID(void *args)
+{
+    struct xrGetAllTrackablesANDROID_params *params = args;
+
+    TRACE("%p, %u, %p, %p\n", params->trackableTracker, params->trackableCapacityInput, params->trackableCountOutput, params->trackables);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrGetAllTrackablesANDROID(params->trackableTracker, params->trackableCapacityInput, params->trackableCountOutput, params->trackables);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrGetAnchorPersistStateANDROID(void *args)
+{
+    struct xrGetAnchorPersistStateANDROID_params *params = args;
+
+    TRACE("%p, %p, %p\n", params->handle, params->anchorId, params->persistState);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrGetAnchorPersistStateANDROID(params->handle, params->anchorId, params->persistState);
     return STATUS_SUCCESS;
 }
 #endif /* _WIN64 */
@@ -2166,6 +2622,18 @@ static NTSTATUS thunk64_xrGetOpenGLGraphicsRequirementsKHR(void *args)
 #endif /* _WIN64 */
 
 #ifdef _WIN64
+static NTSTATUS thunk64_xrGetPassthroughCameraStateANDROID(void *args)
+{
+    struct xrGetPassthroughCameraStateANDROID_params *params = args;
+
+    TRACE("%p, %p, %p\n", params->session, params->getInfo, params->cameraStateOutput);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrGetPassthroughCameraStateANDROID(wine_session_from_handle(params->session)->host_session, params->getInfo, params->cameraStateOutput);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
 static NTSTATUS thunk64_xrGetPassthroughPreferencesMETA(void *args)
 {
     struct xrGetPassthroughPreferencesMETA_params *params = args;
@@ -2262,6 +2730,54 @@ static NTSTATUS thunk64_xrGetReferenceSpaceBoundsRect(void *args)
 #endif /* _WIN64 */
 
 #ifdef _WIN64
+static NTSTATUS thunk64_xrGetRenderModelAssetDataEXT(void *args)
+{
+    struct xrGetRenderModelAssetDataEXT_params *params = args;
+
+    TRACE("%p, %p, %p\n", params->asset, params->getInfo, params->buffer);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrGetRenderModelAssetDataEXT(params->asset, params->getInfo, params->buffer);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrGetRenderModelAssetPropertiesEXT(void *args)
+{
+    struct xrGetRenderModelAssetPropertiesEXT_params *params = args;
+
+    TRACE("%p, %p, %p\n", params->asset, params->getInfo, params->properties);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrGetRenderModelAssetPropertiesEXT(params->asset, params->getInfo, params->properties);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrGetRenderModelPoseTopLevelUserPathEXT(void *args)
+{
+    struct xrGetRenderModelPoseTopLevelUserPathEXT_params *params = args;
+
+    TRACE("%p, %p, %p\n", params->renderModel, params->info, params->topLevelUserPath);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrGetRenderModelPoseTopLevelUserPathEXT(params->renderModel, params->info, params->topLevelUserPath);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrGetRenderModelPropertiesEXT(void *args)
+{
+    struct xrGetRenderModelPropertiesEXT_params *params = args;
+
+    TRACE("%p, %p, %p\n", params->renderModel, params->getInfo, params->properties);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrGetRenderModelPropertiesEXT(params->renderModel, params->getInfo, params->properties);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
 static NTSTATUS thunk64_xrGetRenderModelPropertiesFB(void *args)
 {
     struct xrGetRenderModelPropertiesFB_params *params = args;
@@ -2269,6 +2785,18 @@ static NTSTATUS thunk64_xrGetRenderModelPropertiesFB(void *args)
     TRACE("%p, 0x%s, %p\n", params->session, wine_dbgstr_longlong(params->path), params->properties);
 
     params->result = g_xr_host_instance_dispatch_table.p_xrGetRenderModelPropertiesFB(wine_session_from_handle(params->session)->host_session, params->path, params->properties);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrGetRenderModelStateEXT(void *args)
+{
+    struct xrGetRenderModelStateEXT_params *params = args;
+
+    TRACE("%p, %p, %p\n", params->renderModel, params->getInfo, params->state);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrGetRenderModelStateEXT(params->renderModel, params->getInfo, params->state);
     return STATUS_SUCCESS;
 }
 #endif /* _WIN64 */
@@ -2502,6 +3030,90 @@ static NTSTATUS thunk64_xrGetSpatialAnchorStateML(void *args)
 #endif /* _WIN64 */
 
 #ifdef _WIN64
+static NTSTATUS thunk64_xrGetSpatialBufferFloatEXT(void *args)
+{
+    struct xrGetSpatialBufferFloatEXT_params *params = args;
+
+    TRACE("%p, %p, %u, %p, %p\n", params->snapshot, params->info, params->bufferCapacityInput, params->bufferCountOutput, params->buffer);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrGetSpatialBufferFloatEXT(params->snapshot, params->info, params->bufferCapacityInput, params->bufferCountOutput, params->buffer);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrGetSpatialBufferStringEXT(void *args)
+{
+    struct xrGetSpatialBufferStringEXT_params *params = args;
+
+    TRACE("%p, %p, %u, %p, %p\n", params->snapshot, params->info, params->bufferCapacityInput, params->bufferCountOutput, params->buffer);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrGetSpatialBufferStringEXT(params->snapshot, params->info, params->bufferCapacityInput, params->bufferCountOutput, params->buffer);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrGetSpatialBufferUint16EXT(void *args)
+{
+    struct xrGetSpatialBufferUint16EXT_params *params = args;
+
+    TRACE("%p, %p, %u, %p, %p\n", params->snapshot, params->info, params->bufferCapacityInput, params->bufferCountOutput, params->buffer);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrGetSpatialBufferUint16EXT(params->snapshot, params->info, params->bufferCapacityInput, params->bufferCountOutput, params->buffer);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrGetSpatialBufferUint32EXT(void *args)
+{
+    struct xrGetSpatialBufferUint32EXT_params *params = args;
+
+    TRACE("%p, %p, %u, %p, %p\n", params->snapshot, params->info, params->bufferCapacityInput, params->bufferCountOutput, params->buffer);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrGetSpatialBufferUint32EXT(params->snapshot, params->info, params->bufferCapacityInput, params->bufferCountOutput, params->buffer);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrGetSpatialBufferUint8EXT(void *args)
+{
+    struct xrGetSpatialBufferUint8EXT_params *params = args;
+
+    TRACE("%p, %p, %u, %p, %p\n", params->snapshot, params->info, params->bufferCapacityInput, params->bufferCountOutput, params->buffer);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrGetSpatialBufferUint8EXT(params->snapshot, params->info, params->bufferCapacityInput, params->bufferCountOutput, params->buffer);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrGetSpatialBufferVector2fEXT(void *args)
+{
+    struct xrGetSpatialBufferVector2fEXT_params *params = args;
+
+    TRACE("%p, %p, %u, %p, %p\n", params->snapshot, params->info, params->bufferCapacityInput, params->bufferCountOutput, params->buffer);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrGetSpatialBufferVector2fEXT(params->snapshot, params->info, params->bufferCapacityInput, params->bufferCountOutput, params->buffer);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrGetSpatialBufferVector3fEXT(void *args)
+{
+    struct xrGetSpatialBufferVector3fEXT_params *params = args;
+
+    TRACE("%p, %p, %u, %p, %p\n", params->snapshot, params->info, params->bufferCapacityInput, params->bufferCountOutput, params->buffer);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrGetSpatialBufferVector3fEXT(params->snapshot, params->info, params->bufferCapacityInput, params->bufferCountOutput, params->buffer);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
 static NTSTATUS thunk64_xrGetSpatialEntityComponentDataBD(void *args)
 {
     struct xrGetSpatialEntityComponentDataBD_params *params = args;
@@ -2569,6 +3181,42 @@ static NTSTATUS thunk64_xrGetSystemProperties(void *args)
     TRACE("%p, 0x%s, %p\n", params->instance, wine_dbgstr_longlong(params->systemId), params->properties);
 
     params->result = g_xr_host_instance_dispatch_table.p_xrGetSystemProperties(wine_instance_from_handle(params->instance)->host_instance, params->systemId, params->properties);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrGetTrackableMarkerANDROID(void *args)
+{
+    struct xrGetTrackableMarkerANDROID_params *params = args;
+
+    TRACE("%p, %p, %p\n", params->tracker, params->getInfo, params->markerOutput);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrGetTrackableMarkerANDROID(params->tracker, params->getInfo, params->markerOutput);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrGetTrackableObjectANDROID(void *args)
+{
+    struct xrGetTrackableObjectANDROID_params *params = args;
+
+    TRACE("%p, %p, %p\n", params->tracker, params->getInfo, params->objectOutput);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrGetTrackableObjectANDROID(params->tracker, params->getInfo, params->objectOutput);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrGetTrackablePlaneANDROID(void *args)
+{
+    struct xrGetTrackablePlaneANDROID_params *params = args;
+
+    TRACE("%p, %p, %p\n", params->trackableTracker, params->getInfo, params->planeOutput);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrGetTrackablePlaneANDROID(params->trackableTracker, params->getInfo, params->planeOutput);
     return STATUS_SUCCESS;
 }
 #endif /* _WIN64 */
@@ -2958,6 +3606,18 @@ static NTSTATUS thunk64_xrPathToString(void *args)
 #endif /* _WIN64 */
 
 #ifdef _WIN64
+static NTSTATUS thunk64_xrPauseSimultaneousHandsAndControllersTrackingMETA(void *args)
+{
+    struct xrPauseSimultaneousHandsAndControllersTrackingMETA_params *params = args;
+
+    TRACE("%p, %p\n", params->session, params->pauseInfo);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrPauseSimultaneousHandsAndControllersTrackingMETA(wine_session_from_handle(params->session)->host_session, params->pauseInfo);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
 static NTSTATUS thunk64_xrPerfSettingsSetPerformanceLevelEXT(void *args)
 {
     struct xrPerfSettingsSetPerformanceLevelEXT_params *params = args;
@@ -2965,6 +3625,18 @@ static NTSTATUS thunk64_xrPerfSettingsSetPerformanceLevelEXT(void *args)
     TRACE("%p, %#x, %#x\n", params->session, params->domain, params->level);
 
     params->result = g_xr_host_instance_dispatch_table.p_xrPerfSettingsSetPerformanceLevelEXT(wine_session_from_handle(params->session)->host_session, params->domain, params->level);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrPersistAnchorANDROID(void *args)
+{
+    struct xrPersistAnchorANDROID_params *params = args;
+
+    TRACE("%p, %p, %p\n", params->handle, params->persistedInfo, params->anchorIdOutput);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrPersistAnchorANDROID(params->handle, params->persistedInfo, params->anchorIdOutput);
     return STATUS_SUCCESS;
 }
 #endif /* _WIN64 */
@@ -3001,6 +3673,30 @@ static NTSTATUS thunk64_xrPersistSpatialAnchorMSFT(void *args)
     TRACE("%p, %p\n", params->spatialAnchorStore, params->spatialAnchorPersistenceInfo);
 
     params->result = g_xr_host_instance_dispatch_table.p_xrPersistSpatialAnchorMSFT(params->spatialAnchorStore, params->spatialAnchorPersistenceInfo);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrPersistSpatialEntityAsyncEXT(void *args)
+{
+    struct xrPersistSpatialEntityAsyncEXT_params *params = args;
+
+    TRACE("%p, %p, %p\n", params->persistenceContext, params->persistInfo, params->future);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrPersistSpatialEntityAsyncEXT(params->persistenceContext, params->persistInfo, params->future);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrPersistSpatialEntityCompleteEXT(void *args)
+{
+    struct xrPersistSpatialEntityCompleteEXT_params *params = args;
+
+    TRACE("%p, %p, %p\n", params->persistenceContext, params->future, params->completion);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrPersistSpatialEntityCompleteEXT(params->persistenceContext, params->future, params->completion);
     return STATUS_SUCCESS;
 }
 #endif /* _WIN64 */
@@ -3138,6 +3834,18 @@ static NTSTATUS thunk64_xrQuerySpatialAnchorsCompleteML(void *args)
 #endif /* _WIN64 */
 
 #ifdef _WIN64
+static NTSTATUS thunk64_xrQuerySpatialComponentDataEXT(void *args)
+{
+    struct xrQuerySpatialComponentDataEXT_params *params = args;
+
+    TRACE("%p, %p, %p\n", params->snapshot, params->queryCondition, params->queryResult);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrQuerySpatialComponentDataEXT(params->snapshot, params->queryCondition, params->queryResult);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
 static NTSTATUS thunk64_xrQuerySystemTrackedKeyboardFB(void *args)
 {
     struct xrQuerySystemTrackedKeyboardFB_params *params = args;
@@ -3145,6 +3853,18 @@ static NTSTATUS thunk64_xrQuerySystemTrackedKeyboardFB(void *args)
     TRACE("%p, %p, %p\n", params->session, params->queryInfo, params->keyboard);
 
     params->result = g_xr_host_instance_dispatch_table.p_xrQuerySystemTrackedKeyboardFB(wine_session_from_handle(params->session)->host_session, params->queryInfo, params->keyboard);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrRaycastANDROID(void *args)
+{
+    struct xrRaycastANDROID_params *params = args;
+
+    TRACE("%p, %p, %p\n", params->session, params->rayInfo, params->results);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrRaycastANDROID(wine_session_from_handle(params->session)->host_session, params->rayInfo, params->results);
     return STATUS_SUCCESS;
 }
 #endif /* _WIN64 */
@@ -3258,6 +3978,18 @@ static NTSTATUS thunk64_xrRequestWorldMeshStateCompleteML(void *args)
 #endif /* _WIN64 */
 
 #ifdef _WIN64
+static NTSTATUS thunk64_xrResetBodyTrackingCalibrationMETA(void *args)
+{
+    struct xrResetBodyTrackingCalibrationMETA_params *params = args;
+
+    TRACE("%p\n", params->bodyTracker);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrResetBodyTrackingCalibrationMETA(params->bodyTracker);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
 static NTSTATUS thunk64_xrResultToString(void *args)
 {
     struct xrResultToString_params *params = args;
@@ -3265,6 +3997,18 @@ static NTSTATUS thunk64_xrResultToString(void *args)
     TRACE("%p, %#x, %p\n", params->instance, params->value, params->buffer);
 
     params->result = g_xr_host_instance_dispatch_table.p_xrResultToString(wine_instance_from_handle(params->instance)->host_instance, params->value, params->buffer);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrResumeSimultaneousHandsAndControllersTrackingMETA(void *args)
+{
+    struct xrResumeSimultaneousHandsAndControllersTrackingMETA_params *params = args;
+
+    TRACE("%p, %p\n", params->session, params->resumeInfo);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrResumeSimultaneousHandsAndControllersTrackingMETA(wine_session_from_handle(params->session)->host_session, params->resumeInfo);
     return STATUS_SUCCESS;
 }
 #endif /* _WIN64 */
@@ -3301,6 +4045,18 @@ static NTSTATUS thunk64_xrSaveSpaceListFB(void *args)
     TRACE("%p, %p, %p\n", params->session, params->info, params->requestId);
 
     params->result = g_xr_host_instance_dispatch_table.p_xrSaveSpaceListFB(wine_session_from_handle(params->session)->host_session, params->info, params->requestId);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrSaveSpacesMETA(void *args)
+{
+    struct xrSaveSpacesMETA_params *params = args;
+
+    TRACE("%p, %p, %p\n", params->session, params->info, params->requestId);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrSaveSpacesMETA(wine_session_from_handle(params->session)->host_session, params->info, params->requestId);
     return STATUS_SUCCESS;
 }
 #endif /* _WIN64 */
@@ -3750,6 +4506,18 @@ static NTSTATUS thunk64_xrStructureTypeToString2KHR(void *args)
 #endif /* _WIN64 */
 
 #ifdef _WIN64
+static NTSTATUS thunk64_xrSuggestBodyTrackingCalibrationOverrideMETA(void *args)
+{
+    struct xrSuggestBodyTrackingCalibrationOverrideMETA_params *params = args;
+
+    TRACE("%p, %p\n", params->bodyTracker, params->calibrationInfo);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrSuggestBodyTrackingCalibrationOverrideMETA(params->bodyTracker, params->calibrationInfo);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
 static NTSTATUS thunk64_xrSuggestInteractionProfileBindings(void *args)
 {
     struct xrSuggestInteractionProfileBindings_params *params = args;
@@ -3882,6 +4650,18 @@ static NTSTATUS thunk64_xrTryCreateSpatialGraphStaticNodeBindingMSFT(void *args)
 #endif /* _WIN64 */
 
 #ifdef _WIN64
+static NTSTATUS thunk64_xrUnpersistAnchorANDROID(void *args)
+{
+    struct xrUnpersistAnchorANDROID_params *params = args;
+
+    TRACE("%p, %p\n", params->handle, params->anchorId);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrUnpersistAnchorANDROID(params->handle, params->anchorId);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
 static NTSTATUS thunk64_xrUnpersistSpatialAnchorAsyncBD(void *args)
 {
     struct xrUnpersistSpatialAnchorAsyncBD_params *params = args;
@@ -3913,6 +4693,30 @@ static NTSTATUS thunk64_xrUnpersistSpatialAnchorMSFT(void *args)
     TRACE("%p, %p\n", params->spatialAnchorStore, params->spatialAnchorPersistenceName);
 
     params->result = g_xr_host_instance_dispatch_table.p_xrUnpersistSpatialAnchorMSFT(params->spatialAnchorStore, params->spatialAnchorPersistenceName);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrUnpersistSpatialEntityAsyncEXT(void *args)
+{
+    struct xrUnpersistSpatialEntityAsyncEXT_params *params = args;
+
+    TRACE("%p, %p, %p\n", params->persistenceContext, params->unpersistInfo, params->future);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrUnpersistSpatialEntityAsyncEXT(params->persistenceContext, params->unpersistInfo, params->future);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
+static NTSTATUS thunk64_xrUnpersistSpatialEntityCompleteEXT(void *args)
+{
+    struct xrUnpersistSpatialEntityCompleteEXT_params *params = args;
+
+    TRACE("%p, %p, %p\n", params->persistenceContext, params->future, params->completion);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrUnpersistSpatialEntityCompleteEXT(params->persistenceContext, params->future, params->completion);
     return STATUS_SUCCESS;
 }
 #endif /* _WIN64 */
@@ -4004,11 +4808,19 @@ static NTSTATUS thunk64_xrWaitSwapchainImage(void *args)
 static const char * const xr_extensions[] =
 {
     "XR_ALMALENCE_digital_lens_control",
+    "XR_ANDROID_device_anchor_persistence",
+    "XR_ANDROID_passthrough_camera_state",
+    "XR_ANDROID_raycast",
+    "XR_ANDROID_trackables",
+    "XR_ANDROID_trackables_marker",
+    "XR_ANDROID_trackables_object",
     "XR_BD_body_tracking",
     "XR_BD_controller_interaction",
+    "XR_BD_future_progress",
     "XR_BD_spatial_anchor",
     "XR_BD_spatial_anchor_sharing",
     "XR_BD_spatial_mesh",
+    "XR_BD_spatial_plane",
     "XR_BD_spatial_scene",
     "XR_BD_spatial_sensing",
     "XR_EPIC_view_configuration_fov",
@@ -4025,11 +4837,20 @@ static const char * const xr_extensions[] =
     "XR_EXT_hand_tracking",
     "XR_EXT_hand_tracking_data_source",
     "XR_EXT_hp_mixed_reality_controller",
+    "XR_EXT_interaction_render_model",
+    "XR_EXT_loader_init_properties",
     "XR_EXT_local_floor",
     "XR_EXT_palm_pose",
     "XR_EXT_performance_settings",
     "XR_EXT_plane_detection",
+    "XR_EXT_render_model",
     "XR_EXT_samsung_odyssey_controller",
+    "XR_EXT_spatial_anchor",
+    "XR_EXT_spatial_entity",
+    "XR_EXT_spatial_marker_tracking",
+    "XR_EXT_spatial_persistence",
+    "XR_EXT_spatial_persistence_operations",
+    "XR_EXT_spatial_plane_tracking",
     "XR_EXT_thermal_query",
     "XR_EXT_user_presence",
     "XR_EXT_uuid",
@@ -4104,6 +4925,8 @@ static const char * const xr_extensions[] =
     "XR_KHR_win32_convert_performance_counter_time",
     "XR_LOGITECH_mx_ink_stylus_interaction",
     "XR_META_automatic_layer_filter",
+    "XR_META_body_tracking_calibration",
+    "XR_META_body_tracking_full_body",
     "XR_META_colocation_discovery",
     "XR_META_detached_controllers",
     "XR_META_environment_depth",
@@ -4116,8 +4939,10 @@ static const char * const xr_extensions[] =
     "XR_META_passthrough_preferences",
     "XR_META_performance_metrics",
     "XR_META_recommended_layer_resolution",
+    "XR_META_simultaneous_hands_and_controllers",
     "XR_META_spatial_entity_group_sharing",
     "XR_META_spatial_entity_mesh",
+    "XR_META_spatial_entity_persistence",
     "XR_META_spatial_entity_sharing",
     "XR_META_touch_controller_plus",
     "XR_META_virtual_keyboard",
@@ -4210,10 +5035,12 @@ const unixlib_entry_t __wine_unix_call_funcs[] =
     thunk64_xrCreateAction,
     thunk64_xrCreateActionSet,
     thunk64_xrCreateActionSpace,
+    thunk64_xrCreateAnchorSpaceANDROID,
     thunk64_xrCreateAnchorSpaceBD,
     thunk64_xrCreateBodyTrackerBD,
     thunk64_xrCreateBodyTrackerFB,
     thunk64_xrCreateBodyTrackerHTC,
+    thunk64_xrCreateDeviceAnchorPersistenceANDROID,
     thunk64_xrCreateEnvironmentDepthProviderMETA,
     thunk64_xrCreateEnvironmentDepthSwapchainMETA,
     thunk64_xrCreateExportedLocalizationMapML,
@@ -4235,8 +5062,12 @@ const unixlib_entry_t __wine_unix_call_funcs[] =
     thunk64_xrCreatePassthroughFB,
     thunk64_xrCreatePassthroughHTC,
     thunk64_xrCreatePassthroughLayerFB,
+    thunk64_xrCreatePersistedAnchorSpaceANDROID,
     thunk64_xrCreatePlaneDetectorEXT,
     thunk64_xrCreateReferenceSpace,
+    thunk64_xrCreateRenderModelAssetEXT,
+    thunk64_xrCreateRenderModelEXT,
+    thunk64_xrCreateRenderModelSpaceEXT,
     thunk64_xrCreateSceneMSFT,
     thunk64_xrCreateSceneObserverMSFT,
     thunk64_xrCreateSenseDataProviderBD,
@@ -4244,6 +5075,7 @@ const unixlib_entry_t __wine_unix_call_funcs[] =
     thunk64_xrCreateSpaceUserFB,
     thunk64_xrCreateSpatialAnchorAsyncBD,
     thunk64_xrCreateSpatialAnchorCompleteBD,
+    thunk64_xrCreateSpatialAnchorEXT,
     thunk64_xrCreateSpatialAnchorFB,
     thunk64_xrCreateSpatialAnchorFromPersistedNameMSFT,
     thunk64_xrCreateSpatialAnchorHTC,
@@ -4253,9 +5085,18 @@ const unixlib_entry_t __wine_unix_call_funcs[] =
     thunk64_xrCreateSpatialAnchorsAsyncML,
     thunk64_xrCreateSpatialAnchorsCompleteML,
     thunk64_xrCreateSpatialAnchorsStorageML,
+    thunk64_xrCreateSpatialContextAsyncEXT,
+    thunk64_xrCreateSpatialContextCompleteEXT,
+    thunk64_xrCreateSpatialDiscoverySnapshotAsyncEXT,
+    thunk64_xrCreateSpatialDiscoverySnapshotCompleteEXT,
     thunk64_xrCreateSpatialEntityAnchorBD,
+    thunk64_xrCreateSpatialEntityFromIdEXT,
     thunk64_xrCreateSpatialGraphNodeSpaceMSFT,
+    thunk64_xrCreateSpatialPersistenceContextAsyncEXT,
+    thunk64_xrCreateSpatialPersistenceContextCompleteEXT,
+    thunk64_xrCreateSpatialUpdateSnapshotEXT,
     thunk64_xrCreateSwapchain,
+    thunk64_xrCreateTrackableTrackerANDROID,
     thunk64_xrCreateTriangleMeshFB,
     thunk64_xrCreateVirtualKeyboardMETA,
     thunk64_xrCreateVirtualKeyboardSpaceMETA,
@@ -4269,6 +5110,7 @@ const unixlib_entry_t __wine_unix_call_funcs[] =
     thunk64_xrDestroyBodyTrackerBD,
     thunk64_xrDestroyBodyTrackerFB,
     thunk64_xrDestroyBodyTrackerHTC,
+    thunk64_xrDestroyDeviceAnchorPersistenceANDROID,
     thunk64_xrDestroyEnvironmentDepthProviderMETA,
     thunk64_xrDestroyEnvironmentDepthSwapchainMETA,
     thunk64_xrDestroyExportedLocalizationMapML,
@@ -4287,6 +5129,8 @@ const unixlib_entry_t __wine_unix_call_funcs[] =
     thunk64_xrDestroyPassthroughHTC,
     thunk64_xrDestroyPassthroughLayerFB,
     thunk64_xrDestroyPlaneDetectorEXT,
+    thunk64_xrDestroyRenderModelAssetEXT,
+    thunk64_xrDestroyRenderModelEXT,
     thunk64_xrDestroySceneMSFT,
     thunk64_xrDestroySceneObserverMSFT,
     thunk64_xrDestroySenseDataProviderBD,
@@ -4297,8 +5141,13 @@ const unixlib_entry_t __wine_unix_call_funcs[] =
     thunk64_xrDestroySpatialAnchorMSFT,
     thunk64_xrDestroySpatialAnchorStoreConnectionMSFT,
     thunk64_xrDestroySpatialAnchorsStorageML,
+    thunk64_xrDestroySpatialContextEXT,
+    thunk64_xrDestroySpatialEntityEXT,
     thunk64_xrDestroySpatialGraphNodeBindingMSFT,
+    thunk64_xrDestroySpatialPersistenceContextEXT,
+    thunk64_xrDestroySpatialSnapshotEXT,
     thunk64_xrDestroySwapchain,
+    thunk64_xrDestroyTrackableTrackerANDROID,
     thunk64_xrDestroyTriangleMeshFB,
     thunk64_xrDestroyVirtualKeyboardMETA,
     thunk64_xrDestroyWorldMeshDetectorML,
@@ -4316,26 +5165,40 @@ const unixlib_entry_t __wine_unix_call_funcs[] =
     thunk64_xrEnumerateEnvironmentDepthSwapchainImagesMETA,
     thunk64_xrEnumerateExternalCamerasOCULUS,
     thunk64_xrEnumerateInstanceExtensionProperties,
+    thunk64_xrEnumerateInteractionRenderModelIdsEXT,
     thunk64_xrEnumeratePerformanceMetricsCounterPathsMETA,
+    thunk64_xrEnumeratePersistedAnchorsANDROID,
     thunk64_xrEnumeratePersistedSpatialAnchorNamesMSFT,
+    thunk64_xrEnumerateRaycastSupportedTrackableTypesANDROID,
     thunk64_xrEnumerateReferenceSpaces,
     thunk64_xrEnumerateRenderModelPathsFB,
+    thunk64_xrEnumerateRenderModelSubactionPathsEXT,
     thunk64_xrEnumerateReprojectionModesMSFT,
     thunk64_xrEnumerateSceneComputeFeaturesMSFT,
     thunk64_xrEnumerateSpaceSupportedComponentsFB,
+    thunk64_xrEnumerateSpatialCapabilitiesEXT,
+    thunk64_xrEnumerateSpatialCapabilityComponentTypesEXT,
+    thunk64_xrEnumerateSpatialCapabilityFeaturesEXT,
     thunk64_xrEnumerateSpatialEntityComponentTypesBD,
+    thunk64_xrEnumerateSpatialPersistenceScopesEXT,
+    thunk64_xrEnumerateSupportedAnchorTrackableTypesANDROID,
+    thunk64_xrEnumerateSupportedPersistenceAnchorTypesANDROID,
+    thunk64_xrEnumerateSupportedTrackableTypesANDROID,
     thunk64_xrEnumerateSwapchainFormats,
     thunk64_xrEnumerateSwapchainImages,
     thunk64_xrEnumerateViewConfigurationViews,
     thunk64_xrEnumerateViewConfigurations,
     thunk64_xrEnumerateViveTrackerPathsHTCX,
     thunk64_xrEraseSpaceFB,
+    thunk64_xrEraseSpacesMETA,
     thunk64_xrFreeWorldMeshBufferML,
     thunk64_xrGeometryInstanceSetTransformFB,
     thunk64_xrGetActionStateBoolean,
     thunk64_xrGetActionStateFloat,
     thunk64_xrGetActionStatePose,
     thunk64_xrGetActionStateVector2f,
+    thunk64_xrGetAllTrackablesANDROID,
+    thunk64_xrGetAnchorPersistStateANDROID,
     thunk64_xrGetAnchorUuidBD,
     thunk64_xrGetAudioInputDeviceGuidOculus,
     thunk64_xrGetAudioOutputDeviceGuidOculus,
@@ -4366,6 +5229,7 @@ const unixlib_entry_t __wine_unix_call_funcs[] =
     thunk64_xrGetMarkerStringML,
     thunk64_xrGetMarkersML,
     thunk64_xrGetOpenGLGraphicsRequirementsKHR,
+    thunk64_xrGetPassthroughCameraStateANDROID,
     thunk64_xrGetPassthroughPreferencesMETA,
     thunk64_xrGetPerformanceMetricsStateMETA,
     thunk64_xrGetPlaneDetectionStateEXT,
@@ -4374,7 +5238,12 @@ const unixlib_entry_t __wine_unix_call_funcs[] =
     thunk64_xrGetQueriedSenseDataBD,
     thunk64_xrGetRecommendedLayerResolutionMETA,
     thunk64_xrGetReferenceSpaceBoundsRect,
+    thunk64_xrGetRenderModelAssetDataEXT,
+    thunk64_xrGetRenderModelAssetPropertiesEXT,
+    thunk64_xrGetRenderModelPoseTopLevelUserPathEXT,
+    thunk64_xrGetRenderModelPropertiesEXT,
     thunk64_xrGetRenderModelPropertiesFB,
+    thunk64_xrGetRenderModelStateEXT,
     thunk64_xrGetSceneComponentsMSFT,
     thunk64_xrGetSceneComputeStateMSFT,
     thunk64_xrGetSceneMarkerDecodedStringMSFT,
@@ -4394,12 +5263,22 @@ const unixlib_entry_t __wine_unix_call_funcs[] =
     thunk64_xrGetSpaceUuidFB,
     thunk64_xrGetSpatialAnchorNameHTC,
     thunk64_xrGetSpatialAnchorStateML,
+    thunk64_xrGetSpatialBufferFloatEXT,
+    thunk64_xrGetSpatialBufferStringEXT,
+    thunk64_xrGetSpatialBufferUint16EXT,
+    thunk64_xrGetSpatialBufferUint32EXT,
+    thunk64_xrGetSpatialBufferUint8EXT,
+    thunk64_xrGetSpatialBufferVector2fEXT,
+    thunk64_xrGetSpatialBufferVector3fEXT,
     thunk64_xrGetSpatialEntityComponentDataBD,
     thunk64_xrGetSpatialEntityUuidBD,
     thunk64_xrGetSpatialGraphNodeBindingPropertiesMSFT,
     thunk64_xrGetSwapchainStateFB,
     thunk64_xrGetSystem,
     thunk64_xrGetSystemProperties,
+    thunk64_xrGetTrackableMarkerANDROID,
+    thunk64_xrGetTrackableObjectANDROID,
+    thunk64_xrGetTrackablePlaneANDROID,
     thunk64_xrGetViewConfigurationProperties,
     thunk64_xrGetVirtualKeyboardDirtyTexturesMETA,
     thunk64_xrGetVirtualKeyboardModelAnimationStatesMETA,
@@ -4432,10 +5311,14 @@ const unixlib_entry_t __wine_unix_call_funcs[] =
     thunk64_xrPassthroughPauseFB,
     thunk64_xrPassthroughStartFB,
     thunk64_xrPathToString,
+    thunk64_xrPauseSimultaneousHandsAndControllersTrackingMETA,
     thunk64_xrPerfSettingsSetPerformanceLevelEXT,
+    thunk64_xrPersistAnchorANDROID,
     thunk64_xrPersistSpatialAnchorAsyncBD,
     thunk64_xrPersistSpatialAnchorCompleteBD,
     thunk64_xrPersistSpatialAnchorMSFT,
+    thunk64_xrPersistSpatialEntityAsyncEXT,
+    thunk64_xrPersistSpatialEntityCompleteEXT,
     thunk64_xrPollEvent,
     thunk64_xrPollFutureEXT,
     thunk64_xrPublishSpatialAnchorsAsyncML,
@@ -4447,7 +5330,9 @@ const unixlib_entry_t __wine_unix_call_funcs[] =
     thunk64_xrQuerySpacesFB,
     thunk64_xrQuerySpatialAnchorsAsyncML,
     thunk64_xrQuerySpatialAnchorsCompleteML,
+    thunk64_xrQuerySpatialComponentDataEXT,
     thunk64_xrQuerySystemTrackedKeyboardFB,
+    thunk64_xrRaycastANDROID,
     thunk64_xrReleaseSwapchainImage,
     thunk64_xrRequestDisplayRefreshRateFB,
     thunk64_xrRequestExitSession,
@@ -4457,10 +5342,13 @@ const unixlib_entry_t __wine_unix_call_funcs[] =
     thunk64_xrRequestWorldMeshCompleteML,
     thunk64_xrRequestWorldMeshStateAsyncML,
     thunk64_xrRequestWorldMeshStateCompleteML,
+    thunk64_xrResetBodyTrackingCalibrationMETA,
     thunk64_xrResultToString,
+    thunk64_xrResumeSimultaneousHandsAndControllersTrackingMETA,
     thunk64_xrRetrieveSpaceQueryResultsFB,
     thunk64_xrSaveSpaceFB,
     thunk64_xrSaveSpaceListFB,
+    thunk64_xrSaveSpacesMETA,
     thunk64_xrSendVirtualKeyboardInputMETA,
     thunk64_xrSetColorSpaceFB,
     thunk64_xrSetDigitalLensControlALMALENCE,
@@ -4498,6 +5386,7 @@ const unixlib_entry_t __wine_unix_call_funcs[] =
     thunk64_xrStringToPath,
     thunk64_xrStructureTypeToString,
     thunk64_xrStructureTypeToString2KHR,
+    thunk64_xrSuggestBodyTrackingCalibrationOverrideMETA,
     thunk64_xrSuggestInteractionProfileBindings,
     thunk64_xrSuggestVirtualKeyboardLocationMETA,
     thunk64_xrSyncActions,
@@ -4509,9 +5398,12 @@ const unixlib_entry_t __wine_unix_call_funcs[] =
     thunk64_xrTriangleMeshGetIndexBufferFB,
     thunk64_xrTriangleMeshGetVertexBufferFB,
     thunk64_xrTryCreateSpatialGraphStaticNodeBindingMSFT,
+    thunk64_xrUnpersistAnchorANDROID,
     thunk64_xrUnpersistSpatialAnchorAsyncBD,
     thunk64_xrUnpersistSpatialAnchorCompleteBD,
     thunk64_xrUnpersistSpatialAnchorMSFT,
+    thunk64_xrUnpersistSpatialEntityAsyncEXT,
+    thunk64_xrUnpersistSpatialEntityCompleteEXT,
     thunk64_xrUpdateHandMeshMSFT,
     thunk64_xrUpdatePassthroughColorLutMETA,
     thunk64_xrUpdateSpatialAnchorsExpirationAsyncML,

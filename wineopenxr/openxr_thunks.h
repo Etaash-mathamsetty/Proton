@@ -54,11 +54,13 @@ struct openxr_instance_funcs
     XrResult (*p_xrCreateAction)(XrActionSet, const XrActionCreateInfo *, XrAction *);
     XrResult (*p_xrCreateActionSet)(XrInstance, const XrActionSetCreateInfo *, XrActionSet *);
     XrResult (*p_xrCreateActionSpace)(XrSession, const XrActionSpaceCreateInfo *, XrSpace *);
+    XrResult (*p_xrCreateAnchorSpaceANDROID)(XrSession, const XrAnchorSpaceCreateInfoANDROID *, XrSpace *);
     XrResult (*p_xrCreateAnchorSpaceBD)(XrSession, const XrAnchorSpaceCreateInfoBD *, XrSpace *);
     XrResult (*p_xrCreateApiLayerInstance)(const XrInstanceCreateInfo *, const XrApiLayerCreateInfo *, XrInstance *);
     XrResult (*p_xrCreateBodyTrackerBD)(XrSession, const XrBodyTrackerCreateInfoBD *, XrBodyTrackerBD *);
     XrResult (*p_xrCreateBodyTrackerFB)(XrSession, const XrBodyTrackerCreateInfoFB *, XrBodyTrackerFB *);
     XrResult (*p_xrCreateBodyTrackerHTC)(XrSession, const XrBodyTrackerCreateInfoHTC *, XrBodyTrackerHTC *);
+    XrResult (*p_xrCreateDeviceAnchorPersistenceANDROID)(XrSession, const XrDeviceAnchorPersistenceCreateInfoANDROID *, XrDeviceAnchorPersistenceANDROID *);
     XrResult (*p_xrCreateEnvironmentDepthProviderMETA)(XrSession, const XrEnvironmentDepthProviderCreateInfoMETA *, XrEnvironmentDepthProviderMETA *);
     XrResult (*p_xrCreateEnvironmentDepthSwapchainMETA)(XrEnvironmentDepthProviderMETA, const XrEnvironmentDepthSwapchainCreateInfoMETA *, XrEnvironmentDepthSwapchainMETA *);
     XrResult (*p_xrCreateExportedLocalizationMapML)(XrSession, const XrUuidEXT *, XrExportedLocalizationMapML *);
@@ -79,8 +81,12 @@ struct openxr_instance_funcs
     XrResult (*p_xrCreatePassthroughFB)(XrSession, const XrPassthroughCreateInfoFB *, XrPassthroughFB *);
     XrResult (*p_xrCreatePassthroughHTC)(XrSession, const XrPassthroughCreateInfoHTC *, XrPassthroughHTC *);
     XrResult (*p_xrCreatePassthroughLayerFB)(XrSession, const XrPassthroughLayerCreateInfoFB *, XrPassthroughLayerFB *);
+    XrResult (*p_xrCreatePersistedAnchorSpaceANDROID)(XrDeviceAnchorPersistenceANDROID, const XrPersistedAnchorSpaceCreateInfoANDROID *, XrSpace *);
     XrResult (*p_xrCreatePlaneDetectorEXT)(XrSession, const XrPlaneDetectorCreateInfoEXT *, XrPlaneDetectorEXT *);
     XrResult (*p_xrCreateReferenceSpace)(XrSession, const XrReferenceSpaceCreateInfo *, XrSpace *);
+    XrResult (*p_xrCreateRenderModelAssetEXT)(XrSession, const XrRenderModelAssetCreateInfoEXT *, XrRenderModelAssetEXT *);
+    XrResult (*p_xrCreateRenderModelEXT)(XrSession, const XrRenderModelCreateInfoEXT *, XrRenderModelEXT *);
+    XrResult (*p_xrCreateRenderModelSpaceEXT)(XrSession, const XrRenderModelSpaceCreateInfoEXT *, XrSpace *);
     XrResult (*p_xrCreateSceneMSFT)(XrSceneObserverMSFT, const XrSceneCreateInfoMSFT *, XrSceneMSFT *);
     XrResult (*p_xrCreateSceneObserverMSFT)(XrSession, const XrSceneObserverCreateInfoMSFT *, XrSceneObserverMSFT *);
     XrResult (*p_xrCreateSenseDataProviderBD)(XrSession, const XrSenseDataProviderCreateInfoBD *, XrSenseDataProviderBD *);
@@ -88,6 +94,7 @@ struct openxr_instance_funcs
     XrResult (*p_xrCreateSpaceUserFB)(XrSession, const XrSpaceUserCreateInfoFB *, XrSpaceUserFB *);
     XrResult (*p_xrCreateSpatialAnchorAsyncBD)(XrSenseDataProviderBD, const XrSpatialAnchorCreateInfoBD *, XrFutureEXT *);
     XrResult (*p_xrCreateSpatialAnchorCompleteBD)(XrSenseDataProviderBD, XrFutureEXT, XrSpatialAnchorCreateCompletionBD *);
+    XrResult (*p_xrCreateSpatialAnchorEXT)(XrSpatialContextEXT, const XrSpatialAnchorCreateInfoEXT *, XrSpatialEntityIdEXT *, XrSpatialEntityEXT *);
     XrResult (*p_xrCreateSpatialAnchorFB)(XrSession, const XrSpatialAnchorCreateInfoFB *, XrAsyncRequestIdFB *);
     XrResult (*p_xrCreateSpatialAnchorFromPersistedNameMSFT)(XrSession, const XrSpatialAnchorFromPersistedAnchorCreateInfoMSFT *, XrSpatialAnchorMSFT *);
     XrResult (*p_xrCreateSpatialAnchorHTC)(XrSession, const XrSpatialAnchorCreateInfoHTC *, XrSpace *);
@@ -97,9 +104,18 @@ struct openxr_instance_funcs
     XrResult (*p_xrCreateSpatialAnchorsAsyncML)(XrSession, const XrSpatialAnchorsCreateInfoBaseHeaderML *, XrFutureEXT *);
     XrResult (*p_xrCreateSpatialAnchorsCompleteML)(XrSession, XrFutureEXT, XrCreateSpatialAnchorsCompletionML *);
     XrResult (*p_xrCreateSpatialAnchorsStorageML)(XrSession, const XrSpatialAnchorsCreateStorageInfoML *, XrSpatialAnchorsStorageML *);
+    XrResult (*p_xrCreateSpatialContextAsyncEXT)(XrSession, const XrSpatialContextCreateInfoEXT *, XrFutureEXT *);
+    XrResult (*p_xrCreateSpatialContextCompleteEXT)(XrSession, XrFutureEXT, XrCreateSpatialContextCompletionEXT *);
+    XrResult (*p_xrCreateSpatialDiscoverySnapshotAsyncEXT)(XrSpatialContextEXT, const XrSpatialDiscoverySnapshotCreateInfoEXT *, XrFutureEXT *);
+    XrResult (*p_xrCreateSpatialDiscoverySnapshotCompleteEXT)(XrSpatialContextEXT, const XrCreateSpatialDiscoverySnapshotCompletionInfoEXT *, XrCreateSpatialDiscoverySnapshotCompletionEXT *);
     XrResult (*p_xrCreateSpatialEntityAnchorBD)(XrSenseDataProviderBD, const XrSpatialEntityAnchorCreateInfoBD *, XrAnchorBD *);
+    XrResult (*p_xrCreateSpatialEntityFromIdEXT)(XrSpatialContextEXT, const XrSpatialEntityFromIdCreateInfoEXT *, XrSpatialEntityEXT *);
     XrResult (*p_xrCreateSpatialGraphNodeSpaceMSFT)(XrSession, const XrSpatialGraphNodeSpaceCreateInfoMSFT *, XrSpace *);
+    XrResult (*p_xrCreateSpatialPersistenceContextAsyncEXT)(XrSession, const XrSpatialPersistenceContextCreateInfoEXT *, XrFutureEXT *);
+    XrResult (*p_xrCreateSpatialPersistenceContextCompleteEXT)(XrSession, XrFutureEXT, XrCreateSpatialPersistenceContextCompletionEXT *);
+    XrResult (*p_xrCreateSpatialUpdateSnapshotEXT)(XrSpatialContextEXT, const XrSpatialUpdateSnapshotCreateInfoEXT *, XrSpatialSnapshotEXT *);
     XrResult (*p_xrCreateSwapchain)(XrSession, const XrSwapchainCreateInfo *, XrSwapchain *);
+    XrResult (*p_xrCreateTrackableTrackerANDROID)(XrSession, const XrTrackableTrackerCreateInfoANDROID *, XrTrackableTrackerANDROID *);
     XrResult (*p_xrCreateTriangleMeshFB)(XrSession, const XrTriangleMeshCreateInfoFB *, XrTriangleMeshFB *);
     XrResult (*p_xrCreateVirtualKeyboardMETA)(XrSession, const XrVirtualKeyboardCreateInfoMETA *, XrVirtualKeyboardMETA *);
     XrResult (*p_xrCreateVirtualKeyboardSpaceMETA)(XrSession, XrVirtualKeyboardMETA, const XrVirtualKeyboardSpaceCreateInfoMETA *, XrSpace *);
@@ -115,6 +131,7 @@ struct openxr_instance_funcs
     XrResult (*p_xrDestroyBodyTrackerBD)(XrBodyTrackerBD);
     XrResult (*p_xrDestroyBodyTrackerFB)(XrBodyTrackerFB);
     XrResult (*p_xrDestroyBodyTrackerHTC)(XrBodyTrackerHTC);
+    XrResult (*p_xrDestroyDeviceAnchorPersistenceANDROID)(XrDeviceAnchorPersistenceANDROID);
     XrResult (*p_xrDestroyEnvironmentDepthProviderMETA)(XrEnvironmentDepthProviderMETA);
     XrResult (*p_xrDestroyEnvironmentDepthSwapchainMETA)(XrEnvironmentDepthSwapchainMETA);
     XrResult (*p_xrDestroyExportedLocalizationMapML)(XrExportedLocalizationMapML);
@@ -133,6 +150,8 @@ struct openxr_instance_funcs
     XrResult (*p_xrDestroyPassthroughHTC)(XrPassthroughHTC);
     XrResult (*p_xrDestroyPassthroughLayerFB)(XrPassthroughLayerFB);
     XrResult (*p_xrDestroyPlaneDetectorEXT)(XrPlaneDetectorEXT);
+    XrResult (*p_xrDestroyRenderModelAssetEXT)(XrRenderModelAssetEXT);
+    XrResult (*p_xrDestroyRenderModelEXT)(XrRenderModelEXT);
     XrResult (*p_xrDestroySceneMSFT)(XrSceneMSFT);
     XrResult (*p_xrDestroySceneObserverMSFT)(XrSceneObserverMSFT);
     XrResult (*p_xrDestroySenseDataProviderBD)(XrSenseDataProviderBD);
@@ -143,8 +162,13 @@ struct openxr_instance_funcs
     XrResult (*p_xrDestroySpatialAnchorMSFT)(XrSpatialAnchorMSFT);
     XrResult (*p_xrDestroySpatialAnchorStoreConnectionMSFT)(XrSpatialAnchorStoreConnectionMSFT);
     XrResult (*p_xrDestroySpatialAnchorsStorageML)(XrSpatialAnchorsStorageML);
+    XrResult (*p_xrDestroySpatialContextEXT)(XrSpatialContextEXT);
+    XrResult (*p_xrDestroySpatialEntityEXT)(XrSpatialEntityEXT);
     XrResult (*p_xrDestroySpatialGraphNodeBindingMSFT)(XrSpatialGraphNodeBindingMSFT);
+    XrResult (*p_xrDestroySpatialPersistenceContextEXT)(XrSpatialPersistenceContextEXT);
+    XrResult (*p_xrDestroySpatialSnapshotEXT)(XrSpatialSnapshotEXT);
     XrResult (*p_xrDestroySwapchain)(XrSwapchain);
+    XrResult (*p_xrDestroyTrackableTrackerANDROID)(XrTrackableTrackerANDROID);
     XrResult (*p_xrDestroyTriangleMeshFB)(XrTriangleMeshFB);
     XrResult (*p_xrDestroyVirtualKeyboardMETA)(XrVirtualKeyboardMETA);
     XrResult (*p_xrDestroyWorldMeshDetectorML)(XrWorldMeshDetectorML);
@@ -161,26 +185,40 @@ struct openxr_instance_funcs
     XrResult (*p_xrEnumerateEnvironmentBlendModes)(XrInstance, XrSystemId, XrViewConfigurationType, uint32_t, uint32_t *, XrEnvironmentBlendMode *);
     XrResult (*p_xrEnumerateEnvironmentDepthSwapchainImagesMETA)(XrEnvironmentDepthSwapchainMETA, uint32_t, uint32_t *, XrSwapchainImageBaseHeader *);
     XrResult (*p_xrEnumerateExternalCamerasOCULUS)(XrSession, uint32_t, uint32_t *, XrExternalCameraOCULUS *);
+    XrResult (*p_xrEnumerateInteractionRenderModelIdsEXT)(XrSession, const XrInteractionRenderModelIdsEnumerateInfoEXT *, uint32_t, uint32_t *, XrRenderModelIdEXT *);
     XrResult (*p_xrEnumeratePerformanceMetricsCounterPathsMETA)(XrInstance, uint32_t, uint32_t *, XrPath *);
+    XrResult (*p_xrEnumeratePersistedAnchorsANDROID)(XrDeviceAnchorPersistenceANDROID, uint32_t, uint32_t *, XrUuidEXT *);
     XrResult (*p_xrEnumeratePersistedSpatialAnchorNamesMSFT)(XrSpatialAnchorStoreConnectionMSFT, uint32_t, uint32_t *, XrSpatialAnchorPersistenceNameMSFT *);
+    XrResult (*p_xrEnumerateRaycastSupportedTrackableTypesANDROID)(XrInstance, XrSystemId, uint32_t, uint32_t *, XrTrackableTypeANDROID *);
     XrResult (*p_xrEnumerateReferenceSpaces)(XrSession, uint32_t, uint32_t *, XrReferenceSpaceType *);
     XrResult (*p_xrEnumerateRenderModelPathsFB)(XrSession, uint32_t, uint32_t *, XrRenderModelPathInfoFB *);
+    XrResult (*p_xrEnumerateRenderModelSubactionPathsEXT)(XrRenderModelEXT, const XrInteractionRenderModelSubactionPathInfoEXT *, uint32_t, uint32_t *, XrPath *);
     XrResult (*p_xrEnumerateReprojectionModesMSFT)(XrInstance, XrSystemId, XrViewConfigurationType, uint32_t, uint32_t *, XrReprojectionModeMSFT *);
     XrResult (*p_xrEnumerateSceneComputeFeaturesMSFT)(XrInstance, XrSystemId, uint32_t, uint32_t *, XrSceneComputeFeatureMSFT *);
     XrResult (*p_xrEnumerateSpaceSupportedComponentsFB)(XrSpace, uint32_t, uint32_t *, XrSpaceComponentTypeFB *);
+    XrResult (*p_xrEnumerateSpatialCapabilitiesEXT)(XrInstance, XrSystemId, uint32_t, uint32_t *, XrSpatialCapabilityEXT *);
+    XrResult (*p_xrEnumerateSpatialCapabilityComponentTypesEXT)(XrInstance, XrSystemId, XrSpatialCapabilityEXT, XrSpatialCapabilityComponentTypesEXT *);
+    XrResult (*p_xrEnumerateSpatialCapabilityFeaturesEXT)(XrInstance, XrSystemId, XrSpatialCapabilityEXT, uint32_t, uint32_t *, XrSpatialCapabilityFeatureEXT *);
     XrResult (*p_xrEnumerateSpatialEntityComponentTypesBD)(XrSenseDataSnapshotBD, XrSpatialEntityIdBD, uint32_t, uint32_t *, XrSpatialEntityComponentTypeBD *);
+    XrResult (*p_xrEnumerateSpatialPersistenceScopesEXT)(XrInstance, XrSystemId, uint32_t, uint32_t *, XrSpatialPersistenceScopeEXT *);
+    XrResult (*p_xrEnumerateSupportedAnchorTrackableTypesANDROID)(XrInstance, XrSystemId, uint32_t, uint32_t *, XrTrackableTypeANDROID *);
+    XrResult (*p_xrEnumerateSupportedPersistenceAnchorTypesANDROID)(XrInstance, XrSystemId, uint32_t, uint32_t *, XrTrackableTypeANDROID *);
+    XrResult (*p_xrEnumerateSupportedTrackableTypesANDROID)(XrInstance, XrSystemId, uint32_t, uint32_t *, XrTrackableTypeANDROID *);
     XrResult (*p_xrEnumerateSwapchainFormats)(XrSession, uint32_t, uint32_t *, int64_t *);
     XrResult (*p_xrEnumerateSwapchainImages)(XrSwapchain, uint32_t, uint32_t *, XrSwapchainImageBaseHeader *);
     XrResult (*p_xrEnumerateViewConfigurationViews)(XrInstance, XrSystemId, XrViewConfigurationType, uint32_t, uint32_t *, XrViewConfigurationView *);
     XrResult (*p_xrEnumerateViewConfigurations)(XrInstance, XrSystemId, uint32_t, uint32_t *, XrViewConfigurationType *);
     XrResult (*p_xrEnumerateViveTrackerPathsHTCX)(XrInstance, uint32_t, uint32_t *, XrViveTrackerPathsHTCX *);
     XrResult (*p_xrEraseSpaceFB)(XrSession, const XrSpaceEraseInfoFB *, XrAsyncRequestIdFB *);
+    XrResult (*p_xrEraseSpacesMETA)(XrSession, const XrSpacesEraseInfoMETA *, XrAsyncRequestIdFB *);
     XrResult (*p_xrFreeWorldMeshBufferML)(XrWorldMeshDetectorML, const XrWorldMeshBufferML *);
     XrResult (*p_xrGeometryInstanceSetTransformFB)(XrGeometryInstanceFB, const XrGeometryInstanceTransformFB *);
     XrResult (*p_xrGetActionStateBoolean)(XrSession, const XrActionStateGetInfo *, XrActionStateBoolean *);
     XrResult (*p_xrGetActionStateFloat)(XrSession, const XrActionStateGetInfo *, XrActionStateFloat *);
     XrResult (*p_xrGetActionStatePose)(XrSession, const XrActionStateGetInfo *, XrActionStatePose *);
     XrResult (*p_xrGetActionStateVector2f)(XrSession, const XrActionStateGetInfo *, XrActionStateVector2f *);
+    XrResult (*p_xrGetAllTrackablesANDROID)(XrTrackableTrackerANDROID, uint32_t, uint32_t *, XrTrackableANDROID *);
+    XrResult (*p_xrGetAnchorPersistStateANDROID)(XrDeviceAnchorPersistenceANDROID, const XrUuidEXT *, XrAnchorPersistStateANDROID *);
     XrResult (*p_xrGetAnchorUuidBD)(XrAnchorBD, XrUuidEXT *);
     XrResult (*p_xrGetAudioInputDeviceGuidOculus)(XrInstance, wchar_t[]);
     XrResult (*p_xrGetAudioOutputDeviceGuidOculus)(XrInstance, wchar_t[]);
@@ -211,6 +249,7 @@ struct openxr_instance_funcs
     XrResult (*p_xrGetMarkerStringML)(XrMarkerDetectorML, XrMarkerML, uint32_t, uint32_t *, char *);
     XrResult (*p_xrGetMarkersML)(XrMarkerDetectorML, uint32_t, uint32_t *, XrMarkerML *);
     XrResult (*p_xrGetOpenGLGraphicsRequirementsKHR)(XrInstance, XrSystemId, XrGraphicsRequirementsOpenGLKHR *);
+    XrResult (*p_xrGetPassthroughCameraStateANDROID)(XrSession, const XrPassthroughCameraStateGetInfoANDROID *, XrPassthroughCameraStateANDROID *);
     XrResult (*p_xrGetPassthroughPreferencesMETA)(XrSession, XrPassthroughPreferencesMETA *);
     XrResult (*p_xrGetPerformanceMetricsStateMETA)(XrSession, XrPerformanceMetricsStateMETA *);
     XrResult (*p_xrGetPlaneDetectionStateEXT)(XrPlaneDetectorEXT, XrPlaneDetectionStateEXT *);
@@ -219,7 +258,12 @@ struct openxr_instance_funcs
     XrResult (*p_xrGetQueriedSenseDataBD)(XrSenseDataSnapshotBD, XrQueriedSenseDataGetInfoBD *, XrQueriedSenseDataBD *);
     XrResult (*p_xrGetRecommendedLayerResolutionMETA)(XrSession, const XrRecommendedLayerResolutionGetInfoMETA *, XrRecommendedLayerResolutionMETA *);
     XrResult (*p_xrGetReferenceSpaceBoundsRect)(XrSession, XrReferenceSpaceType, XrExtent2Df *);
+    XrResult (*p_xrGetRenderModelAssetDataEXT)(XrRenderModelAssetEXT, const XrRenderModelAssetDataGetInfoEXT *, XrRenderModelAssetDataEXT *);
+    XrResult (*p_xrGetRenderModelAssetPropertiesEXT)(XrRenderModelAssetEXT, const XrRenderModelAssetPropertiesGetInfoEXT *, XrRenderModelAssetPropertiesEXT *);
+    XrResult (*p_xrGetRenderModelPoseTopLevelUserPathEXT)(XrRenderModelEXT, const XrInteractionRenderModelTopLevelUserPathGetInfoEXT *, XrPath *);
+    XrResult (*p_xrGetRenderModelPropertiesEXT)(XrRenderModelEXT, const XrRenderModelPropertiesGetInfoEXT *, XrRenderModelPropertiesEXT *);
     XrResult (*p_xrGetRenderModelPropertiesFB)(XrSession, XrPath, XrRenderModelPropertiesFB *);
+    XrResult (*p_xrGetRenderModelStateEXT)(XrRenderModelEXT, const XrRenderModelStateGetInfoEXT *, XrRenderModelStateEXT *);
     XrResult (*p_xrGetSceneComponentsMSFT)(XrSceneMSFT, const XrSceneComponentsGetInfoMSFT *, XrSceneComponentsMSFT *);
     XrResult (*p_xrGetSceneComputeStateMSFT)(XrSceneObserverMSFT, XrSceneComputeStateMSFT *);
     XrResult (*p_xrGetSceneMarkerDecodedStringMSFT)(XrSceneMSFT, const XrUuidMSFT *, uint32_t, uint32_t *, char *);
@@ -239,12 +283,22 @@ struct openxr_instance_funcs
     XrResult (*p_xrGetSpaceUuidFB)(XrSpace, XrUuidEXT *);
     XrResult (*p_xrGetSpatialAnchorNameHTC)(XrSpace, XrSpatialAnchorNameHTC *);
     XrResult (*p_xrGetSpatialAnchorStateML)(XrSpace, XrSpatialAnchorStateML *);
+    XrResult (*p_xrGetSpatialBufferFloatEXT)(XrSpatialSnapshotEXT, const XrSpatialBufferGetInfoEXT *, uint32_t, uint32_t *, float *);
+    XrResult (*p_xrGetSpatialBufferStringEXT)(XrSpatialSnapshotEXT, const XrSpatialBufferGetInfoEXT *, uint32_t, uint32_t *, char *);
+    XrResult (*p_xrGetSpatialBufferUint16EXT)(XrSpatialSnapshotEXT, const XrSpatialBufferGetInfoEXT *, uint32_t, uint32_t *, uint16_t *);
+    XrResult (*p_xrGetSpatialBufferUint32EXT)(XrSpatialSnapshotEXT, const XrSpatialBufferGetInfoEXT *, uint32_t, uint32_t *, uint32_t *);
+    XrResult (*p_xrGetSpatialBufferUint8EXT)(XrSpatialSnapshotEXT, const XrSpatialBufferGetInfoEXT *, uint32_t, uint32_t *, uint8_t *);
+    XrResult (*p_xrGetSpatialBufferVector2fEXT)(XrSpatialSnapshotEXT, const XrSpatialBufferGetInfoEXT *, uint32_t, uint32_t *, XrVector2f *);
+    XrResult (*p_xrGetSpatialBufferVector3fEXT)(XrSpatialSnapshotEXT, const XrSpatialBufferGetInfoEXT *, uint32_t, uint32_t *, XrVector3f *);
     XrResult (*p_xrGetSpatialEntityComponentDataBD)(XrSenseDataSnapshotBD, const XrSpatialEntityComponentGetInfoBD *, XrSpatialEntityComponentDataBaseHeaderBD *);
     XrResult (*p_xrGetSpatialEntityUuidBD)(XrSenseDataSnapshotBD, XrSpatialEntityIdBD, XrUuidEXT *);
     XrResult (*p_xrGetSpatialGraphNodeBindingPropertiesMSFT)(XrSpatialGraphNodeBindingMSFT, const XrSpatialGraphNodeBindingPropertiesGetInfoMSFT *, XrSpatialGraphNodeBindingPropertiesMSFT *);
     XrResult (*p_xrGetSwapchainStateFB)(XrSwapchain, XrSwapchainStateBaseHeaderFB *);
     XrResult (*p_xrGetSystem)(XrInstance, const XrSystemGetInfo *, XrSystemId *);
     XrResult (*p_xrGetSystemProperties)(XrInstance, XrSystemId, XrSystemProperties *);
+    XrResult (*p_xrGetTrackableMarkerANDROID)(XrTrackableTrackerANDROID, const XrTrackableGetInfoANDROID *, XrTrackableMarkerANDROID *);
+    XrResult (*p_xrGetTrackableObjectANDROID)(XrTrackableTrackerANDROID, const XrTrackableGetInfoANDROID *, XrTrackableObjectANDROID *);
+    XrResult (*p_xrGetTrackablePlaneANDROID)(XrTrackableTrackerANDROID, const XrTrackableGetInfoANDROID *, XrTrackablePlaneANDROID *);
     XrResult (*p_xrGetViewConfigurationProperties)(XrInstance, XrSystemId, XrViewConfigurationType, XrViewConfigurationProperties *);
     XrResult (*p_xrGetVirtualKeyboardDirtyTexturesMETA)(XrVirtualKeyboardMETA, uint32_t, uint32_t *, uint64_t *);
     XrResult (*p_xrGetVirtualKeyboardModelAnimationStatesMETA)(XrVirtualKeyboardMETA, XrVirtualKeyboardModelAnimationStatesMETA *);
@@ -278,10 +332,14 @@ struct openxr_instance_funcs
     XrResult (*p_xrPassthroughPauseFB)(XrPassthroughFB);
     XrResult (*p_xrPassthroughStartFB)(XrPassthroughFB);
     XrResult (*p_xrPathToString)(XrInstance, XrPath, uint32_t, uint32_t *, char *);
+    XrResult (*p_xrPauseSimultaneousHandsAndControllersTrackingMETA)(XrSession, const XrSimultaneousHandsAndControllersTrackingPauseInfoMETA *);
     XrResult (*p_xrPerfSettingsSetPerformanceLevelEXT)(XrSession, XrPerfSettingsDomainEXT, XrPerfSettingsLevelEXT);
+    XrResult (*p_xrPersistAnchorANDROID)(XrDeviceAnchorPersistenceANDROID, const XrPersistedAnchorSpaceInfoANDROID *, XrUuidEXT *);
     XrResult (*p_xrPersistSpatialAnchorAsyncBD)(XrSenseDataProviderBD, const XrSpatialAnchorPersistInfoBD *, XrFutureEXT *);
     XrResult (*p_xrPersistSpatialAnchorCompleteBD)(XrSenseDataProviderBD, XrFutureEXT, XrFutureCompletionEXT *);
     XrResult (*p_xrPersistSpatialAnchorMSFT)(XrSpatialAnchorStoreConnectionMSFT, const XrSpatialAnchorPersistenceInfoMSFT *);
+    XrResult (*p_xrPersistSpatialEntityAsyncEXT)(XrSpatialPersistenceContextEXT, const XrSpatialEntityPersistInfoEXT *, XrFutureEXT *);
+    XrResult (*p_xrPersistSpatialEntityCompleteEXT)(XrSpatialPersistenceContextEXT, XrFutureEXT, XrPersistSpatialEntityCompletionEXT *);
     XrResult (*p_xrPollEvent)(XrInstance, XrEventDataBuffer *);
     XrResult (*p_xrPollFutureEXT)(XrInstance, const XrFuturePollInfoEXT *, XrFuturePollResultEXT *);
     XrResult (*p_xrPublishSpatialAnchorsAsyncML)(XrSpatialAnchorsStorageML, const XrSpatialAnchorsPublishInfoML *, XrFutureEXT *);
@@ -293,7 +351,9 @@ struct openxr_instance_funcs
     XrResult (*p_xrQuerySpacesFB)(XrSession, const XrSpaceQueryInfoBaseHeaderFB *, XrAsyncRequestIdFB *);
     XrResult (*p_xrQuerySpatialAnchorsAsyncML)(XrSpatialAnchorsStorageML, const XrSpatialAnchorsQueryInfoBaseHeaderML *, XrFutureEXT *);
     XrResult (*p_xrQuerySpatialAnchorsCompleteML)(XrSpatialAnchorsStorageML, XrFutureEXT, XrSpatialAnchorsQueryCompletionML *);
+    XrResult (*p_xrQuerySpatialComponentDataEXT)(XrSpatialSnapshotEXT, const XrSpatialComponentDataQueryConditionEXT *, XrSpatialComponentDataQueryResultEXT *);
     XrResult (*p_xrQuerySystemTrackedKeyboardFB)(XrSession, const XrKeyboardTrackingQueryFB *, XrKeyboardTrackingDescriptionFB *);
+    XrResult (*p_xrRaycastANDROID)(XrSession, const XrRaycastInfoANDROID *, XrRaycastHitResultsANDROID *);
     XrResult (*p_xrReleaseSwapchainImage)(XrSwapchain, const XrSwapchainImageReleaseInfo *);
     XrResult (*p_xrRequestDisplayRefreshRateFB)(XrSession, float);
     XrResult (*p_xrRequestExitSession)(XrSession);
@@ -303,10 +363,13 @@ struct openxr_instance_funcs
     XrResult (*p_xrRequestWorldMeshCompleteML)(XrWorldMeshDetectorML, const XrWorldMeshRequestCompletionInfoML *, XrFutureEXT, XrWorldMeshRequestCompletionML *);
     XrResult (*p_xrRequestWorldMeshStateAsyncML)(XrWorldMeshDetectorML, const XrWorldMeshStateRequestInfoML *, XrFutureEXT *);
     XrResult (*p_xrRequestWorldMeshStateCompleteML)(XrWorldMeshDetectorML, XrFutureEXT, XrWorldMeshStateRequestCompletionML *);
+    XrResult (*p_xrResetBodyTrackingCalibrationMETA)(XrBodyTrackerFB);
     XrResult (*p_xrResultToString)(XrInstance, XrResult, char[]);
+    XrResult (*p_xrResumeSimultaneousHandsAndControllersTrackingMETA)(XrSession, const XrSimultaneousHandsAndControllersTrackingResumeInfoMETA *);
     XrResult (*p_xrRetrieveSpaceQueryResultsFB)(XrSession, XrAsyncRequestIdFB, XrSpaceQueryResultsFB *);
     XrResult (*p_xrSaveSpaceFB)(XrSession, const XrSpaceSaveInfoFB *, XrAsyncRequestIdFB *);
     XrResult (*p_xrSaveSpaceListFB)(XrSession, const XrSpaceListSaveInfoFB *, XrAsyncRequestIdFB *);
+    XrResult (*p_xrSaveSpacesMETA)(XrSession, const XrSpacesSaveInfoMETA *, XrAsyncRequestIdFB *);
     XrResult (*p_xrSendVirtualKeyboardInputMETA)(XrVirtualKeyboardMETA, const XrVirtualKeyboardInputInfoMETA *, XrPosef *);
     XrResult (*p_xrSetColorSpaceFB)(XrSession, const XrColorSpaceFB);
     XrResult (*p_xrSetDigitalLensControlALMALENCE)(XrSession, const XrDigitalLensControlALMALENCE *);
@@ -344,6 +407,7 @@ struct openxr_instance_funcs
     XrResult (*p_xrStringToPath)(XrInstance, const char *, XrPath *);
     XrResult (*p_xrStructureTypeToString)(XrInstance, XrStructureType, char[]);
     XrResult (*p_xrStructureTypeToString2KHR)(XrInstance, XrStructureType, char[]);
+    XrResult (*p_xrSuggestBodyTrackingCalibrationOverrideMETA)(XrBodyTrackerFB, const XrBodyTrackingCalibrationInfoMETA *);
     XrResult (*p_xrSuggestInteractionProfileBindings)(XrInstance, const XrInteractionProfileSuggestedBinding *);
     XrResult (*p_xrSuggestVirtualKeyboardLocationMETA)(XrVirtualKeyboardMETA, const XrVirtualKeyboardLocationInfoMETA *);
     XrResult (*p_xrSyncActions)(XrSession, const XrActionsSyncInfo *);
@@ -355,9 +419,12 @@ struct openxr_instance_funcs
     XrResult (*p_xrTriangleMeshGetIndexBufferFB)(XrTriangleMeshFB, uint32_t **);
     XrResult (*p_xrTriangleMeshGetVertexBufferFB)(XrTriangleMeshFB, XrVector3f **);
     XrResult (*p_xrTryCreateSpatialGraphStaticNodeBindingMSFT)(XrSession, const XrSpatialGraphStaticNodeBindingCreateInfoMSFT *, XrSpatialGraphNodeBindingMSFT *);
+    XrResult (*p_xrUnpersistAnchorANDROID)(XrDeviceAnchorPersistenceANDROID, const XrUuidEXT *);
     XrResult (*p_xrUnpersistSpatialAnchorAsyncBD)(XrSenseDataProviderBD, const XrSpatialAnchorUnpersistInfoBD *, XrFutureEXT *);
     XrResult (*p_xrUnpersistSpatialAnchorCompleteBD)(XrSenseDataProviderBD, XrFutureEXT, XrFutureCompletionEXT *);
     XrResult (*p_xrUnpersistSpatialAnchorMSFT)(XrSpatialAnchorStoreConnectionMSFT, const XrSpatialAnchorPersistenceNameMSFT *);
+    XrResult (*p_xrUnpersistSpatialEntityAsyncEXT)(XrSpatialPersistenceContextEXT, const XrSpatialEntityUnpersistInfoEXT *, XrFutureEXT *);
+    XrResult (*p_xrUnpersistSpatialEntityCompleteEXT)(XrSpatialPersistenceContextEXT, XrFutureEXT, XrUnpersistSpatialEntityCompletionEXT *);
     XrResult (*p_xrUpdateHandMeshMSFT)(XrHandTrackerEXT, const XrHandMeshUpdateInfoMSFT *, XrHandMeshMSFT *);
     XrResult (*p_xrUpdatePassthroughColorLutMETA)(XrPassthroughColorLutMETA, const XrPassthroughColorLutUpdateInfoMETA *);
     XrResult (*p_xrUpdateSpatialAnchorsExpirationAsyncML)(XrSpatialAnchorsStorageML, const XrSpatialAnchorsUpdateExpirationInfoML *, XrFutureEXT *);
@@ -386,11 +453,13 @@ struct openxr_instance_funcs
     USE_XR_FUNC(xrCreateAction) \
     USE_XR_FUNC(xrCreateActionSet) \
     USE_XR_FUNC(xrCreateActionSpace) \
+    USE_XR_FUNC(xrCreateAnchorSpaceANDROID) \
     USE_XR_FUNC(xrCreateAnchorSpaceBD) \
     USE_XR_FUNC(xrCreateApiLayerInstance) \
     USE_XR_FUNC(xrCreateBodyTrackerBD) \
     USE_XR_FUNC(xrCreateBodyTrackerFB) \
     USE_XR_FUNC(xrCreateBodyTrackerHTC) \
+    USE_XR_FUNC(xrCreateDeviceAnchorPersistenceANDROID) \
     USE_XR_FUNC(xrCreateEnvironmentDepthProviderMETA) \
     USE_XR_FUNC(xrCreateEnvironmentDepthSwapchainMETA) \
     USE_XR_FUNC(xrCreateExportedLocalizationMapML) \
@@ -411,8 +480,12 @@ struct openxr_instance_funcs
     USE_XR_FUNC(xrCreatePassthroughFB) \
     USE_XR_FUNC(xrCreatePassthroughHTC) \
     USE_XR_FUNC(xrCreatePassthroughLayerFB) \
+    USE_XR_FUNC(xrCreatePersistedAnchorSpaceANDROID) \
     USE_XR_FUNC(xrCreatePlaneDetectorEXT) \
     USE_XR_FUNC(xrCreateReferenceSpace) \
+    USE_XR_FUNC(xrCreateRenderModelAssetEXT) \
+    USE_XR_FUNC(xrCreateRenderModelEXT) \
+    USE_XR_FUNC(xrCreateRenderModelSpaceEXT) \
     USE_XR_FUNC(xrCreateSceneMSFT) \
     USE_XR_FUNC(xrCreateSceneObserverMSFT) \
     USE_XR_FUNC(xrCreateSenseDataProviderBD) \
@@ -420,6 +493,7 @@ struct openxr_instance_funcs
     USE_XR_FUNC(xrCreateSpaceUserFB) \
     USE_XR_FUNC(xrCreateSpatialAnchorAsyncBD) \
     USE_XR_FUNC(xrCreateSpatialAnchorCompleteBD) \
+    USE_XR_FUNC(xrCreateSpatialAnchorEXT) \
     USE_XR_FUNC(xrCreateSpatialAnchorFB) \
     USE_XR_FUNC(xrCreateSpatialAnchorFromPersistedNameMSFT) \
     USE_XR_FUNC(xrCreateSpatialAnchorHTC) \
@@ -429,9 +503,18 @@ struct openxr_instance_funcs
     USE_XR_FUNC(xrCreateSpatialAnchorsAsyncML) \
     USE_XR_FUNC(xrCreateSpatialAnchorsCompleteML) \
     USE_XR_FUNC(xrCreateSpatialAnchorsStorageML) \
+    USE_XR_FUNC(xrCreateSpatialContextAsyncEXT) \
+    USE_XR_FUNC(xrCreateSpatialContextCompleteEXT) \
+    USE_XR_FUNC(xrCreateSpatialDiscoverySnapshotAsyncEXT) \
+    USE_XR_FUNC(xrCreateSpatialDiscoverySnapshotCompleteEXT) \
     USE_XR_FUNC(xrCreateSpatialEntityAnchorBD) \
+    USE_XR_FUNC(xrCreateSpatialEntityFromIdEXT) \
     USE_XR_FUNC(xrCreateSpatialGraphNodeSpaceMSFT) \
+    USE_XR_FUNC(xrCreateSpatialPersistenceContextAsyncEXT) \
+    USE_XR_FUNC(xrCreateSpatialPersistenceContextCompleteEXT) \
+    USE_XR_FUNC(xrCreateSpatialUpdateSnapshotEXT) \
     USE_XR_FUNC(xrCreateSwapchain) \
+    USE_XR_FUNC(xrCreateTrackableTrackerANDROID) \
     USE_XR_FUNC(xrCreateTriangleMeshFB) \
     USE_XR_FUNC(xrCreateVirtualKeyboardMETA) \
     USE_XR_FUNC(xrCreateVirtualKeyboardSpaceMETA) \
@@ -447,6 +530,7 @@ struct openxr_instance_funcs
     USE_XR_FUNC(xrDestroyBodyTrackerBD) \
     USE_XR_FUNC(xrDestroyBodyTrackerFB) \
     USE_XR_FUNC(xrDestroyBodyTrackerHTC) \
+    USE_XR_FUNC(xrDestroyDeviceAnchorPersistenceANDROID) \
     USE_XR_FUNC(xrDestroyEnvironmentDepthProviderMETA) \
     USE_XR_FUNC(xrDestroyEnvironmentDepthSwapchainMETA) \
     USE_XR_FUNC(xrDestroyExportedLocalizationMapML) \
@@ -465,6 +549,8 @@ struct openxr_instance_funcs
     USE_XR_FUNC(xrDestroyPassthroughHTC) \
     USE_XR_FUNC(xrDestroyPassthroughLayerFB) \
     USE_XR_FUNC(xrDestroyPlaneDetectorEXT) \
+    USE_XR_FUNC(xrDestroyRenderModelAssetEXT) \
+    USE_XR_FUNC(xrDestroyRenderModelEXT) \
     USE_XR_FUNC(xrDestroySceneMSFT) \
     USE_XR_FUNC(xrDestroySceneObserverMSFT) \
     USE_XR_FUNC(xrDestroySenseDataProviderBD) \
@@ -475,8 +561,13 @@ struct openxr_instance_funcs
     USE_XR_FUNC(xrDestroySpatialAnchorMSFT) \
     USE_XR_FUNC(xrDestroySpatialAnchorStoreConnectionMSFT) \
     USE_XR_FUNC(xrDestroySpatialAnchorsStorageML) \
+    USE_XR_FUNC(xrDestroySpatialContextEXT) \
+    USE_XR_FUNC(xrDestroySpatialEntityEXT) \
     USE_XR_FUNC(xrDestroySpatialGraphNodeBindingMSFT) \
+    USE_XR_FUNC(xrDestroySpatialPersistenceContextEXT) \
+    USE_XR_FUNC(xrDestroySpatialSnapshotEXT) \
     USE_XR_FUNC(xrDestroySwapchain) \
+    USE_XR_FUNC(xrDestroyTrackableTrackerANDROID) \
     USE_XR_FUNC(xrDestroyTriangleMeshFB) \
     USE_XR_FUNC(xrDestroyVirtualKeyboardMETA) \
     USE_XR_FUNC(xrDestroyWorldMeshDetectorML) \
@@ -493,26 +584,40 @@ struct openxr_instance_funcs
     USE_XR_FUNC(xrEnumerateEnvironmentBlendModes) \
     USE_XR_FUNC(xrEnumerateEnvironmentDepthSwapchainImagesMETA) \
     USE_XR_FUNC(xrEnumerateExternalCamerasOCULUS) \
+    USE_XR_FUNC(xrEnumerateInteractionRenderModelIdsEXT) \
     USE_XR_FUNC(xrEnumeratePerformanceMetricsCounterPathsMETA) \
+    USE_XR_FUNC(xrEnumeratePersistedAnchorsANDROID) \
     USE_XR_FUNC(xrEnumeratePersistedSpatialAnchorNamesMSFT) \
+    USE_XR_FUNC(xrEnumerateRaycastSupportedTrackableTypesANDROID) \
     USE_XR_FUNC(xrEnumerateReferenceSpaces) \
     USE_XR_FUNC(xrEnumerateRenderModelPathsFB) \
+    USE_XR_FUNC(xrEnumerateRenderModelSubactionPathsEXT) \
     USE_XR_FUNC(xrEnumerateReprojectionModesMSFT) \
     USE_XR_FUNC(xrEnumerateSceneComputeFeaturesMSFT) \
     USE_XR_FUNC(xrEnumerateSpaceSupportedComponentsFB) \
+    USE_XR_FUNC(xrEnumerateSpatialCapabilitiesEXT) \
+    USE_XR_FUNC(xrEnumerateSpatialCapabilityComponentTypesEXT) \
+    USE_XR_FUNC(xrEnumerateSpatialCapabilityFeaturesEXT) \
     USE_XR_FUNC(xrEnumerateSpatialEntityComponentTypesBD) \
+    USE_XR_FUNC(xrEnumerateSpatialPersistenceScopesEXT) \
+    USE_XR_FUNC(xrEnumerateSupportedAnchorTrackableTypesANDROID) \
+    USE_XR_FUNC(xrEnumerateSupportedPersistenceAnchorTypesANDROID) \
+    USE_XR_FUNC(xrEnumerateSupportedTrackableTypesANDROID) \
     USE_XR_FUNC(xrEnumerateSwapchainFormats) \
     USE_XR_FUNC(xrEnumerateSwapchainImages) \
     USE_XR_FUNC(xrEnumerateViewConfigurationViews) \
     USE_XR_FUNC(xrEnumerateViewConfigurations) \
     USE_XR_FUNC(xrEnumerateViveTrackerPathsHTCX) \
     USE_XR_FUNC(xrEraseSpaceFB) \
+    USE_XR_FUNC(xrEraseSpacesMETA) \
     USE_XR_FUNC(xrFreeWorldMeshBufferML) \
     USE_XR_FUNC(xrGeometryInstanceSetTransformFB) \
     USE_XR_FUNC(xrGetActionStateBoolean) \
     USE_XR_FUNC(xrGetActionStateFloat) \
     USE_XR_FUNC(xrGetActionStatePose) \
     USE_XR_FUNC(xrGetActionStateVector2f) \
+    USE_XR_FUNC(xrGetAllTrackablesANDROID) \
+    USE_XR_FUNC(xrGetAnchorPersistStateANDROID) \
     USE_XR_FUNC(xrGetAnchorUuidBD) \
     USE_XR_FUNC(xrGetAudioInputDeviceGuidOculus) \
     USE_XR_FUNC(xrGetAudioOutputDeviceGuidOculus) \
@@ -543,6 +648,7 @@ struct openxr_instance_funcs
     USE_XR_FUNC(xrGetMarkerStringML) \
     USE_XR_FUNC(xrGetMarkersML) \
     USE_XR_FUNC(xrGetOpenGLGraphicsRequirementsKHR) \
+    USE_XR_FUNC(xrGetPassthroughCameraStateANDROID) \
     USE_XR_FUNC(xrGetPassthroughPreferencesMETA) \
     USE_XR_FUNC(xrGetPerformanceMetricsStateMETA) \
     USE_XR_FUNC(xrGetPlaneDetectionStateEXT) \
@@ -551,7 +657,12 @@ struct openxr_instance_funcs
     USE_XR_FUNC(xrGetQueriedSenseDataBD) \
     USE_XR_FUNC(xrGetRecommendedLayerResolutionMETA) \
     USE_XR_FUNC(xrGetReferenceSpaceBoundsRect) \
+    USE_XR_FUNC(xrGetRenderModelAssetDataEXT) \
+    USE_XR_FUNC(xrGetRenderModelAssetPropertiesEXT) \
+    USE_XR_FUNC(xrGetRenderModelPoseTopLevelUserPathEXT) \
+    USE_XR_FUNC(xrGetRenderModelPropertiesEXT) \
     USE_XR_FUNC(xrGetRenderModelPropertiesFB) \
+    USE_XR_FUNC(xrGetRenderModelStateEXT) \
     USE_XR_FUNC(xrGetSceneComponentsMSFT) \
     USE_XR_FUNC(xrGetSceneComputeStateMSFT) \
     USE_XR_FUNC(xrGetSceneMarkerDecodedStringMSFT) \
@@ -571,12 +682,22 @@ struct openxr_instance_funcs
     USE_XR_FUNC(xrGetSpaceUuidFB) \
     USE_XR_FUNC(xrGetSpatialAnchorNameHTC) \
     USE_XR_FUNC(xrGetSpatialAnchorStateML) \
+    USE_XR_FUNC(xrGetSpatialBufferFloatEXT) \
+    USE_XR_FUNC(xrGetSpatialBufferStringEXT) \
+    USE_XR_FUNC(xrGetSpatialBufferUint16EXT) \
+    USE_XR_FUNC(xrGetSpatialBufferUint32EXT) \
+    USE_XR_FUNC(xrGetSpatialBufferUint8EXT) \
+    USE_XR_FUNC(xrGetSpatialBufferVector2fEXT) \
+    USE_XR_FUNC(xrGetSpatialBufferVector3fEXT) \
     USE_XR_FUNC(xrGetSpatialEntityComponentDataBD) \
     USE_XR_FUNC(xrGetSpatialEntityUuidBD) \
     USE_XR_FUNC(xrGetSpatialGraphNodeBindingPropertiesMSFT) \
     USE_XR_FUNC(xrGetSwapchainStateFB) \
     USE_XR_FUNC(xrGetSystem) \
     USE_XR_FUNC(xrGetSystemProperties) \
+    USE_XR_FUNC(xrGetTrackableMarkerANDROID) \
+    USE_XR_FUNC(xrGetTrackableObjectANDROID) \
+    USE_XR_FUNC(xrGetTrackablePlaneANDROID) \
     USE_XR_FUNC(xrGetViewConfigurationProperties) \
     USE_XR_FUNC(xrGetVirtualKeyboardDirtyTexturesMETA) \
     USE_XR_FUNC(xrGetVirtualKeyboardModelAnimationStatesMETA) \
@@ -610,10 +731,14 @@ struct openxr_instance_funcs
     USE_XR_FUNC(xrPassthroughPauseFB) \
     USE_XR_FUNC(xrPassthroughStartFB) \
     USE_XR_FUNC(xrPathToString) \
+    USE_XR_FUNC(xrPauseSimultaneousHandsAndControllersTrackingMETA) \
     USE_XR_FUNC(xrPerfSettingsSetPerformanceLevelEXT) \
+    USE_XR_FUNC(xrPersistAnchorANDROID) \
     USE_XR_FUNC(xrPersistSpatialAnchorAsyncBD) \
     USE_XR_FUNC(xrPersistSpatialAnchorCompleteBD) \
     USE_XR_FUNC(xrPersistSpatialAnchorMSFT) \
+    USE_XR_FUNC(xrPersistSpatialEntityAsyncEXT) \
+    USE_XR_FUNC(xrPersistSpatialEntityCompleteEXT) \
     USE_XR_FUNC(xrPollEvent) \
     USE_XR_FUNC(xrPollFutureEXT) \
     USE_XR_FUNC(xrPublishSpatialAnchorsAsyncML) \
@@ -625,7 +750,9 @@ struct openxr_instance_funcs
     USE_XR_FUNC(xrQuerySpacesFB) \
     USE_XR_FUNC(xrQuerySpatialAnchorsAsyncML) \
     USE_XR_FUNC(xrQuerySpatialAnchorsCompleteML) \
+    USE_XR_FUNC(xrQuerySpatialComponentDataEXT) \
     USE_XR_FUNC(xrQuerySystemTrackedKeyboardFB) \
+    USE_XR_FUNC(xrRaycastANDROID) \
     USE_XR_FUNC(xrReleaseSwapchainImage) \
     USE_XR_FUNC(xrRequestDisplayRefreshRateFB) \
     USE_XR_FUNC(xrRequestExitSession) \
@@ -635,10 +762,13 @@ struct openxr_instance_funcs
     USE_XR_FUNC(xrRequestWorldMeshCompleteML) \
     USE_XR_FUNC(xrRequestWorldMeshStateAsyncML) \
     USE_XR_FUNC(xrRequestWorldMeshStateCompleteML) \
+    USE_XR_FUNC(xrResetBodyTrackingCalibrationMETA) \
     USE_XR_FUNC(xrResultToString) \
+    USE_XR_FUNC(xrResumeSimultaneousHandsAndControllersTrackingMETA) \
     USE_XR_FUNC(xrRetrieveSpaceQueryResultsFB) \
     USE_XR_FUNC(xrSaveSpaceFB) \
     USE_XR_FUNC(xrSaveSpaceListFB) \
+    USE_XR_FUNC(xrSaveSpacesMETA) \
     USE_XR_FUNC(xrSendVirtualKeyboardInputMETA) \
     USE_XR_FUNC(xrSetColorSpaceFB) \
     USE_XR_FUNC(xrSetDigitalLensControlALMALENCE) \
@@ -676,6 +806,7 @@ struct openxr_instance_funcs
     USE_XR_FUNC(xrStringToPath) \
     USE_XR_FUNC(xrStructureTypeToString) \
     USE_XR_FUNC(xrStructureTypeToString2KHR) \
+    USE_XR_FUNC(xrSuggestBodyTrackingCalibrationOverrideMETA) \
     USE_XR_FUNC(xrSuggestInteractionProfileBindings) \
     USE_XR_FUNC(xrSuggestVirtualKeyboardLocationMETA) \
     USE_XR_FUNC(xrSyncActions) \
@@ -687,9 +818,12 @@ struct openxr_instance_funcs
     USE_XR_FUNC(xrTriangleMeshGetIndexBufferFB) \
     USE_XR_FUNC(xrTriangleMeshGetVertexBufferFB) \
     USE_XR_FUNC(xrTryCreateSpatialGraphStaticNodeBindingMSFT) \
+    USE_XR_FUNC(xrUnpersistAnchorANDROID) \
     USE_XR_FUNC(xrUnpersistSpatialAnchorAsyncBD) \
     USE_XR_FUNC(xrUnpersistSpatialAnchorCompleteBD) \
     USE_XR_FUNC(xrUnpersistSpatialAnchorMSFT) \
+    USE_XR_FUNC(xrUnpersistSpatialEntityAsyncEXT) \
+    USE_XR_FUNC(xrUnpersistSpatialEntityCompleteEXT) \
     USE_XR_FUNC(xrUpdateHandMeshMSFT) \
     USE_XR_FUNC(xrUpdatePassthroughColorLutMETA) \
     USE_XR_FUNC(xrUpdateSpatialAnchorsExpirationAsyncML) \
