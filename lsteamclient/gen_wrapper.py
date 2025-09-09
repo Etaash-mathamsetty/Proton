@@ -315,12 +315,6 @@ MANUAL_METHODS = {
     "ISteamRemoteStorage_UpdatePublishedFile": lambda ver, abi: abi == 'u' and ver >= 5,
 }
 
-CGameID_REF_FIXUP_INTERFACES = [
-    "ISteamUser_SteamUser008",
-    "ISteamUserStats_STEAMUSERSTATS_INTERFACE_VERSION001",
-    "ISteamUserStats_STEAMUSERSTATS_INTERFACE_VERSION002",
-]
-
 DEFINE_INTERFACE_VERSION = re.compile(r'^#define\s*(?P<name>STEAM(?:\w*)_VERSION(?:\w*))\s*"(?P<version>.*)"')
 
 
@@ -845,10 +839,9 @@ class Class:
             # CGameID -> CGameID &
             # Windows side follows the prototype in the header while Linux
             # steamclient treats gameID parameter as pointer
-            if self.full_name in CGameID_REF_FIXUP_INTERFACES:
-                for i, t in enumerate(types):
-                    if t == 'CGameID':
-                        types[i] = 'CGameID &'
+            for i, t in enumerate(types):
+                if t == 'CGameID':
+                    types[i] = 'CGameID &'
 
             if type(method) is Destructor:
                 out(f'    virtual ~{prefix}{self.full_name}( {", ".join(types)} ) = 0;\n')

@@ -286,7 +286,7 @@ struct u_ISteamUser_SteamUser005
     virtual int8_t GetRegistryString( uint32_t, const char *, char *, int32_t ) = 0;
     virtual int8_t SetRegistryInt( uint32_t, const char *, int32_t ) = 0;
     virtual int8_t GetRegistryInt( uint32_t, const char *, int32_t * ) = 0;
-    virtual int32_t InitiateGameConnection( void *, int32_t, CSteamID, CGameID, uint32_t, uint16_t, int8_t ) = 0;
+    virtual int32_t InitiateGameConnection( void *, int32_t, CSteamID, CGameID &, uint32_t, uint16_t, int8_t ) = 0;
     virtual void TerminateGameConnection( uint32_t, uint16_t ) = 0;
     virtual void SetSelfAsPrimaryChatDestination(  ) = 0;
     virtual int8_t IsPrimaryChatDestination(  ) = 0;
@@ -304,7 +304,7 @@ struct u_ISteamUser_SteamUser005
     virtual int8_t GetGuestPassToRedeemSenderName( uint32_t, char *, int32_t ) = 0;
     virtual void AcknowledgeMessageByGID( const char * ) = 0;
     virtual int8_t SetLanguage( const char * ) = 0;
-    virtual void TrackAppUsageEvent( CGameID, int32_t, const char * ) = 0;
+    virtual void TrackAppUsageEvent( CGameID &, int32_t, const char * ) = 0;
     virtual void SetAccountName( const char * ) = 0;
     virtual void SetPassword( const char * ) = 0;
     virtual void SetAccountCreationTime( uint32_t ) = 0;
@@ -323,9 +323,9 @@ struct u_ISteamUser_SteamUser006
     virtual int8_t GetRegistryString( uint32_t, const char *, char *, int32_t ) = 0;
     virtual int8_t SetRegistryInt( uint32_t, const char *, int32_t ) = 0;
     virtual int8_t GetRegistryInt( uint32_t, const char *, int32_t * ) = 0;
-    virtual int32_t InitiateGameConnection( void *, int32_t, CSteamID, CGameID, uint32_t, uint16_t, int8_t ) = 0;
+    virtual int32_t InitiateGameConnection( void *, int32_t, CSteamID, CGameID &, uint32_t, uint16_t, int8_t ) = 0;
     virtual void TerminateGameConnection( uint32_t, uint16_t ) = 0;
-    virtual void TrackAppUsageEvent( CGameID, int32_t, const char * ) = 0;
+    virtual void TrackAppUsageEvent( CGameID &, int32_t, const char * ) = 0;
 #endif /* __cplusplus */
 };
 
@@ -341,9 +341,9 @@ struct u_ISteamUser_SteamUser007
     virtual int8_t GetRegistryString( uint32_t, const char *, char *, int32_t ) = 0;
     virtual int8_t SetRegistryInt( uint32_t, const char *, int32_t ) = 0;
     virtual int8_t GetRegistryInt( uint32_t, const char *, int32_t * ) = 0;
-    virtual int32_t InitiateGameConnection( void *, int32_t, CSteamID, CGameID, uint32_t, uint16_t, int8_t, void *, int32_t ) = 0;
+    virtual int32_t InitiateGameConnection( void *, int32_t, CSteamID, CGameID &, uint32_t, uint16_t, int8_t, void *, int32_t ) = 0;
     virtual void TerminateGameConnection( uint32_t, uint16_t ) = 0;
-    virtual void TrackAppUsageEvent( CGameID, int32_t, const char * ) = 0;
+    virtual void TrackAppUsageEvent( CGameID &, int32_t, const char * ) = 0;
     virtual void RefreshSteam2Login(  ) = 0;
 #endif /* __cplusplus */
 };
@@ -478,9 +478,9 @@ struct u_ISteamUser_SteamUser009
     virtual int32_t GetHSteamUser(  ) = 0;
     virtual int8_t BLoggedOn(  ) = 0;
     virtual CSteamID GetSteamID(  ) = 0;
-    virtual int32_t InitiateGameConnection( void *, int32_t, CSteamID, CGameID, uint32_t, uint16_t, int8_t ) = 0;
+    virtual int32_t InitiateGameConnection( void *, int32_t, CSteamID, CGameID &, uint32_t, uint16_t, int8_t ) = 0;
     virtual void TerminateGameConnection( uint32_t, uint16_t ) = 0;
-    virtual void TrackAppUsageEvent( CGameID, int32_t, const char * ) = 0;
+    virtual void TrackAppUsageEvent( CGameID &, int32_t, const char * ) = 0;
     virtual void RefreshSteam2Login(  ) = 0;
 #endif /* __cplusplus */
 };
@@ -584,7 +584,7 @@ struct u_ISteamUser_SteamUser010
     virtual CSteamID GetSteamID(  ) = 0;
     virtual int32_t InitiateGameConnection( void *, int32_t, CSteamID, uint32_t, uint16_t, int8_t ) = 0;
     virtual void TerminateGameConnection( uint32_t, uint16_t ) = 0;
-    virtual void TrackAppUsageEvent( CGameID, int32_t, const char * ) = 0;
+    virtual void TrackAppUsageEvent( CGameID &, int32_t, const char * ) = 0;
 #endif /* __cplusplus */
 };
 
@@ -629,7 +629,7 @@ struct u_ISteamUser_SteamUser011
     virtual CSteamID GetSteamID(  ) = 0;
     virtual int32_t InitiateGameConnection( void *, int32_t, CSteamID, uint32_t, uint16_t, int8_t ) = 0;
     virtual void TerminateGameConnection( uint32_t, uint16_t ) = 0;
-    virtual void TrackAppUsageEvent( CGameID, int32_t, const char * ) = 0;
+    virtual void TrackAppUsageEvent( CGameID &, int32_t, const char * ) = 0;
     virtual int8_t GetUserDataFolder( char *, int32_t ) = 0;
     virtual void StartVoiceRecording(  ) = 0;
     virtual void StopVoiceRecording(  ) = 0;
@@ -960,7 +960,7 @@ struct u_ISteamUser_SteamUser012
     virtual CSteamID GetSteamID(  ) = 0;
     virtual int32_t InitiateGameConnection( void *, int32_t, CSteamID, uint32_t, uint16_t, int8_t ) = 0;
     virtual void TerminateGameConnection( uint32_t, uint16_t ) = 0;
-    virtual void TrackAppUsageEvent( CGameID, int32_t, const char * ) = 0;
+    virtual void TrackAppUsageEvent( CGameID &, int32_t, const char * ) = 0;
     virtual int8_t GetUserDataFolder( char *, int32_t ) = 0;
     virtual void StartVoiceRecording(  ) = 0;
     virtual void StopVoiceRecording(  ) = 0;
@@ -1178,7 +1178,7 @@ struct u_ISteamUser_SteamUser013
     virtual CSteamID GetSteamID(  ) = 0;
     virtual int32_t InitiateGameConnection( void *, int32_t, CSteamID, uint32_t, uint16_t, int8_t ) = 0;
     virtual void TerminateGameConnection( uint32_t, uint16_t ) = 0;
-    virtual void TrackAppUsageEvent( CGameID, int32_t, const char * ) = 0;
+    virtual void TrackAppUsageEvent( CGameID &, int32_t, const char * ) = 0;
     virtual int8_t GetUserDataFolder( char *, int32_t ) = 0;
     virtual void StartVoiceRecording(  ) = 0;
     virtual void StopVoiceRecording(  ) = 0;
@@ -1464,7 +1464,7 @@ struct u_ISteamUser_SteamUser014
     virtual CSteamID GetSteamID(  ) = 0;
     virtual int32_t InitiateGameConnection( void *, int32_t, CSteamID, uint32_t, uint16_t, int8_t ) = 0;
     virtual void TerminateGameConnection( uint32_t, uint16_t ) = 0;
-    virtual void TrackAppUsageEvent( CGameID, int32_t, const char * ) = 0;
+    virtual void TrackAppUsageEvent( CGameID &, int32_t, const char * ) = 0;
     virtual int8_t GetUserDataFolder( char *, int32_t ) = 0;
     virtual void StartVoiceRecording(  ) = 0;
     virtual void StopVoiceRecording(  ) = 0;
@@ -1777,7 +1777,7 @@ struct u_ISteamUser_SteamUser015
     virtual CSteamID GetSteamID(  ) = 0;
     virtual int32_t InitiateGameConnection( void *, int32_t, CSteamID, uint32_t, uint16_t, int8_t ) = 0;
     virtual void TerminateGameConnection( uint32_t, uint16_t ) = 0;
-    virtual void TrackAppUsageEvent( CGameID, int32_t, const char * ) = 0;
+    virtual void TrackAppUsageEvent( CGameID &, int32_t, const char * ) = 0;
     virtual int8_t GetUserDataFolder( char *, int32_t ) = 0;
     virtual void StartVoiceRecording(  ) = 0;
     virtual void StopVoiceRecording(  ) = 0;
@@ -1883,7 +1883,7 @@ struct u_ISteamUser_SteamUser016
     virtual CSteamID GetSteamID(  ) = 0;
     virtual int32_t InitiateGameConnection( void *, int32_t, CSteamID, uint32_t, uint16_t, int8_t ) = 0;
     virtual void TerminateGameConnection( uint32_t, uint16_t ) = 0;
-    virtual void TrackAppUsageEvent( CGameID, int32_t, const char * ) = 0;
+    virtual void TrackAppUsageEvent( CGameID &, int32_t, const char * ) = 0;
     virtual int8_t GetUserDataFolder( char *, int32_t ) = 0;
     virtual void StartVoiceRecording(  ) = 0;
     virtual void StopVoiceRecording(  ) = 0;
@@ -2866,7 +2866,7 @@ struct u_ISteamUser_SteamUser017
     virtual CSteamID GetSteamID(  ) = 0;
     virtual int32_t InitiateGameConnection( void *, int32_t, CSteamID, uint32_t, uint16_t, int8_t ) = 0;
     virtual void TerminateGameConnection( uint32_t, uint16_t ) = 0;
-    virtual void TrackAppUsageEvent( CGameID, int32_t, const char * ) = 0;
+    virtual void TrackAppUsageEvent( CGameID &, int32_t, const char * ) = 0;
     virtual int8_t GetUserDataFolder( char *, int32_t ) = 0;
     virtual void StartVoiceRecording(  ) = 0;
     virtual void StopVoiceRecording(  ) = 0;
@@ -3663,7 +3663,7 @@ struct u_ISteamUser_SteamUser018
     virtual CSteamID GetSteamID(  ) = 0;
     virtual int32_t InitiateGameConnection( void *, int32_t, CSteamID, uint32_t, uint16_t, int8_t ) = 0;
     virtual void TerminateGameConnection( uint32_t, uint16_t ) = 0;
-    virtual void TrackAppUsageEvent( CGameID, int32_t, const char * ) = 0;
+    virtual void TrackAppUsageEvent( CGameID &, int32_t, const char * ) = 0;
     virtual int8_t GetUserDataFolder( char *, int32_t ) = 0;
     virtual void StartVoiceRecording(  ) = 0;
     virtual void StopVoiceRecording(  ) = 0;
@@ -4177,7 +4177,7 @@ struct u_ISteamUser_SteamUser019
     virtual CSteamID GetSteamID(  ) = 0;
     virtual int32_t InitiateGameConnection( void *, int32_t, CSteamID, uint32_t, uint16_t, int8_t ) = 0;
     virtual void TerminateGameConnection( uint32_t, uint16_t ) = 0;
-    virtual void TrackAppUsageEvent( CGameID, int32_t, const char * ) = 0;
+    virtual void TrackAppUsageEvent( CGameID &, int32_t, const char * ) = 0;
     virtual int8_t GetUserDataFolder( char *, int32_t ) = 0;
     virtual void StartVoiceRecording(  ) = 0;
     virtual void StopVoiceRecording(  ) = 0;
@@ -4874,7 +4874,7 @@ struct u_ISteamUser_SteamUser020
     virtual CSteamID GetSteamID(  ) = 0;
     virtual int32_t InitiateGameConnection( void *, int32_t, CSteamID, uint32_t, uint16_t, int8_t ) = 0;
     virtual void TerminateGameConnection( uint32_t, uint16_t ) = 0;
-    virtual void TrackAppUsageEvent( CGameID, int32_t, const char * ) = 0;
+    virtual void TrackAppUsageEvent( CGameID &, int32_t, const char * ) = 0;
     virtual int8_t GetUserDataFolder( char *, int32_t ) = 0;
     virtual void StartVoiceRecording(  ) = 0;
     virtual void StopVoiceRecording(  ) = 0;
@@ -5945,7 +5945,7 @@ struct u_ISteamUser_SteamUser021
     virtual CSteamID GetSteamID(  ) = 0;
     virtual int32_t InitiateGameConnection_DEPRECATED( void *, int32_t, CSteamID, uint32_t, uint16_t, int8_t ) = 0;
     virtual void TerminateGameConnection_DEPRECATED( uint32_t, uint16_t ) = 0;
-    virtual void TrackAppUsageEvent( CGameID, int32_t, const char * ) = 0;
+    virtual void TrackAppUsageEvent( CGameID &, int32_t, const char * ) = 0;
     virtual int8_t GetUserDataFolder( char *, int32_t ) = 0;
     virtual void StartVoiceRecording(  ) = 0;
     virtual void StopVoiceRecording(  ) = 0;
@@ -6719,7 +6719,7 @@ struct u_ISteamUser_SteamUser022
     virtual CSteamID GetSteamID(  ) = 0;
     virtual int32_t InitiateGameConnection_DEPRECATED( void *, int32_t, CSteamID, uint32_t, uint16_t, int8_t ) = 0;
     virtual void TerminateGameConnection_DEPRECATED( uint32_t, uint16_t ) = 0;
-    virtual void TrackAppUsageEvent( CGameID, int32_t, const char * ) = 0;
+    virtual void TrackAppUsageEvent( CGameID &, int32_t, const char * ) = 0;
     virtual int8_t GetUserDataFolder( char *, int32_t ) = 0;
     virtual void StartVoiceRecording(  ) = 0;
     virtual void StopVoiceRecording(  ) = 0;
@@ -6902,7 +6902,7 @@ struct u_ISteamUser_SteamUser023
     virtual CSteamID GetSteamID(  ) = 0;
     virtual int32_t InitiateGameConnection_DEPRECATED( void *, int32_t, CSteamID, uint32_t, uint16_t, int8_t ) = 0;
     virtual void TerminateGameConnection_DEPRECATED( uint32_t, uint16_t ) = 0;
-    virtual void TrackAppUsageEvent( CGameID, int32_t, const char * ) = 0;
+    virtual void TrackAppUsageEvent( CGameID &, int32_t, const char * ) = 0;
     virtual int8_t GetUserDataFolder( char *, int32_t ) = 0;
     virtual void StartVoiceRecording(  ) = 0;
     virtual void StopVoiceRecording(  ) = 0;
