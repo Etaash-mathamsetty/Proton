@@ -226,15 +226,15 @@ gameserveritem_t_105 * __thiscall winISteamMatchmakingServers_SteamMatchMakingSe
 
         STEAMCLIENT_CALL( ISteamMatchmakingServers_SteamMatchMakingServers002_GetServerCount, &count_params );
         request->details_count = count_params._ret;
-        if (count_params._ret) request->details = HeapAlloc( GetProcessHeap(), 0, count_params._ret * sizeof(*request->details) );
+        if (count_params._ret) request->details = HeapAlloc( GetProcessHeap(), 0,
+                                                             (count_params._ret + 1) * sizeof(*request->details) );
     }
     if (request && request->details && (iServer < 0 || iServer >= request->details_count))
     {
-        /* Linux Steamclient seems to also return invalid pointers in this case, but this works as soon as
-         * the app doesn't actually access the buffer. But without this check our Unix side wrapper will write
-         * request->details out of bounds. */
-        ERR( "Invalid iServer %d, request->details_count %I64u, returning 0xdeadbeef.\n", iServer, request->details_count );
-        return (void *)0xdeadbeef;
+        /* Linux Steamclient will return some pointer in such a case with the structure being all zero. */
+        ERR( "Invalid iServer %d, request->details_count %I64u.\n", iServer, request->details_count );
+        memset( request->details + request->details_count, 0, sizeof(*request->details) );
+        return request->details + request->details_count;
     }
 
     STEAMCLIENT_CALL( ISteamMatchmakingServers_SteamMatchMakingServers002_GetServerDetails, &params );
