@@ -396,6 +396,7 @@ struct w_request
         gameserveritem_t_105 *details;
         UINT64 __pad;
     };
+    UINT64 details_count;
 };
 
 #include <poppack.h>
