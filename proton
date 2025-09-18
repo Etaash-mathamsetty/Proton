@@ -1458,6 +1458,12 @@ default_cpu_limit = {
     "618970"    :  4,   # Outcast - Second Contact
     "10150"     :  8,   # Prototype
     "2229830"   :  1,   # Command & Conquer and The Covert Operations
+    "259170"    :  8,   # Alone in the Dark (2008)
+    "11440"     :  4,   # DiRT
+    "316260"    :  16,  # Disney Universe
+    "286810"    :  30,  # Hard Truck Apocalypse: Rise of Clans / Ex Machina: Meridian 113
+    "70000"     :  28,  # Dino D-Day
+    "115320"    :  8,   # Prototype 2
 }
 
 class Session:
