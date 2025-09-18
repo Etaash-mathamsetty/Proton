@@ -3880,6 +3880,972 @@ void destroy_winIVROverlay_IVROverlay_005_FnTable(struct w_iface *object)
     HeapFree(GetProcessHeap(), 0, object);
 }
 
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_FindOverlay, 12)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_CreateOverlay, 16)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_DestroyOverlay, 12)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_SetHighQualityOverlay, 12)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_GetHighQualityOverlay, 4)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_GetOverlayKey, 24)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_GetOverlayName, 24)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_GetOverlayImageData, 28)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_GetOverlayErrorNameFromEnum, 8)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_SetOverlayFlag, 20)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_GetOverlayFlag, 20)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_SetOverlayColor, 24)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_GetOverlayColor, 24)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_SetOverlayAlpha, 16)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_GetOverlayAlpha, 16)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_SetOverlayGamma, 16)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_GetOverlayGamma, 16)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_SetOverlayWidthInMeters, 16)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_GetOverlayWidthInMeters, 16)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_SetOverlayAutoCurveDistanceRangeInMeters, 20)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_GetOverlayAutoCurveDistanceRangeInMeters, 20)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_SetOverlayTextureBounds, 16)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_GetOverlayTextureBounds, 16)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_GetOverlayTransformType, 16)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_SetOverlayTransformAbsolute, 20)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_GetOverlayTransformAbsolute, 20)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_SetOverlayTransformTrackedDeviceRelative, 20)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_GetOverlayTransformTrackedDeviceRelative, 20)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_ShowOverlay, 12)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_HideOverlay, 12)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_IsOverlayVisible, 12)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_PollNextOverlayEvent, 16)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_GetOverlayInputMethod, 16)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_SetOverlayInputMethod, 16)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_GetOverlayMouseScale, 16)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_SetOverlayMouseScale, 16)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_ComputeOverlayIntersection, 20)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_HandleControllerOverlayInteractionAsMouse, 16)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_IsHoverTargetOverlay, 12)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_GetGamepadFocusOverlay, 4)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_SetGamepadFocusOverlay, 12)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_SetOverlayNeighbor, 24)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_MoveGamepadFocusToNeighbor, 16)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_SetOverlayTexture, 20)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_ClearOverlayTexture, 12)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_SetOverlayRaw, 28)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_SetOverlayFromFile, 16)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_CreateDashboardOverlay, 20)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_IsDashboardVisible, 4)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_IsActiveDashboardOverlay, 12)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_SetDashboardOverlaySceneProcess, 16)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_GetDashboardOverlaySceneProcess, 16)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_ShowDashboard, 8)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_ShowKeyboard, 36)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_ShowKeyboardForOverlay, 44)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_GetKeyboardText, 12)
+DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_006_HideKeyboard, 4)
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_FindOverlay(struct w_iface *_this, const char *pchOverlayKey, uint64_t *pOverlayHandle)
+{
+    struct IVROverlay_IVROverlay_006_FindOverlay_params params =
+    {
+        .u_iface = _this->u_iface,
+        .pchOverlayKey = pchOverlayKey,
+        .pOverlayHandle = pOverlayHandle,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_FindOverlay, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_CreateOverlay(struct w_iface *_this, const char *pchOverlayKey, const char *pchOverlayFriendlyName, uint64_t *pOverlayHandle)
+{
+    struct IVROverlay_IVROverlay_006_CreateOverlay_params params =
+    {
+        .u_iface = _this->u_iface,
+        .pchOverlayKey = pchOverlayKey,
+        .pchOverlayFriendlyName = pchOverlayFriendlyName,
+        .pOverlayHandle = pOverlayHandle,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_CreateOverlay, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_DestroyOverlay(struct w_iface *_this, uint64_t ulOverlayHandle)
+{
+    struct IVROverlay_IVROverlay_006_DestroyOverlay_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_DestroyOverlay, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_SetHighQualityOverlay(struct w_iface *_this, uint64_t ulOverlayHandle)
+{
+    struct IVROverlay_IVROverlay_006_SetHighQualityOverlay_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_SetHighQualityOverlay, &params );
+    return params._ret;
+}
+
+uint64_t __thiscall winIVROverlay_IVROverlay_006_GetHighQualityOverlay(struct w_iface *_this)
+{
+    struct IVROverlay_IVROverlay_006_GetHighQualityOverlay_params params =
+    {
+        .u_iface = _this->u_iface,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_GetHighQualityOverlay, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_GetOverlayKey(struct w_iface *_this, uint64_t ulOverlayHandle, char *pchValue, uint32_t unBufferSize, uint32_t *pError)
+{
+    struct IVROverlay_IVROverlay_006_GetOverlayKey_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+        .pchValue = pchValue,
+        .unBufferSize = unBufferSize,
+        .pError = pError,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_GetOverlayKey, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_GetOverlayName(struct w_iface *_this, uint64_t ulOverlayHandle, char *pchValue, uint32_t unBufferSize, uint32_t *pError)
+{
+    struct IVROverlay_IVROverlay_006_GetOverlayName_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+        .pchValue = pchValue,
+        .unBufferSize = unBufferSize,
+        .pError = pError,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_GetOverlayName, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_GetOverlayImageData(struct w_iface *_this, uint64_t ulOverlayHandle, void *pvBuffer, uint32_t unBufferSize, uint32_t *punWidth, uint32_t *punHeight)
+{
+    struct IVROverlay_IVROverlay_006_GetOverlayImageData_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+        .pvBuffer = pvBuffer,
+        .unBufferSize = unBufferSize,
+        .punWidth = punWidth,
+        .punHeight = punHeight,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_GetOverlayImageData, &params );
+    return params._ret;
+}
+
+const char * __thiscall winIVROverlay_IVROverlay_006_GetOverlayErrorNameFromEnum(struct w_iface *_this, uint32_t error)
+{
+    struct IVROverlay_IVROverlay_006_GetOverlayErrorNameFromEnum_params params =
+    {
+        .u_iface = _this->u_iface,
+        .error = error,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_GetOverlayErrorNameFromEnum, &params );
+    return get_unix_buffer( params._ret );
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_SetOverlayFlag(struct w_iface *_this, uint64_t ulOverlayHandle, uint32_t eOverlayFlag, int8_t bEnabled)
+{
+    struct IVROverlay_IVROverlay_006_SetOverlayFlag_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+        .eOverlayFlag = eOverlayFlag,
+        .bEnabled = bEnabled,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_SetOverlayFlag, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_GetOverlayFlag(struct w_iface *_this, uint64_t ulOverlayHandle, uint32_t eOverlayFlag, int8_t *pbEnabled)
+{
+    struct IVROverlay_IVROverlay_006_GetOverlayFlag_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+        .eOverlayFlag = eOverlayFlag,
+        .pbEnabled = pbEnabled,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_GetOverlayFlag, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_SetOverlayColor(struct w_iface *_this, uint64_t ulOverlayHandle, float fRed, float fGreen, float fBlue)
+{
+    struct IVROverlay_IVROverlay_006_SetOverlayColor_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+        .fRed = fRed,
+        .fGreen = fGreen,
+        .fBlue = fBlue,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_SetOverlayColor, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_GetOverlayColor(struct w_iface *_this, uint64_t ulOverlayHandle, float *pfRed, float *pfGreen, float *pfBlue)
+{
+    struct IVROverlay_IVROverlay_006_GetOverlayColor_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+        .pfRed = pfRed,
+        .pfGreen = pfGreen,
+        .pfBlue = pfBlue,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_GetOverlayColor, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_SetOverlayAlpha(struct w_iface *_this, uint64_t ulOverlayHandle, float fAlpha)
+{
+    struct IVROverlay_IVROverlay_006_SetOverlayAlpha_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+        .fAlpha = fAlpha,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_SetOverlayAlpha, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_GetOverlayAlpha(struct w_iface *_this, uint64_t ulOverlayHandle, float *pfAlpha)
+{
+    struct IVROverlay_IVROverlay_006_GetOverlayAlpha_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+        .pfAlpha = pfAlpha,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_GetOverlayAlpha, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_SetOverlayGamma(struct w_iface *_this, uint64_t ulOverlayHandle, float fGamma)
+{
+    struct IVROverlay_IVROverlay_006_SetOverlayGamma_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+        .fGamma = fGamma,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_SetOverlayGamma, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_GetOverlayGamma(struct w_iface *_this, uint64_t ulOverlayHandle, float *pfGamma)
+{
+    struct IVROverlay_IVROverlay_006_GetOverlayGamma_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+        .pfGamma = pfGamma,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_GetOverlayGamma, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_SetOverlayWidthInMeters(struct w_iface *_this, uint64_t ulOverlayHandle, float fWidthInMeters)
+{
+    struct IVROverlay_IVROverlay_006_SetOverlayWidthInMeters_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+        .fWidthInMeters = fWidthInMeters,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_SetOverlayWidthInMeters, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_GetOverlayWidthInMeters(struct w_iface *_this, uint64_t ulOverlayHandle, float *pfWidthInMeters)
+{
+    struct IVROverlay_IVROverlay_006_GetOverlayWidthInMeters_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+        .pfWidthInMeters = pfWidthInMeters,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_GetOverlayWidthInMeters, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_SetOverlayAutoCurveDistanceRangeInMeters(struct w_iface *_this, uint64_t ulOverlayHandle, float fMinDistanceInMeters, float fMaxDistanceInMeters)
+{
+    struct IVROverlay_IVROverlay_006_SetOverlayAutoCurveDistanceRangeInMeters_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+        .fMinDistanceInMeters = fMinDistanceInMeters,
+        .fMaxDistanceInMeters = fMaxDistanceInMeters,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_SetOverlayAutoCurveDistanceRangeInMeters, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_GetOverlayAutoCurveDistanceRangeInMeters(struct w_iface *_this, uint64_t ulOverlayHandle, float *pfMinDistanceInMeters, float *pfMaxDistanceInMeters)
+{
+    struct IVROverlay_IVROverlay_006_GetOverlayAutoCurveDistanceRangeInMeters_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+        .pfMinDistanceInMeters = pfMinDistanceInMeters,
+        .pfMaxDistanceInMeters = pfMaxDistanceInMeters,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_GetOverlayAutoCurveDistanceRangeInMeters, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_SetOverlayTextureBounds(struct w_iface *_this, uint64_t ulOverlayHandle, const VRTextureBounds_t *pOverlayTextureBounds)
+{
+    struct IVROverlay_IVROverlay_006_SetOverlayTextureBounds_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+        .pOverlayTextureBounds = pOverlayTextureBounds,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_SetOverlayTextureBounds, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_GetOverlayTextureBounds(struct w_iface *_this, uint64_t ulOverlayHandle, VRTextureBounds_t *pOverlayTextureBounds)
+{
+    struct IVROverlay_IVROverlay_006_GetOverlayTextureBounds_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+        .pOverlayTextureBounds = pOverlayTextureBounds,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_GetOverlayTextureBounds, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_GetOverlayTransformType(struct w_iface *_this, uint64_t ulOverlayHandle, uint32_t *peTransformType)
+{
+    struct IVROverlay_IVROverlay_006_GetOverlayTransformType_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+        .peTransformType = peTransformType,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_GetOverlayTransformType, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_SetOverlayTransformAbsolute(struct w_iface *_this, uint64_t ulOverlayHandle, uint32_t eTrackingOrigin, const HmdMatrix34_t *pmatTrackingOriginToOverlayTransform)
+{
+    struct IVROverlay_IVROverlay_006_SetOverlayTransformAbsolute_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+        .eTrackingOrigin = eTrackingOrigin,
+        .pmatTrackingOriginToOverlayTransform = pmatTrackingOriginToOverlayTransform,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_SetOverlayTransformAbsolute, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_GetOverlayTransformAbsolute(struct w_iface *_this, uint64_t ulOverlayHandle, uint32_t *peTrackingOrigin, HmdMatrix34_t *pmatTrackingOriginToOverlayTransform)
+{
+    struct IVROverlay_IVROverlay_006_GetOverlayTransformAbsolute_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+        .peTrackingOrigin = peTrackingOrigin,
+        .pmatTrackingOriginToOverlayTransform = pmatTrackingOriginToOverlayTransform,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_GetOverlayTransformAbsolute, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_SetOverlayTransformTrackedDeviceRelative(struct w_iface *_this, uint64_t ulOverlayHandle, uint32_t unTrackedDevice, const HmdMatrix34_t *pmatTrackedDeviceToOverlayTransform)
+{
+    struct IVROverlay_IVROverlay_006_SetOverlayTransformTrackedDeviceRelative_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+        .unTrackedDevice = unTrackedDevice,
+        .pmatTrackedDeviceToOverlayTransform = pmatTrackedDeviceToOverlayTransform,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_SetOverlayTransformTrackedDeviceRelative, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_GetOverlayTransformTrackedDeviceRelative(struct w_iface *_this, uint64_t ulOverlayHandle, uint32_t *punTrackedDevice, HmdMatrix34_t *pmatTrackedDeviceToOverlayTransform)
+{
+    struct IVROverlay_IVROverlay_006_GetOverlayTransformTrackedDeviceRelative_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+        .punTrackedDevice = punTrackedDevice,
+        .pmatTrackedDeviceToOverlayTransform = pmatTrackedDeviceToOverlayTransform,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_GetOverlayTransformTrackedDeviceRelative, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_ShowOverlay(struct w_iface *_this, uint64_t ulOverlayHandle)
+{
+    struct IVROverlay_IVROverlay_006_ShowOverlay_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_ShowOverlay, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_HideOverlay(struct w_iface *_this, uint64_t ulOverlayHandle)
+{
+    struct IVROverlay_IVROverlay_006_HideOverlay_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_HideOverlay, &params );
+    return params._ret;
+}
+
+int8_t __thiscall winIVROverlay_IVROverlay_006_IsOverlayVisible(struct w_iface *_this, uint64_t ulOverlayHandle)
+{
+    struct IVROverlay_IVROverlay_006_IsOverlayVisible_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_IsOverlayVisible, &params );
+    return params._ret;
+}
+
+int8_t __thiscall winIVROverlay_IVROverlay_006_PollNextOverlayEvent(struct w_iface *_this, uint64_t ulOverlayHandle, w_VREvent_t_0911 *pEvent)
+{
+    struct IVROverlay_IVROverlay_006_PollNextOverlayEvent_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+        .pEvent = pEvent,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_PollNextOverlayEvent, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_GetOverlayInputMethod(struct w_iface *_this, uint64_t ulOverlayHandle, uint32_t *peInputMethod)
+{
+    struct IVROverlay_IVROverlay_006_GetOverlayInputMethod_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+        .peInputMethod = peInputMethod,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_GetOverlayInputMethod, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_SetOverlayInputMethod(struct w_iface *_this, uint64_t ulOverlayHandle, uint32_t eInputMethod)
+{
+    struct IVROverlay_IVROverlay_006_SetOverlayInputMethod_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+        .eInputMethod = eInputMethod,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_SetOverlayInputMethod, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_GetOverlayMouseScale(struct w_iface *_this, uint64_t ulOverlayHandle, HmdVector2_t *pvecMouseScale)
+{
+    struct IVROverlay_IVROverlay_006_GetOverlayMouseScale_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+        .pvecMouseScale = pvecMouseScale,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_GetOverlayMouseScale, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_SetOverlayMouseScale(struct w_iface *_this, uint64_t ulOverlayHandle, const HmdVector2_t *pvecMouseScale)
+{
+    struct IVROverlay_IVROverlay_006_SetOverlayMouseScale_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+        .pvecMouseScale = pvecMouseScale,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_SetOverlayMouseScale, &params );
+    return params._ret;
+}
+
+int8_t __thiscall winIVROverlay_IVROverlay_006_ComputeOverlayIntersection(struct w_iface *_this, uint64_t ulOverlayHandle, const VROverlayIntersectionParams_t *pParams, VROverlayIntersectionResults_t *pResults)
+{
+    struct IVROverlay_IVROverlay_006_ComputeOverlayIntersection_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+        .pParams = pParams,
+        .pResults = pResults,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_ComputeOverlayIntersection, &params );
+    return params._ret;
+}
+
+int8_t __thiscall winIVROverlay_IVROverlay_006_HandleControllerOverlayInteractionAsMouse(struct w_iface *_this, uint64_t ulOverlayHandle, uint32_t unControllerDeviceIndex)
+{
+    struct IVROverlay_IVROverlay_006_HandleControllerOverlayInteractionAsMouse_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+        .unControllerDeviceIndex = unControllerDeviceIndex,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_HandleControllerOverlayInteractionAsMouse, &params );
+    return params._ret;
+}
+
+int8_t __thiscall winIVROverlay_IVROverlay_006_IsHoverTargetOverlay(struct w_iface *_this, uint64_t ulOverlayHandle)
+{
+    struct IVROverlay_IVROverlay_006_IsHoverTargetOverlay_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_IsHoverTargetOverlay, &params );
+    return params._ret;
+}
+
+uint64_t __thiscall winIVROverlay_IVROverlay_006_GetGamepadFocusOverlay(struct w_iface *_this)
+{
+    struct IVROverlay_IVROverlay_006_GetGamepadFocusOverlay_params params =
+    {
+        .u_iface = _this->u_iface,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_GetGamepadFocusOverlay, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_SetGamepadFocusOverlay(struct w_iface *_this, uint64_t ulNewFocusOverlay)
+{
+    struct IVROverlay_IVROverlay_006_SetGamepadFocusOverlay_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulNewFocusOverlay = ulNewFocusOverlay,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_SetGamepadFocusOverlay, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_SetOverlayNeighbor(struct w_iface *_this, uint32_t eDirection, uint64_t ulFrom, uint64_t ulTo)
+{
+    struct IVROverlay_IVROverlay_006_SetOverlayNeighbor_params params =
+    {
+        .u_iface = _this->u_iface,
+        .eDirection = eDirection,
+        .ulFrom = ulFrom,
+        .ulTo = ulTo,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_SetOverlayNeighbor, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_MoveGamepadFocusToNeighbor(struct w_iface *_this, uint32_t eDirection, uint64_t ulFrom)
+{
+    struct IVROverlay_IVROverlay_006_MoveGamepadFocusToNeighbor_params params =
+    {
+        .u_iface = _this->u_iface,
+        .eDirection = eDirection,
+        .ulFrom = ulFrom,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_MoveGamepadFocusToNeighbor, &params );
+    return params._ret;
+}
+
+extern uint32_t __thiscall winIVROverlay_IVROverlay_006_SetOverlayTexture(struct w_iface *_this, uint64_t ulOverlayHandle, uint32_t eTextureType, void *pTexture);
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_ClearOverlayTexture(struct w_iface *_this, uint64_t ulOverlayHandle)
+{
+    struct IVROverlay_IVROverlay_006_ClearOverlayTexture_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_ClearOverlayTexture, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_SetOverlayRaw(struct w_iface *_this, uint64_t ulOverlayHandle, void *pvBuffer, uint32_t unWidth, uint32_t unHeight, uint32_t unDepth)
+{
+    struct IVROverlay_IVROverlay_006_SetOverlayRaw_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+        .pvBuffer = pvBuffer,
+        .unWidth = unWidth,
+        .unHeight = unHeight,
+        .unDepth = unDepth,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_SetOverlayRaw, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_SetOverlayFromFile(struct w_iface *_this, uint64_t ulOverlayHandle, const char *pchFilePath)
+{
+    struct IVROverlay_IVROverlay_006_SetOverlayFromFile_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+        .pchFilePath = pchFilePath,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_SetOverlayFromFile, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_CreateDashboardOverlay(struct w_iface *_this, const char *pchOverlayKey, const char *pchOverlayFriendlyName, uint64_t *pMainHandle, uint64_t *pThumbnailHandle)
+{
+    struct IVROverlay_IVROverlay_006_CreateDashboardOverlay_params params =
+    {
+        .u_iface = _this->u_iface,
+        .pchOverlayKey = pchOverlayKey,
+        .pchOverlayFriendlyName = pchOverlayFriendlyName,
+        .pMainHandle = pMainHandle,
+        .pThumbnailHandle = pThumbnailHandle,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_CreateDashboardOverlay, &params );
+    return params._ret;
+}
+
+int8_t __thiscall winIVROverlay_IVROverlay_006_IsDashboardVisible(struct w_iface *_this)
+{
+    struct IVROverlay_IVROverlay_006_IsDashboardVisible_params params =
+    {
+        .u_iface = _this->u_iface,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_IsDashboardVisible, &params );
+    return params._ret;
+}
+
+int8_t __thiscall winIVROverlay_IVROverlay_006_IsActiveDashboardOverlay(struct w_iface *_this, uint64_t ulOverlayHandle)
+{
+    struct IVROverlay_IVROverlay_006_IsActiveDashboardOverlay_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_IsActiveDashboardOverlay, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_SetDashboardOverlaySceneProcess(struct w_iface *_this, uint64_t ulOverlayHandle, uint32_t unProcessId)
+{
+    struct IVROverlay_IVROverlay_006_SetDashboardOverlaySceneProcess_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+        .unProcessId = unProcessId,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_SetDashboardOverlaySceneProcess, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_GetDashboardOverlaySceneProcess(struct w_iface *_this, uint64_t ulOverlayHandle, uint32_t *punProcessId)
+{
+    struct IVROverlay_IVROverlay_006_GetDashboardOverlaySceneProcess_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+        .punProcessId = punProcessId,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_GetDashboardOverlaySceneProcess, &params );
+    return params._ret;
+}
+
+void __thiscall winIVROverlay_IVROverlay_006_ShowDashboard(struct w_iface *_this, const char *pchOverlayToShow)
+{
+    struct IVROverlay_IVROverlay_006_ShowDashboard_params params =
+    {
+        .u_iface = _this->u_iface,
+        .pchOverlayToShow = pchOverlayToShow,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_ShowDashboard, &params );
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_ShowKeyboard(struct w_iface *_this, uint32_t eInputMode, uint32_t eLineInputMode, const char *pchDescription, uint32_t unCharMax, const char *pchExistingText, int8_t bUseMinimalMode, uint64_t uUserValue)
+{
+    struct IVROverlay_IVROverlay_006_ShowKeyboard_params params =
+    {
+        .u_iface = _this->u_iface,
+        .eInputMode = eInputMode,
+        .eLineInputMode = eLineInputMode,
+        .pchDescription = pchDescription,
+        .unCharMax = unCharMax,
+        .pchExistingText = pchExistingText,
+        .bUseMinimalMode = bUseMinimalMode,
+        .uUserValue = uUserValue,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_ShowKeyboard, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_ShowKeyboardForOverlay(struct w_iface *_this, uint64_t ulOverlayHandle, uint32_t eInputMode, uint32_t eLineInputMode, const char *pchDescription, uint32_t unCharMax, const char *pchExistingText, int8_t bUseMinimalMode, uint64_t uUserValue)
+{
+    struct IVROverlay_IVROverlay_006_ShowKeyboardForOverlay_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+        .eInputMode = eInputMode,
+        .eLineInputMode = eLineInputMode,
+        .pchDescription = pchDescription,
+        .unCharMax = unCharMax,
+        .pchExistingText = pchExistingText,
+        .bUseMinimalMode = bUseMinimalMode,
+        .uUserValue = uUserValue,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_ShowKeyboardForOverlay, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_GetKeyboardText(struct w_iface *_this, char *pchText, uint32_t cchText)
+{
+    struct IVROverlay_IVROverlay_006_GetKeyboardText_params params =
+    {
+        .u_iface = _this->u_iface,
+        .pchText = pchText,
+        .cchText = cchText,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_GetKeyboardText, &params );
+    return params._ret;
+}
+
+void __thiscall winIVROverlay_IVROverlay_006_HideKeyboard(struct w_iface *_this)
+{
+    struct IVROverlay_IVROverlay_006_HideKeyboard_params params =
+    {
+        .u_iface = _this->u_iface,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_HideKeyboard, &params );
+}
+
+extern vtable_ptr winIVROverlay_IVROverlay_006_vtable;
+
+DEFINE_RTTI_DATA0(winIVROverlay_IVROverlay_006, 0, ".?AVIVROverlay@@")
+
+__ASM_BLOCK_BEGIN(winIVROverlay_IVROverlay_006_vtables)
+    __ASM_VTABLE(winIVROverlay_IVROverlay_006,
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_FindOverlay)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_CreateOverlay)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_DestroyOverlay)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_SetHighQualityOverlay)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_GetHighQualityOverlay)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_GetOverlayKey)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_GetOverlayName)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_GetOverlayImageData)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_GetOverlayErrorNameFromEnum)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_SetOverlayFlag)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_GetOverlayFlag)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_SetOverlayColor)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_GetOverlayColor)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_SetOverlayAlpha)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_GetOverlayAlpha)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_SetOverlayGamma)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_GetOverlayGamma)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_SetOverlayWidthInMeters)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_GetOverlayWidthInMeters)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_SetOverlayAutoCurveDistanceRangeInMeters)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_GetOverlayAutoCurveDistanceRangeInMeters)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_SetOverlayTextureBounds)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_GetOverlayTextureBounds)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_GetOverlayTransformType)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_SetOverlayTransformAbsolute)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_GetOverlayTransformAbsolute)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_SetOverlayTransformTrackedDeviceRelative)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_GetOverlayTransformTrackedDeviceRelative)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_ShowOverlay)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_HideOverlay)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_IsOverlayVisible)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_PollNextOverlayEvent)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_GetOverlayInputMethod)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_SetOverlayInputMethod)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_GetOverlayMouseScale)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_SetOverlayMouseScale)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_ComputeOverlayIntersection)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_HandleControllerOverlayInteractionAsMouse)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_IsHoverTargetOverlay)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_GetGamepadFocusOverlay)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_SetGamepadFocusOverlay)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_SetOverlayNeighbor)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_MoveGamepadFocusToNeighbor)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_SetOverlayTexture)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_ClearOverlayTexture)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_SetOverlayRaw)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_SetOverlayFromFile)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_CreateDashboardOverlay)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_IsDashboardVisible)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_IsActiveDashboardOverlay)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_SetDashboardOverlaySceneProcess)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_GetDashboardOverlaySceneProcess)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_ShowDashboard)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_ShowKeyboard)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_ShowKeyboardForOverlay)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_GetKeyboardText)
+        VTABLE_ADD_FUNC(winIVROverlay_IVROverlay_006_HideKeyboard)
+    );
+__ASM_BLOCK_END
+
+struct w_iface *create_winIVROverlay_IVROverlay_006( struct u_iface u_iface )
+{
+    struct w_iface *r = HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, sizeof(*r));
+    TRACE("-> %p\n", r);
+    r->vtable = &winIVROverlay_IVROverlay_006_vtable;
+    r->u_iface = u_iface;
+    return r;
+}
+
+void destroy_winIVROverlay_IVROverlay_006(struct w_iface *object)
+{
+    TRACE("%p\n", object);
+    HeapFree(GetProcessHeap(), 0, object);
+}
+
+struct w_iface *create_winIVROverlay_IVROverlay_006_FnTable( struct u_iface u_iface )
+{
+    struct w_iface *r = HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, sizeof(*r));
+    struct thunk *thunks = alloc_thunks(57);
+    struct thunk **vtable = HeapAlloc(GetProcessHeap(), 0, 57 * sizeof(*vtable));
+    int i;
+
+    TRACE("-> %p, vtable %p, thunks %p\n", r, vtable, thunks);
+    init_thunk(&thunks[0], r, winIVROverlay_IVROverlay_006_FindOverlay, 2, FALSE, FALSE);
+    init_thunk(&thunks[1], r, winIVROverlay_IVROverlay_006_CreateOverlay, 3, FALSE, FALSE);
+    init_thunk(&thunks[2], r, winIVROverlay_IVROverlay_006_DestroyOverlay, 1, FALSE, FALSE);
+    init_thunk(&thunks[3], r, winIVROverlay_IVROverlay_006_SetHighQualityOverlay, 1, FALSE, FALSE);
+    init_thunk(&thunks[4], r, winIVROverlay_IVROverlay_006_GetHighQualityOverlay, 0, FALSE, FALSE);
+    init_thunk(&thunks[5], r, winIVROverlay_IVROverlay_006_GetOverlayKey, 4, FALSE, FALSE);
+    init_thunk(&thunks[6], r, winIVROverlay_IVROverlay_006_GetOverlayName, 4, FALSE, FALSE);
+    init_thunk(&thunks[7], r, winIVROverlay_IVROverlay_006_GetOverlayImageData, 5, FALSE, FALSE);
+    init_thunk(&thunks[8], r, winIVROverlay_IVROverlay_006_GetOverlayErrorNameFromEnum, 1, FALSE, FALSE);
+    init_thunk(&thunks[9], r, winIVROverlay_IVROverlay_006_SetOverlayFlag, 3, FALSE, FALSE);
+    init_thunk(&thunks[10], r, winIVROverlay_IVROverlay_006_GetOverlayFlag, 3, FALSE, FALSE);
+    init_thunk(&thunks[11], r, winIVROverlay_IVROverlay_006_SetOverlayColor, 4, TRUE, TRUE);
+    init_thunk(&thunks[12], r, winIVROverlay_IVROverlay_006_GetOverlayColor, 4, FALSE, FALSE);
+    init_thunk(&thunks[13], r, winIVROverlay_IVROverlay_006_SetOverlayAlpha, 2, TRUE, FALSE);
+    init_thunk(&thunks[14], r, winIVROverlay_IVROverlay_006_GetOverlayAlpha, 2, FALSE, FALSE);
+    init_thunk(&thunks[15], r, winIVROverlay_IVROverlay_006_SetOverlayGamma, 2, TRUE, FALSE);
+    init_thunk(&thunks[16], r, winIVROverlay_IVROverlay_006_GetOverlayGamma, 2, FALSE, FALSE);
+    init_thunk(&thunks[17], r, winIVROverlay_IVROverlay_006_SetOverlayWidthInMeters, 2, TRUE, FALSE);
+    init_thunk(&thunks[18], r, winIVROverlay_IVROverlay_006_GetOverlayWidthInMeters, 2, FALSE, FALSE);
+    init_thunk(&thunks[19], r, winIVROverlay_IVROverlay_006_SetOverlayAutoCurveDistanceRangeInMeters, 3, TRUE, FALSE);
+    init_thunk(&thunks[20], r, winIVROverlay_IVROverlay_006_GetOverlayAutoCurveDistanceRangeInMeters, 3, FALSE, FALSE);
+    init_thunk(&thunks[21], r, winIVROverlay_IVROverlay_006_SetOverlayTextureBounds, 2, FALSE, FALSE);
+    init_thunk(&thunks[22], r, winIVROverlay_IVROverlay_006_GetOverlayTextureBounds, 2, FALSE, FALSE);
+    init_thunk(&thunks[23], r, winIVROverlay_IVROverlay_006_GetOverlayTransformType, 2, FALSE, FALSE);
+    init_thunk(&thunks[24], r, winIVROverlay_IVROverlay_006_SetOverlayTransformAbsolute, 3, FALSE, FALSE);
+    init_thunk(&thunks[25], r, winIVROverlay_IVROverlay_006_GetOverlayTransformAbsolute, 3, FALSE, FALSE);
+    init_thunk(&thunks[26], r, winIVROverlay_IVROverlay_006_SetOverlayTransformTrackedDeviceRelative, 3, FALSE, FALSE);
+    init_thunk(&thunks[27], r, winIVROverlay_IVROverlay_006_GetOverlayTransformTrackedDeviceRelative, 3, FALSE, FALSE);
+    init_thunk(&thunks[28], r, winIVROverlay_IVROverlay_006_ShowOverlay, 1, FALSE, FALSE);
+    init_thunk(&thunks[29], r, winIVROverlay_IVROverlay_006_HideOverlay, 1, FALSE, FALSE);
+    init_thunk(&thunks[30], r, winIVROverlay_IVROverlay_006_IsOverlayVisible, 1, FALSE, FALSE);
+    init_thunk(&thunks[31], r, winIVROverlay_IVROverlay_006_PollNextOverlayEvent, 2, FALSE, FALSE);
+    init_thunk(&thunks[32], r, winIVROverlay_IVROverlay_006_GetOverlayInputMethod, 2, FALSE, FALSE);
+    init_thunk(&thunks[33], r, winIVROverlay_IVROverlay_006_SetOverlayInputMethod, 2, FALSE, FALSE);
+    init_thunk(&thunks[34], r, winIVROverlay_IVROverlay_006_GetOverlayMouseScale, 2, FALSE, FALSE);
+    init_thunk(&thunks[35], r, winIVROverlay_IVROverlay_006_SetOverlayMouseScale, 2, FALSE, FALSE);
+    init_thunk(&thunks[36], r, winIVROverlay_IVROverlay_006_ComputeOverlayIntersection, 3, FALSE, FALSE);
+    init_thunk(&thunks[37], r, winIVROverlay_IVROverlay_006_HandleControllerOverlayInteractionAsMouse, 2, FALSE, FALSE);
+    init_thunk(&thunks[38], r, winIVROverlay_IVROverlay_006_IsHoverTargetOverlay, 1, FALSE, FALSE);
+    init_thunk(&thunks[39], r, winIVROverlay_IVROverlay_006_GetGamepadFocusOverlay, 0, FALSE, FALSE);
+    init_thunk(&thunks[40], r, winIVROverlay_IVROverlay_006_SetGamepadFocusOverlay, 1, FALSE, FALSE);
+    init_thunk(&thunks[41], r, winIVROverlay_IVROverlay_006_SetOverlayNeighbor, 3, FALSE, FALSE);
+    init_thunk(&thunks[42], r, winIVROverlay_IVROverlay_006_MoveGamepadFocusToNeighbor, 2, FALSE, FALSE);
+    init_thunk(&thunks[43], r, winIVROverlay_IVROverlay_006_SetOverlayTexture, 3, FALSE, FALSE);
+    init_thunk(&thunks[44], r, winIVROverlay_IVROverlay_006_ClearOverlayTexture, 1, FALSE, FALSE);
+    init_thunk(&thunks[45], r, winIVROverlay_IVROverlay_006_SetOverlayRaw, 5, FALSE, FALSE);
+    init_thunk(&thunks[46], r, winIVROverlay_IVROverlay_006_SetOverlayFromFile, 2, FALSE, FALSE);
+    init_thunk(&thunks[47], r, winIVROverlay_IVROverlay_006_CreateDashboardOverlay, 4, FALSE, FALSE);
+    init_thunk(&thunks[48], r, winIVROverlay_IVROverlay_006_IsDashboardVisible, 0, FALSE, FALSE);
+    init_thunk(&thunks[49], r, winIVROverlay_IVROverlay_006_IsActiveDashboardOverlay, 1, FALSE, FALSE);
+    init_thunk(&thunks[50], r, winIVROverlay_IVROverlay_006_SetDashboardOverlaySceneProcess, 2, FALSE, FALSE);
+    init_thunk(&thunks[51], r, winIVROverlay_IVROverlay_006_GetDashboardOverlaySceneProcess, 2, FALSE, FALSE);
+    init_thunk(&thunks[52], r, winIVROverlay_IVROverlay_006_ShowDashboard, 1, FALSE, FALSE);
+    init_thunk(&thunks[53], r, winIVROverlay_IVROverlay_006_ShowKeyboard, 7, FALSE, FALSE);
+    init_thunk(&thunks[54], r, winIVROverlay_IVROverlay_006_ShowKeyboardForOverlay, 8, FALSE, FALSE);
+    init_thunk(&thunks[55], r, winIVROverlay_IVROverlay_006_GetKeyboardText, 2, FALSE, FALSE);
+    init_thunk(&thunks[56], r, winIVROverlay_IVROverlay_006_HideKeyboard, 0, FALSE, FALSE);
+    for (i = 0; i < 57; i++)
+        vtable[i] = &thunks[i];
+    r->u_iface = u_iface;
+    r->vtable = (void *)vtable;
+    return r;
+}
+
+void destroy_winIVROverlay_IVROverlay_006_FnTable(struct w_iface *object)
+{
+    TRACE("%p\n", object);
+    VirtualFree(object->vtable[0], 0, MEM_RELEASE);
+    HeapFree(GetProcessHeap(), 0, object->vtable);
+    HeapFree(GetProcessHeap(), 0, object);
+}
+
 DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_007_FindOverlay, 12)
 DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_007_CreateOverlay, 16)
 DEFINE_THISCALL_WRAPPER(winIVROverlay_IVROverlay_007_DestroyOverlay, 12)
@@ -28162,6 +29128,7 @@ void init_winIVROverlay_rtti( char *base )
     init_winIVROverlay_IVROverlay_003_rtti( base );
     init_winIVROverlay_IVROverlay_004_rtti( base );
     init_winIVROverlay_IVROverlay_005_rtti( base );
+    init_winIVROverlay_IVROverlay_006_rtti( base );
     init_winIVROverlay_IVROverlay_007_rtti( base );
     init_winIVROverlay_IVROverlay_008_rtti( base );
     init_winIVROverlay_IVROverlay_010_rtti( base );

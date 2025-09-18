@@ -203,6 +203,30 @@ static NTSTATUS IVRCompositor_GetVulkanDeviceExtensionsRequired( Iface *iface, P
     return 0;
 }
 
+template< typename Params >
+static NTSTATUS IVRCompositor_SetSkyboxOverride( struct u_IVRCompositor_IVRCompositor_008 *iface, Params *params, bool wow64 )
+{
+    u_VRVulkanTextureArrayData_t d_front, d_back, d_left, d_right, d_top, d_bottom;
+    u_Texture_t front, back, left, right, top, bottom;
+    w_Texture_t w_front =  { .handle = params->pFront,  .eType = params->eTextureType };
+    w_Texture_t w_back =   { .handle = params->pBack,   .eType = params->eTextureType };
+    w_Texture_t w_left =   { .handle = params->pLeft,   .eType = params->eTextureType };
+    w_Texture_t w_right =  { .handle = params->pRight,  .eType = params->eTextureType };
+    w_Texture_t w_top =    { .handle = params->pTop,    .eType = params->eTextureType };
+    w_Texture_t w_bottom = { .handle = params->pBottom, .eType = params->eTextureType };
+
+    unwrap_texture( &front, &w_front, 0, &d_front );
+    unwrap_texture( &back, &w_back, 0, &d_back );
+    unwrap_texture( &left, &w_left, 0, &d_left );
+    unwrap_texture( &right, &w_right, 0, &d_right );
+    unwrap_texture( &top, &w_top, 0, &d_top );
+    unwrap_texture( &bottom, &w_bottom, 0, &d_bottom );
+
+    iface->SetSkyboxOverride( params->eTextureType, front.handle, back.handle, left.handle, right.handle,
+                              top.handle, bottom.handle );
+    return 0;
+}
+
 template< typename Iface, typename Params >
 static NTSTATUS IVRCompositor_SetSkyboxOverride( Iface *iface, Params *params, bool wow64 )
 {
@@ -215,6 +239,23 @@ static NTSTATUS IVRCompositor_SetSkyboxOverride( Iface *iface, Params *params, b
 
     delete[] textures;
     delete[] vkdata;
+    return 0;
+}
+
+template< typename Params >
+static NTSTATUS IVRCompositor_Submit( struct u_IVRCompositor_IVRCompositor_008 *iface, Params *params, bool wow64 )
+{
+    u_VRTextureWithPoseAndDepth_t u_texture;
+    u_VRVulkanTextureData_t u_depth_vkdata;
+    u_VRVulkanTextureArrayData_t u_vkdata;
+    w_Texture_t texture =
+    {
+        .handle = params->pTexture,
+        .eType = params->eTextureType,
+    };
+    u_Texture_t *submit = unwrap_submit_texture_data( &texture, params->nSubmitFlags,
+                                                      &u_texture, &u_vkdata, &u_depth_vkdata );
+    params->_ret = (uint32_t)iface->Submit( params->eEye, submit->eType, submit->handle, params->pBounds, params->nSubmitFlags );
     return 0;
 }
 
@@ -250,6 +291,8 @@ static NTSTATUS IVRCompositor_GetSubmitTexture( Iface *iface, Params *params, bo
     return 0;
 }
 
+VRCLIENT_UNIX_IMPL( IVRCompositor, 008, SetSkyboxOverride );
+VRCLIENT_UNIX_IMPL( IVRCompositor, 008, Submit );
 VRCLIENT_UNIX_IMPL( IVRCompositor, 009, SetSkyboxOverride );
 VRCLIENT_UNIX_IMPL( IVRCompositor, 009, Submit );
 VRCLIENT_UNIX_IMPL( IVRCompositor, 010, SetSkyboxOverride );

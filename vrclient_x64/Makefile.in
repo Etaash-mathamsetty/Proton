@@ -96,6 +96,7 @@ SOURCES = \
 	cppIVROverlay_IVROverlay_003.cpp \
 	cppIVROverlay_IVROverlay_004.cpp \
 	cppIVROverlay_IVROverlay_005.cpp \
+	cppIVROverlay_IVROverlay_006.cpp \
 	cppIVROverlay_IVROverlay_007.cpp \
 	cppIVROverlay_IVROverlay_008.cpp \
 	cppIVROverlay_IVROverlay_010.cpp \
@@ -130,6 +131,7 @@ SOURCES = \
 	cppIVRSystem_IVRSystem_004.cpp \
 	cppIVRSystem_IVRSystem_005.cpp \
 	cppIVRSystem_IVRSystem_006.cpp \
+	cppIVRSystem_IVRSystem_007.cpp \
 	cppIVRSystem_IVRSystem_009.cpp \
 	cppIVRSystem_IVRSystem_010.cpp \
 	cppIVRSystem_IVRSystem_011.cpp \

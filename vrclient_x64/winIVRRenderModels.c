@@ -12,6 +12,11 @@ DEFINE_THISCALL_WRAPPER(winIVRRenderModels_IVRRenderModels_001_LoadRenderModel, 
 DEFINE_THISCALL_WRAPPER(winIVRRenderModels_IVRRenderModels_001_FreeRenderModel, 8)
 DEFINE_THISCALL_WRAPPER(winIVRRenderModels_IVRRenderModels_001_GetRenderModelName, 16)
 DEFINE_THISCALL_WRAPPER(winIVRRenderModels_IVRRenderModels_001_GetRenderModelCount, 4)
+DEFINE_THISCALL_WRAPPER(winIVRRenderModels_IVRRenderModels_001_GetComponentCount, 8)
+DEFINE_THISCALL_WRAPPER(winIVRRenderModels_IVRRenderModels_001_GetComponentName, 20)
+DEFINE_THISCALL_WRAPPER(winIVRRenderModels_IVRRenderModels_001_GetComponentButtonMask, 12)
+DEFINE_THISCALL_WRAPPER(winIVRRenderModels_IVRRenderModels_001_GetComponentRenderModelName, 20)
+DEFINE_THISCALL_WRAPPER(winIVRRenderModels_IVRRenderModels_001_GetComponentState, 76)
 
 int8_t __thiscall winIVRRenderModels_IVRRenderModels_001_LoadRenderModel(struct w_iface *_this, const char *pchRenderModelName, w_RenderModel_t_090 *pRenderModel)
 {
@@ -62,6 +67,76 @@ uint32_t __thiscall winIVRRenderModels_IVRRenderModels_001_GetRenderModelCount(s
     return params._ret;
 }
 
+uint32_t __thiscall winIVRRenderModels_IVRRenderModels_001_GetComponentCount(struct w_iface *_this, const char *pchRenderModelName)
+{
+    struct IVRRenderModels_IVRRenderModels_001_GetComponentCount_params params =
+    {
+        .u_iface = _this->u_iface,
+        .pchRenderModelName = pchRenderModelName,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVRRenderModels_IVRRenderModels_001_GetComponentCount, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVRRenderModels_IVRRenderModels_001_GetComponentName(struct w_iface *_this, const char *pchRenderModelName, uint32_t unComponentIndex, char *pchComponentName, uint32_t unComponentNameLen)
+{
+    struct IVRRenderModels_IVRRenderModels_001_GetComponentName_params params =
+    {
+        .u_iface = _this->u_iface,
+        .pchRenderModelName = pchRenderModelName,
+        .unComponentIndex = unComponentIndex,
+        .pchComponentName = pchComponentName,
+        .unComponentNameLen = unComponentNameLen,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVRRenderModels_IVRRenderModels_001_GetComponentName, &params );
+    return params._ret;
+}
+
+uint64_t __thiscall winIVRRenderModels_IVRRenderModels_001_GetComponentButtonMask(struct w_iface *_this, const char *pchRenderModelName, const char *pchComponentName)
+{
+    struct IVRRenderModels_IVRRenderModels_001_GetComponentButtonMask_params params =
+    {
+        .u_iface = _this->u_iface,
+        .pchRenderModelName = pchRenderModelName,
+        .pchComponentName = pchComponentName,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVRRenderModels_IVRRenderModels_001_GetComponentButtonMask, &params );
+    return params._ret;
+}
+
+uint32_t __thiscall winIVRRenderModels_IVRRenderModels_001_GetComponentRenderModelName(struct w_iface *_this, const char *pchRenderModelName, const char *pchComponentName, char *pchComponentRenderModelName, uint32_t unComponentRenderModelNameLen)
+{
+    struct IVRRenderModels_IVRRenderModels_001_GetComponentRenderModelName_params params =
+    {
+        .u_iface = _this->u_iface,
+        .pchRenderModelName = pchRenderModelName,
+        .pchComponentName = pchComponentName,
+        .pchComponentRenderModelName = pchComponentRenderModelName,
+        .unComponentRenderModelNameLen = unComponentRenderModelNameLen,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVRRenderModels_IVRRenderModels_001_GetComponentRenderModelName, &params );
+    return params._ret;
+}
+
+int8_t __thiscall winIVRRenderModels_IVRRenderModels_001_GetComponentState(struct w_iface *_this, const char *pchRenderModelName, const char *pchComponentName, w_VRControllerState001_t controllerState, ComponentState_t *pComponentState)
+{
+    struct IVRRenderModels_IVRRenderModels_001_GetComponentState_params params =
+    {
+        .u_iface = _this->u_iface,
+        .pchRenderModelName = pchRenderModelName,
+        .pchComponentName = pchComponentName,
+        .controllerState = controllerState,
+        .pComponentState = pComponentState,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVRRenderModels_IVRRenderModels_001_GetComponentState, &params );
+    return params._ret;
+}
+
 extern vtable_ptr winIVRRenderModels_IVRRenderModels_001_vtable;
 
 DEFINE_RTTI_DATA0(winIVRRenderModels_IVRRenderModels_001, 0, ".?AVIVRRenderModels@@")
@@ -72,6 +147,11 @@ __ASM_BLOCK_BEGIN(winIVRRenderModels_IVRRenderModels_001_vtables)
         VTABLE_ADD_FUNC(winIVRRenderModels_IVRRenderModels_001_FreeRenderModel)
         VTABLE_ADD_FUNC(winIVRRenderModels_IVRRenderModels_001_GetRenderModelName)
         VTABLE_ADD_FUNC(winIVRRenderModels_IVRRenderModels_001_GetRenderModelCount)
+        VTABLE_ADD_FUNC(winIVRRenderModels_IVRRenderModels_001_GetComponentCount)
+        VTABLE_ADD_FUNC(winIVRRenderModels_IVRRenderModels_001_GetComponentName)
+        VTABLE_ADD_FUNC(winIVRRenderModels_IVRRenderModels_001_GetComponentButtonMask)
+        VTABLE_ADD_FUNC(winIVRRenderModels_IVRRenderModels_001_GetComponentRenderModelName)
+        VTABLE_ADD_FUNC(winIVRRenderModels_IVRRenderModels_001_GetComponentState)
     );
 __ASM_BLOCK_END
 
@@ -93,8 +173,8 @@ void destroy_winIVRRenderModels_IVRRenderModels_001(struct w_iface *object)
 struct w_iface *create_winIVRRenderModels_IVRRenderModels_001_FnTable( struct u_iface u_iface )
 {
     struct w_iface *r = HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, sizeof(*r));
-    struct thunk *thunks = alloc_thunks(4);
-    struct thunk **vtable = HeapAlloc(GetProcessHeap(), 0, 4 * sizeof(*vtable));
+    struct thunk *thunks = alloc_thunks(9);
+    struct thunk **vtable = HeapAlloc(GetProcessHeap(), 0, 9 * sizeof(*vtable));
     int i;
 
     TRACE("-> %p, vtable %p, thunks %p\n", r, vtable, thunks);
@@ -102,7 +182,12 @@ struct w_iface *create_winIVRRenderModels_IVRRenderModels_001_FnTable( struct u_
     init_thunk(&thunks[1], r, winIVRRenderModels_IVRRenderModels_001_FreeRenderModel, 1, FALSE, FALSE);
     init_thunk(&thunks[2], r, winIVRRenderModels_IVRRenderModels_001_GetRenderModelName, 3, FALSE, FALSE);
     init_thunk(&thunks[3], r, winIVRRenderModels_IVRRenderModels_001_GetRenderModelCount, 0, FALSE, FALSE);
-    for (i = 0; i < 4; i++)
+    init_thunk(&thunks[4], r, winIVRRenderModels_IVRRenderModels_001_GetComponentCount, 1, FALSE, FALSE);
+    init_thunk(&thunks[5], r, winIVRRenderModels_IVRRenderModels_001_GetComponentName, 4, FALSE, FALSE);
+    init_thunk(&thunks[6], r, winIVRRenderModels_IVRRenderModels_001_GetComponentButtonMask, 2, FALSE, FALSE);
+    init_thunk(&thunks[7], r, winIVRRenderModels_IVRRenderModels_001_GetComponentRenderModelName, 4, FALSE, FALSE);
+    init_thunk(&thunks[8], r, winIVRRenderModels_IVRRenderModels_001_GetComponentState, 4, FALSE, FALSE);
+    for (i = 0; i < 9; i++)
         vtable[i] = &thunks[i];
     r->u_iface = u_iface;
     r->vtable = (void *)vtable;

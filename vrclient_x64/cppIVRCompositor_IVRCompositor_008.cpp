@@ -113,24 +113,6 @@ NTSTATUS wow64_IVRCompositor_IVRCompositor_008_WaitGetPoses( void *args )
 }
 #endif
 
-NTSTATUS IVRCompositor_IVRCompositor_008_Submit( void *args )
-{
-    struct IVRCompositor_IVRCompositor_008_Submit_params *params = (struct IVRCompositor_IVRCompositor_008_Submit_params *)args;
-    struct u_IVRCompositor_IVRCompositor_008 *iface = (struct u_IVRCompositor_IVRCompositor_008 *)params->u_iface;
-    params->_ret = iface->Submit( params->eEye, params->eTextureType, params->pTexture, params->pBounds, params->nSubmitFlags );
-    return 0;
-}
-
-#if defined(__x86_64__) || defined(__aarch64__)
-NTSTATUS wow64_IVRCompositor_IVRCompositor_008_Submit( void *args )
-{
-    struct wow64_IVRCompositor_IVRCompositor_008_Submit_params *params = (struct wow64_IVRCompositor_IVRCompositor_008_Submit_params *)args;
-    struct u_IVRCompositor_IVRCompositor_008 *iface = (struct u_IVRCompositor_IVRCompositor_008 *)params->u_iface;
-    params->_ret = iface->Submit( params->eEye, params->eTextureType, params->pTexture, params->pBounds, params->nSubmitFlags );
-    return 0;
-}
-#endif
-
 NTSTATUS IVRCompositor_IVRCompositor_008_ClearLastSubmittedFrame( void *args )
 {
     struct IVRCompositor_IVRCompositor_008_ClearLastSubmittedFrame_params *params = (struct IVRCompositor_IVRCompositor_008_ClearLastSubmittedFrame_params *)args;
@@ -153,7 +135,7 @@ NTSTATUS IVRCompositor_IVRCompositor_008_GetFrameTiming( void *args )
 {
     struct IVRCompositor_IVRCompositor_008_GetFrameTiming_params *params = (struct IVRCompositor_IVRCompositor_008_GetFrameTiming_params *)args;
     struct u_IVRCompositor_IVRCompositor_008 *iface = (struct u_IVRCompositor_IVRCompositor_008 *)params->u_iface;
-    u_Compositor_FrameTiming_093 u_pTiming;
+    u_Compositor_FrameTiming_0911 u_pTiming;
     if (params->pTiming) u_pTiming = *params->pTiming;
     params->_ret = iface->GetFrameTiming( params->pTiming ? &u_pTiming : nullptr, params->unFramesAgo );
     if (params->pTiming) *params->pTiming = u_pTiming;
@@ -165,7 +147,7 @@ NTSTATUS wow64_IVRCompositor_IVRCompositor_008_GetFrameTiming( void *args )
 {
     struct wow64_IVRCompositor_IVRCompositor_008_GetFrameTiming_params *params = (struct wow64_IVRCompositor_IVRCompositor_008_GetFrameTiming_params *)args;
     struct u_IVRCompositor_IVRCompositor_008 *iface = (struct u_IVRCompositor_IVRCompositor_008 *)params->u_iface;
-    u_Compositor_FrameTiming_093 u_pTiming;
+    u_Compositor_FrameTiming_0911 u_pTiming;
     if (params->pTiming) u_pTiming = *params->pTiming;
     params->_ret = iface->GetFrameTiming( params->pTiming ? &u_pTiming : nullptr, params->unFramesAgo );
     if (params->pTiming) *params->pTiming = u_pTiming;
@@ -205,24 +187,6 @@ NTSTATUS wow64_IVRCompositor_IVRCompositor_008_FadeGrid( void *args )
     struct wow64_IVRCompositor_IVRCompositor_008_FadeGrid_params *params = (struct wow64_IVRCompositor_IVRCompositor_008_FadeGrid_params *)args;
     struct u_IVRCompositor_IVRCompositor_008 *iface = (struct u_IVRCompositor_IVRCompositor_008 *)params->u_iface;
     iface->FadeGrid( params->fSeconds, params->bFadeIn );
-    return 0;
-}
-#endif
-
-NTSTATUS IVRCompositor_IVRCompositor_008_SetSkyboxOverride( void *args )
-{
-    struct IVRCompositor_IVRCompositor_008_SetSkyboxOverride_params *params = (struct IVRCompositor_IVRCompositor_008_SetSkyboxOverride_params *)args;
-    struct u_IVRCompositor_IVRCompositor_008 *iface = (struct u_IVRCompositor_IVRCompositor_008 *)params->u_iface;
-    iface->SetSkyboxOverride( params->eTextureType, params->pFront, params->pBack, params->pLeft, params->pRight, params->pTop, params->pBottom );
-    return 0;
-}
-
-#if defined(__x86_64__) || defined(__aarch64__)
-NTSTATUS wow64_IVRCompositor_IVRCompositor_008_SetSkyboxOverride( void *args )
-{
-    struct wow64_IVRCompositor_IVRCompositor_008_SetSkyboxOverride_params *params = (struct wow64_IVRCompositor_IVRCompositor_008_SetSkyboxOverride_params *)args;
-    struct u_IVRCompositor_IVRCompositor_008 *iface = (struct u_IVRCompositor_IVRCompositor_008 *)params->u_iface;
-    iface->SetSkyboxOverride( params->eTextureType, params->pFront, params->pBack, params->pLeft, params->pRight, params->pTop, params->pBottom );
     return 0;
 }
 #endif
@@ -475,6 +439,42 @@ NTSTATUS wow64_IVRCompositor_IVRCompositor_008_GetLastFrameRenderer( void *args 
     struct wow64_IVRCompositor_IVRCompositor_008_GetLastFrameRenderer_params *params = (struct wow64_IVRCompositor_IVRCompositor_008_GetLastFrameRenderer_params *)args;
     struct u_IVRCompositor_IVRCompositor_008 *iface = (struct u_IVRCompositor_IVRCompositor_008 *)params->u_iface;
     params->_ret = iface->GetLastFrameRenderer(  );
+    return 0;
+}
+#endif
+
+NTSTATUS IVRCompositor_IVRCompositor_008_GetLastPoses( void *args )
+{
+    struct IVRCompositor_IVRCompositor_008_GetLastPoses_params *params = (struct IVRCompositor_IVRCompositor_008_GetLastPoses_params *)args;
+    struct u_IVRCompositor_IVRCompositor_008 *iface = (struct u_IVRCompositor_IVRCompositor_008 *)params->u_iface;
+    params->_ret = iface->GetLastPoses( params->pRenderPoseArray, params->unRenderPoseArrayCount, params->pGamePoseArray, params->unGamePoseArrayCount );
+    return 0;
+}
+
+#if defined(__x86_64__) || defined(__aarch64__)
+NTSTATUS wow64_IVRCompositor_IVRCompositor_008_GetLastPoses( void *args )
+{
+    struct wow64_IVRCompositor_IVRCompositor_008_GetLastPoses_params *params = (struct wow64_IVRCompositor_IVRCompositor_008_GetLastPoses_params *)args;
+    struct u_IVRCompositor_IVRCompositor_008 *iface = (struct u_IVRCompositor_IVRCompositor_008 *)params->u_iface;
+    params->_ret = iface->GetLastPoses( params->pRenderPoseArray, params->unRenderPoseArrayCount, params->pGamePoseArray, params->unGamePoseArrayCount );
+    return 0;
+}
+#endif
+
+NTSTATUS IVRCompositor_IVRCompositor_008_PostPresentHandoff( void *args )
+{
+    struct IVRCompositor_IVRCompositor_008_PostPresentHandoff_params *params = (struct IVRCompositor_IVRCompositor_008_PostPresentHandoff_params *)args;
+    struct u_IVRCompositor_IVRCompositor_008 *iface = (struct u_IVRCompositor_IVRCompositor_008 *)params->u_iface;
+    iface->PostPresentHandoff(  );
+    return 0;
+}
+
+#if defined(__x86_64__) || defined(__aarch64__)
+NTSTATUS wow64_IVRCompositor_IVRCompositor_008_PostPresentHandoff( void *args )
+{
+    struct wow64_IVRCompositor_IVRCompositor_008_PostPresentHandoff_params *params = (struct wow64_IVRCompositor_IVRCompositor_008_PostPresentHandoff_params *)args;
+    struct u_IVRCompositor_IVRCompositor_008 *iface = (struct u_IVRCompositor_IVRCompositor_008 *)params->u_iface;
+    iface->PostPresentHandoff(  );
     return 0;
 }
 #endif

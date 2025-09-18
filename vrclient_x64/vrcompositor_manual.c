@@ -548,6 +548,75 @@ uint32_t __thiscall winIVRCompositor_IVRCompositor_008_WaitGetPoses( struct w_if
     return params._ret;
 }
 
+uint32_t __thiscall winIVRCompositor_IVRCompositor_008_Submit( struct w_iface *_this,
+                                                               uint32_t eEye, int32_t eTextureType, void *pTexture,
+                                                               const VRTextureBounds_t *pBounds, uint32_t nSubmitFlags )
+{
+    struct submit_state state = {0};
+    struct IVRCompositor_IVRCompositor_008_Submit_params params =
+    {
+        .u_iface = _this->u_iface,
+        .eEye = eEye,
+        .pBounds = pBounds,
+        .nSubmitFlags = nSubmitFlags,
+    };
+    w_Texture_t texture =
+    {
+        .handle = pTexture,
+        .eType = eTextureType,
+    };
+    const w_Texture_t *conv_texture;
+    TRACE( "_this %p, eEye %u, eTextureType %d, pTexture %p, pBounds %p, nSubmitFlags %#x\n", _this, eEye, eTextureType, pTexture, pBounds, nSubmitFlags );
+
+    compositor_data.handoff_called = FALSE;
+    conv_texture = load_compositor_texture( eEye, &texture, &params.nSubmitFlags, &state, ~0u );
+    params.eTextureType = conv_texture->eType;
+    params.pTexture = conv_texture->handle;
+    VRCLIENT_CALL( IVRCompositor_IVRCompositor_008_Submit, &params );
+    free_compositor_texture( texture.eType, &state );
+    return params._ret;
+}
+
+void __thiscall winIVRCompositor_IVRCompositor_008_PostPresentHandoff( struct w_iface *_this )
+{
+    struct IVRCompositor_IVRCompositor_008_PostPresentHandoff_params params = {.u_iface = _this->u_iface};
+    TRACE( "%p\n", _this );
+    post_present_handoff_init( _this->u_iface, 8 );
+    VRCLIENT_CALL( IVRCompositor_IVRCompositor_008_PostPresentHandoff, &params );
+    post_present_handoff_done();
+}
+
+void __thiscall winIVRCompositor_IVRCompositor_008_SetSkyboxOverride( struct w_iface *_this, int32_t eTextureType,
+        void *pFront, void *pBack, void *pLeft, void *pRight, void *pTop, void *pBottom )
+{
+    struct set_skybox_override_state state = {0};
+    w_Texture_t textures[6] =
+    {
+        { .handle = pFront, .eType = eTextureType, },
+        { .handle = pBack, .eType = eTextureType, },
+        { .handle = pLeft, .eType = eTextureType, },
+        { .handle = pRight, .eType = eTextureType, },
+        { .handle = pTop, .eType = eTextureType, },
+        { .handle = pBottom, .eType = eTextureType, },
+    };
+    const w_Texture_t *conv_textures = set_skybox_override_init( textures, 6, &state );
+    struct IVRCompositor_IVRCompositor_008_SetSkyboxOverride_params params =
+    {
+        .u_iface = _this->u_iface,
+        .eTextureType = conv_textures[0].eType,
+        .pFront = conv_textures[0].handle,
+        .pBack = conv_textures[1].handle,
+        .pLeft = conv_textures[2].handle,
+        .pRight = conv_textures[3].handle,
+        .pTop = conv_textures[4].handle,
+        .pBottom = conv_textures[5].handle,
+    };
+
+    TRACE( "%p\n", _this );
+    VRCLIENT_CALL( IVRCompositor_IVRCompositor_008_SetSkyboxOverride, &params );
+    set_skybox_override_done( textures, 6 );
+}
+
 uint32_t __thiscall winIVRCompositor_IVRCompositor_009_WaitGetPoses( struct w_iface *_this,
                                                                      TrackedDevicePose_t *pRenderPoseArray, uint32_t unRenderPoseArrayCount,
                                                                      TrackedDevicePose_t *pGamePoseArray, uint32_t unGamePoseArrayCount )

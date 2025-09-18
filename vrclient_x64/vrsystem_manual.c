@@ -148,6 +148,14 @@ void __thiscall winIVRSystem_IVRSystem_006_GetDXGIOutputInfo( struct w_iface *_t
     *pnAdapterOutputIndex = 0;
 }
 
+void __thiscall winIVRSystem_IVRSystem_007_GetDXGIOutputInfo( struct w_iface *_this, int32_t *pnAdapterIndex,
+                                                              int32_t *pnAdapterOutputIndex )
+{
+    FIXME( "%p\n", _this );
+    *pnAdapterIndex = 0;
+    *pnAdapterOutputIndex = 0;
+}
+
 void __thiscall winIVRSystem_IVRSystem_009_GetDXGIOutputInfo( struct w_iface *_this, int32_t *pnAdapterIndex )
 {
     FIXME( "%p\n", _this );

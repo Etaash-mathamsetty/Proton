@@ -61,7 +61,9 @@ SDK_VERSIONS = [
     "v0.9.14",
     "v0.9.13",
     "v0.9.12",
-#    "v0.9.11", problematic GetComponentState, may cause crash since we don't implement it
+    "v0.9.11",
+    #Interfaces below are not really supported, need handling of texture conversions similar to v0.9.11. But nothing
+    #is known to use those so far.
     "v0.9.10",
     "v0.9.9",
     "v0.9.8",
@@ -244,9 +246,9 @@ MANUAL_METHODS = {
     "IVRClientCore_Cleanup": lambda ver, abi: abi == 'w',
     "IVRSystem_GetDXGIOutputInfo": lambda ver, abi: abi == 'w',
     "IVRSystem_GetOutputDevice": lambda ver, abi: ver > 16,
-    "IVRCompositor_Submit": lambda ver, abi: ver > 8,
+    "IVRCompositor_Submit": lambda ver, abi: ver > 7,
     "IVRCompositor_SubmitWithArrayIndex": lambda ver, abi: ver > 8,
-    "IVRCompositor_SetSkyboxOverride": lambda ver, abi: ver > 8,
+    "IVRCompositor_SetSkyboxOverride": lambda ver, abi: ver > 7,
     "IVRCompositor_PostPresentHandoff": lambda ver, abi: abi == 'w',
     "IVRCompositor_WaitGetPoses": lambda ver, abi: abi == 'w',
     "IVRCompositor_GetVulkanDeviceExtensionsRequired": lambda ver, abi: abi == 'u',

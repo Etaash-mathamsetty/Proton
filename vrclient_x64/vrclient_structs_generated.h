@@ -133,9 +133,9 @@ struct VREvent_Keyboard_t_2010
 };
 #pragma pack( pop )
 
-typedef struct VREvent_Keyboard_t_0912 VREvent_Keyboard_t_0912;
+typedef struct VREvent_Keyboard_t_0911 VREvent_Keyboard_t_0911;
 #pragma pack( push, 8 )
-struct VREvent_Keyboard_t_0912
+struct VREvent_Keyboard_t_0911
 {
     char (cNewInput)[8];
     uint64_t uUserValue;
@@ -548,7 +548,7 @@ union VREvent_Data_t_1168
     VREvent_Notification_t_093 notification;
     VREvent_Overlay_t_1168 overlay;
     VREvent_Status_t status;
-    VREvent_Keyboard_t_0912 keyboard;
+    VREvent_Keyboard_t_0911 keyboard;
     VREvent_Ipd_t ipd;
     VREvent_Chaperone_t chaperone;
     VREvent_PerformanceTest_t performanceTest;
@@ -584,7 +584,7 @@ union VREvent_Data_t_11030
     VREvent_Notification_t_093 notification;
     VREvent_Overlay_t_1014 overlay;
     VREvent_Status_t status;
-    VREvent_Keyboard_t_0912 keyboard;
+    VREvent_Keyboard_t_0911 keyboard;
     VREvent_Ipd_t ipd;
     VREvent_Chaperone_t chaperone;
     VREvent_PerformanceTest_t performanceTest;
@@ -620,7 +620,7 @@ union VREvent_Data_t_1322
     VREvent_Notification_t_093 notification;
     VREvent_Overlay_t_1014 overlay;
     VREvent_Status_t status;
-    VREvent_Keyboard_t_0912 keyboard;
+    VREvent_Keyboard_t_0911 keyboard;
     VREvent_Ipd_t ipd;
     VREvent_Chaperone_t chaperone;
     VREvent_PerformanceTest_t performanceTest;
@@ -657,7 +657,7 @@ union VREvent_Data_t_1210
     VREvent_Notification_t_093 notification;
     VREvent_Overlay_t_1014 overlay;
     VREvent_Status_t status;
-    VREvent_Keyboard_t_0912 keyboard;
+    VREvent_Keyboard_t_0911 keyboard;
     VREvent_Ipd_t ipd;
     VREvent_Chaperone_t chaperone;
     VREvent_PerformanceTest_t performanceTest;
@@ -692,7 +692,7 @@ union VREvent_Data_t_113b
     VREvent_Notification_t_093 notification;
     VREvent_Overlay_t_1014 overlay;
     VREvent_Status_t status;
-    VREvent_Keyboard_t_0912 keyboard;
+    VREvent_Keyboard_t_0911 keyboard;
     VREvent_Ipd_t ipd;
     VREvent_Chaperone_t chaperone;
     VREvent_PerformanceTest_t performanceTest;
@@ -727,7 +727,7 @@ union VREvent_Data_t_1016
     VREvent_Notification_t_093 notification;
     VREvent_Overlay_t_1014 overlay;
     VREvent_Status_t status;
-    VREvent_Keyboard_t_0912 keyboard;
+    VREvent_Keyboard_t_0911 keyboard;
     VREvent_Ipd_t ipd;
     VREvent_Chaperone_t chaperone;
     VREvent_PerformanceTest_t performanceTest;
@@ -760,7 +760,7 @@ union VREvent_Data_t_1015
     VREvent_Notification_t_093 notification;
     VREvent_Overlay_t_1014 overlay;
     VREvent_Status_t status;
-    VREvent_Keyboard_t_0912 keyboard;
+    VREvent_Keyboard_t_0911 keyboard;
     VREvent_Ipd_t ipd;
     VREvent_Chaperone_t chaperone;
     VREvent_PerformanceTest_t performanceTest;
@@ -791,7 +791,7 @@ union VREvent_Data_t_1014
     VREvent_Notification_t_093 notification;
     VREvent_Overlay_t_1014 overlay;
     VREvent_Status_t status;
-    VREvent_Keyboard_t_0912 keyboard;
+    VREvent_Keyboard_t_0911 keyboard;
     VREvent_Ipd_t ipd;
     VREvent_Chaperone_t chaperone;
     VREvent_PerformanceTest_t performanceTest;
@@ -821,7 +821,7 @@ union VREvent_Data_t_1013
     VREvent_Notification_t_093 notification;
     VREvent_Overlay_t_092 overlay;
     VREvent_Status_t status;
-    VREvent_Keyboard_t_0912 keyboard;
+    VREvent_Keyboard_t_0911 keyboard;
     VREvent_Ipd_t ipd;
     VREvent_Chaperone_t chaperone;
     VREvent_PerformanceTest_t performanceTest;
@@ -850,7 +850,7 @@ union VREvent_Data_t_1012
     VREvent_Notification_t_093 notification;
     VREvent_Overlay_t_092 overlay;
     VREvent_Status_t status;
-    VREvent_Keyboard_t_0912 keyboard;
+    VREvent_Keyboard_t_0911 keyboard;
     VREvent_Ipd_t ipd;
     VREvent_Chaperone_t chaperone;
     VREvent_PerformanceTest_t performanceTest;
@@ -879,7 +879,7 @@ union VREvent_Data_t_1011
     VREvent_Notification_t_093 notification;
     VREvent_Overlay_t_092 overlay;
     VREvent_Status_t status;
-    VREvent_Keyboard_t_0912 keyboard;
+    VREvent_Keyboard_t_0911 keyboard;
     VREvent_Ipd_t ipd;
     VREvent_Chaperone_t chaperone;
     VREvent_PerformanceTest_t performanceTest;
@@ -907,7 +907,7 @@ union VREvent_Data_t_106
     VREvent_Notification_t_093 notification;
     VREvent_Overlay_t_092 overlay;
     VREvent_Status_t status;
-    VREvent_Keyboard_t_0912 keyboard;
+    VREvent_Keyboard_t_0911 keyboard;
     VREvent_Ipd_t ipd;
     VREvent_Chaperone_t chaperone;
     VREvent_PerformanceTest_t performanceTest;
@@ -934,7 +934,7 @@ union VREvent_Data_t_105
     VREvent_Notification_t_093 notification;
     VREvent_Overlay_t_092 overlay;
     VREvent_Status_t status;
-    VREvent_Keyboard_t_0912 keyboard;
+    VREvent_Keyboard_t_0911 keyboard;
     VREvent_Ipd_t ipd;
     VREvent_Chaperone_t chaperone;
     VREvent_PerformanceTest_t performanceTest;
@@ -960,7 +960,7 @@ union VREvent_Data_t_103
     VREvent_Notification_t_093 notification;
     VREvent_Overlay_t_092 overlay;
     VREvent_Status_t status;
-    VREvent_Keyboard_t_0912 keyboard;
+    VREvent_Keyboard_t_0911 keyboard;
     VREvent_Ipd_t ipd;
     VREvent_Chaperone_t chaperone;
     VREvent_PerformanceTest_t performanceTest;
@@ -985,7 +985,7 @@ union VREvent_Data_t_102
     VREvent_Notification_t_093 notification;
     VREvent_Overlay_t_092 overlay;
     VREvent_Status_t status;
-    VREvent_Keyboard_t_0912 keyboard;
+    VREvent_Keyboard_t_0911 keyboard;
     VREvent_Ipd_t ipd;
     VREvent_Chaperone_t chaperone;
     VREvent_PerformanceTest_t performanceTest;
@@ -1009,7 +1009,7 @@ union VREvent_Data_t_101
     VREvent_Notification_t_093 notification;
     VREvent_Overlay_t_092 overlay;
     VREvent_Status_t status;
-    VREvent_Keyboard_t_0912 keyboard;
+    VREvent_Keyboard_t_0911 keyboard;
     VREvent_Ipd_t ipd;
     VREvent_Chaperone_t chaperone;
     VREvent_PerformanceTest_t performanceTest;
@@ -1031,7 +1031,7 @@ union VREvent_Data_t_0918
     VREvent_Notification_t_093 notification;
     VREvent_Overlay_t_092 overlay;
     VREvent_Status_t status;
-    VREvent_Keyboard_t_0912 keyboard;
+    VREvent_Keyboard_t_0911 keyboard;
     VREvent_Ipd_t ipd;
     VREvent_Chaperone_t chaperone;
     VREvent_PerformanceTest_t performanceTest;
@@ -1052,7 +1052,7 @@ union VREvent_Data_t_0915
     VREvent_Notification_t_093 notification;
     VREvent_Overlay_t_092 overlay;
     VREvent_Status_t status;
-    VREvent_Keyboard_t_0912 keyboard;
+    VREvent_Keyboard_t_0911 keyboard;
     VREvent_Ipd_t ipd;
     VREvent_Chaperone_t chaperone;
     VREvent_PerformanceTest_t performanceTest;
@@ -1071,7 +1071,7 @@ union VREvent_Data_t_0914
     VREvent_Notification_t_093 notification;
     VREvent_Overlay_t_092 overlay;
     VREvent_Status_t status;
-    VREvent_Keyboard_t_0912 keyboard;
+    VREvent_Keyboard_t_0911 keyboard;
     VREvent_Ipd_t ipd;
     VREvent_Chaperone_t chaperone;
     VREvent_PerformanceTest_t performanceTest;
@@ -1089,9 +1089,24 @@ union VREvent_Data_t_0912
     VREvent_Notification_t_093 notification;
     VREvent_Overlay_t_092 overlay;
     VREvent_Status_t status;
-    VREvent_Keyboard_t_0912 keyboard;
+    VREvent_Keyboard_t_0911 keyboard;
     VREvent_Ipd_t ipd;
     VREvent_Chaperone_t chaperone;
+};
+#pragma pack( pop )
+
+typedef union VREvent_Data_t_0911 VREvent_Data_t_0911;
+#pragma pack( push, 8 )
+union VREvent_Data_t_0911
+{
+    VREvent_Reserved_t_090 reserved;
+    VREvent_Controller_t controller;
+    VREvent_Mouse_t_090 mouse;
+    VREvent_Process_t_090 process;
+    VREvent_Notification_t_093 notification;
+    VREvent_Overlay_t_092 overlay;
+    VREvent_Status_t status;
+    VREvent_Keyboard_t_0911 keyboard;
 };
 #pragma pack( pop )
 
@@ -1195,6 +1210,18 @@ typedef struct ChaperoneSoftBoundsInfo_t ChaperoneSoftBoundsInfo_t;
 struct ChaperoneSoftBoundsInfo_t
 {
     HmdQuad_t quadCorners;
+};
+#pragma pack( pop )
+
+typedef struct ComponentState_t ComponentState_t;
+#pragma pack( push, 4 )
+struct ComponentState_t
+{
+    HmdMatrix34_t mTrackingToComponentRenderModel;
+    HmdMatrix34_t mTrackingToComponentLocal;
+    int8_t bIsStatic;
+    int8_t bIsVisible;
+    uint8_t __pad_98[2];
 };
 #pragma pack( pop )
 
@@ -1428,6 +1455,22 @@ struct SpatialAnchorPose_t
 };
 #pragma pack( pop )
 
+typedef struct TrackedCameraCalibrationDevOnly_t TrackedCameraCalibrationDevOnly_t;
+#pragma pack( push, 8 )
+struct TrackedCameraCalibrationDevOnly_t
+{
+    double m_flIntrinsicsFX;
+    double m_flIntrinsicsFY;
+    double m_flIntrinsicsCX;
+    double m_flIntrinsicsCY;
+    double m_flIntrinsicsK1;
+    double m_flIntrinsicsK2;
+    double m_flIntrinsicsP1;
+    double m_flIntrinsicsP2;
+    double m_flIntrinsicsK3;
+};
+#pragma pack( pop )
+
 typedef struct VRActiveActionSet_t_1016 VRActiveActionSet_t_1016;
 #pragma pack( push, 8 )
 struct VRActiveActionSet_t_1016
@@ -1615,6 +1658,10 @@ typedef struct u64_CameraVideoStreamFrame_t_0912 u64_CameraVideoStreamFrame_t_09
 typedef struct w64_CameraVideoStreamFrame_t_0912 w64_CameraVideoStreamFrame_t_0912;
 typedef struct w32_CameraVideoStreamFrame_t_0912 u32_CameraVideoStreamFrame_t_0912;
 typedef struct w32_CameraVideoStreamFrame_t_0912 w32_CameraVideoStreamFrame_t_0912;
+typedef struct u64_CameraVideoStreamFrame_t_0911 u64_CameraVideoStreamFrame_t_0911;
+typedef struct w64_CameraVideoStreamFrame_t_0911 w64_CameraVideoStreamFrame_t_0911;
+typedef struct w32_CameraVideoStreamFrame_t_0911 u32_CameraVideoStreamFrame_t_0911;
+typedef struct w32_CameraVideoStreamFrame_t_0911 w32_CameraVideoStreamFrame_t_0911;
 typedef struct w64_Compositor_FrameTiming_251 u64_Compositor_FrameTiming_251;
 typedef struct w64_Compositor_FrameTiming_251 w64_Compositor_FrameTiming_251;
 typedef struct w32_Compositor_FrameTiming_251 u32_Compositor_FrameTiming_251;
@@ -1647,10 +1694,10 @@ typedef struct u64_Compositor_FrameTiming_0913 u64_Compositor_FrameTiming_0913;
 typedef struct w64_Compositor_FrameTiming_0913 w64_Compositor_FrameTiming_0913;
 typedef struct u32_Compositor_FrameTiming_0913 u32_Compositor_FrameTiming_0913;
 typedef struct w32_Compositor_FrameTiming_0913 w32_Compositor_FrameTiming_0913;
-typedef struct u64_Compositor_FrameTiming_0912 u64_Compositor_FrameTiming_0912;
-typedef struct w64_Compositor_FrameTiming_0912 w64_Compositor_FrameTiming_0912;
-typedef struct u32_Compositor_FrameTiming_0912 u32_Compositor_FrameTiming_0912;
-typedef struct w32_Compositor_FrameTiming_0912 w32_Compositor_FrameTiming_0912;
+typedef struct u64_Compositor_FrameTiming_0911 u64_Compositor_FrameTiming_0911;
+typedef struct w64_Compositor_FrameTiming_0911 w64_Compositor_FrameTiming_0911;
+typedef struct u32_Compositor_FrameTiming_0911 u32_Compositor_FrameTiming_0911;
+typedef struct w32_Compositor_FrameTiming_0911 w32_Compositor_FrameTiming_0911;
 typedef struct u64_Compositor_FrameTiming_093 u64_Compositor_FrameTiming_093;
 typedef struct w64_Compositor_FrameTiming_093 w64_Compositor_FrameTiming_093;
 typedef struct u32_Compositor_FrameTiming_093 u32_Compositor_FrameTiming_093;
@@ -1825,6 +1872,10 @@ typedef struct u64_VREvent_t_0912 u64_VREvent_t_0912;
 typedef struct w64_VREvent_t_0912 w64_VREvent_t_0912;
 typedef struct u32_VREvent_t_0912 u32_VREvent_t_0912;
 typedef struct w32_VREvent_t_0912 w32_VREvent_t_0912;
+typedef struct u64_VREvent_t_0911 u64_VREvent_t_0911;
+typedef struct w64_VREvent_t_0911 w64_VREvent_t_0911;
+typedef struct u32_VREvent_t_0911 u32_VREvent_t_0911;
+typedef struct w32_VREvent_t_0911 w32_VREvent_t_0911;
 typedef struct u64_VREvent_t_0910 u64_VREvent_t_0910;
 typedef struct w64_VREvent_t_0910 w64_VREvent_t_0910;
 typedef struct u32_VREvent_t_0910 u32_VREvent_t_0910;
@@ -3076,6 +3127,85 @@ typedef u64_CameraVideoStreamFrame_t_0912 u_CameraVideoStreamFrame_t_0912;
 #endif
 
 #pragma pack( push, 8 )
+struct w64_CameraVideoStreamFrame_t_0911
+{
+    uint32_t m_nStreamFormat;
+    uint32_t m_nWidth;
+    uint32_t m_nHeight;
+    uint32_t m_nFrameSequence;
+    uint32_t m_nTimeStamp;
+    uint32_t m_nBufferIndex;
+    uint32_t m_nBufferCount;
+    uint32_t m_nImageDataSize;
+    double m_flFrameTime;
+    int8_t m_bPoseValid;
+    uint8_t __pad_41[3];
+    W64_ARRAY(float, 16, m_HMDPoseMatrix);
+    uint8_t __pad_108[4];
+    W64_PTR(void *m_pImageData, m_pImageData, void *);
+#ifdef __cplusplus
+    operator u64_CameraVideoStreamFrame_t_0911() const;
+#endif /* __cplusplus */
+};
+#pragma pack( pop )
+
+#pragma pack( push, 4 )
+struct u64_CameraVideoStreamFrame_t_0911
+{
+    uint32_t m_nStreamFormat;
+    uint32_t m_nWidth;
+    uint32_t m_nHeight;
+    uint32_t m_nFrameSequence;
+    uint32_t m_nTimeStamp;
+    uint32_t m_nBufferIndex;
+    uint32_t m_nBufferCount;
+    uint32_t m_nImageDataSize;
+    double m_flFrameTime;
+    int8_t m_bPoseValid;
+    uint8_t __pad_41[3];
+    U64_ARRAY(float, 16, m_HMDPoseMatrix);
+    U64_PTR(void *m_pImageData, m_pImageData, void *);
+#ifdef __cplusplus
+    operator w64_CameraVideoStreamFrame_t_0911() const;
+#endif /* __cplusplus */
+#ifdef __cplusplus
+    operator w32_CameraVideoStreamFrame_t_0911() const;
+#endif /* __cplusplus */
+};
+#pragma pack( pop )
+
+#pragma pack( push, 8 )
+struct w32_CameraVideoStreamFrame_t_0911
+{
+    uint32_t m_nStreamFormat;
+    uint32_t m_nWidth;
+    uint32_t m_nHeight;
+    uint32_t m_nFrameSequence;
+    uint32_t m_nTimeStamp;
+    uint32_t m_nBufferIndex;
+    uint32_t m_nBufferCount;
+    uint32_t m_nImageDataSize;
+    double m_flFrameTime;
+    int8_t m_bPoseValid;
+    uint8_t __pad_41[3];
+    W32_ARRAY(float, 16, m_HMDPoseMatrix);
+    W32_PTR(void *m_pImageData, m_pImageData, void *);
+#ifdef __cplusplus
+    operator u64_CameraVideoStreamFrame_t_0911() const;
+#endif /* __cplusplus */
+};
+#pragma pack( pop )
+
+#ifdef __i386__
+typedef w32_CameraVideoStreamFrame_t_0911 w_CameraVideoStreamFrame_t_0911;
+typedef u32_CameraVideoStreamFrame_t_0911 u_CameraVideoStreamFrame_t_0911;
+#endif
+#if defined(__x86_64__) || defined(__aarch64__)
+typedef w64_CameraVideoStreamFrame_t_0911 w_CameraVideoStreamFrame_t_0911;
+typedef u64_CameraVideoStreamFrame_t_0911 u_CameraVideoStreamFrame_t_0911;
+#endif
+
+#pragma pack( push, 8 )
 struct w64_Compositor_FrameTiming_251
 {
     uint32_t m_nSize;
@@ -3852,7 +3982,7 @@ typedef u64_Compositor_FrameTiming_0913 u_Compositor_FrameTiming_0913;
 #endif
 
 #pragma pack( push, 8 )
-struct w64_Compositor_FrameTiming_0912
+struct w64_Compositor_FrameTiming_0911
 {
     uint32_t size;
     uint8_t __pad_4[4];
@@ -3873,13 +4003,13 @@ struct w64_Compositor_FrameTiming_0912
     float m_flHandoffEndMs;
     uint8_t __pad_148[4];
 #ifdef __cplusplus
-    operator u64_Compositor_FrameTiming_0912() const;
+    operator u64_Compositor_FrameTiming_0911() const;
 #endif /* __cplusplus */
 };
 #pragma pack( pop )
 
 #pragma pack( push, 4 )
-struct u64_Compositor_FrameTiming_0912
+struct u64_Compositor_FrameTiming_0911
 {
     uint32_t size;
     double frameStart;
@@ -3898,16 +4028,16 @@ struct u64_Compositor_FrameTiming_0912
     float m_flHandoffStartMs;
     float m_flHandoffEndMs;
 #ifdef __cplusplus
-    operator w64_Compositor_FrameTiming_0912() const;
+    operator w64_Compositor_FrameTiming_0911() const;
 #endif /* __cplusplus */
 #ifdef __cplusplus
-    operator w32_Compositor_FrameTiming_0912() const;
+    operator w32_Compositor_FrameTiming_0911() const;
 #endif /* __cplusplus */
 };
 #pragma pack( pop )
 
 #pragma pack( push, 8 )
-struct w32_Compositor_FrameTiming_0912
+struct w32_Compositor_FrameTiming_0911
 {
     uint32_t size;
     uint8_t __pad_4[4];
@@ -3928,16 +4058,16 @@ struct w32_Compositor_FrameTiming_0912
     float m_flHandoffEndMs;
     uint8_t __pad_148[4];
 #ifdef __cplusplus
-    operator u32_Compositor_FrameTiming_0912() const;
+    operator u32_Compositor_FrameTiming_0911() const;
 #endif /* __cplusplus */
 #ifdef __cplusplus
-    operator u64_Compositor_FrameTiming_0912() const;
+    operator u64_Compositor_FrameTiming_0911() const;
 #endif /* __cplusplus */
 };
 #pragma pack( pop )
 
 #pragma pack( push, 4 )
-struct u32_Compositor_FrameTiming_0912
+struct u32_Compositor_FrameTiming_0911
 {
     uint32_t size;
     double frameStart;
@@ -3956,18 +4086,18 @@ struct u32_Compositor_FrameTiming_0912
     float m_flHandoffStartMs;
     float m_flHandoffEndMs;
 #ifdef __cplusplus
-    operator w32_Compositor_FrameTiming_0912() const;
+    operator w32_Compositor_FrameTiming_0911() const;
 #endif /* __cplusplus */
 };
 #pragma pack( pop )
 
 #ifdef __i386__
-typedef w32_Compositor_FrameTiming_0912 w_Compositor_FrameTiming_0912;
-typedef u32_Compositor_FrameTiming_0912 u_Compositor_FrameTiming_0912;
+typedef w32_Compositor_FrameTiming_0911 w_Compositor_FrameTiming_0911;
+typedef u32_Compositor_FrameTiming_0911 u_Compositor_FrameTiming_0911;
 #endif
 #if defined(__x86_64__) || defined(__aarch64__)
-typedef w64_Compositor_FrameTiming_0912 w_Compositor_FrameTiming_0912;
-typedef u64_Compositor_FrameTiming_0912 u_Compositor_FrameTiming_0912;
+typedef w64_Compositor_FrameTiming_0911 w_Compositor_FrameTiming_0911;
+typedef u64_Compositor_FrameTiming_0911 u_Compositor_FrameTiming_0911;
 #endif
 
 #pragma pack( push, 8 )
@@ -6502,6 +6632,75 @@ typedef u32_VREvent_t_0912 u_VREvent_t_0912;
 #if defined(__x86_64__) || defined(__aarch64__)
 typedef w64_VREvent_t_0912 w_VREvent_t_0912;
 typedef u64_VREvent_t_0912 u_VREvent_t_0912;
+#endif
+
+#pragma pack( push, 8 )
+struct w64_VREvent_t_0911
+{
+    uint32_t eventType;
+    uint32_t trackedDeviceIndex;
+    VREvent_Data_t_0911 data;
+    float eventAgeSeconds;
+    uint8_t __pad_28[4];
+#ifdef __cplusplus
+    operator u64_VREvent_t_0911() const;
+#endif /* __cplusplus */
+};
+#pragma pack( pop )
+
+#pragma pack( push, 4 )
+struct u64_VREvent_t_0911
+{
+    uint32_t eventType;
+    uint32_t trackedDeviceIndex;
+    VREvent_Data_t_0911 data;
+    float eventAgeSeconds;
+#ifdef __cplusplus
+    operator w64_VREvent_t_0911() const;
+#endif /* __cplusplus */
+#ifdef __cplusplus
+    operator w32_VREvent_t_0911() const;
+#endif /* __cplusplus */
+};
+#pragma pack( pop )
+
+#pragma pack( push, 8 )
+struct w32_VREvent_t_0911
+{
+    uint32_t eventType;
+    uint32_t trackedDeviceIndex;
+    VREvent_Data_t_0911 data;
+    float eventAgeSeconds;
+    uint8_t __pad_28[4];
+#ifdef __cplusplus
+    operator u32_VREvent_t_0911() const;
+#endif /* __cplusplus */
+#ifdef __cplusplus
+    operator u64_VREvent_t_0911() const;
+#endif /* __cplusplus */
+};
+#pragma pack( pop )
+
+#pragma pack( push, 4 )
+struct u32_VREvent_t_0911
+{
+    uint32_t eventType;
+    uint32_t trackedDeviceIndex;
+    VREvent_Data_t_0911 data;
+    float eventAgeSeconds;
+#ifdef __cplusplus
+    operator w32_VREvent_t_0911() const;
+#endif /* __cplusplus */
+};
+#pragma pack( pop )
+
+#ifdef __i386__
+typedef w32_VREvent_t_0911 w_VREvent_t_0911;
+typedef u32_VREvent_t_0911 u_VREvent_t_0911;
+#endif
+#if defined(__x86_64__) || defined(__aarch64__)
+typedef w64_VREvent_t_0911 w_VREvent_t_0911;
+typedef u64_VREvent_t_0911 u_VREvent_t_0911;
 #endif
 
 #pragma pack( push, 8 )

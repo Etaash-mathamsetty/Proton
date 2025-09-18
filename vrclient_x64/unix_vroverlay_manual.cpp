@@ -60,6 +60,21 @@ static NTSTATUS IVROverlay_SetOverlayTexture( Iface *iface, Params *params, bool
     return 0;
 }
 
+template< typename Params >
+static NTSTATUS IVROverlay_SetOverlayTexture( u_IVROverlay_IVROverlay_006 *iface, Params *params, bool wow64 )
+{
+    w_Texture_t texture =
+    {
+        .handle = params->pTexture,
+        .eType = params->eTextureType,
+    };
+    u_VRVulkanTextureData_t u_vkdata;
+    u_Texture_t host_texture = unwrap_texture_data( &texture, &u_vkdata );
+
+    params->_ret = (uint32_t)iface->SetOverlayTexture( params->ulOverlayHandle, host_texture.eType, host_texture.handle );
+    return 0;
+}
+
 template< typename Iface, typename Params >
 static NTSTATUS IVROverlay_SetOverlayTexture( Iface *iface, Params *params, bool wow64 )
 {
@@ -75,6 +90,7 @@ VRCLIENT_UNIX_IMPL( IVROverlay, 002, SetOverlayTexture, false );
 VRCLIENT_UNIX_IMPL( IVROverlay, 003, SetOverlayTexture, false );
 VRCLIENT_UNIX_IMPL( IVROverlay, 004, SetOverlayTexture, false );
 VRCLIENT_UNIX_IMPL( IVROverlay, 005, SetOverlayTexture, false );
+VRCLIENT_UNIX_IMPL( IVROverlay, 006, SetOverlayTexture );
 VRCLIENT_UNIX_IMPL( IVROverlay, 007, SetOverlayTexture );
 VRCLIENT_UNIX_IMPL( IVROverlay, 008, SetOverlayTexture );
 VRCLIENT_UNIX_IMPL( IVROverlay, 010, SetOverlayTexture );

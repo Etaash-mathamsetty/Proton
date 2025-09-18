@@ -1075,6 +1075,8 @@ DEFINE_THISCALL_WRAPPER(winIVRCompositor_IVRCompositor_008_HideMirrorWindow, 4)
 DEFINE_THISCALL_WRAPPER(winIVRCompositor_IVRCompositor_008_CompositorDumpImages, 4)
 DEFINE_THISCALL_WRAPPER(winIVRCompositor_IVRCompositor_008_GetFrameTimeRemaining, 4)
 DEFINE_THISCALL_WRAPPER(winIVRCompositor_IVRCompositor_008_GetLastFrameRenderer, 4)
+DEFINE_THISCALL_WRAPPER(winIVRCompositor_IVRCompositor_008_GetLastPoses, 20)
+DEFINE_THISCALL_WRAPPER(winIVRCompositor_IVRCompositor_008_PostPresentHandoff, 4)
 
 uint32_t __thiscall winIVRCompositor_IVRCompositor_008_GetLastError(struct w_iface *_this, char *pchBuffer, uint32_t unBufferSize)
 {
@@ -1135,22 +1137,7 @@ float __thiscall winIVRCompositor_IVRCompositor_008_GetGamma(struct w_iface *_th
 
 extern uint32_t __thiscall winIVRCompositor_IVRCompositor_008_WaitGetPoses(struct w_iface *_this, TrackedDevicePose_t *pRenderPoseArray, uint32_t unRenderPoseArrayCount, TrackedDevicePose_t *pGamePoseArray, uint32_t unGamePoseArrayCount);
 
-uint32_t __thiscall winIVRCompositor_IVRCompositor_008_Submit(struct w_iface *_this, uint32_t eEye, uint32_t eTextureType, void *pTexture, const VRTextureBounds_t *pBounds, uint32_t nSubmitFlags)
-{
-    struct IVRCompositor_IVRCompositor_008_Submit_params params =
-    {
-        .u_iface = _this->u_iface,
-        .eEye = eEye,
-        .eTextureType = eTextureType,
-        .pTexture = pTexture,
-        .pBounds = pBounds,
-        .nSubmitFlags = nSubmitFlags,
-    };
-    TRACE("%p\n", _this);
-    if (eTextureType == TextureType_DirectX) FIXME( "Not implemented Direct3D API!\n" );
-    VRCLIENT_CALL( IVRCompositor_IVRCompositor_008_Submit, &params );
-    return params._ret;
-}
+extern uint32_t __thiscall winIVRCompositor_IVRCompositor_008_Submit(struct w_iface *_this, uint32_t eEye, uint32_t eTextureType, void *pTexture, const VRTextureBounds_t *pBounds, uint32_t nSubmitFlags);
 
 void __thiscall winIVRCompositor_IVRCompositor_008_ClearLastSubmittedFrame(struct w_iface *_this)
 {
@@ -1162,7 +1149,7 @@ void __thiscall winIVRCompositor_IVRCompositor_008_ClearLastSubmittedFrame(struc
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_008_ClearLastSubmittedFrame, &params );
 }
 
-int8_t __thiscall winIVRCompositor_IVRCompositor_008_GetFrameTiming(struct w_iface *_this, w_Compositor_FrameTiming_093 *pTiming, uint32_t unFramesAgo)
+int8_t __thiscall winIVRCompositor_IVRCompositor_008_GetFrameTiming(struct w_iface *_this, w_Compositor_FrameTiming_0911 *pTiming, uint32_t unFramesAgo)
 {
     struct IVRCompositor_IVRCompositor_008_GetFrameTiming_params params =
     {
@@ -1203,23 +1190,7 @@ void __thiscall winIVRCompositor_IVRCompositor_008_FadeGrid(struct w_iface *_thi
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_008_FadeGrid, &params );
 }
 
-void __thiscall winIVRCompositor_IVRCompositor_008_SetSkyboxOverride(struct w_iface *_this, uint32_t eTextureType, void *pFront, void *pBack, void *pLeft, void *pRight, void *pTop, void *pBottom)
-{
-    struct IVRCompositor_IVRCompositor_008_SetSkyboxOverride_params params =
-    {
-        .u_iface = _this->u_iface,
-        .eTextureType = eTextureType,
-        .pFront = pFront,
-        .pBack = pBack,
-        .pLeft = pLeft,
-        .pRight = pRight,
-        .pTop = pTop,
-        .pBottom = pBottom,
-    };
-    TRACE("%p\n", _this);
-    if (eTextureType == TextureType_DirectX) FIXME( "Not implemented Direct3D API!\n" );
-    VRCLIENT_CALL( IVRCompositor_IVRCompositor_008_SetSkyboxOverride, &params );
-}
+extern void __thiscall winIVRCompositor_IVRCompositor_008_SetSkyboxOverride(struct w_iface *_this, uint32_t eTextureType, void *pFront, void *pBack, void *pLeft, void *pRight, void *pTop, void *pBottom);
 
 void __thiscall winIVRCompositor_IVRCompositor_008_ClearSkyboxOverride(struct w_iface *_this)
 {
@@ -1368,6 +1339,23 @@ uint32_t __thiscall winIVRCompositor_IVRCompositor_008_GetLastFrameRenderer(stru
     return params._ret;
 }
 
+uint32_t __thiscall winIVRCompositor_IVRCompositor_008_GetLastPoses(struct w_iface *_this, TrackedDevicePose_t *pRenderPoseArray, uint32_t unRenderPoseArrayCount, TrackedDevicePose_t *pGamePoseArray, uint32_t unGamePoseArrayCount)
+{
+    struct IVRCompositor_IVRCompositor_008_GetLastPoses_params params =
+    {
+        .u_iface = _this->u_iface,
+        .pRenderPoseArray = pRenderPoseArray,
+        .unRenderPoseArrayCount = unRenderPoseArrayCount,
+        .pGamePoseArray = pGamePoseArray,
+        .unGamePoseArrayCount = unGamePoseArrayCount,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVRCompositor_IVRCompositor_008_GetLastPoses, &params );
+    return params._ret;
+}
+
+extern void __thiscall winIVRCompositor_IVRCompositor_008_PostPresentHandoff(struct w_iface *_this);
+
 extern vtable_ptr winIVRCompositor_IVRCompositor_008_vtable;
 
 DEFINE_RTTI_DATA0(winIVRCompositor_IVRCompositor_008, 0, ".?AVIVRCompositor@@")
@@ -1400,6 +1388,8 @@ __ASM_BLOCK_BEGIN(winIVRCompositor_IVRCompositor_008_vtables)
         VTABLE_ADD_FUNC(winIVRCompositor_IVRCompositor_008_CompositorDumpImages)
         VTABLE_ADD_FUNC(winIVRCompositor_IVRCompositor_008_GetFrameTimeRemaining)
         VTABLE_ADD_FUNC(winIVRCompositor_IVRCompositor_008_GetLastFrameRenderer)
+        VTABLE_ADD_FUNC(winIVRCompositor_IVRCompositor_008_GetLastPoses)
+        VTABLE_ADD_FUNC(winIVRCompositor_IVRCompositor_008_PostPresentHandoff)
     );
 __ASM_BLOCK_END
 
@@ -1421,8 +1411,8 @@ void destroy_winIVRCompositor_IVRCompositor_008(struct w_iface *object)
 struct w_iface *create_winIVRCompositor_IVRCompositor_008_FnTable( struct u_iface u_iface )
 {
     struct w_iface *r = HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, sizeof(*r));
-    struct thunk *thunks = alloc_thunks(26);
-    struct thunk **vtable = HeapAlloc(GetProcessHeap(), 0, 26 * sizeof(*vtable));
+    struct thunk *thunks = alloc_thunks(28);
+    struct thunk **vtable = HeapAlloc(GetProcessHeap(), 0, 28 * sizeof(*vtable));
     int i;
 
     TRACE("-> %p, vtable %p, thunks %p\n", r, vtable, thunks);
@@ -1452,7 +1442,9 @@ struct w_iface *create_winIVRCompositor_IVRCompositor_008_FnTable( struct u_ifac
     init_thunk(&thunks[23], r, winIVRCompositor_IVRCompositor_008_CompositorDumpImages, 0, FALSE, FALSE);
     init_thunk(&thunks[24], r, winIVRCompositor_IVRCompositor_008_GetFrameTimeRemaining, 0, FALSE, FALSE);
     init_thunk(&thunks[25], r, winIVRCompositor_IVRCompositor_008_GetLastFrameRenderer, 0, FALSE, FALSE);
-    for (i = 0; i < 26; i++)
+    init_thunk(&thunks[26], r, winIVRCompositor_IVRCompositor_008_GetLastPoses, 4, FALSE, FALSE);
+    init_thunk(&thunks[27], r, winIVRCompositor_IVRCompositor_008_PostPresentHandoff, 0, FALSE, FALSE);
+    for (i = 0; i < 28; i++)
         vtable[i] = &thunks[i];
     r->u_iface = u_iface;
     r->vtable = (void *)vtable;

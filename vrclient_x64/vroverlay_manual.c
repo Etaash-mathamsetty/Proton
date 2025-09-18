@@ -70,7 +70,6 @@ static void free_unix_overlay_texture_dxvk( struct set_overlay_texture_state *st
 uint32_t __thiscall winIVROverlay_IVROverlay_001_SetOverlayTexture( struct w_iface *_this,
                                                                     uint64_t ulOverlayHandle, void *pTexture )
 {
-    /* probably no one actually uses this old interface... */
     FIXME( "unimplemented!\n" );
     return VROverlayError_InvalidHandle;
 }
@@ -78,8 +77,6 @@ uint32_t __thiscall winIVROverlay_IVROverlay_001_SetOverlayTexture( struct w_ifa
 uint32_t __thiscall winIVROverlay_IVROverlay_002_SetOverlayTexture( struct w_iface *_this, uint64_t ulOverlayHandle,
                                                                     uint32_t eTextureType, void *pTexture )
 {
-    /* hopefully no one actually uses this old interface... Vulkan support
-     * wasn't added until later; how can we pass in a DirectX texture? */
     FIXME( "unimplemented!\n" );
     return VROverlayError_InvalidHandle;
 }
@@ -87,8 +84,6 @@ uint32_t __thiscall winIVROverlay_IVROverlay_002_SetOverlayTexture( struct w_ifa
 uint32_t __thiscall winIVROverlay_IVROverlay_003_SetOverlayTexture( struct w_iface *_this, uint64_t ulOverlayHandle,
                                                                     uint32_t eTextureType, void *pTexture )
 {
-    /* hopefully no one actually uses this old interface... Vulkan support
-     * wasn't added until later; how can we pass in a DirectX texture? */
     FIXME( "unimplemented!\n" );
     return VROverlayError_InvalidHandle;
 }
@@ -96,8 +91,6 @@ uint32_t __thiscall winIVROverlay_IVROverlay_003_SetOverlayTexture( struct w_ifa
 uint32_t __thiscall winIVROverlay_IVROverlay_004_SetOverlayTexture( struct w_iface *_this, uint64_t ulOverlayHandle,
                                                                     uint32_t eTextureType, void *pTexture )
 {
-    /* hopefully no one actually uses this old interface... Vulkan support
-     * wasn't added until later; how can we pass in a DirectX texture? */
     FIXME( "unimplemented!\n" );
     return VROverlayError_InvalidHandle;
 }
@@ -105,10 +98,34 @@ uint32_t __thiscall winIVROverlay_IVROverlay_004_SetOverlayTexture( struct w_ifa
 uint32_t __thiscall winIVROverlay_IVROverlay_005_SetOverlayTexture( struct w_iface *_this, uint64_t ulOverlayHandle,
                                                                     uint32_t eTextureType, void *pTexture )
 {
-    /* hopefully no one actually uses this old interface... Vulkan support
-     * wasn't added until later; how can we pass in a DirectX texture? */
     FIXME( "unimplemented!\n" );
     return VROverlayError_InvalidHandle;
+}
+
+uint32_t __thiscall winIVROverlay_IVROverlay_006_SetOverlayTexture( struct w_iface *_this, uint64_t ulOverlayHandle,
+                                                                    uint32_t eTextureType, void *pTexture )
+{
+    w_Texture_t texture =
+    {
+        .handle = pTexture,
+        .eType = eTextureType,
+    };
+    struct set_overlay_texture_state state = { .texture = texture };
+    struct IVROverlay_IVROverlay_006_SetOverlayTexture_params params =
+    {
+        .u_iface = _this->u_iface,
+        .ulOverlayHandle = ulOverlayHandle,
+    };
+
+    TRACE( "%p %#I64x %d %p.\n", _this, ulOverlayHandle, eTextureType, pTexture );
+
+    if (eTextureType == TextureType_DirectX) load_overlay_texture_dxvk( &texture, &state );
+    params.eTextureType = state.texture.eType;
+    params.pTexture = state.texture.handle;
+    VRCLIENT_CALL( IVROverlay_IVROverlay_006_SetOverlayTexture, &params );
+    if (eTextureType == TextureType_DirectX) free_unix_overlay_texture_dxvk( &state );
+
+    return params._ret;
 }
 
 uint32_t __thiscall winIVROverlay_IVROverlay_007_SetOverlayTexture( struct w_iface *_this, uint64_t ulOverlayHandle,
