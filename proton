@@ -1336,6 +1336,7 @@ def default_compat_config():
                 "3393740", #Firefly Village
                 "2840770", #Avatar: Frontiers of Pandora
                 "429660", #Tales of Berseria
+                "1286220", #Sea Power
                 ]:
             ret.add("gamedrive")
 
