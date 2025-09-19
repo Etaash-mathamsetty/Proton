@@ -844,10 +844,13 @@ def handle_method_cpp(method, classname, out, wow64):
         out(u'    params->_ret = ')
 
     def param_call(name, param):
-        pfx = '&' if param.type.kind == TypeKind.POINTER else ''
         if name in size_fixup: return f"u_{name}"
         if name in path_conv_wtou: return f"u_{name}"
-        if name in need_convert: return f"params->{name} ? {pfx}u_{name} : nullptr"
+        if name in need_convert:
+            if param.type.kind == TypeKind.POINTER:
+                return f"params->{name} ? &u_{name} : nullptr"
+            else:
+                return f"u_{name}"
         if name == OUTSTR_PARAMS.get(method.name, None):
             return f'params->{name} ? ({declspec(param, "", "u_")})&u_str : nullptr'
         return f'params->{name}'
