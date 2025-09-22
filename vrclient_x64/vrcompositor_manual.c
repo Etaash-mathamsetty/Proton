@@ -469,14 +469,23 @@ static void post_present_handoff_done(void)
     unlock_queue();
 }
 
+static BOOL need_lock_for_wait_get_poses(void)
+{
+    if (compositor_data.dxvk_device && compositor_data.d3d11_explicit_handoff) return TRUE;
+    if (compositor_data.explicit_timing_mode == 2 && compositor_data.handoff_called) return FALSE;
+    return TRUE;
+}
+
+static BOOL wait_get_poses_locked_queue;
+
 static void wait_get_poses_init( struct u_iface u_iface )
 {
-    lock_queue();
+    if ((wait_get_poses_locked_queue = need_lock_for_wait_get_poses())) lock_queue();
 }
 
 static void wait_get_poses_done( struct u_iface u_iface )
 {
-    unlock_queue();
+    if (wait_get_poses_locked_queue) unlock_queue();
 }
 
 void __thiscall winIVRCompositor_IVRCompositor_005_WaitGetPoses( struct w_iface *_this,
@@ -1488,10 +1497,23 @@ void __thiscall winIVRCompositor_IVRCompositor_021_PostPresentHandoff( struct w_
          * in lockups and crashes. */
         VRCLIENT_CALL( IVRCompositor_IVRCompositor_021_SetExplicitTimingMode, &params );
         compositor_data.d3d11_explicit_handoff = TRUE;
+        compositor_data.explicit_timing_mode = TRUE;
     }
 
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_021_PostPresentHandoff, &params );
     post_present_handoff_done();
+}
+
+void __thiscall winIVRCompositor_IVRCompositor_021_SetExplicitTimingMode(struct w_iface *_this, int8_t bExplicitTimingMode)
+{
+    struct IVRCompositor_IVRCompositor_021_SetExplicitTimingMode_params params =
+    {
+        .u_iface = _this->u_iface,
+        .bExplicitTimingMode = bExplicitTimingMode,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVRCompositor_IVRCompositor_021_SetExplicitTimingMode, &params );
+    compositor_data.explicit_timing_mode = bExplicitTimingMode;
 }
 
 uint32_t __thiscall winIVRCompositor_IVRCompositor_021_SubmitExplicitTimingData(struct w_iface *_this)
@@ -1599,10 +1621,23 @@ void __thiscall winIVRCompositor_IVRCompositor_022_PostPresentHandoff( struct w_
          * in lockups and crashes. */
         VRCLIENT_CALL( IVRCompositor_IVRCompositor_022_SetExplicitTimingMode, &params );
         compositor_data.d3d11_explicit_handoff = TRUE;
+        compositor_data.explicit_timing_mode = VRCompositorTimingMode_Explicit_ApplicationPerformsPostPresentHandoff;
     }
 
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_022_PostPresentHandoff, &params );
     post_present_handoff_done();
+}
+
+void __thiscall winIVRCompositor_IVRCompositor_022_SetExplicitTimingMode(struct w_iface *_this, uint32_t eTimingMode)
+{
+    struct IVRCompositor_IVRCompositor_022_SetExplicitTimingMode_params params =
+    {
+        .u_iface = _this->u_iface,
+        .eTimingMode = eTimingMode,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVRCompositor_IVRCompositor_022_SetExplicitTimingMode, &params );
+    compositor_data.explicit_timing_mode = eTimingMode;
 }
 
 uint32_t __thiscall winIVRCompositor_IVRCompositor_022_SubmitExplicitTimingData(struct w_iface *_this)
@@ -1710,10 +1745,23 @@ void __thiscall winIVRCompositor_IVRCompositor_024_PostPresentHandoff( struct w_
          * in lockups and crashes. */
         VRCLIENT_CALL( IVRCompositor_IVRCompositor_024_SetExplicitTimingMode, &params );
         compositor_data.d3d11_explicit_handoff = TRUE;
+        compositor_data.explicit_timing_mode = VRCompositorTimingMode_Explicit_ApplicationPerformsPostPresentHandoff;
     }
 
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_024_PostPresentHandoff, &params );
     post_present_handoff_done();
+}
+
+void __thiscall winIVRCompositor_IVRCompositor_024_SetExplicitTimingMode(struct w_iface *_this, uint32_t eTimingMode)
+{
+    struct IVRCompositor_IVRCompositor_024_SetExplicitTimingMode_params params =
+    {
+        .u_iface = _this->u_iface,
+        .eTimingMode = eTimingMode,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVRCompositor_IVRCompositor_024_SetExplicitTimingMode, &params );
+    compositor_data.explicit_timing_mode = eTimingMode;
 }
 
 uint32_t __thiscall winIVRCompositor_IVRCompositor_024_SubmitExplicitTimingData(struct w_iface *_this)
@@ -1821,10 +1869,23 @@ void __thiscall winIVRCompositor_IVRCompositor_026_PostPresentHandoff( struct w_
          * in lockups and crashes. */
         VRCLIENT_CALL( IVRCompositor_IVRCompositor_026_SetExplicitTimingMode, &params );
         compositor_data.d3d11_explicit_handoff = TRUE;
+        compositor_data.explicit_timing_mode = VRCompositorTimingMode_Explicit_ApplicationPerformsPostPresentHandoff;
     }
 
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_026_PostPresentHandoff, &params );
     post_present_handoff_done();
+}
+
+void __thiscall winIVRCompositor_IVRCompositor_026_SetExplicitTimingMode(struct w_iface *_this, uint32_t eTimingMode)
+{
+    struct IVRCompositor_IVRCompositor_026_SetExplicitTimingMode_params params =
+    {
+        .u_iface = _this->u_iface,
+        .eTimingMode = eTimingMode,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVRCompositor_IVRCompositor_026_SetExplicitTimingMode, &params );
+    compositor_data.explicit_timing_mode = eTimingMode;
 }
 
 uint32_t __thiscall winIVRCompositor_IVRCompositor_026_SubmitExplicitTimingData(struct w_iface *_this)
@@ -1932,10 +1993,23 @@ void __thiscall winIVRCompositor_IVRCompositor_027_PostPresentHandoff( struct w_
          * in lockups and crashes. */
         VRCLIENT_CALL( IVRCompositor_IVRCompositor_027_SetExplicitTimingMode, &params );
         compositor_data.d3d11_explicit_handoff = TRUE;
+        compositor_data.explicit_timing_mode = VRCompositorTimingMode_Explicit_ApplicationPerformsPostPresentHandoff;
     }
 
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_027_PostPresentHandoff, &params );
     post_present_handoff_done();
+}
+
+void __thiscall winIVRCompositor_IVRCompositor_027_SetExplicitTimingMode(struct w_iface *_this, uint32_t eTimingMode)
+{
+    struct IVRCompositor_IVRCompositor_027_SetExplicitTimingMode_params params =
+    {
+        .u_iface = _this->u_iface,
+        .eTimingMode = eTimingMode,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVRCompositor_IVRCompositor_027_SetExplicitTimingMode, &params );
+    compositor_data.explicit_timing_mode = eTimingMode;
 }
 
 uint32_t __thiscall winIVRCompositor_IVRCompositor_027_SubmitExplicitTimingData(struct w_iface *_this)
@@ -2103,10 +2177,23 @@ void __thiscall winIVRCompositor_IVRCompositor_028_PostPresentHandoff( struct w_
          * in lockups and crashes. */
         VRCLIENT_CALL( IVRCompositor_IVRCompositor_028_SetExplicitTimingMode, &params );
         compositor_data.d3d11_explicit_handoff = TRUE;
+        compositor_data.explicit_timing_mode = VRCompositorTimingMode_Explicit_ApplicationPerformsPostPresentHandoff;
     }
 
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_028_PostPresentHandoff, &params );
     post_present_handoff_done();
+}
+
+void __thiscall winIVRCompositor_IVRCompositor_028_SetExplicitTimingMode(struct w_iface *_this, uint32_t eTimingMode)
+{
+    struct IVRCompositor_IVRCompositor_028_SetExplicitTimingMode_params params =
+    {
+        .u_iface = _this->u_iface,
+        .eTimingMode = eTimingMode,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVRCompositor_IVRCompositor_028_SetExplicitTimingMode, &params );
+    compositor_data.explicit_timing_mode = eTimingMode;
 }
 
 uint32_t __thiscall winIVRCompositor_IVRCompositor_028_SubmitExplicitTimingData(struct w_iface *_this)
@@ -2275,10 +2362,23 @@ void __thiscall winIVRCompositor_IVRCompositor_029_PostPresentHandoff( struct w_
          * in lockups and crashes. */
         VRCLIENT_CALL( IVRCompositor_IVRCompositor_029_SetExplicitTimingMode, &params );
         compositor_data.d3d11_explicit_handoff = TRUE;
+        compositor_data.explicit_timing_mode = VRCompositorTimingMode_Explicit_ApplicationPerformsPostPresentHandoff;
     }
 
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_029_PostPresentHandoff, &params );
     post_present_handoff_done();
+}
+
+void __thiscall winIVRCompositor_IVRCompositor_029_SetExplicitTimingMode(struct w_iface *_this, uint32_t eTimingMode)
+{
+    struct IVRCompositor_IVRCompositor_029_SetExplicitTimingMode_params params =
+    {
+        .u_iface = _this->u_iface,
+        .eTimingMode = eTimingMode,
+    };
+    TRACE("%p\n", _this);
+    VRCLIENT_CALL( IVRCompositor_IVRCompositor_029_SetExplicitTimingMode, &params );
+    compositor_data.explicit_timing_mode = eTimingMode;
 }
 
 uint32_t __thiscall winIVRCompositor_IVRCompositor_029_SubmitExplicitTimingData(struct w_iface *_this)

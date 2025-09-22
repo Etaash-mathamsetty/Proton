@@ -56,6 +56,7 @@ struct compositor_data
     ID3D12DXVKInteropDevice *d3d12_device;
     ID3D12CommandQueue *d3d12_queue;
     BOOL d3d11_explicit_handoff, handoff_called;
+    int32_t explicit_timing_mode;
     struct u_iface u_client_core_iface;
 
 #define X(proc) PFN_##proc p_##proc;
