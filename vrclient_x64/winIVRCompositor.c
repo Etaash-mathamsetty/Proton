@@ -7580,16 +7580,7 @@ void __thiscall winIVRCompositor_IVRCompositor_021_SetExplicitTimingMode(struct 
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_021_SetExplicitTimingMode, &params );
 }
 
-uint32_t __thiscall winIVRCompositor_IVRCompositor_021_SubmitExplicitTimingData(struct w_iface *_this)
-{
-    struct IVRCompositor_IVRCompositor_021_SubmitExplicitTimingData_params params =
-    {
-        .u_iface = _this->u_iface,
-    };
-    TRACE("%p\n", _this);
-    VRCLIENT_CALL( IVRCompositor_IVRCompositor_021_SubmitExplicitTimingData, &params );
-    return params._ret;
-}
+extern uint32_t __thiscall winIVRCompositor_IVRCompositor_021_SubmitExplicitTimingData(struct w_iface *_this);
 
 extern vtable_ptr winIVRCompositor_IVRCompositor_021_vtable;
 
@@ -8221,16 +8212,7 @@ void __thiscall winIVRCompositor_IVRCompositor_022_SetExplicitTimingMode(struct 
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_022_SetExplicitTimingMode, &params );
 }
 
-uint32_t __thiscall winIVRCompositor_IVRCompositor_022_SubmitExplicitTimingData(struct w_iface *_this)
-{
-    struct IVRCompositor_IVRCompositor_022_SubmitExplicitTimingData_params params =
-    {
-        .u_iface = _this->u_iface,
-    };
-    TRACE("%p\n", _this);
-    VRCLIENT_CALL( IVRCompositor_IVRCompositor_022_SubmitExplicitTimingData, &params );
-    return params._ret;
-}
+extern uint32_t __thiscall winIVRCompositor_IVRCompositor_022_SubmitExplicitTimingData(struct w_iface *_this);
 
 int8_t __thiscall winIVRCompositor_IVRCompositor_022_IsMotionSmoothingEnabled(struct w_iface *_this)
 {
@@ -8903,16 +8885,7 @@ void __thiscall winIVRCompositor_IVRCompositor_024_SetExplicitTimingMode(struct 
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_024_SetExplicitTimingMode, &params );
 }
 
-uint32_t __thiscall winIVRCompositor_IVRCompositor_024_SubmitExplicitTimingData(struct w_iface *_this)
-{
-    struct IVRCompositor_IVRCompositor_024_SubmitExplicitTimingData_params params =
-    {
-        .u_iface = _this->u_iface,
-    };
-    TRACE("%p\n", _this);
-    VRCLIENT_CALL( IVRCompositor_IVRCompositor_024_SubmitExplicitTimingData, &params );
-    return params._ret;
-}
+extern uint32_t __thiscall winIVRCompositor_IVRCompositor_024_SubmitExplicitTimingData(struct w_iface *_this);
 
 int8_t __thiscall winIVRCompositor_IVRCompositor_024_IsMotionSmoothingEnabled(struct w_iface *_this)
 {
@@ -9617,16 +9590,7 @@ void __thiscall winIVRCompositor_IVRCompositor_026_SetExplicitTimingMode(struct 
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_026_SetExplicitTimingMode, &params );
 }
 
-uint32_t __thiscall winIVRCompositor_IVRCompositor_026_SubmitExplicitTimingData(struct w_iface *_this)
-{
-    struct IVRCompositor_IVRCompositor_026_SubmitExplicitTimingData_params params =
-    {
-        .u_iface = _this->u_iface,
-    };
-    TRACE("%p\n", _this);
-    VRCLIENT_CALL( IVRCompositor_IVRCompositor_026_SubmitExplicitTimingData, &params );
-    return params._ret;
-}
+extern uint32_t __thiscall winIVRCompositor_IVRCompositor_026_SubmitExplicitTimingData(struct w_iface *_this);
 
 int8_t __thiscall winIVRCompositor_IVRCompositor_026_IsMotionSmoothingEnabled(struct w_iface *_this)
 {
@@ -10377,16 +10341,7 @@ void __thiscall winIVRCompositor_IVRCompositor_027_SetExplicitTimingMode(struct 
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_027_SetExplicitTimingMode, &params );
 }
 
-uint32_t __thiscall winIVRCompositor_IVRCompositor_027_SubmitExplicitTimingData(struct w_iface *_this)
-{
-    struct IVRCompositor_IVRCompositor_027_SubmitExplicitTimingData_params params =
-    {
-        .u_iface = _this->u_iface,
-    };
-    TRACE("%p\n", _this);
-    VRCLIENT_CALL( IVRCompositor_IVRCompositor_027_SubmitExplicitTimingData, &params );
-    return params._ret;
-}
+extern uint32_t __thiscall winIVRCompositor_IVRCompositor_027_SubmitExplicitTimingData(struct w_iface *_this);
 
 int8_t __thiscall winIVRCompositor_IVRCompositor_027_IsMotionSmoothingEnabled(struct w_iface *_this)
 {
@@ -11140,16 +11095,7 @@ void __thiscall winIVRCompositor_IVRCompositor_028_SetExplicitTimingMode(struct 
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_028_SetExplicitTimingMode, &params );
 }
 
-uint32_t __thiscall winIVRCompositor_IVRCompositor_028_SubmitExplicitTimingData(struct w_iface *_this)
-{
-    struct IVRCompositor_IVRCompositor_028_SubmitExplicitTimingData_params params =
-    {
-        .u_iface = _this->u_iface,
-    };
-    TRACE("%p\n", _this);
-    VRCLIENT_CALL( IVRCompositor_IVRCompositor_028_SubmitExplicitTimingData, &params );
-    return params._ret;
-}
+extern uint32_t __thiscall winIVRCompositor_IVRCompositor_028_SubmitExplicitTimingData(struct w_iface *_this);
 
 int8_t __thiscall winIVRCompositor_IVRCompositor_028_IsMotionSmoothingEnabled(struct w_iface *_this)
 {
@@ -11923,16 +11869,7 @@ void __thiscall winIVRCompositor_IVRCompositor_029_SetExplicitTimingMode(struct 
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_029_SetExplicitTimingMode, &params );
 }
 
-uint32_t __thiscall winIVRCompositor_IVRCompositor_029_SubmitExplicitTimingData(struct w_iface *_this)
-{
-    struct IVRCompositor_IVRCompositor_029_SubmitExplicitTimingData_params params =
-    {
-        .u_iface = _this->u_iface,
-    };
-    TRACE("%p\n", _this);
-    VRCLIENT_CALL( IVRCompositor_IVRCompositor_029_SubmitExplicitTimingData, &params );
-    return params._ret;
-}
+extern uint32_t __thiscall winIVRCompositor_IVRCompositor_029_SubmitExplicitTimingData(struct w_iface *_this);
 
 int8_t __thiscall winIVRCompositor_IVRCompositor_029_IsMotionSmoothingEnabled(struct w_iface *_this)
 {

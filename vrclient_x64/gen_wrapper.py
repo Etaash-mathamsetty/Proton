@@ -249,6 +249,7 @@ MANUAL_METHODS = {
     "IVRCompositor_Submit": lambda ver, abi: ver > 7,
     "IVRCompositor_SubmitWithArrayIndex": lambda ver, abi: ver > 8,
     "IVRCompositor_SetSkyboxOverride": lambda ver, abi: ver > 7,
+    "IVRCompositor_SubmitExplicitTimingData": lambda ver, abi: abi == 'w',
     "IVRCompositor_PostPresentHandoff": lambda ver, abi: abi == 'w',
     "IVRCompositor_WaitGetPoses": lambda ver, abi: abi == 'w',
     "IVRCompositor_GetVulkanDeviceExtensionsRequired": lambda ver, abi: abi == 'u',

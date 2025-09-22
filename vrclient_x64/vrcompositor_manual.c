@@ -1491,6 +1491,19 @@ void __thiscall winIVRCompositor_IVRCompositor_021_PostPresentHandoff( struct w_
     post_present_handoff_done();
 }
 
+uint32_t __thiscall winIVRCompositor_IVRCompositor_021_SubmitExplicitTimingData(struct w_iface *_this)
+{
+    struct IVRCompositor_IVRCompositor_021_SubmitExplicitTimingData_params params =
+    {
+        .u_iface = _this->u_iface,
+    };
+    TRACE("%p\n", _this);
+    lock_queue();
+    VRCLIENT_CALL( IVRCompositor_IVRCompositor_021_SubmitExplicitTimingData, &params );
+    unlock_queue();
+    return params._ret;
+}
+
 uint32_t __thiscall winIVRCompositor_IVRCompositor_021_SetSkyboxOverride( struct w_iface *_this,
                                                                           const w_Texture_t *pTextures, uint32_t unTextureCount )
 {
@@ -1587,6 +1600,19 @@ void __thiscall winIVRCompositor_IVRCompositor_022_PostPresentHandoff( struct w_
 
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_022_PostPresentHandoff, &params );
     post_present_handoff_done();
+}
+
+uint32_t __thiscall winIVRCompositor_IVRCompositor_022_SubmitExplicitTimingData(struct w_iface *_this)
+{
+    struct IVRCompositor_IVRCompositor_022_SubmitExplicitTimingData_params params =
+    {
+        .u_iface = _this->u_iface,
+    };
+    TRACE("%p\n", _this);
+    lock_queue();
+    VRCLIENT_CALL( IVRCompositor_IVRCompositor_022_SubmitExplicitTimingData, &params );
+    unlock_queue();
+    return params._ret;
 }
 
 uint32_t __thiscall winIVRCompositor_IVRCompositor_022_SetSkyboxOverride( struct w_iface *_this,
@@ -1687,6 +1713,19 @@ void __thiscall winIVRCompositor_IVRCompositor_024_PostPresentHandoff( struct w_
     post_present_handoff_done();
 }
 
+uint32_t __thiscall winIVRCompositor_IVRCompositor_024_SubmitExplicitTimingData(struct w_iface *_this)
+{
+    struct IVRCompositor_IVRCompositor_024_SubmitExplicitTimingData_params params =
+    {
+        .u_iface = _this->u_iface,
+    };
+    TRACE("%p\n", _this);
+    lock_queue();
+    VRCLIENT_CALL( IVRCompositor_IVRCompositor_024_SubmitExplicitTimingData, &params );
+    unlock_queue();
+    return params._ret;
+}
+
 uint32_t __thiscall winIVRCompositor_IVRCompositor_024_SetSkyboxOverride( struct w_iface *_this,
                                                                           const w_Texture_t *pTextures, uint32_t unTextureCount )
 {
@@ -1785,6 +1824,19 @@ void __thiscall winIVRCompositor_IVRCompositor_026_PostPresentHandoff( struct w_
     post_present_handoff_done();
 }
 
+uint32_t __thiscall winIVRCompositor_IVRCompositor_026_SubmitExplicitTimingData(struct w_iface *_this)
+{
+    struct IVRCompositor_IVRCompositor_026_SubmitExplicitTimingData_params params =
+    {
+        .u_iface = _this->u_iface,
+    };
+    TRACE("%p\n", _this);
+    lock_queue();
+    VRCLIENT_CALL( IVRCompositor_IVRCompositor_026_SubmitExplicitTimingData, &params );
+    unlock_queue();
+    return params._ret;
+}
+
 uint32_t __thiscall winIVRCompositor_IVRCompositor_026_SetSkyboxOverride( struct w_iface *_this,
                                                                           const w_Texture_t *pTextures, uint32_t unTextureCount )
 {
@@ -1881,6 +1933,19 @@ void __thiscall winIVRCompositor_IVRCompositor_027_PostPresentHandoff( struct w_
 
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_027_PostPresentHandoff, &params );
     post_present_handoff_done();
+}
+
+uint32_t __thiscall winIVRCompositor_IVRCompositor_027_SubmitExplicitTimingData(struct w_iface *_this)
+{
+    struct IVRCompositor_IVRCompositor_027_SubmitExplicitTimingData_params params =
+    {
+        .u_iface = _this->u_iface,
+    };
+    TRACE("%p\n", _this);
+    lock_queue();
+    VRCLIENT_CALL( IVRCompositor_IVRCompositor_027_SubmitExplicitTimingData, &params );
+    unlock_queue();
+    return params._ret;
 }
 
 uint32_t __thiscall winIVRCompositor_IVRCompositor_027_SetSkyboxOverride( struct w_iface *_this,
@@ -2041,6 +2106,19 @@ void __thiscall winIVRCompositor_IVRCompositor_028_PostPresentHandoff( struct w_
     post_present_handoff_done();
 }
 
+uint32_t __thiscall winIVRCompositor_IVRCompositor_028_SubmitExplicitTimingData(struct w_iface *_this)
+{
+    struct IVRCompositor_IVRCompositor_028_SubmitExplicitTimingData_params params =
+    {
+        .u_iface = _this->u_iface,
+    };
+    TRACE("%p\n", _this);
+    lock_queue();
+    VRCLIENT_CALL( IVRCompositor_IVRCompositor_028_SubmitExplicitTimingData, &params );
+    unlock_queue();
+    return params._ret;
+}
+
 uint32_t __thiscall winIVRCompositor_IVRCompositor_028_SetSkyboxOverride( struct w_iface *_this,
                                                                           const w_Texture_t *pTextures, uint32_t unTextureCount )
 {
@@ -2198,6 +2276,19 @@ void __thiscall winIVRCompositor_IVRCompositor_029_PostPresentHandoff( struct w_
 
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_029_PostPresentHandoff, &params );
     post_present_handoff_done();
+}
+
+uint32_t __thiscall winIVRCompositor_IVRCompositor_029_SubmitExplicitTimingData(struct w_iface *_this)
+{
+    struct IVRCompositor_IVRCompositor_029_SubmitExplicitTimingData_params params =
+    {
+        .u_iface = _this->u_iface,
+    };
+    TRACE("%p\n", _this);
+    lock_queue();
+    VRCLIENT_CALL( IVRCompositor_IVRCompositor_029_SubmitExplicitTimingData, &params );
+    unlock_queue();
+    return params._ret;
 }
 
 uint32_t __thiscall winIVRCompositor_IVRCompositor_029_SetSkyboxOverride( struct w_iface *_this,
