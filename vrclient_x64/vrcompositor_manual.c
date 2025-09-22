@@ -442,38 +442,41 @@ static void set_skybox_override_done( const w_Texture_t *textures, uint32_t coun
     compositor_data.dxvk_device->lpVtbl->ReleaseSubmissionQueue( compositor_data.dxvk_device );
 }
 
-static void post_present_handoff_init( struct u_iface u_iface, unsigned int version )
+static void lock_queue(void)
 {
-    /* I sure hope no application will submit both D3D11 and D3D12 textures... */
     if (compositor_data.dxvk_device)
         compositor_data.dxvk_device->lpVtbl->LockSubmissionQueue( compositor_data.dxvk_device );
     if (compositor_data.d3d12_device)
         compositor_data.d3d12_device->lpVtbl->LockCommandQueue( compositor_data.d3d12_device, compositor_data.d3d12_queue );
+}
+
+static void unlock_queue(void)
+{
+    if (compositor_data.dxvk_device)
+        compositor_data.dxvk_device->lpVtbl->ReleaseSubmissionQueue( compositor_data.dxvk_device );
+    if (compositor_data.d3d12_device)
+        compositor_data.d3d12_device->lpVtbl->UnlockCommandQueue( compositor_data.d3d12_device, compositor_data.d3d12_queue );
+}
+
+static void post_present_handoff_init( struct u_iface u_iface, unsigned int version )
+{
+    lock_queue();
 }
 
 static void post_present_handoff_done(void)
 {
     compositor_data.handoff_called = TRUE;
-    if (compositor_data.dxvk_device)
-        compositor_data.dxvk_device->lpVtbl->ReleaseSubmissionQueue( compositor_data.dxvk_device );
-    if (compositor_data.d3d12_device)
-        compositor_data.d3d12_device->lpVtbl->UnlockCommandQueue( compositor_data.d3d12_device, compositor_data.d3d12_queue );
+    unlock_queue();
 }
 
 static void wait_get_poses_init( struct u_iface u_iface )
 {
-    if (compositor_data.dxvk_device)
-        compositor_data.dxvk_device->lpVtbl->LockSubmissionQueue( compositor_data.dxvk_device );
-    if (compositor_data.d3d12_device)
-        compositor_data.d3d12_device->lpVtbl->LockCommandQueue( compositor_data.d3d12_device, compositor_data.d3d12_queue );
+    lock_queue();
 }
 
 static void wait_get_poses_done( struct u_iface u_iface )
 {
-    if (compositor_data.dxvk_device)
-        compositor_data.dxvk_device->lpVtbl->ReleaseSubmissionQueue( compositor_data.dxvk_device );
-    if (compositor_data.d3d12_device)
-        compositor_data.d3d12_device->lpVtbl->UnlockCommandQueue( compositor_data.d3d12_device, compositor_data.d3d12_queue );
+    unlock_queue();
 }
 
 void __thiscall winIVRCompositor_IVRCompositor_005_WaitGetPoses( struct w_iface *_this,
