@@ -1339,6 +1339,7 @@ def default_compat_config():
                 "2840770", #Avatar: Frontiers of Pandora
                 "429660", #Tales of Berseria
                 "1286220", #Sea Power
+                "2507950", #Delta Force
                 ]:
             ret.add("gamedrive")
 
