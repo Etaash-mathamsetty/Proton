@@ -25,6 +25,7 @@ struct submit_state
     IDXGIVkInteropSurface *dxvk_surface;
     IDXGIVkInteropDevice *dxvk_device;
     ID3D12DXVKInteropDevice *d3d12_device;
+    ID3D12DXVKInteropDevice2 *d3d12_device2;
     ID3D12CommandQueue *d3d12_queue;
 };
 
@@ -127,9 +128,11 @@ void free_compositor_data_d3d12_device(void)
     compositor_data.p_vkFreeCommandBuffers(compositor_data.vk_device, compositor_data.vk_command_pool, 3, compositor_data.vk_command_buffers);
     compositor_data.p_vkDestroyCommandPool(compositor_data.vk_device, compositor_data.vk_command_pool, NULL);
 
+    assert( !compositor_data.d3d12_device2 || (void *)compositor_data.d3d12_device2 == (void *)compositor_data.d3d12_device );
     IUnknown_Release(compositor_data.d3d12_device);
     IUnknown_Release(compositor_data.d3d12_queue);
     compositor_data.d3d12_device = NULL;
+    compositor_data.d3d12_device2 = NULL;
     compositor_data.d3d12_queue = NULL;
     compositor_data.vk_device = VK_NULL_HANDLE;
     compositor_data.vk_queue = VK_NULL_HANDLE;
@@ -138,7 +141,8 @@ void free_compositor_data_d3d12_device(void)
     memset(compositor_data.vk_command_buffers, 0, sizeof(compositor_data.vk_command_buffers));
 }
 
-static void compositor_data_set_d3d12_device(ID3D12DXVKInteropDevice *d3d12_device, ID3D12CommandQueue *d3d12_queue, const w_VRVulkanTextureData_t *vkdata)
+static void compositor_data_set_d3d12_device( ID3D12DXVKInteropDevice *d3d12_device, ID3D12DXVKInteropDevice2 *d3d12_device2,
+                                              ID3D12CommandQueue *d3d12_queue, const w_VRVulkanTextureData_t *vkdata)
 {
         const WCHAR winevulkan_dll[] = L"winevulkan.dll";
         HMODULE winevulkan = NULL;
@@ -157,6 +161,7 @@ static void compositor_data_set_d3d12_device(ID3D12DXVKInteropDevice *d3d12_devi
 
         if (compositor_data.d3d12_device == d3d12_device)
         {
+            assert( compositor_data.d3d12_device2 == d3d12_device2 );
             if (compositor_data.d3d12_queue != d3d12_queue)
             {
                 IUnknown_Release(compositor_data.d3d12_queue);
@@ -169,6 +174,7 @@ static void compositor_data_set_d3d12_device(ID3D12DXVKInteropDevice *d3d12_devi
 
         free_compositor_data_d3d12_device();
         compositor_data.d3d12_device = d3d12_device;
+        compositor_data.d3d12_device2 = d3d12_device2;
         compositor_data.d3d12_queue = d3d12_queue;
         IUnknown_AddRef(compositor_data.d3d12_device);
         IUnknown_AddRef(compositor_data.d3d12_queue);
@@ -263,7 +269,12 @@ static const w_Texture_t *load_compositor_texture_d3d12( uint32_t eye, const w_T
         return texture;
     }
 
-    hr = queue_iface->lpVtbl->GetDevice( queue_iface, &IID_ID3D12DXVKInteropDevice, (void **)&state->d3d12_device );
+    state->d3d12_device2 = NULL;
+    hr = queue_iface->lpVtbl->GetDevice( queue_iface, &IID_ID3D12DXVKInteropDevice2, (void **)&state->d3d12_device2 );
+    if (SUCCEEDED(hr))
+        state->d3d12_device = (ID3D12DXVKInteropDevice *)state->d3d12_device2;
+    else
+        hr = queue_iface->lpVtbl->GetDevice( queue_iface, &IID_ID3D12DXVKInteropDevice, (void **)&state->d3d12_device );
     if (FAILED(hr))
     {
         WARN( "Failed to get vkd3d-proton device.\n" );
@@ -298,7 +309,7 @@ static const w_Texture_t *load_compositor_texture_d3d12( uint32_t eye, const w_T
     if (*flags & ~supported_flags) FIXME( "Unhandled flags %#x.\n", *flags );
 
     state->d3d12_queue = queue_iface;
-    compositor_data_set_d3d12_device(state->d3d12_device, state->d3d12_queue, &vkdata);
+    compositor_data_set_d3d12_device(state->d3d12_device, state->d3d12_device2, state->d3d12_queue, &vkdata);
     IUnknown_Release(state->d3d12_device);
 
     if (image_info.arrayLayers > 1 || array_index != ~0u)
@@ -446,7 +457,10 @@ static void lock_queue(void)
 {
     if (compositor_data.dxvk_device)
         compositor_data.dxvk_device->lpVtbl->LockSubmissionQueue( compositor_data.dxvk_device );
-    if (compositor_data.d3d12_device)
+
+    if (compositor_data.d3d12_device2)
+        compositor_data.d3d12_device2->lpVtbl->LockVulkanQueue( compositor_data.d3d12_device2, compositor_data.d3d12_queue );
+    else if (compositor_data.d3d12_device)
         compositor_data.d3d12_device->lpVtbl->LockCommandQueue( compositor_data.d3d12_device, compositor_data.d3d12_queue );
 }
 
@@ -454,7 +468,10 @@ static void unlock_queue(void)
 {
     if (compositor_data.dxvk_device)
         compositor_data.dxvk_device->lpVtbl->ReleaseSubmissionQueue( compositor_data.dxvk_device );
-    if (compositor_data.d3d12_device)
+
+    if (compositor_data.d3d12_device2)
+        compositor_data.d3d12_device2->lpVtbl->UnlockVulkanQueue( compositor_data.d3d12_device2, compositor_data.d3d12_queue );
+    else if (compositor_data.d3d12_device)
         compositor_data.d3d12_device->lpVtbl->UnlockCommandQueue( compositor_data.d3d12_device, compositor_data.d3d12_queue );
 }
 
