@@ -159,6 +159,7 @@ enum unix_call
     unix_xrDestroyTriangleMeshFB,
     unix_xrDestroyVirtualKeyboardMETA,
     unix_xrDestroyWorldMeshDetectorML,
+    unix_xrDiscoverSpacesMETA,
     unix_xrDownloadSharedSpatialAnchorAsyncBD,
     unix_xrDownloadSharedSpatialAnchorCompleteBD,
     unix_xrEnableLocalizationEventsML,
@@ -353,6 +354,7 @@ enum unix_call
     unix_xrResetBodyTrackingCalibrationMETA,
     unix_xrResultToString,
     unix_xrResumeSimultaneousHandsAndControllersTrackingMETA,
+    unix_xrRetrieveSpaceDiscoveryResultsMETA,
     unix_xrRetrieveSpaceQueryResultsFB,
     unix_xrSaveSpaceFB,
     unix_xrSaveSpaceListFB,
@@ -1386,6 +1388,14 @@ struct xrDestroyVirtualKeyboardMETA_params
 struct xrDestroyWorldMeshDetectorML_params
 {
     XrWorldMeshDetectorML detector;
+    XrResult result;
+};
+
+struct xrDiscoverSpacesMETA_params
+{
+    XrSession session;
+    const XrSpaceDiscoveryInfoMETA *info;
+    XrAsyncRequestIdFB *requestId;
     XrResult result;
 };
 
@@ -2989,6 +2999,14 @@ struct xrResumeSimultaneousHandsAndControllersTrackingMETA_params
 {
     XrSession session;
     const XrSimultaneousHandsAndControllersTrackingResumeInfoMETA *resumeInfo;
+    XrResult result;
+};
+
+struct xrRetrieveSpaceDiscoveryResultsMETA_params
+{
+    XrSession session;
+    XrAsyncRequestIdFB requestId;
+    XrSpaceDiscoveryResultsMETA *results;
     XrResult result;
 };
 

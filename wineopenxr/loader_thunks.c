@@ -1438,6 +1438,18 @@ XrResult WINAPI xrDestroyWorldMeshDetectorML(XrWorldMeshDetectorML detector)
     return params.result;
 }
 
+XrResult WINAPI xrDiscoverSpacesMETA(XrSession session, const XrSpaceDiscoveryInfoMETA *info, XrAsyncRequestIdFB *requestId)
+{
+    struct xrDiscoverSpacesMETA_params params;
+    NTSTATUS _status;
+    params.session = session;
+    params.info = info;
+    params.requestId = requestId;
+    _status = UNIX_CALL(xrDiscoverSpacesMETA, &params);
+    assert(!_status && "xrDiscoverSpacesMETA");
+    return params.result;
+}
+
 XrResult WINAPI xrDownloadSharedSpatialAnchorAsyncBD(XrSenseDataProviderBD provider, const XrSharedSpatialAnchorDownloadInfoBD *info, XrFutureEXT *future)
 {
     struct xrDownloadSharedSpatialAnchorAsyncBD_params params;
@@ -3732,6 +3744,18 @@ XrResult WINAPI xrResumeSimultaneousHandsAndControllersTrackingMETA(XrSession se
     return params.result;
 }
 
+XrResult WINAPI xrRetrieveSpaceDiscoveryResultsMETA(XrSession session, XrAsyncRequestIdFB requestId, XrSpaceDiscoveryResultsMETA *results)
+{
+    struct xrRetrieveSpaceDiscoveryResultsMETA_params params;
+    NTSTATUS _status;
+    params.session = session;
+    params.requestId = requestId;
+    params.results = results;
+    _status = UNIX_CALL(xrRetrieveSpaceDiscoveryResultsMETA, &params);
+    assert(!_status && "xrRetrieveSpaceDiscoveryResultsMETA");
+    return params.result;
+}
+
 XrResult WINAPI xrRetrieveSpaceQueryResultsFB(XrSession session, XrAsyncRequestIdFB requestId, XrSpaceQueryResultsFB *results)
 {
     struct xrRetrieveSpaceQueryResultsFB_params params;
@@ -4640,6 +4664,7 @@ static const struct openxr_func xr_instance_dispatch_table[] =
     {"xrDestroyTriangleMeshFB", xrDestroyTriangleMeshFB},
     {"xrDestroyVirtualKeyboardMETA", xrDestroyVirtualKeyboardMETA},
     {"xrDestroyWorldMeshDetectorML", xrDestroyWorldMeshDetectorML},
+    {"xrDiscoverSpacesMETA", xrDiscoverSpacesMETA},
     {"xrDownloadSharedSpatialAnchorAsyncBD", xrDownloadSharedSpatialAnchorAsyncBD},
     {"xrDownloadSharedSpatialAnchorCompleteBD", xrDownloadSharedSpatialAnchorCompleteBD},
     {"xrEnableLocalizationEventsML", xrEnableLocalizationEventsML},
@@ -4838,6 +4863,7 @@ static const struct openxr_func xr_instance_dispatch_table[] =
     {"xrResetBodyTrackingCalibrationMETA", xrResetBodyTrackingCalibrationMETA},
     {"xrResultToString", xrResultToString},
     {"xrResumeSimultaneousHandsAndControllersTrackingMETA", xrResumeSimultaneousHandsAndControllersTrackingMETA},
+    {"xrRetrieveSpaceDiscoveryResultsMETA", xrRetrieveSpaceDiscoveryResultsMETA},
     {"xrRetrieveSpaceQueryResultsFB", xrRetrieveSpaceQueryResultsFB},
     {"xrSaveSpaceFB", xrSaveSpaceFB},
     {"xrSaveSpaceListFB", xrSaveSpaceListFB},

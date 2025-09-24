@@ -323,6 +323,8 @@
 #define XR_FB_SPATIAL_ENTITY_USER_EXTENSION_NAME "XR_FB_spatial_entity_user"
 #define XR_META_headset_id_SPEC_VERSION 2
 #define XR_META_HEADSET_ID_EXTENSION_NAME "XR_META_headset_id"
+#define XR_META_spatial_entity_discovery_SPEC_VERSION 1
+#define XR_META_SPATIAL_ENTITY_DISCOVERY_EXTENSION_NAME "XR_META_spatial_entity_discovery"
 #define XR_META_hand_tracking_microgestures_SPEC_VERSION 1
 #define XR_META_HAND_TRACKING_MICROGESTURES_EXTENSION_NAME "XR_META_hand_tracking_microgestures"
 #define XR_META_recommended_layer_resolution_SPEC_VERSION 1
@@ -359,7 +361,7 @@
 #define XR_MAX_RENDER_MODEL_ASSET_NODE_NAME_SIZE_EXT 64
 #define XR_EXT_interaction_render_model_SPEC_VERSION 1
 #define XR_EXT_INTERACTION_RENDER_MODEL_EXTENSION_NAME "XR_EXT_interaction_render_model"
-#define XR_EXT_hand_interaction_SPEC_VERSION 1
+#define XR_EXT_hand_interaction_SPEC_VERSION 2
 #define XR_EXT_HAND_INTERACTION_EXTENSION_NAME "XR_EXT_hand_interaction"
 #define XR_QCOM_tracking_optimization_settings_SPEC_VERSION 1
 #define XR_QCOM_TRACKING_OPTIMIZATION_SETTINGS_EXTENSION_NAME "XR_QCOM_tracking_optimization_settings"
@@ -400,7 +402,7 @@
 #define XR_EXT_PLANE_DETECTION_EXTENSION_NAME "XR_EXT_plane_detection"
 #define XR_OPPO_controller_interaction_SPEC_VERSION 1
 #define XR_OPPO_CONTROLLER_INTERACTION_EXTENSION_NAME "XR_OPPO_controller_interaction"
-#define XR_ANDROID_trackables_SPEC_VERSION 1
+#define XR_ANDROID_trackables_SPEC_VERSION 2
 #define XR_ANDROID_TRACKABLES_EXTENSION_NAME "XR_ANDROID_trackables"
 #define XR_ANDROID_device_anchor_persistence_SPEC_VERSION 1
 #define XR_ANDROID_DEVICE_ANCHOR_PERSISTENCE_EXTENSION_NAME "XR_ANDROID_device_anchor_persistence"
@@ -440,6 +442,8 @@
 #define XR_ANDROID_TRACKABLES_MARKER_EXTENSION_NAME "XR_ANDROID_trackables_marker"
 #define XR_KHR_maintenance1_SPEC_VERSION 1
 #define XR_KHR_MAINTENANCE1_EXTENSION_NAME "XR_KHR_maintenance1"
+#define XR_KHR_generic_controller_SPEC_VERSION 1
+#define XR_KHR_GENERIC_CONTROLLER_EXTENSION_NAME "XR_KHR_generic_controller"
 #define XR_EXT_spatial_entity_SPEC_VERSION 1
 #define XR_EXT_SPATIAL_ENTITY_EXTENSION_NAME "XR_EXT_spatial_entity"
 #define XR_EXT_spatial_plane_tracking_SPEC_VERSION 1
@@ -468,7 +472,7 @@
 #define XR_VERSION_PATCH(version) (uint32_t)((uint64_t)(version) & 0xffffffffULL)
 
 
-#define XR_CURRENT_API_VERSION XR_MAKE_VERSION(1, 1, 51)
+#define XR_CURRENT_API_VERSION XR_MAKE_VERSION(1, 1, 52)
 
 
 #define XR_API_VERSION_1_0 XR_MAKE_VERSION(1, 0, XR_VERSION_PATCH(XR_CURRENT_API_VERSION))
@@ -2894,6 +2898,14 @@ typedef enum XrStructureType
     XR_TYPE_EVENT_DATA_SPACE_LIST_SAVE_COMPLETE_FB = 1000238001,
     XR_TYPE_SPACE_USER_CREATE_INFO_FB = 1000241001,
     XR_TYPE_SYSTEM_HEADSET_ID_PROPERTIES_META = 1000245000,
+    XR_TYPE_SYSTEM_SPACE_DISCOVERY_PROPERTIES_META = 1000247000,
+    XR_TYPE_SPACE_DISCOVERY_INFO_META = 1000247001,
+    XR_TYPE_SPACE_FILTER_UUID_META = 1000247003,
+    XR_TYPE_SPACE_FILTER_COMPONENT_META = 1000247004,
+    XR_TYPE_SPACE_DISCOVERY_RESULT_META = 1000247005,
+    XR_TYPE_SPACE_DISCOVERY_RESULTS_META = 1000247006,
+    XR_TYPE_EVENT_DATA_SPACE_DISCOVERY_RESULTS_AVAILABLE_META = 1000247007,
+    XR_TYPE_EVENT_DATA_SPACE_DISCOVERY_COMPLETE_META = 1000247008,
     XR_TYPE_RECOMMENDED_LAYER_RESOLUTION_META = 1000254000,
     XR_TYPE_RECOMMENDED_LAYER_RESOLUTION_GET_INFO_META = 1000254001,
     XR_TYPE_SYSTEM_SPACE_PERSISTENCE_PROPERTIES_META = 1000259000,
@@ -3948,6 +3960,21 @@ typedef struct XrEventDataShareSpacesCompleteMETA
     XrAsyncRequestIdFB requestId;
     XrResult result;
 } XrEventDataShareSpacesCompleteMETA;
+
+typedef struct XrEventDataSpaceDiscoveryCompleteMETA
+{
+    XrStructureType type;
+    const void *next;
+    XrAsyncRequestIdFB requestId;
+    XrResult result;
+} XrEventDataSpaceDiscoveryCompleteMETA;
+
+typedef struct XrEventDataSpaceDiscoveryResultsAvailableMETA
+{
+    XrStructureType type;
+    const void *next;
+    XrAsyncRequestIdFB requestId;
+} XrEventDataSpaceDiscoveryResultsAvailableMETA;
 
 typedef struct XrEventDataSpaceListSaveCompleteFB
 {
@@ -5474,6 +5501,19 @@ typedef struct XrSpaceEraseInfoFB
     XrSpaceStorageLocationFB location;
 } XrSpaceEraseInfoFB;
 
+typedef struct XrSpaceFilterBaseHeaderMETA
+{
+    XrStructureType type;
+    const void *next;
+} XrSpaceFilterBaseHeaderMETA;
+
+typedef struct XrSpaceFilterComponentMETA
+{
+    XrStructureType type;
+    const void *next;
+    XrSpaceComponentTypeFB componentType;
+} XrSpaceFilterComponentMETA;
+
 typedef struct XrSpaceFilterInfoBaseHeaderFB
 {
     XrStructureType type;
@@ -6294,6 +6334,13 @@ typedef struct XrSystemSimultaneousHandsAndControllersPropertiesMETA
     void *next;
     XrBool32 supportsSimultaneousHandsAndControllers;
 } XrSystemSimultaneousHandsAndControllersPropertiesMETA;
+
+typedef struct XrSystemSpaceDiscoveryPropertiesMETA
+{
+    XrStructureType type;
+    const void *next;
+    XrBool32 supportsSpaceDiscovery;
+} XrSystemSpaceDiscoveryPropertiesMETA;
 
 typedef struct XrSystemSpacePersistencePropertiesMETA
 {
@@ -7242,6 +7289,37 @@ typedef struct XrSpaceContainerFB
     XrUuidEXT *uuids;
 } XrSpaceContainerFB;
 
+typedef struct XrSpaceDiscoveryInfoMETA
+{
+    XrStructureType type;
+    const void *next;
+    uint32_t filterCount;
+    const XrSpaceFilterBaseHeaderMETA * const *filters;
+} XrSpaceDiscoveryInfoMETA;
+
+typedef struct XrSpaceDiscoveryResultMETA
+{
+    XrSpace space;
+    XrUuidEXT uuid;
+} XrSpaceDiscoveryResultMETA;
+
+typedef struct XrSpaceDiscoveryResultsMETA
+{
+    XrStructureType type;
+    const void *next;
+    uint32_t resultCapacityInput;
+    uint32_t resultCountOutput;
+    XrSpaceDiscoveryResultMETA *results;
+} XrSpaceDiscoveryResultsMETA;
+
+typedef struct XrSpaceFilterUuidMETA
+{
+    XrStructureType type;
+    const void *next;
+    uint32_t uuidCount;
+    const XrUuidEXT *uuids;
+} XrSpaceFilterUuidMETA;
+
 typedef struct XrSpaceGroupUuidFilterInfoMETA
 {
     XrStructureType type;
@@ -7701,7 +7779,7 @@ typedef struct XrTrackablePlaneANDROID
     XrTrackableANDROID subsumedByPlane;
     XrTime lastUpdatedTime;
     uint32_t vertexCapacityInput;
-    uint32_t vertexCountOutput;
+    uint32_t *vertexCountOutput;
     XrVector2f *vertices;
 } XrTrackablePlaneANDROID;
 
@@ -8508,6 +8586,7 @@ typedef XrResult (XRAPI_PTR *PFN_xrDestroyTrackableTrackerANDROID)(XrTrackableTr
 typedef XrResult (XRAPI_PTR *PFN_xrDestroyTriangleMeshFB)(XrTriangleMeshFB);
 typedef XrResult (XRAPI_PTR *PFN_xrDestroyVirtualKeyboardMETA)(XrVirtualKeyboardMETA);
 typedef XrResult (XRAPI_PTR *PFN_xrDestroyWorldMeshDetectorML)(XrWorldMeshDetectorML);
+typedef XrResult (XRAPI_PTR *PFN_xrDiscoverSpacesMETA)(XrSession, const XrSpaceDiscoveryInfoMETA *, XrAsyncRequestIdFB *);
 typedef XrResult (XRAPI_PTR *PFN_xrDownloadSharedSpatialAnchorAsyncBD)(XrSenseDataProviderBD, const XrSharedSpatialAnchorDownloadInfoBD *, XrFutureEXT *);
 typedef XrResult (XRAPI_PTR *PFN_xrDownloadSharedSpatialAnchorCompleteBD)(XrSenseDataProviderBD, XrFutureEXT, XrFutureCompletionEXT *);
 typedef XrResult (XRAPI_PTR *PFN_xrEnableLocalizationEventsML)(XrSession, const XrLocalizationEnableEventsInfoML *);
@@ -8707,6 +8786,7 @@ typedef XrResult (XRAPI_PTR *PFN_xrRequestWorldMeshStateCompleteML)(XrWorldMeshD
 typedef XrResult (XRAPI_PTR *PFN_xrResetBodyTrackingCalibrationMETA)(XrBodyTrackerFB);
 typedef XrResult (XRAPI_PTR *PFN_xrResultToString)(XrInstance, XrResult, char[]);
 typedef XrResult (XRAPI_PTR *PFN_xrResumeSimultaneousHandsAndControllersTrackingMETA)(XrSession, const XrSimultaneousHandsAndControllersTrackingResumeInfoMETA *);
+typedef XrResult (XRAPI_PTR *PFN_xrRetrieveSpaceDiscoveryResultsMETA)(XrSession, XrAsyncRequestIdFB, XrSpaceDiscoveryResultsMETA *);
 typedef XrResult (XRAPI_PTR *PFN_xrRetrieveSpaceQueryResultsFB)(XrSession, XrAsyncRequestIdFB, XrSpaceQueryResultsFB *);
 typedef XrResult (XRAPI_PTR *PFN_xrSaveSpaceFB)(XrSession, const XrSpaceSaveInfoFB *, XrAsyncRequestIdFB *);
 typedef XrResult (XRAPI_PTR *PFN_xrSaveSpaceListFB)(XrSession, const XrSpaceListSaveInfoFB *, XrAsyncRequestIdFB *);
@@ -8914,6 +8994,7 @@ XrResult XRAPI_CALL xrDestroyTrackableTrackerANDROID(XrTrackableTrackerANDROID t
 XrResult XRAPI_CALL xrDestroyTriangleMeshFB(XrTriangleMeshFB mesh);
 XrResult XRAPI_CALL xrDestroyVirtualKeyboardMETA(XrVirtualKeyboardMETA keyboard);
 XrResult XRAPI_CALL xrDestroyWorldMeshDetectorML(XrWorldMeshDetectorML detector);
+XrResult XRAPI_CALL xrDiscoverSpacesMETA(XrSession session, const XrSpaceDiscoveryInfoMETA *info, XrAsyncRequestIdFB *requestId);
 XrResult XRAPI_CALL xrDownloadSharedSpatialAnchorAsyncBD(XrSenseDataProviderBD provider, const XrSharedSpatialAnchorDownloadInfoBD *info, XrFutureEXT *future);
 XrResult XRAPI_CALL xrDownloadSharedSpatialAnchorCompleteBD(XrSenseDataProviderBD provider, XrFutureEXT future, XrFutureCompletionEXT *completion);
 XrResult XRAPI_CALL xrEnableLocalizationEventsML(XrSession session, const XrLocalizationEnableEventsInfoML *info);
@@ -9113,6 +9194,7 @@ XrResult XRAPI_CALL xrRequestWorldMeshStateCompleteML(XrWorldMeshDetectorML dete
 XrResult XRAPI_CALL xrResetBodyTrackingCalibrationMETA(XrBodyTrackerFB bodyTracker);
 XrResult XRAPI_CALL xrResultToString(XrInstance instance, XrResult value, char buffer[]);
 XrResult XRAPI_CALL xrResumeSimultaneousHandsAndControllersTrackingMETA(XrSession session, const XrSimultaneousHandsAndControllersTrackingResumeInfoMETA *resumeInfo);
+XrResult XRAPI_CALL xrRetrieveSpaceDiscoveryResultsMETA(XrSession session, XrAsyncRequestIdFB requestId, XrSpaceDiscoveryResultsMETA *results);
 XrResult XRAPI_CALL xrRetrieveSpaceQueryResultsFB(XrSession session, XrAsyncRequestIdFB requestId, XrSpaceQueryResultsFB *results);
 XrResult XRAPI_CALL xrSaveSpaceFB(XrSession session, const XrSpaceSaveInfoFB *info, XrAsyncRequestIdFB *requestId);
 XrResult XRAPI_CALL xrSaveSpaceListFB(XrSession session, const XrSpaceListSaveInfoFB *info, XrAsyncRequestIdFB *requestId);

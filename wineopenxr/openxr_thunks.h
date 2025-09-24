@@ -172,6 +172,7 @@ struct openxr_instance_funcs
     XrResult (*p_xrDestroyTriangleMeshFB)(XrTriangleMeshFB);
     XrResult (*p_xrDestroyVirtualKeyboardMETA)(XrVirtualKeyboardMETA);
     XrResult (*p_xrDestroyWorldMeshDetectorML)(XrWorldMeshDetectorML);
+    XrResult (*p_xrDiscoverSpacesMETA)(XrSession, const XrSpaceDiscoveryInfoMETA *, XrAsyncRequestIdFB *);
     XrResult (*p_xrDownloadSharedSpatialAnchorAsyncBD)(XrSenseDataProviderBD, const XrSharedSpatialAnchorDownloadInfoBD *, XrFutureEXT *);
     XrResult (*p_xrDownloadSharedSpatialAnchorCompleteBD)(XrSenseDataProviderBD, XrFutureEXT, XrFutureCompletionEXT *);
     XrResult (*p_xrEnableLocalizationEventsML)(XrSession, const XrLocalizationEnableEventsInfoML *);
@@ -366,6 +367,7 @@ struct openxr_instance_funcs
     XrResult (*p_xrResetBodyTrackingCalibrationMETA)(XrBodyTrackerFB);
     XrResult (*p_xrResultToString)(XrInstance, XrResult, char[]);
     XrResult (*p_xrResumeSimultaneousHandsAndControllersTrackingMETA)(XrSession, const XrSimultaneousHandsAndControllersTrackingResumeInfoMETA *);
+    XrResult (*p_xrRetrieveSpaceDiscoveryResultsMETA)(XrSession, XrAsyncRequestIdFB, XrSpaceDiscoveryResultsMETA *);
     XrResult (*p_xrRetrieveSpaceQueryResultsFB)(XrSession, XrAsyncRequestIdFB, XrSpaceQueryResultsFB *);
     XrResult (*p_xrSaveSpaceFB)(XrSession, const XrSpaceSaveInfoFB *, XrAsyncRequestIdFB *);
     XrResult (*p_xrSaveSpaceListFB)(XrSession, const XrSpaceListSaveInfoFB *, XrAsyncRequestIdFB *);
@@ -571,6 +573,7 @@ struct openxr_instance_funcs
     USE_XR_FUNC(xrDestroyTriangleMeshFB) \
     USE_XR_FUNC(xrDestroyVirtualKeyboardMETA) \
     USE_XR_FUNC(xrDestroyWorldMeshDetectorML) \
+    USE_XR_FUNC(xrDiscoverSpacesMETA) \
     USE_XR_FUNC(xrDownloadSharedSpatialAnchorAsyncBD) \
     USE_XR_FUNC(xrDownloadSharedSpatialAnchorCompleteBD) \
     USE_XR_FUNC(xrEnableLocalizationEventsML) \
@@ -765,6 +768,7 @@ struct openxr_instance_funcs
     USE_XR_FUNC(xrResetBodyTrackingCalibrationMETA) \
     USE_XR_FUNC(xrResultToString) \
     USE_XR_FUNC(xrResumeSimultaneousHandsAndControllersTrackingMETA) \
+    USE_XR_FUNC(xrRetrieveSpaceDiscoveryResultsMETA) \
     USE_XR_FUNC(xrRetrieveSpaceQueryResultsFB) \
     USE_XR_FUNC(xrSaveSpaceFB) \
     USE_XR_FUNC(xrSaveSpaceListFB) \

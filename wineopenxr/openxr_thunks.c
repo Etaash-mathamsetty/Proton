@@ -1686,6 +1686,18 @@ static NTSTATUS thunk64_xrDestroyWorldMeshDetectorML(void *args)
 #endif /* _WIN64 */
 
 #ifdef _WIN64
+static NTSTATUS thunk64_xrDiscoverSpacesMETA(void *args)
+{
+    struct xrDiscoverSpacesMETA_params *params = args;
+
+    TRACE("%p, %p, %p\n", params->session, params->info, params->requestId);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrDiscoverSpacesMETA(wine_session_from_handle(params->session)->host_session, params->info, params->requestId);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
 static NTSTATUS thunk64_xrDownloadSharedSpatialAnchorAsyncBD(void *args)
 {
     struct xrDownloadSharedSpatialAnchorAsyncBD_params *params = args;
@@ -4014,6 +4026,18 @@ static NTSTATUS thunk64_xrResumeSimultaneousHandsAndControllersTrackingMETA(void
 #endif /* _WIN64 */
 
 #ifdef _WIN64
+static NTSTATUS thunk64_xrRetrieveSpaceDiscoveryResultsMETA(void *args)
+{
+    struct xrRetrieveSpaceDiscoveryResultsMETA_params *params = args;
+
+    TRACE("%p, 0x%s, %p\n", params->session, wine_dbgstr_longlong(params->requestId), params->results);
+
+    params->result = g_xr_host_instance_dispatch_table.p_xrRetrieveSpaceDiscoveryResultsMETA(wine_session_from_handle(params->session)->host_session, params->requestId, params->results);
+    return STATUS_SUCCESS;
+}
+#endif /* _WIN64 */
+
+#ifdef _WIN64
 static NTSTATUS thunk64_xrRetrieveSpaceQueryResultsFB(void *args)
 {
     struct xrRetrieveSpaceQueryResultsFB_params *params = args;
@@ -4914,6 +4938,7 @@ static const char * const xr_extensions[] =
     "XR_KHR_composition_layer_equirect",
     "XR_KHR_composition_layer_equirect2",
     "XR_KHR_extended_struct_name_lengths",
+    "XR_KHR_generic_controller",
     "XR_KHR_locate_spaces",
     "XR_KHR_maintenance1",
     "XR_KHR_opengl_enable",
@@ -4940,6 +4965,7 @@ static const char * const xr_extensions[] =
     "XR_META_performance_metrics",
     "XR_META_recommended_layer_resolution",
     "XR_META_simultaneous_hands_and_controllers",
+    "XR_META_spatial_entity_discovery",
     "XR_META_spatial_entity_group_sharing",
     "XR_META_spatial_entity_mesh",
     "XR_META_spatial_entity_persistence",
@@ -5151,6 +5177,7 @@ const unixlib_entry_t __wine_unix_call_funcs[] =
     thunk64_xrDestroyTriangleMeshFB,
     thunk64_xrDestroyVirtualKeyboardMETA,
     thunk64_xrDestroyWorldMeshDetectorML,
+    thunk64_xrDiscoverSpacesMETA,
     thunk64_xrDownloadSharedSpatialAnchorAsyncBD,
     thunk64_xrDownloadSharedSpatialAnchorCompleteBD,
     thunk64_xrEnableLocalizationEventsML,
@@ -5345,6 +5372,7 @@ const unixlib_entry_t __wine_unix_call_funcs[] =
     thunk64_xrResetBodyTrackingCalibrationMETA,
     thunk64_xrResultToString,
     thunk64_xrResumeSimultaneousHandsAndControllersTrackingMETA,
+    thunk64_xrRetrieveSpaceDiscoveryResultsMETA,
     thunk64_xrRetrieveSpaceQueryResultsFB,
     thunk64_xrSaveSpaceFB,
     thunk64_xrSaveSpaceListFB,
