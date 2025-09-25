@@ -1420,7 +1420,7 @@ XrResult WINAPI xrReleaseSwapchainImage(XrSwapchain swapchain, const XrSwapchain
     return XR_ERROR_CALL_ORDER_INVALID;
   }
 
-  lock_d3d_queue(wine_instance, FALSE);
+  lock_d3d_queue(wine_instance, TRUE);
 
   if (wine_instance->d3d12_device)
   {
@@ -1439,7 +1439,7 @@ XrResult WINAPI xrReleaseSwapchainImage(XrSwapchain swapchain, const XrSwapchain
   _status = UNIX_CALL(xrReleaseSwapchainImage, &params);
   assert(!_status && "xrReleaseSwapchainImage");
   if (!wine_instance->d3d12_device) {
-    unlock_d3d_queue(wine_instance, FALSE);
+    unlock_d3d_queue(wine_instance, TRUE);
     return params.result;
   }
 
@@ -1457,7 +1457,7 @@ XrResult WINAPI xrReleaseSwapchainImage(XrSwapchain swapchain, const XrSwapchain
     wine_swapchain->acquired_start = (wine_swapchain->acquired_start + 1) % wine_swapchain->image_count;
     wine_swapchain->acquired_count -= 1;
   }
-  unlock_d3d_queue(wine_instance, FALSE);
+  unlock_d3d_queue(wine_instance, TRUE);
   return params.result;
 }
 
@@ -1640,11 +1640,11 @@ XrResult WINAPI xrEndFrame(XrSession session, const XrFrameEndInfo *frameEndInfo
   our_frameEndInfo = *frameEndInfo;
   our_frameEndInfo.layers = (const XrCompositionLayerBaseHeader *const *)wine_session->composition_layer_ptrs;
 
-  lock_d3d_queue(wine_session->instance, TRUE);
+  lock_d3d_queue(wine_session->instance, FALSE);
   _status = UNIX_CALL(xrEndFrame, &params);
   assert(!_status && "xrEndFrame");
 
-  unlock_d3d_queue(wine_session->instance, TRUE);
+  unlock_d3d_queue(wine_session->instance, FALSE);
   return params.result;
 }
 
