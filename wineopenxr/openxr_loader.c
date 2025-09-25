@@ -1327,13 +1327,31 @@ XrResult WINAPI xrEnumerateSwapchainImages(XrSwapchain swapchain,
   return XR_SUCCESS;
 }
 
+static void lock_d3d_queue(wine_XrInstance *instance, BOOL drain_queue)
+{
+    if (instance->dxvk_device)
+    {
+        if (drain_queue)
+            instance->dxvk_device->lpVtbl->FlushRenderingCommands(instance->dxvk_device);
+        instance->dxvk_device->lpVtbl->LockSubmissionQueue(instance->dxvk_device);
+    }
+    else if (instance->d3d12_device)
+        instance->d3d12_device->lpVtbl->LockCommandQueue(instance->d3d12_device, instance->d3d12_queue);
+}
+
+static void unlock_d3d_queue(wine_XrInstance *instance, BOOL drain_queue)
+{
+    if (instance->dxvk_device)
+        instance->dxvk_device->lpVtbl->ReleaseSubmissionQueue(instance->dxvk_device);
+    else if (instance->d3d12_device)
+        instance->d3d12_device->lpVtbl->UnlockCommandQueue(instance->d3d12_device, instance->d3d12_queue);
+}
+
 XrResult WINAPI xrAcquireSwapchainImage(XrSwapchain swapchain,
                                         const XrSwapchainImageAcquireInfo *acquireInfo,
                                         uint32_t *index) {
   wine_XrSwapchain *wine_swapchain = wine_swapchain_from_handle(swapchain);
   wine_XrInstance *wine_instance = wine_swapchain->session->instance;
-  IDXGIVkInteropDevice2 *dxvk_device;
-  ID3D12DXVKInteropDevice *d3d12_device;
   struct xrAcquireSwapchainImage_params params = {
       .swapchain = swapchain,
       .acquireInfo = acquireInfo,
@@ -1344,25 +1362,19 @@ XrResult WINAPI xrAcquireSwapchainImage(XrSwapchain swapchain,
   TRACE("%p, %p, %p image count %d, acquired %d\n", swapchain, acquireInfo, index, wine_swapchain->image_count,
         wine_swapchain->acquired_count);
 
-  if ((dxvk_device = wine_instance->dxvk_device)) {
-    dxvk_device->lpVtbl->LockSubmissionQueue(dxvk_device);
-  } else if ((d3d12_device = wine_instance->d3d12_device)) {
-    if (wine_swapchain->acquired_count >= wine_swapchain->image_count) {
+  if (wine_instance->d3d12_device && wine_swapchain->acquired_count >= wine_swapchain->image_count)
+  {
       WARN("Application has acquired all images but still tries to acquire more.\n");
       return XR_ERROR_CALL_ORDER_INVALID;
-    }
-    d3d12_device->lpVtbl->LockCommandQueue(d3d12_device, wine_instance->d3d12_queue);
   }
+
+  lock_d3d_queue(wine_instance, FALSE);
 
   _status = UNIX_CALL(xrAcquireSwapchainImage, &params);
   assert(!_status && "xrAcquireSwapchainImage");
 
-  if (dxvk_device) {
-    dxvk_device->lpVtbl->ReleaseSubmissionQueue(dxvk_device);
-    return params.result;
-  }
-
-  if (!d3d12_device) {
+  if (!wine_instance->d3d12_device) {
+    unlock_d3d_queue(wine_instance, FALSE);
     return params.result;
   }
 
@@ -1376,6 +1388,7 @@ XrResult WINAPI xrAcquireSwapchainImage(XrSwapchain swapchain,
 
       vkQueueSubmit(wine_instance->vk_queue, 1, &submit_info, VK_NULL_HANDLE);
     }
+
     if (!wine_swapchain->acquired[*index]) {
       uint32_t next = (wine_swapchain->acquired_start + wine_swapchain->acquired_count) % wine_swapchain->image_count;
       wine_swapchain->acquired[*index] = TRUE;
@@ -1385,16 +1398,14 @@ XrResult WINAPI xrAcquireSwapchainImage(XrSwapchain swapchain,
       WARN("the application acquired the same image (index %d) again!?", *index);
     }
   }
-  d3d12_device->lpVtbl->UnlockCommandQueue(d3d12_device, wine_instance->d3d12_queue);
+  unlock_d3d_queue(wine_instance, FALSE);
   return params.result;
 }
 
 XrResult WINAPI xrReleaseSwapchainImage(XrSwapchain swapchain, const XrSwapchainImageReleaseInfo *releaseInfo) {
   wine_XrSwapchain *wine_swapchain = wine_swapchain_from_handle(swapchain);
   wine_XrInstance *wine_instance = wine_swapchain->session->instance;
-  IDXGIVkInteropDevice2 *dxvk_device;
-  ID3D12DXVKInteropDevice *d3d12_device = wine_instance->d3d12_device;
-  uint32_t index;
+  uint32_t index = ~0u;
   struct xrReleaseSwapchainImage_params params = {
       .swapchain = swapchain,
       .releaseInfo = releaseInfo,
@@ -1403,16 +1414,16 @@ XrResult WINAPI xrReleaseSwapchainImage(XrSwapchain swapchain, const XrSwapchain
 
   TRACE("%p, %p\n", swapchain, releaseInfo);
 
-  if ((dxvk_device = wine_instance->dxvk_device)) {
-    dxvk_device->lpVtbl->LockSubmissionQueue(dxvk_device);
-  } else if (d3d12_device) {
-    if (wine_swapchain->acquired_count == 0) {
-      WARN("Application tried to release a swapchain image without having acquired it first.\n");
-      return XR_ERROR_CALL_ORDER_INVALID;
-    }
+  if (wine_instance->d3d12_device && !wine_swapchain->acquired_count)
+  {
+    WARN("Application tried to release a swapchain image without having acquired it first.\n");
+    return XR_ERROR_CALL_ORDER_INVALID;
+  }
 
-    d3d12_device->lpVtbl->LockCommandQueue(d3d12_device, wine_instance->d3d12_queue);
+  lock_d3d_queue(wine_instance, FALSE);
 
+  if (wine_instance->d3d12_device)
+  {
     index = wine_swapchain->acquired_indices[wine_swapchain->acquired_start];
     if (wine_swapchain->cmd_release[index] != VK_NULL_HANDLE) {
       VkSubmitInfo submit_info = {
@@ -1427,11 +1438,8 @@ XrResult WINAPI xrReleaseSwapchainImage(XrSwapchain swapchain, const XrSwapchain
 
   _status = UNIX_CALL(xrReleaseSwapchainImage, &params);
   assert(!_status && "xrReleaseSwapchainImage");
-  if (dxvk_device) {
-    dxvk_device->lpVtbl->ReleaseSubmissionQueue(dxvk_device);
-    return params.result;
-  }
-  if (!d3d12_device) {
+  if (!wine_instance->d3d12_device) {
+    unlock_d3d_queue(wine_instance, FALSE);
     return params.result;
   }
 
@@ -1449,7 +1457,7 @@ XrResult WINAPI xrReleaseSwapchainImage(XrSwapchain swapchain, const XrSwapchain
     wine_swapchain->acquired_start = (wine_swapchain->acquired_start + 1) % wine_swapchain->image_count;
     wine_swapchain->acquired_count -= 1;
   }
-  d3d12_device->lpVtbl->UnlockCommandQueue(d3d12_device, wine_instance->d3d12_queue);
+  unlock_d3d_queue(wine_instance, FALSE);
   return params.result;
 }
 
@@ -1459,26 +1467,14 @@ XrResult WINAPI xrBeginFrame(XrSession session, const XrFrameBeginInfo *frameBeg
       .session = session,
       .frameBeginInfo = frameBeginInfo,
   };
-  IDXGIVkInteropDevice2 *dxvk_device;
-  ID3D12DXVKInteropDevice *d3d12_device;
   NTSTATUS _status;
 
   TRACE("%p, %p\n", session, frameBeginInfo);
 
-  if ((dxvk_device = wine_session->instance->dxvk_device)) {
-    dxvk_device->lpVtbl->LockSubmissionQueue(dxvk_device);
-  } else if ((d3d12_device = wine_session->instance->d3d12_device)) {
-    d3d12_device->lpVtbl->LockCommandQueue(d3d12_device, wine_session->instance->d3d12_queue);
-  }
-
+  lock_d3d_queue(wine_session->instance, FALSE);
   _status = UNIX_CALL(xrBeginFrame, &params);
   assert(!_status && "xrBeginFrame");
-
-  if (dxvk_device) {
-    dxvk_device->lpVtbl->ReleaseSubmissionQueue(dxvk_device);
-  } else if (d3d12_device) {
-    d3d12_device->lpVtbl->UnlockCommandQueue(d3d12_device, wine_session->instance->d3d12_queue);
-  }
+  unlock_d3d_queue(wine_session->instance, FALSE);
   return params.result;
 }
 
@@ -1622,8 +1618,6 @@ XrResult WINAPI xrEndFrame(XrSession session, const XrFrameEndInfo *frameEndInfo
       .session = session,
       .frameEndInfo = &our_frameEndInfo,
   };
-  IDXGIVkInteropDevice2 *dxvk_device;
-  ID3D12DXVKInteropDevice *d3d12_device;
   uint32_t i, view_idx = 0, view_info_idx = 0;
   NTSTATUS _status;
 
@@ -1646,24 +1640,11 @@ XrResult WINAPI xrEndFrame(XrSession session, const XrFrameEndInfo *frameEndInfo
   our_frameEndInfo = *frameEndInfo;
   our_frameEndInfo.layers = (const XrCompositionLayerBaseHeader *const *)wine_session->composition_layer_ptrs;
 
-  if ((dxvk_device = wine_session->instance->dxvk_device)) {
-    TRACE("Locking submission queue.\n");
-    dxvk_device->lpVtbl->FlushRenderingCommands(dxvk_device);
-    dxvk_device->lpVtbl->LockSubmissionQueue(dxvk_device);
-  } else if ((d3d12_device = wine_session->instance->d3d12_device)) {
-    TRACE("Locking vkd3d-proton submission queue.\n");
-    d3d12_device->lpVtbl->LockCommandQueue(d3d12_device, wine_session->instance->d3d12_queue);
-  }
-
+  lock_d3d_queue(wine_session->instance, TRUE);
   _status = UNIX_CALL(xrEndFrame, &params);
   assert(!_status && "xrEndFrame");
 
-  if (dxvk_device) {
-    dxvk_device->lpVtbl->ReleaseSubmissionQueue(dxvk_device);
-  } else if (d3d12_device) {
-    d3d12_device->lpVtbl->UnlockCommandQueue(d3d12_device, wine_session->instance->d3d12_queue);
-  }
-
+  unlock_d3d_queue(wine_session->instance, TRUE);
   return params.result;
 }
 
