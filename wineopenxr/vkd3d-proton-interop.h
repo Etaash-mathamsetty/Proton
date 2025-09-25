@@ -19,6 +19,11 @@ typedef interface ID3D12DeviceExt1 ID3D12DeviceExt1;
 typedef interface ID3D12DXVKInteropDevice ID3D12DXVKInteropDevice;
 #endif
 
+#ifndef __ID3D12DXVKInteropDevice2_FWD_DEFINED__
+#define __ID3D12DXVKInteropDevice2_FWD_DEFINED__
+typedef interface ID3D12DXVKInteropDevice2 ID3D12DXVKInteropDevice2;
+#endif
+
 /*****************************************************************************
  * ID3D12DeviceExt1 interface
  */
@@ -186,5 +191,118 @@ typedef struct ID3D12DXVKInteropDeviceVtbl {
 
 interface ID3D12DXVKInteropDevice {
     CONST_VTBL ID3D12DXVKInteropDeviceVtbl* lpVtbl;
+};
+
+DEFINE_GUID(IID_ID3D12DXVKInteropDevice2, 0x90ecf26e, 0xb212, 0x43f5, 0xb6,0x2a, 0x82,0x5a,0xd7,0xb1,0x38,0x5e);
+typedef struct ID3D12DXVKInteropDevice2Vtbl {
+    BEGIN_INTERFACE
+
+    /*** IUnknown methods ***/
+    HRESULT (STDMETHODCALLTYPE *QueryInterface)(
+        ID3D12DXVKInteropDevice2 *This,
+        REFIID riid,
+        void **object);
+
+    ULONG (STDMETHODCALLTYPE *AddRef)(
+        ID3D12DXVKInteropDevice2 *This);
+
+    ULONG (STDMETHODCALLTYPE *Release)(
+        ID3D12DXVKInteropDevice2 *This);
+
+    /*** ID3D12DXVKInteropDevice methods ***/
+    HRESULT (STDMETHODCALLTYPE *GetDXGIAdapter)(
+        ID3D12DXVKInteropDevice2 *This,
+        REFIID iid,
+        void **object);
+
+    HRESULT (STDMETHODCALLTYPE *GetInstanceExtensions)(
+        ID3D12DXVKInteropDevice2 *This,
+        UINT *extension_count,
+        const char **extensions);
+
+    HRESULT (STDMETHODCALLTYPE *GetDeviceExtensions)(
+        ID3D12DXVKInteropDevice2 *This,
+        UINT *extension_count,
+        const char **extensions);
+
+    HRESULT (STDMETHODCALLTYPE *GetDeviceFeatures)(
+        ID3D12DXVKInteropDevice2 *This,
+        const VkPhysicalDeviceFeatures2 **features);
+
+    HRESULT (STDMETHODCALLTYPE *GetVulkanHandles)(
+        ID3D12DXVKInteropDevice2 *This,
+        VkInstance *vk_instance,
+        VkPhysicalDevice *vk_physical_device,
+        VkDevice *vk_device);
+
+    HRESULT (STDMETHODCALLTYPE *GetVulkanQueueInfo)(
+        ID3D12DXVKInteropDevice2 *This,
+        ID3D12CommandQueue *queue,
+        VkQueue *vk_queue,
+        UINT32 *vk_queue_family);
+
+    void (STDMETHODCALLTYPE *GetVulkanImageLayout)(
+        ID3D12DXVKInteropDevice2 *This,
+        ID3D12Resource *resource,
+        D3D12_RESOURCE_STATES state,
+        VkImageLayout *vk_layout);
+
+    HRESULT (STDMETHODCALLTYPE *GetVulkanResourceInfo)(
+        ID3D12DXVKInteropDevice2 *This,
+        ID3D12Resource *resource,
+        UINT64 *vk_handle,
+        UINT64 *buffer_offset);
+
+    HRESULT (STDMETHODCALLTYPE *LockCommandQueue)(
+        ID3D12DXVKInteropDevice2 *This,
+        ID3D12CommandQueue *queue);
+
+    HRESULT (STDMETHODCALLTYPE *UnlockCommandQueue)(
+        ID3D12DXVKInteropDevice2 *This,
+        ID3D12CommandQueue *queue);
+
+    /*** ID3D12DXVKInteropDevice1 methods ***/
+    HRESULT (STDMETHODCALLTYPE *GetVulkanResourceInfo1)(
+        ID3D12DXVKInteropDevice2 *This,
+        ID3D12Resource *resource,
+        UINT64 *vk_handle,
+        UINT64 *buffer_offset,
+        VkFormat *format);
+
+    HRESULT (STDMETHODCALLTYPE *CreateInteropCommandQueue)(
+        ID3D12DXVKInteropDevice2 *This,
+        const D3D12_COMMAND_QUEUE_DESC *pDesc,
+        UINT32 vk_queue_family_index,
+        ID3D12CommandQueue **ppQueue);
+
+    HRESULT (STDMETHODCALLTYPE *CreateInteropCommandAllocator)(
+        ID3D12DXVKInteropDevice2 *This,
+        D3D12_COMMAND_LIST_TYPE type,
+        UINT32 vk_queue_family_index,
+        ID3D12CommandAllocator **ppAllocator);
+
+    HRESULT (STDMETHODCALLTYPE *BeginVkCommandBufferInterop)(
+        ID3D12DXVKInteropDevice2 *This,
+        ID3D12CommandList *pCmdList,
+        VkCommandBuffer *pCommandBuffer);
+
+    HRESULT (STDMETHODCALLTYPE *EndVkCommandBufferInterop)(
+        ID3D12DXVKInteropDevice2 *This,
+        ID3D12CommandList *pCmdList);
+
+    /*** ID3D12DXVKInteropDevice2 methods ***/
+    HRESULT (STDMETHODCALLTYPE *LockVulkanQueue)(
+        ID3D12DXVKInteropDevice2 *This,
+        ID3D12CommandQueue *queue);
+
+    HRESULT (STDMETHODCALLTYPE *UnlockVulkanQueue)(
+        ID3D12DXVKInteropDevice2 *This,
+        ID3D12CommandQueue *queue);
+
+    END_INTERFACE
+} ID3D12DXVKInteropDevice2Vtbl;
+
+interface ID3D12DXVKInteropDevice2 {
+    CONST_VTBL ID3D12DXVKInteropDevice2Vtbl* lpVtbl;
 };
 #endif

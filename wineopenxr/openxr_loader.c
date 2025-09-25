@@ -499,6 +499,7 @@ XrResult WINAPI xrDestroyInstance(XrInstance instance) {
 
   if (wine_instance->d3d12_device) {
     vkDestroyCommandPool(wine_instance->vk_device, wine_instance->vk_command_pool, NULL);
+    assert(!wine_instance->d3d12_device2 || (void *)wine_instance->d3d12_device2 == (void *)wine_instance->d3d12_device);
     wine_instance->d3d12_device->lpVtbl->Release(wine_instance->d3d12_device);
     wine_instance->d3d12_queue->lpVtbl->Release(wine_instance->d3d12_queue);
   }
@@ -624,8 +625,13 @@ XrResult WINAPI xrCreateSession(XrInstance instance, const XrSessionCreateInfo *
         UINT32 queue_index;
         VkQueueFlags queue_flags;
         ID3D12DeviceExt1 *device_ext;
-        hr = ID3D12Device_QueryInterface(their_d3d12_binding->device, &IID_ID3D12DXVKInteropDevice,
-                                         (void **)&wine_instance->d3d12_device);
+        hr = ID3D12Device_QueryInterface(their_d3d12_binding->device, &IID_ID3D12DXVKInteropDevice2,
+                                         (void **)&wine_instance->d3d12_device2);
+        if (SUCCEEDED(hr))
+          wine_instance->d3d12_device = (ID3D12DXVKInteropDevice *)wine_instance->d3d12_device2;
+        else
+          hr = ID3D12Device_QueryInterface(their_d3d12_binding->device, &IID_ID3D12DXVKInteropDevice,
+                                           (void **)&wine_instance->d3d12_device);
         if (FAILED(hr)) {
           WARN("Given ID3D12Device doesn't support ID3D12DXVKInteropDevice. Only vkd3d-proton is supported.\n");
           return XR_ERROR_VALIDATION_FAILURE;
@@ -1335,6 +1341,8 @@ static void lock_d3d_queue(wine_XrInstance *instance, BOOL drain_queue)
             instance->dxvk_device->lpVtbl->FlushRenderingCommands(instance->dxvk_device);
         instance->dxvk_device->lpVtbl->LockSubmissionQueue(instance->dxvk_device);
     }
+    else if (!drain_queue && instance->d3d12_device2)
+        instance->d3d12_device2->lpVtbl->LockVulkanQueue(instance->d3d12_device2, instance->d3d12_queue);
     else if (instance->d3d12_device)
         instance->d3d12_device->lpVtbl->LockCommandQueue(instance->d3d12_device, instance->d3d12_queue);
 }
@@ -1343,6 +1351,8 @@ static void unlock_d3d_queue(wine_XrInstance *instance, BOOL drain_queue)
 {
     if (instance->dxvk_device)
         instance->dxvk_device->lpVtbl->ReleaseSubmissionQueue(instance->dxvk_device);
+    else if (!drain_queue && instance->d3d12_device2)
+        instance->d3d12_device2->lpVtbl->UnlockVulkanQueue(instance->d3d12_device2, instance->d3d12_queue);
     else if (instance->d3d12_device)
         instance->d3d12_device->lpVtbl->UnlockCommandQueue(instance->d3d12_device, instance->d3d12_queue);
 }
