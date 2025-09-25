@@ -361,6 +361,7 @@ static void free_compositor_texture( uint32_t type, struct submit_state *state )
 
 struct set_skybox_override_state
 {
+    int texture_type;
     w_Texture_t textures[6];
     w_VRVulkanTextureData_t vkdata[6];
 };
@@ -427,11 +428,13 @@ static const w_Texture_t *set_skybox_override_d3d11_init( const w_Texture_t *tex
     compositor_data.dxvk_device->lpVtbl->FlushRenderingCommands( compositor_data.dxvk_device );
     compositor_data.dxvk_device->lpVtbl->LockSubmissionQueue( compositor_data.dxvk_device );
 
+    state->texture_type = TextureType_DirectX;
     return state->textures;
 }
 
 static const w_Texture_t *set_skybox_override_init( const w_Texture_t *textures, uint32_t count, struct set_skybox_override_state *state )
 {
+    state->texture_type = -1;
     if (!count || count > 6)
     {
         WARN( "Invalid texture count %u.\n", count );
@@ -446,11 +449,10 @@ static const w_Texture_t *set_skybox_override_init( const w_Texture_t *textures,
     return textures;
 }
 
-static void set_skybox_override_done( const w_Texture_t *textures, uint32_t count )
+static void set_skybox_override_done( struct set_skybox_override_state *state )
 {
-    if (!count || count > 6) return;
-    while (count--) if (!textures[count].handle || textures[count].eType != TextureType_DirectX) return;
-    compositor_data.dxvk_device->lpVtbl->ReleaseSubmissionQueue( compositor_data.dxvk_device );
+    if (state->texture_type == TextureType_DirectX)
+        compositor_data.dxvk_device->lpVtbl->ReleaseSubmissionQueue( compositor_data.dxvk_device );
 }
 
 static void lock_queue(void)
@@ -643,7 +645,7 @@ void __thiscall winIVRCompositor_IVRCompositor_008_SetSkyboxOverride( struct w_i
 
     TRACE( "%p\n", _this );
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_008_SetSkyboxOverride, &params );
-    set_skybox_override_done( textures, 6 );
+    set_skybox_override_done( &state );
 }
 
 uint32_t __thiscall winIVRCompositor_IVRCompositor_009_WaitGetPoses( struct w_iface *_this,
@@ -708,7 +710,7 @@ uint32_t __thiscall winIVRCompositor_IVRCompositor_009_SetSkyboxOverride( struct
     };
     TRACE( "%p\n", _this );
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_009_SetSkyboxOverride, &params );
-    set_skybox_override_done( pTextures, unTextureCount );
+    set_skybox_override_done( &state );
     return params._ret;
 }
 
@@ -774,7 +776,7 @@ uint32_t __thiscall winIVRCompositor_IVRCompositor_010_SetSkyboxOverride( struct
     };
     TRACE( "%p\n", _this );
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_010_SetSkyboxOverride, &params );
-    set_skybox_override_done( pTextures, unTextureCount );
+    set_skybox_override_done( &state );
     return params._ret;
 }
 
@@ -840,7 +842,7 @@ uint32_t __thiscall winIVRCompositor_IVRCompositor_011_SetSkyboxOverride( struct
     };
     TRACE( "%p\n", _this );
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_011_SetSkyboxOverride, &params );
-    set_skybox_override_done( pTextures, unTextureCount );
+    set_skybox_override_done( &state );
     return params._ret;
 }
 
@@ -906,7 +908,7 @@ uint32_t __thiscall winIVRCompositor_IVRCompositor_012_SetSkyboxOverride( struct
     };
     TRACE( "%p\n", _this );
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_012_SetSkyboxOverride, &params );
-    set_skybox_override_done( pTextures, unTextureCount );
+    set_skybox_override_done( &state );
     return params._ret;
 }
 
@@ -972,7 +974,7 @@ uint32_t __thiscall winIVRCompositor_IVRCompositor_013_SetSkyboxOverride( struct
     };
     TRACE( "%p\n", _this );
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_013_SetSkyboxOverride, &params );
-    set_skybox_override_done( pTextures, unTextureCount );
+    set_skybox_override_done( &state );
     return params._ret;
 }
 
@@ -1038,7 +1040,7 @@ uint32_t __thiscall winIVRCompositor_IVRCompositor_014_SetSkyboxOverride( struct
     };
     TRACE( "%p\n", _this );
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_014_SetSkyboxOverride, &params );
-    set_skybox_override_done( pTextures, unTextureCount );
+    set_skybox_override_done( &state );
     return params._ret;
 }
 
@@ -1104,7 +1106,7 @@ uint32_t __thiscall winIVRCompositor_IVRCompositor_015_SetSkyboxOverride( struct
     };
     TRACE( "%p\n", _this );
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_015_SetSkyboxOverride, &params );
-    set_skybox_override_done( pTextures, unTextureCount );
+    set_skybox_override_done( &state );
     return params._ret;
 }
 
@@ -1170,7 +1172,7 @@ uint32_t __thiscall winIVRCompositor_IVRCompositor_016_SetSkyboxOverride( struct
     };
     TRACE( "%p\n", _this );
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_016_SetSkyboxOverride, &params );
-    set_skybox_override_done( pTextures, unTextureCount );
+    set_skybox_override_done( &state );
     return params._ret;
 }
 
@@ -1236,7 +1238,7 @@ uint32_t __thiscall winIVRCompositor_IVRCompositor_017_SetSkyboxOverride( struct
     };
     TRACE( "%p\n", _this );
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_017_SetSkyboxOverride, &params );
-    set_skybox_override_done( pTextures, unTextureCount );
+    set_skybox_override_done( &state );
     return params._ret;
 }
 
@@ -1302,7 +1304,7 @@ uint32_t __thiscall winIVRCompositor_IVRCompositor_018_SetSkyboxOverride( struct
     };
     TRACE( "%p\n", _this );
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_018_SetSkyboxOverride, &params );
-    set_skybox_override_done( pTextures, unTextureCount );
+    set_skybox_override_done( &state );
     return params._ret;
 }
 
@@ -1368,7 +1370,7 @@ uint32_t __thiscall winIVRCompositor_IVRCompositor_019_SetSkyboxOverride( struct
     };
     TRACE( "%p\n", _this );
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_019_SetSkyboxOverride, &params );
-    set_skybox_override_done( pTextures, unTextureCount );
+    set_skybox_override_done( &state );
     return params._ret;
 }
 
@@ -1434,7 +1436,7 @@ uint32_t __thiscall winIVRCompositor_IVRCompositor_020_SetSkyboxOverride( struct
     };
     TRACE( "%p\n", _this );
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_020_SetSkyboxOverride, &params );
-    set_skybox_override_done( pTextures, unTextureCount );
+    set_skybox_override_done( &state );
     return params._ret;
 }
 
@@ -1558,7 +1560,7 @@ uint32_t __thiscall winIVRCompositor_IVRCompositor_021_SetSkyboxOverride( struct
     };
     TRACE( "%p\n", _this );
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_021_SetSkyboxOverride, &params );
-    set_skybox_override_done( pTextures, unTextureCount );
+    set_skybox_override_done( &state );
     return params._ret;
 }
 
@@ -1682,7 +1684,7 @@ uint32_t __thiscall winIVRCompositor_IVRCompositor_022_SetSkyboxOverride( struct
     };
     TRACE( "%p\n", _this );
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_022_SetSkyboxOverride, &params );
-    set_skybox_override_done( pTextures, unTextureCount );
+    set_skybox_override_done( &state );
     return params._ret;
 }
 
@@ -1806,7 +1808,7 @@ uint32_t __thiscall winIVRCompositor_IVRCompositor_024_SetSkyboxOverride( struct
     };
     TRACE( "%p\n", _this );
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_024_SetSkyboxOverride, &params );
-    set_skybox_override_done( pTextures, unTextureCount );
+    set_skybox_override_done( &state );
     return params._ret;
 }
 
@@ -1930,7 +1932,7 @@ uint32_t __thiscall winIVRCompositor_IVRCompositor_026_SetSkyboxOverride( struct
     };
     TRACE( "%p\n", _this );
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_026_SetSkyboxOverride, &params );
-    set_skybox_override_done( pTextures, unTextureCount );
+    set_skybox_override_done( &state );
     return params._ret;
 }
 
@@ -2054,7 +2056,7 @@ uint32_t __thiscall winIVRCompositor_IVRCompositor_027_SetSkyboxOverride( struct
     };
     TRACE( "%p\n", _this );
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_027_SetSkyboxOverride, &params );
-    set_skybox_override_done( pTextures, unTextureCount );
+    set_skybox_override_done( &state );
     return params._ret;
 }
 
@@ -2238,7 +2240,7 @@ uint32_t __thiscall winIVRCompositor_IVRCompositor_028_SetSkyboxOverride( struct
     };
     TRACE( "%p\n", _this );
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_028_SetSkyboxOverride, &params );
-    set_skybox_override_done( pTextures, unTextureCount );
+    set_skybox_override_done( &state );
     return params._ret;
 }
 
@@ -2423,6 +2425,6 @@ uint32_t __thiscall winIVRCompositor_IVRCompositor_029_SetSkyboxOverride( struct
     };
     TRACE( "%p\n", _this );
     VRCLIENT_CALL( IVRCompositor_IVRCompositor_029_SetSkyboxOverride, &params );
-    set_skybox_override_done( pTextures, unTextureCount );
+    set_skybox_override_done( &state );
     return params._ret;
 }
