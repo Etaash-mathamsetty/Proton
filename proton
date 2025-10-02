@@ -2018,6 +2018,9 @@ class Session:
                 # IME implementation on some compositors is broken
                 if "WAYLANDDRV_NO_IME" not in self.env:
                     self.env["WAYLANDDRV_NO_IME"] = "1"
+                # FIXME: temporary workaround to libxkbcommon's current integration
+                if "XLOCALEDIR" not in self.env:
+                    self.env["XLOCALEDIR"] = "/usr/share/X11/locale"
                 # Make sure SDL will still work with the controllers, steam sets this for some dumb reason
                 if "SDL_GAMECONTROLLER_IGNORE_DEVICES" in self.env:
                     del self.env["SDL_GAMECONTROLLER_IGNORE_DEVICES"]
