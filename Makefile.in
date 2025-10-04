@@ -1320,6 +1320,19 @@ $(OBJ)/.icu-i386-dist: $(SRC)/icu/$(ICU_i386_TARBALL)
 
 all-dist: $(OBJ)/.icu-x86_64-dist $(OBJ)/.icu-i386-dist
 
+##
+## x11 locales
+##
+
+X11_LOCALE_DIR := $(DST_DIR)/share/X11/
+
+$(OBJ)/.x11-locale-dist: $(SRC)/locale
+	rm -Rf $(X11_LOCALE_DIR)/
+	mkdir -p $(X11_LOCALE_DIR)
+	cp -R $< $(X11_LOCALE_DIR)
+	touch $@
+
+all-dist: $(OBJ)/.x11-locale-dist
 
 ##
 ## openvr

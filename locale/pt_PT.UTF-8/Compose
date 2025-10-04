@@ -1,0 +1,3 @@
+include "/home/etaash/Documents/GitHub/Proton/build-debug/dst-libx11-x86_64/share/X11/locale/en_US.UTF-8/Compose"
+<dead_acute> <C>	: "Ç" Ccedilla # LATIN CAPITAL LETTER C WITH CEDILLA
+<dead_acute> <c>	: "ç" ccedilla # LATIN SMALL LETTER C WITH CEDILLA
