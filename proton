@@ -1280,6 +1280,7 @@ def default_compat_config():
                 # d3dcompiler.
                 "230410", #Warframe
                 "3513350", #Wuthering Waves
+                "3728370",
                 ]:
             ret.add("noopwr")
 
