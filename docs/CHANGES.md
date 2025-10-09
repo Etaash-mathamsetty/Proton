@@ -24,3 +24,5 @@ Let's begin with the simpler changes/additions:
          - `<Continue later>`
 5. Dead Keys & Keyboard layouts
     - `stuff here`
+6. Window move hack
+    - 
