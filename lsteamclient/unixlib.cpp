@@ -924,6 +924,35 @@ static char *get_unix_file_name( const WCHAR *path )
     return buffer;
 }
 
+static unsigned char hexdigit( WCHAR c )
+{
+    if (c >= '0' && c <= '9') return c - '0';
+    if (c >= 'a' && c <= 'f') return c - 'a' + 10;
+    if (c >= 'A' && c <= 'F') return c - 'A' + 10;
+    return 0xff;
+}
+
+static void url_unescape( WCHAR *s )
+{
+    unsigned int i, len;
+    unsigned char c, d1, d2;
+
+    len = wcslen( s );
+    if (len < 3) return;
+    for (i = 0; i < len - 3; ++i)
+    {
+        if (s[i] != '%') continue;
+        if ((d1 = hexdigit( s[i + 1] )) == 0xff || (d2 = hexdigit( s[i + 2] )) == 0xff)
+        {
+            ERR( "Invalid escape %s.\n", debugstr_wn( s, 3 ) );
+            continue;
+        }
+        s[i] = d1 * 0x10 + d2;
+        len -= 2;
+        memmove( &s[i + 1], &s[i + 3], (len - i) * sizeof(*s) );
+    }
+}
+
 char *steamclient_dos_to_unix_path( const char *src, int is_url )
 {
     static const char file_prot[] = "file://";
@@ -966,6 +995,7 @@ char *steamclient_dos_to_unix_path( const char *src, int is_url )
         if (r)
         {
             srcW[4 + file_part_len] = 0;
+            if (is_url) url_unescape( srcW + 4 );
             collapse_path( srcW, 4 );
             unix_path = get_unix_file_name( srcW );
         }
