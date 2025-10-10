@@ -1778,6 +1778,10 @@ class Session:
         if os.environ.get("SteamGameId", 0) == "500810":
             self.dlloverrides["ddraw"] = "n,b"
 
+        # CW Bug 26050
+        if os.environ.get("SteamGameId", 0) == "3780660":
+            self.dlloverrides["dinput"] = "n,b"
+
         if "PROTON_LIMIT_RESOLUTIONS" not in self.env:
             if os.environ.get("SteamGameId", 0) in [
                     "39540", #SpellForce: Platinum Edition
