@@ -928,6 +928,7 @@ char *steamclient_dos_to_unix_path( const char *src, int is_url )
 {
     static const char file_prot[] = "file://";
     char buffer[4096], *dst = buffer;
+    int file_part_len;
     uint32_t len;
 
     TRACE( "src %s, is_url %u\n", debugstr_a(src), is_url );
@@ -954,26 +955,39 @@ char *steamclient_dos_to_unix_path( const char *src, int is_url )
     {
         /* absolute path, use wine conversion */
         WCHAR srcW[PATH_MAX] = {'\\', '?', '?', '\\', 0};
-        char *unix_path;
+        char *unix_path = NULL;
+        const char *p;
         uint32_t r;
 
         if (is_url) while (*src == '/') ++src;
-        r = ntdll_umbstowcs( src, strlen( src ) + 1, srcW + 4, PATH_MAX - 4 );
-        if (r == 0) unix_path = NULL;
-        else
+        if (is_url && (p = strpbrk( src, "#?" ))) file_part_len = p - src;
+        else                                      file_part_len = strlen( src );
+        r = ntdll_umbstowcs( src, file_part_len, srcW + 4, PATH_MAX - 4 - 1 );
+        if (r)
         {
+            srcW[4 + file_part_len] = 0;
             collapse_path( srcW, 4 );
             unix_path = get_unix_file_name( srcW );
         }
 
         if (!unix_path)
         {
-            WARN( "Unable to convert DOS filename to unix: %s\n", src );
+            ERR( "Unable to convert DOS filename to unix: %s\n", src );
             goto done;
         }
 
-        lstrcpynA( dst, unix_path, PATH_MAX );
+        lstrcpynA( dst, unix_path, sizeof(buffer) - (dst - buffer) );
         free( unix_path );
+        if (is_url)
+        {
+            len = strlen( buffer ) + strlen( src ) - file_part_len;
+            if (len + 1 > sizeof(buffer))
+            {
+                ERR( "Buffer is too short.\n", src );
+                goto done;
+            }
+            strcat( dst, src + file_part_len );
+        }
     }
     else
     {
