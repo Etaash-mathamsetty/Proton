@@ -1241,7 +1241,7 @@ def default_compat_config():
             ret.add("nomfdxgiman")
 
         if appid in [
-                # OPWR may be causing text input delays in login windows in these games on Wayland due to
+                # OPWR may be causing text input delays in login windows in these games on XWayland due to
                 # blit happening before presentation
                 "1172620", #Sea of Thieves
                 "962130", #Grounded
@@ -1276,6 +1276,10 @@ def default_compat_config():
                 "1180660", #Tell Me Why
                 "1238430", #Tell Me Why Chapter 2
                 "1266670", #Tell Me Why Chapter 3
+                ]:
+            ret.add("noopwrx11")
+
+        if appid in [
                 # Other issues arising from OWPR code path in apps, e. g., hitting unimplemented bits in
                 # d3dcompiler.
                 "230410", #Warframe
@@ -1852,6 +1856,9 @@ class Session:
         if "noopwr" in self.compat_config:
             self.env["WINE_DISABLE_VULKAN_OPWR"] = "1"
 
+        if "noopwrx11" in self.compat_config and "wayland" not in self.compat_config:
+            self.env["WINE_DISABLE_VULKAN_OPWR"] = "1"
+
         if "PROTON_USE_XALIA" not in self.env:
             if "noxalia" in self.compat_config:
                 self.env["PROTON_USE_XALIA"] = "0"
@@ -2031,7 +2038,7 @@ class Session:
                 # IME implementation on some compositors is broken
                 if "WAYLANDDRV_NO_IME" not in self.env:
                     self.env["WAYLANDDRV_NO_IME"] = "1"
-                # FIXME: temporary workaround to libxkbcommon's current integration
+                # FIXME: temporary workaround for libxkbcommon's current integration
                 if "XLOCALEDIR" not in self.env:
                     self.env["XLOCALEDIR"] = g_proton.dist_dir + "share/X11/locale"
                 # Make sure SDL will still work with the controllers, steam sets this for some dumb reason
