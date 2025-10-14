@@ -1525,6 +1525,11 @@ class Session:
                 ]:
             self.env["WINE_HIDE_AMD_GPU"] = "1"
 
+        if "WINE_DISABLE_GAMESCOPE_MAX_SIZE_HACK" not in self.env and appid in [
+                    "3754990",
+                ]:
+            self.env["WINE_DISABLE_GAMESCOPE_MAX_SIZE_HACK"] = "1"
+
     def init_wine(self):
         if "HOST_LC_ALL" in self.env and len(self.env["HOST_LC_ALL"]) > 0:
             #steam sets LC_ALL=C to help some games, but Wine requires the real value
