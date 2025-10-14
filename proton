@@ -1323,6 +1323,7 @@ def default_compat_config():
                 "2842040", #Star Wars Outlaws
                 "245300", #Disney Epic Mickey 2: The Power of Two
                 "2594920", #Atelier Resleriana: Forgotten Alchemy and the Polar Night Liberator
+                "2586520", #Atelier Resleriana [JP]
                 "3209830", #Stronghold Crusader: Definitive Edition Demo
                 "3024040", #Stronghold Crusader: Definitive Edition
                 "2433890", #Stronghold: Definitive Edition Demo
