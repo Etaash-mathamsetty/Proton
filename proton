@@ -1792,6 +1792,7 @@ class Session:
                     "524220", #NieR: Automata
                     "814380", #Sekiro: Shadows Die Twice
                     "374320", #DARK SOULS III
+                    "357190", #Ultimate Marvel vs Capcom 3
                     ]:
                 self.env["PROTON_LIMIT_RESOLUTIONS"] = "32"
 
