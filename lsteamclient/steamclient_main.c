@@ -318,6 +318,12 @@ struct w_iface *create_win_interface( const char *name, struct u_iface u_iface )
         goto done;
     }
 
+    if (!strcmp( name, "SteamBilling002" ))
+    {
+        FIXME( "Defintion for %s is missing, returning invalid pointer.\n", debugstr_a(name) );
+        ret = (struct w_iface *)0xdeadbeef;
+    }
+
 done:
     LeaveCriticalSection(&steamclient_cs);
     if (!ret) ERR("Don't recognize interface name: %s\n", name);
