@@ -12,7 +12,7 @@
 # Original version by Troy Korjuslommi
 #
 # Use en_US.UTF-8/Compose as the base compose sequence definition set
-include "/home/etaash/Documents/GitHub/Proton/build-debug/dst-libx11-x86_64/share/X11/locale/en_US.UTF-8/Compose"
+include "%S/en_US.UTF-8/Compose"
 # Define all the sequences of the standard overriding any sequence
 # from en_US.UTF-8/Compose if such a sequence was provided already
 # Sequences from Annex 3

@@ -1,4 +1,4 @@
-include "/home/etaash/Documents/GitHub/Proton/build-debug/dst-libx11-x86_64/share/X11/locale/en_US.UTF-8/Compose"
+include "%S/en_US.UTF-8/Compose"
 # Khmer digraphs
 <U17ff>	:	"ាំ"
 <U17fe>	:	"ោះ"
