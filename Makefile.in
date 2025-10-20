@@ -133,6 +133,25 @@ $(eval $(call rules-meson,libxkbcommon,i386,unix))
 $(eval $(call rules-meson,libxkbcommon,x86_64,unix))
 
 ##
+## libpcap
+##
+
+LIBPCAP_CONFIGURE_ARGS := \
+	--enable-shared \
+	--disable-static \
+	--disable-usb \
+	--disable-netmap \
+	--disable-bluetooth \
+	--disable-dbus \
+	--disable-rdma \
+	--with-pcap=linux \
+	--without-libnl
+
+$(eval $(call rules-source,libpcap,$(SRCDIR)/libpcap))
+$(eval $(call rules-configure,libpcap,i386,unix))
+$(eval $(call rules-configure,libpcap,x86_64,unix))
+
+##
 ## gst-orc
 ##
 
@@ -710,7 +729,7 @@ WINE_x86_64_AUTOCONF_ARGS += \
   VKD3D_PE_CFLAGS="-I$(VULKAN_HEADERS_x86_64_DST)/include -I$(VKD3D_x86_64_DST)/include/vkd3d" \
   VKD3D_PE_LIBS="-L$(VKD3D_x86_64_LIBDIR)/vkd3d/x86_64-windows -l:libvkd3d-1.dll -l:libvkd3d-shader-1.dll"
 
-WINE_DEPENDS = gst_orc gstreamer gst_base vkd3d ffmpeg openfst kaldi vosk libxkbcommon
+WINE_DEPENDS = gst_orc gstreamer gst_base vkd3d ffmpeg openfst kaldi vosk libxkbcommon libpcap
 WINE_x86_64_DEPENDS = piper
 
 WINE_i386_LIBDIR = $(WINE_i386_DST)/lib
