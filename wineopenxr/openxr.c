@@ -380,3 +380,30 @@ NTSTATUS init_openxr(void *args) {
 
   return STATUS_SUCCESS;
 }
+
+NTSTATUS is_available_instance_function_openxr(void *args)
+{
+  struct is_available_instance_function_openxr_params *params = args;
+  static const char *always_supported[] =
+  {
+    "xrGetD3D11GraphicsRequirementsKHR",
+    "xrGetD3D12GraphicsRequirementsKHR",
+    "xrConvertTimeToWin32PerformanceCounterKHR",
+    "xrConvertWin32PerformanceCounterToTimeKHR",
+  };
+  wine_XrInstance *wine_instance = wine_instance_from_handle(params->instance);
+  PFN_xrVoidFunction fn;
+  unsigned int i;
+
+  for (i = 0; i < ARRAY_SIZE(always_supported); ++i)
+  {
+    if (!strcmp(params->name, always_supported[i]))
+    {
+      params->ret = XR_SUCCESS;
+      return STATUS_SUCCESS;
+    }
+  }
+
+  params->ret = xrGetInstanceProcAddr(wine_instance ? wine_instance->host_instance : NULL, params->name, &fn);
+  return STATUS_SUCCESS;
+}

@@ -5043,6 +5043,7 @@ BOOL wine_xr_is_type_wrapped(XrObjectType type)
 const unixlib_entry_t __wine_unix_call_funcs[] =
 {
     init_openxr,
+    is_available_instance_function_openxr,
     thunk64_xrAcquireEnvironmentDepthImageMETA,
     thunk64_xrAcquireSwapchainImage,
     thunk64_xrAllocateWorldMeshBufferML,

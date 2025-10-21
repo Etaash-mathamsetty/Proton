@@ -44,6 +44,12 @@ struct init_openxr_params {
   UINT64 create_device_callback;
 };
 
+struct is_available_instance_function_openxr_params {
+  XrInstance instance;
+  const char *name;
+  XrResult ret;
+};
+
 typedef struct {
   XrInstance host_instance;
   VkInstance vk_instance;

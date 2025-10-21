@@ -1835,7 +1835,23 @@ XrResult WINAPI xrCreateVulkanDeviceKHR(XrInstance instance,
 }
 
 XrResult WINAPI xrGetInstanceProcAddr(XrInstance instance, const char *fn_name, PFN_xrVoidFunction *out_fn) {
+  struct is_available_instance_function_openxr_params params =
+  {
+    .instance = instance,
+    .name = fn_name,
+  };
+  NTSTATUS _status;
+
   TRACE("%s\n", fn_name);
+
+  _status = UNIX_CALL(is_available_instance_function, &params);
+  assert(!_status && "is_available_instance_function");
+
+  if (params.ret)
+  {
+    WARN("is_available_instance_function failed for %s, ret %d\n", fn_name, params.ret);
+    return params.ret;
+  }
 
   *out_fn = wine_xr_get_instance_proc_addr(fn_name);
   if (!*out_fn) {

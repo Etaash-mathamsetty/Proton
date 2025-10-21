@@ -44,6 +44,7 @@ static inline void *conversion_context_alloc(struct conversion_context *pool, si
 }
 
 NTSTATUS init_openxr(void *args);
+NTSTATUS is_available_instance_function_openxr(void *args);
 NTSTATUS get_vk_create_callback_ptrs(void *args);
 extern void register_dispatchable_handle(uint64_t handle, struct openxr_instance_funcs *funcs);
 extern void unregister_dispatchable_handle(uint64_t handle);

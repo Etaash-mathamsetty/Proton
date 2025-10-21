@@ -25,6 +25,7 @@
 enum unix_call
 {
     unix_init,
+    unix_is_available_instance_function,
     unix_xrAcquireEnvironmentDepthImageMETA,
     unix_xrAcquireSwapchainImage,
     unix_xrAllocateWorldMeshBufferML,

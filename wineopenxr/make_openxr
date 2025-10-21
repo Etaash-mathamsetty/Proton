@@ -2666,6 +2666,7 @@ class XrGenerator(object):
         f.write("const unixlib_entry_t __wine_unix_call_funcs[] =\n")
         f.write("{\n")
         f.write("    init_openxr,\n")
+        f.write("    is_available_instance_function_openxr,\n")
         for xr_func in self.registry.funcs.values():
             if not xr_func.needs_exposing():
                 continue
@@ -2777,6 +2778,7 @@ class XrGenerator(object):
         f.write("enum unix_call\n")
         f.write("{\n")
         f.write("    unix_init,\n")
+        f.write("    unix_is_available_instance_function,\n")
         for xr_func in self.registry.funcs.values():
             if not xr_func.needs_exposing():
                 continue
