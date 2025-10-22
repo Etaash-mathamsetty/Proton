@@ -2054,6 +2054,12 @@ class Session:
             self.env["DXVK_NVAPI_DRIVER_VERSION"] = "99999"
             self.env["WINE_HIDE_AMD_GPU"] = "1"
 
+        if not ("WINEDLLOVERRIDES" in g_session.env and "atiadlxx" in g_session.env["WINEDLLOVERRIDES"]) and "SteamAppId" in os.environ:
+            if os.environ["SteamAppId"] in [
+                    "2767030",
+                ]:
+                g_session.dlloverrides["atiadlxx"] = "b"
+
         s = ""
         for dll in self.dlloverrides:
             setting = self.dlloverrides[dll]
