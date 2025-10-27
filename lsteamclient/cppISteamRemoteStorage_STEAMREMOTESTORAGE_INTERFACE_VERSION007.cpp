@@ -429,9 +429,7 @@ NTSTATUS ISteamRemoteStorage_STEAMREMOTESTORAGE_INTERFACE_VERSION007_PublishWork
     struct u_ISteamRemoteStorage_STEAMREMOTESTORAGE_INTERFACE_VERSION007 *iface = (struct u_ISteamRemoteStorage_STEAMREMOTESTORAGE_INTERFACE_VERSION007 *)params->u_iface;
     char *u_pchFile = steamclient_dos_to_unix_path( params->pchFile, 0 );
     char *u_pchPreviewFile = steamclient_dos_to_unix_path( params->pchPreviewFile, 0 );
-    u_SteamParamStringArray_t u_pTags = *params->pTags;
-    params->_ret = iface->PublishWorkshopFile( u_pchFile, u_pchPreviewFile, params->nConsumerAppId, params->pchTitle, params->pchDescription, params->eVisibility, &u_pTags, params->eWorkshopFileType );
-    *params->pTags = u_pTags;
+    params->_ret = iface->PublishWorkshopFile( u_pchFile, u_pchPreviewFile, params->nConsumerAppId, params->pchTitle, params->pchDescription, params->eVisibility, params->pTags, params->eWorkshopFileType );
     steamclient_free_path( u_pchFile );
     steamclient_free_path( u_pchPreviewFile );
     return 0;
@@ -573,9 +571,7 @@ NTSTATUS ISteamRemoteStorage_STEAMREMOTESTORAGE_INTERFACE_VERSION007_UpdatePubli
 {
     struct ISteamRemoteStorage_STEAMREMOTESTORAGE_INTERFACE_VERSION007_UpdatePublishedFileTags_params *params = (struct ISteamRemoteStorage_STEAMREMOTESTORAGE_INTERFACE_VERSION007_UpdatePublishedFileTags_params *)args;
     struct u_ISteamRemoteStorage_STEAMREMOTESTORAGE_INTERFACE_VERSION007 *iface = (struct u_ISteamRemoteStorage_STEAMREMOTESTORAGE_INTERFACE_VERSION007 *)params->u_iface;
-    u_SteamParamStringArray_t u_pTags = *params->pTags;
-    params->_ret = iface->UpdatePublishedFileTags( params->updateHandle, &u_pTags );
-    *params->pTags = u_pTags;
+    params->_ret = iface->UpdatePublishedFileTags( params->updateHandle, params->pTags );
     return 0;
 }
 
@@ -793,11 +789,7 @@ NTSTATUS ISteamRemoteStorage_STEAMREMOTESTORAGE_INTERFACE_VERSION007_EnumerateUs
 {
     struct ISteamRemoteStorage_STEAMREMOTESTORAGE_INTERFACE_VERSION007_EnumerateUserSharedWorkshopFiles_params *params = (struct ISteamRemoteStorage_STEAMREMOTESTORAGE_INTERFACE_VERSION007_EnumerateUserSharedWorkshopFiles_params *)args;
     struct u_ISteamRemoteStorage_STEAMREMOTESTORAGE_INTERFACE_VERSION007 *iface = (struct u_ISteamRemoteStorage_STEAMREMOTESTORAGE_INTERFACE_VERSION007 *)params->u_iface;
-    u_SteamParamStringArray_t u_pExcludedTags = *params->pExcludedTags;
-    u_SteamParamStringArray_t u_pRequiredTags = *params->pRequiredTags;
-    params->_ret = iface->EnumerateUserSharedWorkshopFiles( params->steamId, params->unStartIndex, &u_pRequiredTags, &u_pExcludedTags );
-    *params->pExcludedTags = u_pExcludedTags;
-    *params->pRequiredTags = u_pRequiredTags;
+    params->_ret = iface->EnumerateUserSharedWorkshopFiles( params->steamId, params->unStartIndex, params->pRequiredTags, params->pExcludedTags );
     return 0;
 }
 
@@ -820,9 +812,7 @@ NTSTATUS ISteamRemoteStorage_STEAMREMOTESTORAGE_INTERFACE_VERSION007_PublishVide
     struct ISteamRemoteStorage_STEAMREMOTESTORAGE_INTERFACE_VERSION007_PublishVideo_params *params = (struct ISteamRemoteStorage_STEAMREMOTESTORAGE_INTERFACE_VERSION007_PublishVideo_params *)args;
     struct u_ISteamRemoteStorage_STEAMREMOTESTORAGE_INTERFACE_VERSION007 *iface = (struct u_ISteamRemoteStorage_STEAMREMOTESTORAGE_INTERFACE_VERSION007 *)params->u_iface;
     char *u_pchPreviewFile = steamclient_dos_to_unix_path( params->pchPreviewFile, 0 );
-    u_SteamParamStringArray_t u_pTags = *params->pTags;
-    params->_ret = iface->PublishVideo( params->eVideoProvider, params->pchVideoAccount, params->pchVideoIdentifier, u_pchPreviewFile, params->nConsumerAppId, params->pchTitle, params->pchDescription, params->eVisibility, &u_pTags );
-    *params->pTags = u_pTags;
+    params->_ret = iface->PublishVideo( params->eVideoProvider, params->pchVideoAccount, params->pchVideoIdentifier, u_pchPreviewFile, params->nConsumerAppId, params->pchTitle, params->pchDescription, params->eVisibility, params->pTags );
     steamclient_free_path( u_pchPreviewFile );
     return 0;
 }
@@ -881,11 +871,7 @@ NTSTATUS ISteamRemoteStorage_STEAMREMOTESTORAGE_INTERFACE_VERSION007_EnumeratePu
 {
     struct ISteamRemoteStorage_STEAMREMOTESTORAGE_INTERFACE_VERSION007_EnumeratePublishedWorkshopFiles_params *params = (struct ISteamRemoteStorage_STEAMREMOTESTORAGE_INTERFACE_VERSION007_EnumeratePublishedWorkshopFiles_params *)args;
     struct u_ISteamRemoteStorage_STEAMREMOTESTORAGE_INTERFACE_VERSION007 *iface = (struct u_ISteamRemoteStorage_STEAMREMOTESTORAGE_INTERFACE_VERSION007 *)params->u_iface;
-    u_SteamParamStringArray_t u_pTags = *params->pTags;
-    u_SteamParamStringArray_t u_pUserTags = *params->pUserTags;
-    params->_ret = iface->EnumeratePublishedWorkshopFiles( params->eEnumerationType, params->unStartIndex, params->unCount, params->unDays, &u_pTags, &u_pUserTags );
-    *params->pTags = u_pTags;
-    *params->pUserTags = u_pUserTags;
+    params->_ret = iface->EnumeratePublishedWorkshopFiles( params->eEnumerationType, params->unStartIndex, params->unCount, params->unDays, params->pTags, params->pUserTags );
     return 0;
 }
 

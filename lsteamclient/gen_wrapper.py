@@ -912,8 +912,6 @@ def struct_needs_conversion(struct, wow64):
         return True
     if abis['w64'].needs_conversion(abis['u64']):
         return True
-    if abis['w32'].needs_conversion(abis['u64']):
-        return True
     return wow64
 
 

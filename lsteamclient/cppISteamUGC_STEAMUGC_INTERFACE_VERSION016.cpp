@@ -375,8 +375,7 @@ NTSTATUS ISteamUGC_STEAMUGC_INTERFACE_VERSION016_AddRequiredTagGroup( void *args
 {
     struct ISteamUGC_STEAMUGC_INTERFACE_VERSION016_AddRequiredTagGroup_params *params = (struct ISteamUGC_STEAMUGC_INTERFACE_VERSION016_AddRequiredTagGroup_params *)args;
     struct u_ISteamUGC_STEAMUGC_INTERFACE_VERSION016 *iface = (struct u_ISteamUGC_STEAMUGC_INTERFACE_VERSION016 *)params->u_iface;
-    const u_SteamParamStringArray_t u_pTagGroups = *params->pTagGroups;
-    params->_ret = iface->AddRequiredTagGroup( params->handle, &u_pTagGroups );
+    params->_ret = iface->AddRequiredTagGroup( params->handle, params->pTagGroups );
     return 0;
 }
 
@@ -864,8 +863,7 @@ NTSTATUS ISteamUGC_STEAMUGC_INTERFACE_VERSION016_SetItemTags( void *args )
 {
     struct ISteamUGC_STEAMUGC_INTERFACE_VERSION016_SetItemTags_params *params = (struct ISteamUGC_STEAMUGC_INTERFACE_VERSION016_SetItemTags_params *)args;
     struct u_ISteamUGC_STEAMUGC_INTERFACE_VERSION016 *iface = (struct u_ISteamUGC_STEAMUGC_INTERFACE_VERSION016 *)params->u_iface;
-    const u_SteamParamStringArray_t u_pTags = *params->pTags;
-    params->_ret = iface->SetItemTags( params->updateHandle, &u_pTags );
+    params->_ret = iface->SetItemTags( params->updateHandle, params->pTags );
     return 0;
 }
 
