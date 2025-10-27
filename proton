@@ -2060,6 +2060,12 @@ class Session:
                 ]:
                 g_session.dlloverrides["atiadlxx"] = "b"
 
+        if not ("PROTON_LIMIT_ADDRESS_SPACE" in g_session.env) and "SteamAppId" in os.environ:
+            if os.environ["SteamAppId"] in [
+                    "1282270",
+                ]:
+                self.env["PROTON_LIMIT_ADDRESS_SPACE"] = "1"
+
         s = ""
         for dll in self.dlloverrides:
             setting = self.dlloverrides[dll]
