@@ -919,7 +919,9 @@ VKD3D_PROTON_x86_64_MESON_ARGS = --bindir=$(VKD3D_PROTON_x86_64_DST)/lib/wine/vk
 VKD3D_PROTON_HOST_DEPENDS = glslang
 
 ifneq ($(UNSTRIPPED_BUILD),)
-	VKD3D_PROTON_MESON_ARGS = -Denable_trace=true
+	VKD3D_PROTON_MESON_ARGS = -Denable_trace=true -Denable_extended_emulation=true
+else
+	VKD3D_PROTON_MESON_ARGS = -Denable_extended_emulation=true
 endif
 
 $(eval $(call rules-source,vkd3d-proton,$(SRCDIR)/vkd3d-proton))
