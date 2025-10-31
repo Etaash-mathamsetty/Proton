@@ -1896,6 +1896,15 @@ class Session:
         # TODO: D3D11 has a different loading mechanism because why not
         self.env["INTC_ALT_DRIVER_EXTENSIONS_PATH"] = "C:\\Windows\\System32"
 
+        if "SDL_MOUSE_EMULATE_WARP_WITH_RELATIVE" not in self.env and os.environ.get("SteamGameId", 0) in [
+                "205230", # Hell Yeah!
+                "253430", # CastleMiner Z
+                "287240", # Eterium Demo
+                "280200", # Eterium
+                "434570", # Blood and Bacon
+                ]:
+            self.env["SDL_MOUSE_EMULATE_WARP_WITH_RELATIVE"] = "0"
+
         # PROTON_DISABLE_HIDRAW workarounds
         if (os.environ.get("SteamGameId", 0) == "2322010" and    # God of War: Ragnarok
             os.environ.get("SteamDeck", 0) == "1"):
