@@ -454,13 +454,17 @@ FFMPEG_CONFIGURE_ARGS := \
 	--enable-demuxer=flv \
 	--enable-demuxer=apng \
 	--enable-demuxer=mpegts \
+	--enable-demuxer=asf \
+	--enable-muxer=asf \
+	--enable-muxer=asf_stream \
 	--enable-muxer=flv \
 	--enable-muxer=mp4 \
 	--enable-muxer=dash \
 	--enable-muxer=webm \
 	--enable-muxer=mpegts \
 	--enable-parser=h264 \
-	--enable-parser=hevc
+	--enable-parser=hevc \
+	--enable-parser=mpeg4video
 
 
 FFMPEG_i386-unix_CONFIGURE_ARGS := \
