@@ -25,4 +25,5 @@ Let's begin with the simpler changes/additions:
 5. Dead Keys & Keyboard layouts
     - `stuff here`
 6. Window move hack
-    - 
+    - There is no way for us to sync up the position of a window from wayland and tell the win32 side what the position is. This effectively makes these 2 sets of coordinates completely decoupled. If the win32 side thinks that it's offscreen there's no way to rectify this because we have no mechanism to get the window position in wayland, so what do we do? Clearly it's not something we can fix properly so we hack around it. In this build of proton, whenever a window is spawned with winewayland in it is automatically repositioned such that the client rect is within the vscreen. If repositioning is impossible or if the window is completely offscreen then the coordinates are untouched.
+        - Note: In the past the window rect was used but this caused issues with certain games that intentionally wanted some of the window rect offscreen.
