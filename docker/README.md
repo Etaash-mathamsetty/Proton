@@ -6,50 +6,56 @@ Proton. The automated creation of the official images lives in
 <https://gitlab.steamos.cloud/proton/sniper/sdk>, but this can be
 used to create local images too.
 
-Local usage
------------
 
-The `protonsdk_version` make variable will override which image is used
-to build Proton, but may not trigger a full rebuild, so building from
-scratch may be necessary.
+Local Changes And Testing
+-------------------------
 
-Building Proton with a locally build docker image, instead of using the
-official images, can be done by using `protonsdk_version=local`. This
-may be used for instance to test changes to the docker image recipes.
+Make changes to the `.Dockerfile.in`
 
-Or, it is also possible to build the docker images first by invoking
-`make protonsdk` and it will tag the images with the `protonsdk_version`
-variable value.
+Just run `make proton` in this directory. To use Podman instead run `make
+DOCKER=podman proton`.
 
-Official images
+This will create container image tagged both as
+`registry.gitlab.steamos.cloud/proton/sniper/sdk:$SOME_VERSION-0-dev` and
+`registry.gitlab.steamos.cloud/proton/sniper/sdk:latest`
+
+Look for lines `successfully tagged` at the bottom of the output.
+
+To use the just built container image for Proton build you can pass the following argument
+to `./configure.sh` (assuming you are using the same container engine, Podman or
+Docker, for both):
+`--proton-sdk-image=registry.gitlab.steamos.cloud/proton/sniper/sdk:latest`
+
+
+Official Images
 ---------------
 
 To update the official Proton SDK images:
 
-1) Update the image build rules, `STEAMRT_VERSION` and
-   `PROTONSDK_VERSION` version numbers in this folder, test locally,
-   commit and push the changes.
+1) Update the image build rules and the base `STEAMRT_VERSION` numbers in files
+   in this directory, test locally, commit and push the changes.
 
 2) Update `.gitlab-ci.yml` in the
    [Proton SDK](https://gitlab.steamos.cloud/proton/sniper/sdk)
    repository to point to the new commit, commit and push to trigger a
-   new build of "-dev" images.
+   new build of `-dev` images.
 
 3) Once the images are satisfying, tag the version in Proton SDK
    repository and push the tag, this will trigger a new build of the
    images and version them with the same tag as the Git tag.
 
-4) Once the images have been published, update the default
-   `arg_protonsdk_image` version number in `configure.sh` to use the
-   newly built images by default.
+4) Once the images have been published, update the default `STEAMRT_IMAGE`
+   version number in the top-level `Makefile.in` to use the newly built images
+   by default.
 
 Any change or addition to GPL-ed source first requires to update or add
 the corresponding source to <https://repo.steampowered.com/proton-sdk>.
 The `SOURCES_URLBASE` variable must be used to download the sources
-from there, and its sha256 must be added to validate the sources in the
+from there, and its SHA256 must be added to validate the sources in the
 same way the existing code does.
 
-Technical details
+
+Technical Details
 -----------------
 
 The images are built incrementally, with intermediate images created
