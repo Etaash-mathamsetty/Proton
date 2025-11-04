@@ -1,4 +1,4 @@
-STEAMRT_VERSION = 3.0.20250519.130773
+STEAMRT_VERSION = 3.0.20250826.159138
 STEAMRT_URLBASE = registry.gitlab.steamos.cloud
 
 PROTONSDK_URLBASE = $(STEAMRT_URLBASE)/proton/sniper/sdk
@@ -7,7 +7,7 @@ PROTONSDK_VERSION = $(STEAMRT_VERSION)-0-dev
 # this is just for building toolchain, as we do static builds it should
 # not have any impact on the end result, but changing it will invalidate
 # docker caches, so we need something that don't change much
-BASE_IMAGE = $(STEAMRT_URLBASE)/steamrt/sniper/sdk:0.20221017.1
+BASE_IMAGE = $(STEAMRT_URLBASE)/steamrt/sniper/sdk:3.0.20250826.159138
 
 BINUTILS_VERSION = 2.42
 GCC_VERSION = 14.2.0
