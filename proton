@@ -1407,6 +1407,18 @@ def default_compat_config():
             ret.add("disablenvapi")
 
         if appid in [
+                "1808500",
+                ]:
+            try:
+                with open('/proc/modules') as f:
+                    drivers = set([line.partition(' ')[0] for line in f.read().splitlines()])
+                    if not drivers.intersection({'nvidia', 'nouveau', 'nova'}):
+                        ret.add("disablenvapi")
+            except OSError:
+                ret.add("disablenvapi")
+
+
+        if appid in [
                 "2698940", #The Crew Motorfest
                 ]:
             ret.add("hidenvgpu")
