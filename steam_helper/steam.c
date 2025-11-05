@@ -75,6 +75,26 @@ static void set_active_process_pid(void)
                      REG_DWORD, &pid, sizeof(pid) );
 }
 
+/* XBox Game Studios titles run GamingRepair.exe unless it has previously succeeded and set a registry value
+ * to flag success. The program uses unimplemented AppInstallManager and therefore will not return success.
+ * It causes a delay of around 20 seconds, so we set the registry key here to prevent it from running. */
+static void set_gamingrepair_succeeded(const char *sgi)
+{
+    DWORD succeeded = 1;
+    HKEY appkey, idkey;
+
+    if (RegOpenKeyExW( HKEY_LOCAL_MACHINE, L"SOFTWARE\\WOW6432Node\\Valve\\Steam\\Apps", 0, KEY_ALL_ACCESS, &appkey ))
+        return;
+
+    if (!RegOpenKeyExA( appkey, sgi, 0, KEY_ALL_ACCESS, &idkey ))
+    {
+        RegSetValueExW( idkey, L"GamingRepair", 0, REG_DWORD, (BYTE *)&succeeded, sizeof(succeeded) );
+        RegCloseKey(idkey);
+    }
+
+    RegCloseKey(appkey);
+}
+
 static DWORD WINAPI create_steam_windows(void *arg)
 {
     static WNDCLASSEXW wndclass = { sizeof(WNDCLASSEXW) };
@@ -800,6 +820,7 @@ int main(int argc, char *argv[])
     HANDLE event = INVALID_HANDLE_VALUE;
     HANDLE child = INVALID_HANDLE_VALUE;
     BOOL game_process = FALSE;
+    const char *sgi;
     DWORD rc = 0;
 
     WINE_TRACE("\n");
@@ -807,7 +828,7 @@ int main(int argc, char *argv[])
     if (steam_command_handler(argc, argv))
         return 0;
 
-    if (getenv("SteamGameId"))
+    if ((sgi = getenv("SteamGameId")))
     {
         WCHAR path[MAX_PATH], *p;
 
@@ -820,6 +841,7 @@ int main(int argc, char *argv[])
         CreateThread(NULL, 0, create_steam_windows, NULL, 0, NULL);
 
         set_active_process_pid();
+        set_gamingrepair_succeeded(sgi);
 
         SetEnvironmentVariableW(L"SteamPath", L"C:\\Program Files (x86)\\Steam");
         *path = 0;
