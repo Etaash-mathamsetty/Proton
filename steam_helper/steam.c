@@ -83,7 +83,7 @@ static void set_gamingrepair_succeeded(const char *sgi)
     DWORD succeeded = 1;
     HKEY appkey, idkey;
 
-    if (RegOpenKeyExW( HKEY_LOCAL_MACHINE, L"SOFTWARE\\WOW6432Node\\Valve\\Steam\\Apps", 0, KEY_ALL_ACCESS, &appkey ))
+    if (RegOpenKeyExW( HKEY_LOCAL_MACHINE, L"SOFTWARE\\Valve\\Steam\\Apps", 0, KEY_ALL_ACCESS | KEY_WOW64_32KEY, &appkey ))
         return;
 
     if (!RegOpenKeyExA( appkey, sgi, 0, KEY_ALL_ACCESS, &idkey ))
