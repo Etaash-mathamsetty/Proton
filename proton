@@ -1346,6 +1346,9 @@ def default_compat_config():
                 "429660", #Tales of Berseria
                 "1286220", #Sea Power
                 "2507950", #Delta Force
+                "2827230", #Wild Assault
+                "3159330", #Assassin's Creed Shadows
+                "367500", #Dragon's Dogma: Dark Arisen
                 ]:
             ret.add("gamedrive")
 
