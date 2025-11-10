@@ -26,10 +26,14 @@ Let's begin with the simpler changes/additions:
          - Windows has two "queues" (not sure if that's the right term) when it comes to processing inputs. There's the rawinput one which is system wide and there's the normal one which is per HWND. Upstream winewayland had made a severe mistake when it came to faking how the rawinput should work. Their fatal flaw was that relative motion needed to *always* be sent through the rawinput channel at a minimum even if the cursor wasn't locked.
          - To try to implement the correct behavior on winewayland we need to make a few changes:
              - Make relative motion always active, ensure its inputs are always sent to the rawinput "queue"
-             - If the game locks the mouse cursor disable absolute pointer positioning. Send relative motion events in both "queues"
+             - If the game locks and hides the mouse cursor, disable absolute pointer positioning. Send relative motion events in both "queues"
          - `TODO: Check if missed anything, be more clear on what "locked" means`
 5. Dead Keys & Keyboard layouts
-    - `stuff here`
+    - Windows uses the `KBDTABLES` structure internally to implement dead key mappings. We can store the previously pressed key if it is dead, and then when the next key is pressed we can check if there is a dead key composition within our `KBDTABLES` structure.
+    - The dead key composition is generated using the libxkbcommon composition tables API.
+    - `TODO: Implement dead key + dead key = dead key composition`
+    - There's also a fix for Unicode conversions for dvorak and some other keyboard layouts. 
+    - Thanks to Rémi Bernon for the initial dead key code.
 6. Window move hack
     - There is no way for us to sync up the position of a window from wayland and tell the win32 side what the position is. This effectively makes these 2 sets of coordinates completely decoupled. If the win32 side thinks that it's offscreen there's no way to rectify this because we have no mechanism to get the window position in wayland, so what do we do? Clearly it's not something we can fix properly so we hack around it. In this build of proton, whenever a window is spawned with winewayland in it is automatically repositioned such that the client rect is within the vscreen. If repositioning is impossible or if the window is completely offscreen then the coordinates are untouched.
         - Note: In the past the window rect was used but this caused issues with certain games that intentionally wanted some of the window rect offscreen.
