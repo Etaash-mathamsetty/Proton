@@ -23,13 +23,13 @@ which are often used for testing so people don't have to pass
 
 Part-of: <https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/5509>
 ---
- .../gst-libs/gst/gl/egl/gstglcontext_egl.c    | 98 +++++++++----------
+ gst-libs/gst/gl/egl/gstglcontext_egl.c    | 98 +++++++++----------
  1 file changed, 49 insertions(+), 49 deletions(-)
 
-diff --git a/subprojects/gst-plugins-base/gst-libs/gst/gl/egl/gstglcontext_egl.c b/subprojects/gst-plugins-base/gst-libs/gst/gl/egl/gstglcontext_egl.c
+diff --git a/gst-libs/gst/gl/egl/gstglcontext_egl.c b/gst-libs/gst/gl/egl/gstglcontext_egl.c
 index c01bd46cfa7..a919014cca8 100644
---- a/subprojects/gst-plugins-base/gst-libs/gst/gl/egl/gstglcontext_egl.c
-+++ b/subprojects/gst-plugins-base/gst-libs/gst/gl/egl/gstglcontext_egl.c
+--- a/gst-libs/gst/gl/egl/gstglcontext_egl.c
++++ b/gst-libs/gst/gl/egl/gstglcontext_egl.c
 @@ -925,7 +925,55 @@ gst_gl_context_egl_create_context (GstGLContext * context,
  
    gst_gl_context_egl_dump_all_configs (egl);
