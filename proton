@@ -2075,7 +2075,8 @@ class Session:
             if "WAYLAND_DISPLAY" in self.env:
                 self.dlloverrides["winex11.drv"] = "d"
                 self.dlloverrides["winewayland.drv"] = "b"
-                self.env["WINE_WAYLAND_HACKS"] = "1"
+                if "WINE_WAYLAND_HACKS" not in self.env:
+                    self.env["WINE_WAYLAND_HACKS"] = "1"
                 """
                     It is not possible for winewayland to support xalia since
                     there is no way to position toplevel surfaces dynamically in wayland
