@@ -2152,9 +2152,17 @@ class Session:
                     "1549250",  # Undecember
                 ]:
             argv = [g_proton.wine_bin, "c:\\Program Files (x86)\\Steam\\steam.exe"]
-        elif "UMU_ID" in os.environ:
+        # Don't use steam if it's not a steam game
+        # Prevent this warning for non-steam games:
+        # [S_API FAIL] SteamAPI_Init() failed; no appID found.
+        # Either launch the game from Steam, or put the file steam_appid.txt containing the correct appID in your game folder.
+        # Also don't use steam api for US (3347400) versions of Girls Frontline: Exilium 2
+        elif "UMU_ID" in os.environ or os.environ.get("SteamGameId", 0) in ["3347400"]:
             log(sys.argv[2])
-            if len(sys.argv) >=  3 and sys.argv[2].startswith('/'):
+            if os.environ.get("UMU_USE_STEAM", "0") == "1":
+                append_to_env_str(self.env, "WINEDLLOVERRIDES", "lsteamclient=d", ";")
+                argv = [g_proton.wine64_bin, "c:\\windows\\system32\\steam.exe"]
+            elif len(sys.argv) >= 3 and sys.argv[2].startswith('/'):
                 log("Executable a unix path, launching with /unix option.")
                 argv = [g_proton.wine64_bin, "c:\\windows\\system32\\start.exe", "/unix"]
             else:
