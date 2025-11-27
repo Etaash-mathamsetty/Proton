@@ -546,7 +546,9 @@ class Proton:
         self.host_pe_arch = "x86_64-windows"
         self.wow64_pe_arch = "i386-windows"
 
-        if os.environ.get("PROTON_USE_ARM64", None) == "1" or platform.machine() == 'aarch64':
+        if os.environ.get("PROTON_USE_ARM64", "1") == "1" and \
+                platform.machine() == 'aarch64' and \
+                file_exists(self.path("files/bin-arm64/"), follow_symlinks=True):
             self.host_pe_arch = "aarch64-windows"
             self.default_pfx_dir = self.path("files/share/default_pfx_arm64/")
             self.bin_dir = self.path("files/bin-arm64/")
