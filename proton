@@ -946,20 +946,6 @@ class CompatData:
                 os.remove(old)
                 os.symlink(src=link, dst=old)
 
-    def setup_fsr4(self):
-        fsr4files = ["amdxcffx64"]
-
-        for f in fsr4files:
-            dst = "drive_c/windows/system32/" + f + ".dll"
-            if not file_exists(self.prefix_dir + dst, follow_symlinks=False):
-                try:
-                    with open(self.tracked_files_file, "a") as tracked_files:
-                        tracked_files.write(dst + '\n')
-                except Exception:
-                    pass
-            if file_exists(g_proton.lib_dir + "wine/amdprop/" + f + ".dll", follow_symlinks=False):
-                self.create_symlink(self.prefix_dir + dst, g_proton.lib_dir + "wine/amdprop/" + f + ".dll")
-
     def setup_prefix(self):
         with self.prefix_lock:
             if file_exists(self.version_file, follow_symlinks=True):
@@ -1186,8 +1172,6 @@ class CompatData:
                     if not file_exists(self.prefix_dir + dst, follow_symlinks=False):
                         tracked_files.write(dst + '\n')
                     self.create_symlink(self.prefix_dir + dst, g_proton.arch_pe_dir("wine/icu", True) + f + ".dll")
-
-                self.setup_fsr4()
 
                 # If the user requested the NVAPI be available, copy it into place.
                 # If they didn't, clean up any stray nvapi DLLs.
@@ -1776,11 +1760,11 @@ class Session:
         self.check_environment("PROTON_USE_WAYLAND", "wayland")
         self.check_environment("PROTON_PREFER_SDL", "sdlinput")
         self.check_environment("PROTON_USE_SDL", "sdlinput")
-        self.check_environment("PROTON_FSR4_UPGRADE", "fsr4")
-        self.check_environment("PROTON_FSR4_RDNA3_UPGRADE", "fsr4rdna3")
         self.check_environment("PROTON_NATIVE_AGS", "nativeags")
         self.check_environment("PROTON_ENABLE_HDR", "hdr")
         self.check_environment("PROTON_NO_NTSYNC", "nontsync")
+        self.check_environment("PROTON_FSR4_UPGRADE", "fsr4")
+        self.check_environment("PROTON_FSR4_RDNA3_UPGRADE", "fsr4rdna3")
 
         if "PROTON_ADD_CONFIG" in self.env:
             for c in proton_config:
@@ -1974,12 +1958,6 @@ class Session:
         if "fnad3d11" in self.compat_config and "FNA3D_FORCE_DRIVER" not in self.env:
             self.env["FNA3D_FORCE_DRIVER"] = "D3D11"
 
-        # igdext is loaded either using the LoadLibraryExW hack on 1.3 or lower
-        # or using the INTC_ALT_DRIVER_EXTENSIONS_PATH on 2.0 or newer
-        # TODO: Load it through driver store data like it is on windows
-        # TODO: D3D11 has a different loading mechanism because why not
-        self.env["INTC_ALT_DRIVER_EXTENSIONS_PATH"] = "C:\\Windows\\System32"
-
         if "SDL_MOUSE_EMULATE_WARP_WITH_RELATIVE" not in self.env and os.environ.get("SteamGameId", 0) in [
                 "205230", # Hell Yeah!
                 "253430", # CastleMiner Z
@@ -1994,6 +1972,18 @@ class Session:
             os.environ.get("SteamDeck", 0) == "1"):
             # Disable hidraw for Sony DualShock and DualSense controllers.
             self.env["PROTON_DISABLE_HIDRAW"] = "0x054C/0x05C4,0x054C/0x09CC,0x054C/0x0BA0,0x054C/0x0CE6,0x054C/0x0DF2"
+
+        # protonfixes doesn't set this on its own
+        if "fsr4" in self.compat_config or "fsr4rdna3" in self.compat_config:
+            self.env["FSR4_UPGRADE"] = "1"
+            if "fsr4rdna3" in self.compat_config:
+                self.env["DXIL_SPIRV_CONFIG"] = "wmma_rdna3_workaround"
+
+        # igdext is loaded either using the LoadLibraryExW hack on 1.3 or lower
+        # or using the INTC_ALT_DRIVER_EXTENSIONS_PATH on 2.0 or newer
+        # TODO: Load it through driver store data like it is on windows
+        # TODO: D3D11 has a different loading mechanism because why not
+        self.env["INTC_ALT_DRIVER_EXTENSIONS_PATH"] = "C:\\Windows\\System32"
 
         # NVIDIA software may check for the "DriverStore" by querying the
         # NGXCore\NGXPath registry key via `D3DDDI_QUERYREGISTRY_SERVICEKEY` for
@@ -2039,12 +2029,6 @@ class Session:
                     if var in self.env:
                         self.log_file.write("Effective " + var + ": " + self.env[var] + "\n")
 
-                if "fsr4" in self.compat_config or "fsr4rdna3" in self.compat_config:
-                    if file_exists(g_proton.lib_dir + "wine/amdprop/amdxcffx64.dll", follow_symlinks=False):
-                        self.log_file.write("INFO: Automatic FSR4 upgrade enabled!\n")
-                    else:
-                        self.log_file.write("ERROR: Failed to download amdxcffx64.dll!\n")
-
                 # check for low fd limit
                 _soft_limit, hard_limit = resource.getrlimit(resource.RLIMIT_NOFILE)
                 if hard_limit < 524288:
@@ -2069,41 +2053,6 @@ class Session:
         if update_prefix_files:
             g_compatdata.setup_prefix()
 
-        if "fsr4" in self.compat_config or "fsr4rdna3" in self.compat_config:
-            self.env["FSR4_UPGRADE"] = "1"
-
-            versions = { "4.0.0": "67A4D2BC10ad000",
-                         "4.0.1": "67D435F7d97000",
-                         "4.0.2": "68840348eb8000" }
-            version = versions["4.0.0"]
-
-            if "fsr4rdna3" in self.compat_config:
-                self.env["DXIL_SPIRV_CONFIG"] = "wmma_rdna3_workaround"
-
-            # TODO: make the following code more efficent
-
-            # 0. Check downloaded version
-            version_match = False
-            version_file = g_proton.lib_dir + "wine/amdprop/amdxcffx64_version"
-            if file_exists(version_file, follow_symlinks=False):
-                with open(version_file, "r") as file:
-                    first_line = file.readline()
-                    if first_line == version:
-                        version_match = True
-
-            # 1. Download amdxcffx64 library
-            fsr_dll_url = "https://download.amd.com/dir/bin/amdxcffx64.dll/" + version + "/amdxcffx64.dll"
-            fsr_dll = g_proton.lib_dir + "wine/amdprop/amdxcffx64.dll"
-            if not file_exists(fsr_dll, follow_symlinks=False) or not version_match:
-                self.download_file(fsr_dll_url, fsr_dll)
-
-            # 2. Update stored version
-            if file_exists(fsr_dll, follow_symlinks=False):
-                g_compatdata.setup_fsr4()
-                if not version_match:
-                    with open(version_file, "w") as file:
-                        file.write(version + "\n")
-
         if "nod3d11" in self.compat_config:
             self.dlloverrides["d3d11"] = ""
             if "dxgi" in self.dlloverrides:
@@ -2120,29 +2069,28 @@ class Session:
         if "disablenvapi" not in self.compat_config or "forcenvapi" in self.compat_config:
             self.env["DXVK_ENABLE_NVAPI"] = "1"
 
-        if "wayland" in self.compat_config:
-            if "WAYLAND_DISPLAY" in self.env:
-                self.dlloverrides["winex11.drv"] = "d"
-                self.dlloverrides["winewayland.drv"] = "b"
-                if "WINE_WAYLAND_HACKS" not in self.env:
-                    self.env["WINE_WAYLAND_HACKS"] = "1"
-                """
-                    It is not possible for winewayland to support xalia since
-                    there is no way to position toplevel surfaces dynamically in wayland
-                """
-                self.env["PROTON_USE_XALIA"] = "0"
-                # Steam input does not work on wayland
-                if "PROTON_NO_STEAMINPUT" not in self.env:
-                    self.env["PROTON_NO_STEAMINPUT"] = "1"
-                # IME implementation on some compositors is broken
-                if "WAYLANDDRV_NO_IME" not in self.env:
-                    self.env["WAYLANDDRV_NO_IME"] = "1"
-                # FIXME: temporary workaround for libxkbcommon's current integration
-                if "XLOCALEDIR" not in self.env:
-                    self.env["XLOCALEDIR"] = g_proton.dist_dir + "share/X11/locale"
-                # Make sure SDL will still work with the controllers, steam sets this for some dumb reason
-                if "SDL_GAMECONTROLLER_IGNORE_DEVICES" in self.env:
-                    del self.env["SDL_GAMECONTROLLER_IGNORE_DEVICES"]
+        if "wayland" in self.compat_config and "WAYLAND_DISPLAY" in self.env:
+            self.dlloverrides["winex11.drv"] = "d"
+            self.dlloverrides["winewayland.drv"] = "b"
+            if "WINE_WAYLAND_HACKS" not in self.env:
+                self.env["WINE_WAYLAND_HACKS"] = "1"
+            """
+                It is not possible for winewayland to support xalia since
+                there is no way to position toplevel surfaces dynamically in wayland
+            """
+            self.env["PROTON_USE_XALIA"] = "0"
+            # Steam input does not work on wayland
+            if "PROTON_NO_STEAMINPUT" not in self.env:
+                self.env["PROTON_NO_STEAMINPUT"] = "1"
+            # IME implementation on some compositors is broken
+            if "WAYLANDDRV_NO_IME" not in self.env:
+                self.env["WAYLANDDRV_NO_IME"] = "1"
+            # FIXME: temporary workaround for libxkbcommon's current integration
+            if "XLOCALEDIR" not in self.env:
+                self.env["XLOCALEDIR"] = g_proton.dist_dir + "share/X11/locale"
+            # Make sure SDL will still work with the controllers, steam sets this for some dumb reason
+            if "SDL_GAMECONTROLLER_IGNORE_DEVICES" in self.env:
+                del self.env["SDL_GAMECONTROLLER_IGNORE_DEVICES"]
         else: # X11 specific changes to increase compat
             # Surfaceless supports less formats than x11
             self.env["GST_GL_WINDOW"] = "x11"
@@ -2271,6 +2219,9 @@ if __name__ == "__main__":
     protonfixes.setup(g_session.env, "PATH", ld_path_var, prepend_to_env_str)
     protonfixes.setup_mount_drives(setup_dir_drive)
     protonfixes.winetricks(g_session.env, g_proton.wine_bin, g_proton.wineserver_bin)
+    # handle FSR4 dll downloading, we don't implement DLSS/FSR3 upgrades
+    protonfixes.setup_upscalers(g_session.compat_config, g_session.env, g_compatdata.base_dir, g_compatdata.prefix_dir)
+    # TODO: per prefix shader cache, not a fan of the one currently in protonfixes
     protonfixes.execute()
 
     #determine mode
