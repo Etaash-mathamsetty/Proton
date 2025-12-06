@@ -1430,6 +1430,7 @@ $(DIST_WINEMONO): $(SRC)/contrib/$(WINEMONO_TARBALL)
 	mkdir -p $(DIST_WINEMONO_DIR)
 	rm -rf $(DIST_WINEMONO_DIR)/wine-mono-$(WINEMONO_VER)
 	tar --no-same-owner -xf $< -C $(DIST_WINEMONO_DIR)
+	rm -f $(DIST_WINEMONO_DIR)/wine-mono; ln -s wine-mono-$(WINEMONO_VER) $(DIST_WINEMONO_DIR)/wine-mono
 	touch $@
 
 all-dist: $(DIST_WINEMONO)
