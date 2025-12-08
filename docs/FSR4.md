@@ -2,11 +2,12 @@
 
 Please use Proton-EM 10.0-22 or higher when following this guide.
 
-**Proton-EM 10.0-22 to Proton-EM 10.0-32:**
+**Proton-EM 10.0-22 and higher:**
+
+Just set `PROTON_FSR4_UPGRADE=1` the FSR 4.0.0 DLL will be automatically downloaded and everything should just work.  
 
 The following will no longer work starting with Proton-EM 10.0-33:
 
-Just set `PROTON_FSR4_UPGRADE=1` the FSR 4.0.0 DLL will be automatically downloaded and everything should just work.  
 However, if the download fails you can attempt a manual download. (This is is for FSR 4.0.0)
 1. Download amdxcffx64.dll and place into `$PROTON_EM_INSTALL_PATH/files/lib/wine/amdprop/`
 ```
@@ -14,7 +15,7 @@ wget --referer https://support.amd.com https://download.amd.com/dir/bin/amdxcffx
 ```
 2. Create a file called `amdxcffx64_version` within the amdprop directory and place the following string into it `67A4D2BC10ad000`.
 
-**Proton-EM 10.0-33 and higher:**
+**Manual download with Proton-EM 10.0-33 and higher:**
 
 TODO
 
