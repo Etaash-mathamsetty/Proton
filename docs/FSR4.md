@@ -2,7 +2,9 @@
 
 Please use Proton-EM 10.0-22 or higher when following this guide.
 
-**Proton-EM 10.0-22 and newer:**
+**Proton-EM 10.0-22 to Proton-EM 10.0-32:**
+
+The following will no longer work starting with Proton-EM 10.0-33:
 
 Just set `PROTON_FSR4_UPGRADE=1` the FSR 4.0.0 DLL will be automatically downloaded and everything should just work.  
 However, if the download fails you can attempt a manual download. (This is is for FSR 4.0.0)
@@ -11,6 +13,10 @@ However, if the download fails you can attempt a manual download. (This is is fo
 wget --referer https://support.amd.com https://download.amd.com/dir/bin/amdxcffx64.dll/67D435F7d97000/amdxcffx64.dll
 ```
 2. Create a file called `amdxcffx64_version` within the amdprop directory and place the following string into it `67A4D2BC10ad000`.
+
+**Proton-EM 10.0-33 and higher:**
+
+TODO
 
 **Required System Configuration:**
 
