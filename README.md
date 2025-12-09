@@ -93,7 +93,7 @@ See `make help` for other build targets and options.
 ### Configuring the build
 
 ```bash
-mkdir build && cd build && ../apply-patches.sh
+mkdir build && cd build
 ../build-prep.sh <build_name>
 ```
 
