@@ -1399,25 +1399,25 @@ def default_compat_config():
                 "1418100", #Swords of Legends Online
                 "2080180", #Go Home Annie Demo
                 "1939100", #Go Home Annie
-                "108710", #Alan Wake
                 "435150", #Divinity: Original Sin 2 - Definitive Edition
-                "505170", #Carmageddon: Max Damage
-                "202750", #Alan Wake's American Nightmare
-                "255220", #GRID Autosport
-                "44350", #GRID 2
                 "2176900", #Fablecraft
-                "407810", #Hard Reset Redux
                 "2853730", #Skull and Bones
-                "233130", #Shadow Warrior
-                "2067160", #Simulakros
-                "2621010", #Simulakros Demo
-                "368500", #Assassin's Creed Syndicate
                 ]:
             ret.add("disablenvapi")
 
         if appid in [
                 "1808500", #ARC Raiders
                 "2073850", #The Finals
+                "108710", #Alan Wake
+                "202750", #Alan Wake's American Nightmare
+                "505170", #Carmageddon: Max Damage
+                "255220", #GRID Autosport
+                "44350", #GRID 2
+                "407810", #Hard Reset Redux
+                "233130", #Shadow Warrior
+                "2067160", #Simulakros
+                "2621010", #Simulakros Demo
+                "368500", #Assassin's Creed Syndicate
                 ]:
             try:
                 with open('/proc/modules') as f:
