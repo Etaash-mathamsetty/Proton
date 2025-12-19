@@ -322,14 +322,14 @@ static NTSTATUS vrclient_init( Params *params, bool wow64 )
     }
 
 #if defined(__x86_64__)
-    static const char arch_dir[] = "linux64";
+    static const char arch_dir[] = "/linux64";
 #elif defined(__aarch64__)
-    static const char arch_dir[] = "linuxarm64";
+    static const char arch_dir[] = "/linuxarm64";
 #else
-    static const char arch_dir[] = "linux";
+    static const char arch_dir[] = "";
 #endif
 
-    std::string vrclient_path = std::string( params->runtime_unix_path ) + "/bin/" + arch_dir + "/vrclient.so";
+    std::string vrclient_path = std::string( params->runtime_unix_path ) + "/bin" + arch_dir + "/vrclient.so";
     if (!(vrclient = dlopen( vrclient_path.c_str(), RTLD_NOW )))
     {
         TRACE( "unable to load %s\n", vrclient_path.c_str() );
