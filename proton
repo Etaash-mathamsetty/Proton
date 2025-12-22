@@ -1599,7 +1599,18 @@ class Session:
             self.env["MEDIACONV_AUDIO_TRANSCODED_FILE"] = os.environ["STEAM_COMPAT_TRANSCODED_MEDIA_PATH"] + "/transcoded_audio.foz"
             self.env["MEDIACONV_VIDEO_TRANSCODED_FILE"] = os.environ["STEAM_COMPAT_TRANSCODED_MEDIA_PATH"] + "/transcoded_video.foz"
 
-        self.env["MEDIACONV_BLANK_VIDEO_FILE"] = g_proton.media_dir + "blank.mkv"
+        if os.environ.get("PROTON_MEDIACONV_NO_VIDEO",
+            "1" if os.environ.get("SteamGameId", 0) in (
+                "283640", # Salt and Sanctuary
+                "787810", # Rogue Heroes: Ruins of Tasos
+                "1199570", # Rogue Heroes: Ruins of Tasos Demo
+                "1491460", # Tor Eternum
+                "1588990", # Tor Eternum Demo
+                "1895130", # Darza's Dominion
+            ) else "0") != "0":
+            self.env["MEDIACONV_BLANK_VIDEO_FILE"] = g_proton.media_dir + "blank.mka"
+        else:
+            self.env["MEDIACONV_BLANK_VIDEO_FILE"] = g_proton.media_dir + "blank.mkv"
         self.env["MEDIACONV_BLANK_AUDIO_FILE"] = g_proton.media_dir + "blank.ptna"
 
         self.env["ESPEAK_DATA_PATH"] = g_proton.dist_dir + "share"
