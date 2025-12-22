@@ -374,6 +374,16 @@ def setup_openvr_paths():
         json.dump(contents, file, indent=3)
 
 
+def is_driver_loaded(d):
+    try:
+        with open('/proc/modules') as f:
+            drivers = set([line.partition(' ')[0] for line in f.read().splitlines()])
+            if drivers.intersection(d):
+                return True
+            else:
+                return False
+    except OSError:
+        return False
 
 # Function to find the installed location of DLL files for use by Wine/Proton
 # from the NVIDIA Linux driver
@@ -1418,14 +1428,8 @@ def default_compat_config():
                 "2067160", #Simulakros
                 "2621010", #Simulakros Demo
                 "368500", #Assassin's Creed Syndicate
-                ]:
-            try:
-                with open('/proc/modules') as f:
-                    drivers = set([line.partition(' ')[0] for line in f.read().splitlines()])
-                    if not drivers.intersection({'nvidia', 'nouveau', 'nova'}):
-                        ret.add("disablenvapi")
-            except OSError:
-                ret.add("disablenvapi")
+                ] and not is_driver_loaded({'nvidia', 'nova', 'nouveau'}):
+            ret.add("disablenvapi")
 
 
         if appid in [
@@ -2097,6 +2101,9 @@ class Session:
             # Make sure SDL will still work with the controllers, steam sets this for some dumb reason
             if "SDL_GAMECONTROLLER_IGNORE_DEVICES" in self.env:
                 del self.env["SDL_GAMECONTROLLER_IGNORE_DEVICES"]
+            # The HDR wsi is still required on Nvidia GPUs :/
+            if "hdr" in self.compat_config and "ENABLE_HDR_WSI" not in self.env and is_driver_loaded({'nvidia'}):
+                self.env["ENABLE_HDR_WSI"] = "1"
         else: # X11 specific changes to increase compat
             # Surfaceless supports less formats than x11
             self.env["GST_GL_WINDOW"] = "x11"
