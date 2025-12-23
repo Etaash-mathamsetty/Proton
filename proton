@@ -1365,6 +1365,7 @@ def default_compat_config():
                 "3159330", #Assassin's Creed Shadows
                 "367500", #Dragon's Dogma: Dark Arisen
                 "1890220", #Figmin XR
+                "2058180", #Judgment
                 ]:
             ret.add("gamedrive")
 
