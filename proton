@@ -1769,9 +1769,14 @@ class Session:
         self.check_environment("PROTON_ENABLE_HDR", "hdr")
         self.check_environment("PROTON_NO_NTSYNC", "nontsync")
         # FSR4 upgrade environment variables
-        self.check_environment("PROTON_NO_MLFG_UPGRADE", "nomlfg")
         self.check_environment("PROTON_FSR4_UPGRADE", "fsr4")
         self.check_environment("PROTON_FSR4_RDNA3_UPGRADE", "fsr4rdna3")
+
+        # enable mlfg by default if the fsr4 upgrade is specified (unless user said no)
+        if "fsr4" in self.compat_config or "fsr4rdna3" in self.compat_config:
+            if "PROTON_MLFG_UPGRADE" not in self.env:
+                self.env["PROTON_MLFG_UPGRADE"] = "1"
+            self.check_environment("PROTON_MLFG_UPGRADE", "mlfg")
 
         if "PROTON_ADD_CONFIG" in self.env:
             for c in proton_config:
@@ -1980,7 +1985,7 @@ class Session:
         # protonfixes doesn't set this on its own
         if "fsr4" in self.compat_config or "fsr4rdna3" in self.compat_config:
             self.env["FSR4_UPGRADE"] = "1"
-            if "nomlfg" not in self.compat_config:
+            if "mlfg" in self.compat_config:
                 self.env["MLFG_UPGRADE"] = "1"
             if "fsr4rdna3" in self.compat_config:
                 self.env["DXIL_SPIRV_CONFIG"] = "wmma_rdna3_workaround"
