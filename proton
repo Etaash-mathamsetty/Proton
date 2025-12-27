@@ -2006,7 +2006,7 @@ class Session:
         # or using the INTC_ALT_DRIVER_EXTENSIONS_PATH on 2.0 or newer
         # TODO: Load it through driver store data like it is on windows
         # TODO: D3D11 has a different loading mechanism because why not
-        self.env["INTC_ALT_DRIVER_EXTENSIONS_PATH"] = "C:\\Windows\\System32"
+        # self.env["INTC_ALT_DRIVER_EXTENSIONS_PATH"] = "C:\\Windows\\System32"
 
         # NVIDIA software may check for the "DriverStore" by querying the
         # NGXCore\NGXPath registry key via `D3DDDI_QUERYREGISTRY_SERVICEKEY` for
