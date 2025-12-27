@@ -19,6 +19,10 @@ wget --referer https://support.amd.com https://download.amd.com/dir/bin/amdxcffx
 
 TODO
 
+**MLFG info:**
+
+There is no DLL from AMD's downloading website (as of when im writing this) that supports MLFG overrides. Therefore, the only way to use MLFG is to grab FSR 4.0.3 DLLs and use those. However, for the FSR 4.0.3 DLLs to offer redstone frame generation you need to **set the windows version in the wine prefix to windows 11**. An alternative would be to place a amdxcffx64.dll from windows into your wine prefix, as the code required for MLFG overrides has been implemented into Proton-EM 10.0-33 and higher. 
+
 **Required System Configuration:**
 
 RDNA4 will work out of the box in FP8 mode using mesa 25.2. Set `PROTON_FSR4_UPGRADE=1` and enjoy the quality (and performance). On Proton-EM 10.0-2D and higher if the game supports SDK 2.0.0 then FSR 4.0.2 will be used by default, just like Windows. (The same applies to RDNA3)
@@ -35,3 +39,4 @@ Set the environment variable `FSR4_WATERMARK=1` and you should get a result simi
 
 <img width="1276" height="762" alt="image" src="https://github.com/user-attachments/assets/76a65ce9-bd5a-4293-89d5-ae06c6f7e5ef" />
 
+On Proton-EM 10.0-33, a similar env called `MLFG_WATERMARK=1` exists for the redstone frame generation.

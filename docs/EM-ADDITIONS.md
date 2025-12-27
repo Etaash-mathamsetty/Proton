@@ -39,6 +39,7 @@ Pass in the following environment variables to your game to adjust the features 
     - Might be needed due to unaccelerated input being overly sensitive on some setups
     - On Proton-EM 10.0-2D and higher you can pass in any positive real number (like 0.5) to adjust the sensitivity of rawinput
 9. `PROTON_NO_NTSYNC=1` disables NTsync (Proton-EM 10.0-27 and higher)
+10. `PROTON_MLFG_UPGRADE=0` disables MLFG upgrade when FSR4 upgrade is enabled. By default both MLFG upgrade and FSR4 upgrade are active. (Proton-EM 10.0-33 and higher).
 
 
 Have fun gaming!
