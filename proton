@@ -1577,6 +1577,19 @@ class Session:
 
         self.env.pop("WINEARCH", "")
 
+        # Emulate upstream wine behavior for some env vars, remove for proton 11
+        if "XDG_CONFIG_HOME" in self.env:
+            self.env["WINE_HOST_XDG_CONFIG_HOME"] = self.env["XDG_CONFIG_HOME"]
+            self.env.pop("XDG_CONFIG_HOME", "")
+
+        if "XDG_DATA_HOME" in self.env:
+            self.env["WINE_HOST_XDG_DATA_HOME"] = self.env["XDG_DATA_HOME"]
+            self.env.pop("XDG_DATA_HOME", "")
+
+        if "XDG_CACHE_HOME" in self.env:
+            self.env["WINE_HOST_XDG_CACHE_HOME"] = self.env["XDG_CACHE_HOME"]
+            self.env.pop("XDG_CACHE_HOME", "")
+
         if 'ORIG_'+ld_path_var not in os.environ:
             # Allow wine to restore this when calling an external app.
             self.env['ORIG_'+ld_path_var] = os.environ.get(ld_path_var, '')
