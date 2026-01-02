@@ -1054,38 +1054,21 @@ $(OBJ)/.vkd3d-proton-post-source:
 ifneq ($(findstring aarch64,$(unix_ARCHS)),)
 FEX_CMAKE_ARGS = \
   -DENABLE_FEXCORE_PROFILER=True -DCMAKE_BUILD_TYPE=Release -DENABLE_LTO=False \
-  -DBUILD_TESTING=False -DTUNE_CPU=none
+  -DBUILD_TESTING=False -DTUNE_CPU=none \
+  -DCMAKE_TOOLCHAIN_FILE=$(FEX_SRC)/Data/CMake/toolchain_mingw.cmake \
+  -DOVERRIDE_VERSION=$$(cat $(FEX_SRC)/.git_describe) \
+  -DOVERRIDE_HASH=$$(cat $(FEX_SRC)/.git_rev)
 
-FEX_ARM64EC_CMAKE_ARGS = \
-  $(FEX_CMAKE_ARGS) \
-  -DCMAKE_TOOLCHAIN_FILE=$(FEX_ARM64EC_SRC)/Data/CMake/toolchain_mingw.cmake \
-  -DCMAKE_INSTALL_LIBDIR=$(FEX_ARM64EC_aarch64_DST)/lib/wine/aarch64-windows \
-  -DMINGW_TRIPLE=arm64ec-w64-mingw32 \
-  -DOVERRIDE_VERSION=$$(cat $(FEX_ARM64EC_SRC)/.git_describe) \
-  -DOVERRIDE_HASH=$$(cat $(FEX_ARM64EC_SRC)/.git_rev)
+FEX_aarch64_CMAKE_ARGS = -DMINGW_TRIPLE=aarch64-w64-mingw32 -DCMAKE_INSTALL_LIBDIR=$(FEX_aarch64_DST)/lib/wine/aarch64-windows
+FEX_arm64ec_CMAKE_ARGS = -DMINGW_TRIPLE=arm64ec-w64-mingw32 -DCMAKE_INSTALL_LIBDIR=$(FEX_arm64ec_DST)/lib/wine/aarch64-windows
 
-$(eval $(call rules-source,fex-arm64ec,$(SRCDIR)/FEX))
-$(eval $(call rules-cmake,fex-arm64ec,aarch64,windows))
+$(eval $(call rules-source,fex,$(SRCDIR)/FEX))
+$(eval $(call rules-cmake,fex,aarch64,windows))
+$(eval $(call rules-cmake,fex,arm64ec,windows))
 
-$(OBJ)/.fex-arm64ec-post-source:
-	git -C $(SRCDIR)/FEX describe --abbrev=7 > $(FEX_ARM64EC_SRC)/.git_describe
-	git -C $(SRCDIR)/FEX rev-parse --short=7 HEAD > $(FEX_ARM64EC_SRC)/.git_rev
-	touch $@
-
-FEX_WOW64_CMAKE_ARGS = \
-  $(FEX_CMAKE_ARGS) \
-  -DCMAKE_TOOLCHAIN_FILE=$(FEX_WOW64_SRC)/Data/CMake/toolchain_mingw.cmake \
-  -DCMAKE_INSTALL_LIBDIR=$(FEX_WOW64_aarch64_DST)/lib/wine/aarch64-windows \
-  -DMINGW_TRIPLE=aarch64-w64-mingw32 \
-  -DOVERRIDE_VERSION=$$(cat $(FEX_WOW64_SRC)/.git_describe) \
-  -DOVERRIDE_HASH=$$(cat $(FEX_WOW64_SRC)/.git_rev)
-
-$(eval $(call rules-source,fex-wow64,$(SRCDIR)/FEX))
-$(eval $(call rules-cmake,fex-wow64,aarch64,windows))
-
-$(OBJ)/.fex-wow64-post-source:
-	git -C $(SRCDIR)/FEX describe --abbrev=7 > $(FEX_WOW64_SRC)/.git_describe
-	git -C $(SRCDIR)/FEX rev-parse --short=7 HEAD > $(FEX_WOW64_SRC)/.git_rev
+$(OBJ)/.fex-post-source:
+	git -C $(SRCDIR)/FEX describe --abbrev=7 > $(FEX_SRC)/.git_describe
+	git -C $(SRCDIR)/FEX rev-parse --short=7 HEAD > $(FEX_SRC)/.git_rev
 	touch $@
 
 FEX_CONFIG_JSON := $(DST_DIR)/share/fex-emu/Config.json
@@ -1093,7 +1076,7 @@ $(FEX_CONFIG_JSON): $(SRCDIR)/FEX_Config.json
 	mkdir -p $(dir $@)
 	cp -a $< $@
 
-default_pfx: fex-arm64ec fex-wow64 $(FEX_CONFIG_JSON)
+default_pfx: fex $(FEX_CONFIG_JSON)
 endif
 
 
