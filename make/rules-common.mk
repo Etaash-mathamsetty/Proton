@@ -185,20 +185,24 @@ x86_64-unix_TARGET := x86_64-linux-gnu
 aarch64-unix_TARGET := aarch64-linux-gnu
 i386-windows_TARGET := i686-w64-mingw32
 x86_64-windows_TARGET := x86_64-w64-mingw32
-aarch64-windows_TARGET := arm64ec-w64-mingw32
+aarch64-windows_TARGET := aarch64-w64-mingw32
+arm64ec-windows_TARGET := arm64ec-w64-mingw32
 
 i386-unix_LIBDIR := i386-linux-gnu
 x86_64-unix_LIBDIR := x86_64-linux-gnu
 aarch64-unix_LIBDIR := aarch64-linux-gnu
 i386-windows_LIBDIR := i386-w64-mingw32
 x86_64-windows_LIBDIR := x86_64-w64-mingw32
-aarch64-windows_LIBDIR := arm64ec-w64-mingw32
+aarch64-windows_LIBDIR := aarch64-w64-mingw32
+arm64ec-windows_LIBDIR := arm64ec-w64-mingw32
 
 $(OBJ)/.%-i386-post-build:
 	touch $@
 $(OBJ)/.%-x86_64-post-build:
 	touch $@
 $(OBJ)/.%-aarch64-post-build:
+	touch $@
+$(OBJ)/.%-arm64ec-post-build:
 	touch $@
 
 rules-common = $(call create-rules-common,$(1),$(call toupper,$(1)),$(2),$(3))

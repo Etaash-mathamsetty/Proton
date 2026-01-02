@@ -16,6 +16,9 @@ $(2)_i386-windows_LIBFLAGS = $$(foreach d,$$($(2)_i386_DEPS),-L$$($$(d)_i386_LIB
 $(2)_aarch64_DEPS := $$(call toupper,$$($(2)_DEPENDS)) $$(call toupper,$$($(2)_aarch64_DEPENDS))
 $(2)_aarch64_INCFLAGS = $$(foreach d,$$($(2)_aarch64_DEPS),-I$$($$(d)_aarch64_INCDIR))
 $(2)_aarch64-windows_LIBFLAGS = $$(foreach d,$$($(2)_aarch64_DEPS),-L$$($$(d)_aarch64_LIBDIR)/$$(aarch64-windows_LIBDIR))
+$(2)_arm64ec_DEPS := $$(call toupper,$$($(2)_DEPENDS)) $$(call toupper,$$($(2)_arm64ec_DEPENDS))
+$(2)_arm64ec_INCFLAGS = $$(foreach d,$$($(2)_arm64ec_DEPS),-I$$($$(d)_arm64ec_INCDIR))
+$(2)_arm64ec-windows_LIBFLAGS = $$(foreach d,$$($(2)_arm64ec_DEPS),-L$$($$(d)_arm64ec_LIBDIR)/$$(arm64ec-windows_LIBDIR))
 
 $$(OBJ)/.$(1)-$(3)-configure: $$(OBJ)/.wine-$$(HOST_ARCH)-tools
 	@echo ":: configuring $(1)-$(3)..." >&2
@@ -53,11 +56,11 @@ $$(OBJ)/.$(1)-$(3)-configure: $$(OBJ)/.wine-$$(HOST_ARCH)-tools
 	    -e '/^aarch64_CXXFLAGS/c aarch64_CXXFLAGS = $$($(2)_aarch64_INCFLAGS) -std=c++17 $$($(2)_CFLAGS) $$(aarch64_CFLAGS) $$(CFLAGS)' \
 	    -e '/^aarch64_LDFLAGS/c aarch64_LDFLAGS = $$($(2)_aarch64_LIBFLAGS) $$(aarch64_LDFLAGS) $$(LDFLAGS)' \
 	    \
-	    -e '/^arm64ec_CC/a arm64ec_CXX = $$(aarch64-windows_TARGET)-g++' \
-	    -e '/^arm64ec_CFLAGS/c arm64ec_CFLAGS = $$($(2)_aarch64_INCFLAGS) $$($(2)_CFLAGS) $$(aarch64_CFLAGS) $$(CFLAGS)' \
-	    -e '/^arm64ec_CPPFLAGS/c arm64ec_CPPFLAGS = $$($(2)_aarch64_INCFLAGS) $$($(2)_CFLAGS) $$(aarch64_CFLAGS) $$(CFLAGS)' \
-	    -e '/^arm64ec_CXXFLAGS/c arm64ec_CXXFLAGS = $$($(2)_aarch64_INCFLAGS) -std=c++17 $$($(2)_CFLAGS) $$(aarch64_CFLAGS) $$(CFLAGS)' \
-	    -e '/^arm64ec_LDFLAGS/c arm64ec_LDFLAGS = $$($(2)_aarch64_LIBFLAGS) $$(aarch64_LDFLAGS) $$(LDFLAGS)' \
+	    -e '/^arm64ec_CC/a arm64ec_CXX = $$(arm64ec-windows_TARGET)-g++' \
+	    -e '/^arm64ec_CFLAGS/c arm64ec_CFLAGS = $$($(2)_arm64ec_INCFLAGS) $$($(2)_CFLAGS) $$(arm64ec_CFLAGS) $$(CFLAGS)' \
+	    -e '/^arm64ec_CPPFLAGS/c arm64ec_CPPFLAGS = $$($(2)_arm64ec_INCFLAGS) $$($(2)_CFLAGS) $$(arm64ec_CFLAGS) $$(CFLAGS)' \
+	    -e '/^arm64ec_CXXFLAGS/c arm64ec_CXXFLAGS = $$($(2)_arm64ec_INCFLAGS) -std=c++17 $$($(2)_CFLAGS) $$(arm64ec_CFLAGS) $$(CFLAGS)' \
+	    -e '/^arm64ec_LDFLAGS/c arm64ec_LDFLAGS = $$($(2)_arm64ec_LIBFLAGS) $$(arm64ec_LDFLAGS) $$(LDFLAGS)' \
 	    \
 	    -e '/^PE_ARCHS/s/aarch64//' \
 	    $$(WINE_$(3)_OBJ)/Makefile > $$($(2)_$(3)_OBJ)/Makefile
