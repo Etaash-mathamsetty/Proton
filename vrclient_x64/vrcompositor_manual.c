@@ -70,7 +70,7 @@ static const w_Texture_t *load_compositor_texture_dxvk( uint32_t eye, const w_Te
 
     if (*flags & Submit_TextureWithDepth)
     {
-        WARN( "Ignoring depth.\n" );
+        FIXME( "Ignoring depth.\n" );
         *flags &= ~Submit_TextureWithDepth;
     }
 
@@ -298,7 +298,7 @@ static const w_Texture_t *load_compositor_texture_d3d12( uint32_t eye, const w_T
 
     if (*flags & Submit_TextureWithDepth)
     {
-        WARN( "Ignoring depth.\n" );
+        FIXME( "Ignoring depth.\n" );
         *flags &= ~Submit_TextureWithDepth;
     }
 

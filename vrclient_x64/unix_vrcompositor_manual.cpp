@@ -110,6 +110,19 @@ static void *unwrap_vulkan_texture_data( const WTexture *w_texture, uint32_t fla
     else return unwrap_texture_vkdata( get_vulkan_texture_data( w_texture ), (u_VRVulkanTextureData_t *)u_vkdata );
 }
 
+static int disable_depth_data(void)
+{
+    static int cached = -1;
+
+    if (cached == -1)
+    {
+        const char *sgi = getenv( "SteamGameId" );
+
+        cached = sgi && !strcmp( sgi, "275850" );
+    }
+    return cached;
+}
+
 template< typename WTexture >
 static u_Texture_t *unwrap_submit_texture_data( const WTexture *w_texture, uint32_t flags, u_VRTextureWithPoseAndDepth_t *u_texture,
                                                 u_VRVulkanTextureArrayData_t *u_vkdata, u_VRVulkanTextureData_t *u_depth_vkdata )
@@ -134,9 +147,19 @@ static u_Texture_t *unwrap_submit_texture_data( const WTexture *w_texture, uint3
         auto w_texture_with_depth = get_texture_with_depth( w_texture );
         auto w_depth_data = get_vulkan_texture_depth_data( w_texture_with_depth );
         *u_texture_with_depth = *w_texture_with_depth;
-        if (w_texture->eType == TextureType_Vulkan) u_texture->handle = unwrap_vulkan_texture_data( w_texture, flags, u_vkdata );
-        /* We should maybe unwrap the vkdata but No Man Sky uses a garbage handle in its w_VRTextureDepthInfo_t, is this really used? */
-        u_texture_with_depth->depth.handle = w_depth_data;
+        if (w_texture->eType == TextureType_Vulkan)
+        {
+            u_texture->handle = unwrap_vulkan_texture_data( w_texture, flags, u_vkdata );
+            u_texture_with_depth->depth.handle = NULL;
+            if (w_depth_data)
+            {
+                if (!disable_depth_data() && w_depth_data->m_nWidth && w_depth_data->m_nHeight && w_depth_data->m_nFormat
+                    && w_depth_data->m_pDevice && w_depth_data->m_pPhysicalDevice && w_depth_data->m_pInstance && w_depth_data->m_pQueue)
+                    u_texture_with_depth->depth.handle = unwrap_texture_vkdata( w_depth_data, u_depth_vkdata );
+                else
+                    WARN( "Invalid depth texture data.\n" );
+            }
+        }
         break;
     }
     case Submit_TextureWithPose | Submit_TextureWithDepth:
