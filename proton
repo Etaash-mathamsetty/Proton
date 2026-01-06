@@ -1265,18 +1265,6 @@ def default_compat_config():
                 "1056090", #Ori and the Will of the Wisps
                 "1293830", #Forza Horizon 4
                 "1551360", #Forza Horizon 5
-                "271590", #Grand Theft Auto V
-                "5699", #Grand Theft Auto V Premium Edition
-                "1174180", #Red Dead Redemption 2
-                "1404210", #Red Dead Online
-                "12210", #Grand Theft Auto IV: Complete Edition
-                "204100", #Max Payne 3
-                "110800", #L.A. Noire
-                "12200", #Bully: Scholarship Edition
-                "12120", #Grand Theft Auto: San Andreas
-                "12110", #Grand Theft Auto: Vice City
-                "12100", #Grand Theft Auto III
-                "722230", #L.A. Noire: The VR Case Files
                 "813780", #Age of Empires II: Definitive Edition
                 "933110", #Age of Empires III: Definitive Edition
                 "1466860", #Age of Empires IV
