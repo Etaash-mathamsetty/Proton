@@ -28,6 +28,10 @@ user_settings = {
     "WINE_MONO_TRACE": "E:System.NotImplementedException",
     #"MONO_LOG_LEVEL": "info",
 
+    #xalia debug logging
+    #"XALIA_DEBUG": "1",
+    #"XALIA_DEBUG_INPUT": "1",
+
     #general purpose media logging
 #    "GST_DEBUG": "4",
     #or, verbose converter logging (may impact playback performance):
