@@ -1585,7 +1585,10 @@ class Session:
         ld_library_path = [g_proton.lib_dir + "x86_64-linux-gnu", g_proton.lib_dir + "aarch64-linux-gnu", g_proton.lib_dir + "i386-linux-gnu"]
         prepend_to_env_str(self.env, ld_path_var, ':'.join(ld_library_path), ":")
 
-        self.env["WINEDLLPATH"] = ':'.join([g_proton.lib_dir + "vkd3d", g_proton.lib_dir + "wine"])
+        dllpaths = [g_proton.lib_dir + "vkd3d", g_proton.lib_dir + "wine"]
+        if "WINEDLLPATH" in os.environ:
+            dllpaths.append(os.environ["WINEDLLPATH"])
+        self.env["WINEDLLPATH"] = ':'.join(dllpaths)
 
         self.env["GST_PLUGIN_SYSTEM_PATH_1_0"] = ':'.join([lib + "/gstreamer-1.0" for lib in ld_library_path])
         self.env["WINE_GST_REGISTRY_DIR"] = g_compatdata.path("gstreamer-1.0/")
