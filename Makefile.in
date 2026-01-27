@@ -1762,6 +1762,9 @@ test-container:
 	@echo >&2 ":: Testing container"
 	$(DOCKER_BASE) /bin/bash -c "echo Hello World!"
 
+.PHONY: get-steamrt-image
+get-steamrt-image:
+	echo $(STEAMRT_IMAGE)
 
 STEAM_DIR := $(HOME)/.steam/root
 .PHONY: install
