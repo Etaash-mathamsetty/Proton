@@ -23,8 +23,17 @@ SHELL := /bin/bash
 #   SRCDIR          - Path to source
 #   BUILD_NAME      - Name of the build for manifests etc.
 #   STEAMRT_IMAGE   - Name of the docker image to use for building
+#
+TARGET_ARCH ?= x86_64
 
-STEAMRT_IMAGE ?= ghcr.io/open-wine-components/umu-sdk:latest
+ifeq ($(TARGET_ARCH),x86_64)
+	STEAMRT_IMAGE ?= ghcr.io/open-wine-components/umu-sdk:latest
+else ifeq ($(TARGET_ARCH),arm64)
+	STEAMRT_IMAGE ?= registry.gitlab.steamos.cloud/proton/steamrt4/sdk/arm64-llvm:4.0.20260119.200228-2
+else
+	ARCHS := $(error Unknown TARGET_ARCH=$(TARGET_ARCH))
+endif
+
 ifeq ($(SRCDIR),)
 	foo := $(error SRCDIR not set, do not include Makefile.in directly, run ./configure.sh to generate Makefile)
 endif
