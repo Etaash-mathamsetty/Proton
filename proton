@@ -1293,6 +1293,7 @@ def default_compat_config():
         if appid in [
                 "2710",     #Act of War: Direct Action
                 "1621680",  #Sword and Fairy 4
+                "888040",   #Metal Fatigue
                 ]:
             ret.add("noforcelgadd")
 
