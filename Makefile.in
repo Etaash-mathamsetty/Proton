@@ -1475,7 +1475,7 @@ all-dist: $(DIST_WINEMONO)
 ## xalia
 ##
 
-XALIA_VER := 0.4.6
+XALIA_VER := 0.4.7
 XALIA_ZIP := xalia-$(XALIA_VER)-net48-mono.zip
 DIST_XALIA_DIR := $(DST_DIR)/share/xalia
 DIST_XALIA := $(OBJ)/.xalia-dist
