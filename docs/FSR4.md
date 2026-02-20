@@ -25,7 +25,7 @@ There is no DLL from AMD's downloading website (as of when im writing this) that
 
 **Required System Configuration:**
 
-RDNA4 will work out of the box in FP8 mode using mesa 25.2. Set `PROTON_FSR4_UPGRADE=1` and enjoy the quality (and performance). On Proton-EM 10.0-2D and higher if the game supports SDK 2.0.0 then FSR 4.0.2 will be used by default, just like Windows. (The same applies to RDNA3)
+RDNA4 will work out of the box in FP8 mode using mesa 25.2. Set `PROTON_FSR4_UPGRADE=1` and enjoy the quality (and performance). On Proton-EM 10.0-2D and higher if the game supports SDK 2.0.0 then FSR 4.0.2 will be used by default, just like Windows. (The same applies to RDNA3, but make sure to use `DXIL_SPIRV_CONFIG=wmma_rdna3_workaround`)
 
 RDNA3 will also work out of the box in FP16 mode using mesa 25.2, but with graphical glitches. Use `DXIL_SPIRV_CONFIG=wmma_rdna3_workaround` to work around these. With recent updates to vkd3d-proton and mesa, performance is superb, just a tad bit slower than XeSS. Although additional quality can be gained by using FSR 4.0.1, there is a massive performance hit associated with using FSR 4.0.1 on RDNA3. **Please use FSR 4.0.0 instead.**
 
