@@ -2136,9 +2136,6 @@ class Session:
             # Make sure SDL will still work with the controllers, steam sets this for some dumb reason
             if "SDL_GAMECONTROLLER_IGNORE_DEVICES" in self.env:
                 del self.env["SDL_GAMECONTROLLER_IGNORE_DEVICES"]
-            # The HDR wsi is still required on Nvidia GPUs :/
-            if "hdr" in self.compat_config and "ENABLE_HDR_WSI" not in self.env and is_driver_loaded({'nvidia'}):
-                self.env["ENABLE_HDR_WSI"] = "1"
         else: # X11 specific changes to increase compat
             # Surfaceless supports less formats than x11
             self.env["GST_GL_WINDOW"] = "x11"
