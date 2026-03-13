@@ -18,8 +18,8 @@ Pass in the following environment variables to your game to adjust the features 
     - Uses SDL input instead of HIDRAW/Steam Input
 2. `PROTON_USE_WAYLAND=1` or `PROTON_ENABLE_WAYLAND=1`
     - Enables Wayland driver
-3. `PROTON_ENABLE_HDR=1`
-    - Enables HDR
+3. `PROTON_ENABLE_HDR=1` (Removed in HDRTEST versions)
+    - Enables HDR (doesn't check if your monitor supports it)
 4. `PROTON_ADD_CONFIG=option1,option2,option3` List of options is below:
     - `sdlinput` is equivalent to `PROTON_USE_SDL=1`
     - `fsr4` is equivalent to `PROTON_FSR4_UPGRADE=1`
@@ -40,6 +40,8 @@ Pass in the following environment variables to your game to adjust the features 
     - On Proton-EM 10.0-2D and higher you can pass in any positive real number (like 0.5) to adjust the sensitivity of rawinput
 9. `PROTON_NO_NTSYNC=1` disables NTsync (Proton-EM 10.0-27 and higher)
 10. `PROTON_MLFG_UPGRADE=0` disables MLFG upgrade when FSR4 upgrade is enabled. By default both MLFG upgrade and FSR4 upgrade are active. (Proton-EM 10.0-33 and higher).
+11. HDRTEST versions: `DXVK_NO_HDR=1` 
+    - Disables HDR. `DXVK_HDR=0` does not work in these HDRTEST versions.
 
 
 Have fun gaming!
