@@ -1621,6 +1621,7 @@ class Session:
         if os.environ.get("PROTON_MEDIACONV_NO_VIDEO",
             "1" if os.environ.get("SteamGameId", 0) in (
                 "283640", # Salt and Sanctuary
+                "455490", # Don't Die Dateless, Dummy!
                 "787810", # Rogue Heroes: Ruins of Tasos
                 "1199570", # Rogue Heroes: Ruins of Tasos Demo
                 "1491460", # Tor Eternum
