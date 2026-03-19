@@ -1463,6 +1463,7 @@ def default_compat_config():
 
         if appid in [
                 "1026680", #FINAL FANTASY VIII - REMASTERED
+                "3280350", #DEATH STRANDING 2: ON THE BEACH
                 "3513350", #Wuthering Waves
                 "3837340", #FINAL FANTASY VII
                 ]:
