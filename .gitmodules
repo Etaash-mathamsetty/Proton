@@ -71,7 +71,7 @@
 	url = https://github.com/alphacep/vosk-api
 [submodule "protonfixes"]
 	path = protonfixes
-	url = https://github.com/Open-Wine-Components/umu-protonfixes
+	url = https://github.com/Etaash-mathamsetty/umu-protonfixes
 [submodule "libxkbcommon"]
 	path = libxkbcommon
 	url = https://github.com/xkbcommon/libxkbcommon.git
