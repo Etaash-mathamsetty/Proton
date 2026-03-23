@@ -2133,6 +2133,10 @@ class Session:
             # Make sure SDL will still work with the controllers, steam sets this for some dumb reason
             if "SDL_GAMECONTROLLER_IGNORE_DEVICES" in self.env:
                 del self.env["SDL_GAMECONTROLLER_IGNORE_DEVICES"]
+            # Some strange bug with X displays. I have a hunch it is caused by ffmpeg but it's not logging anything...
+            # Retest with proton 11
+            if "DISPLAY" in self.env:
+                del self.env["DISPLAY"]
         else: # X11 specific changes to increase compat
             # Surfaceless supports less formats than x11
             self.env["GST_GL_WINDOW"] = "x11"
