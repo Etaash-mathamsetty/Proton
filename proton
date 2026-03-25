@@ -17,7 +17,6 @@ import shlex
 import uuid
 import json
 import time
-import urllib.request
 
 from ctypes import CDLL
 from ctypes import CFUNCTYPE
@@ -1238,9 +1237,6 @@ def default_compat_config():
     if "SteamAppId" in os.environ:
         appid = os.environ["SteamAppId"]
         if appid in [
-                #affected by CW bug 22265
-                "692890", #Roboquest
-
                 #affected by CW bug 19741
                 "1017900", #Age of Empires: Definitive Edition
 
@@ -1637,13 +1633,6 @@ class Session:
             self.compat_config.discard(config_name)
         return True
 
-    def download_file(self, uri, dst):
-        try:
-            os.makedirs(os.path.dirname(dst), exist_ok=True)
-            urllib.request.urlretrieve(uri, dst)
-        except Exception:
-            pass
-
     def try_log_slr_versions(self):
         try:
             if "PRESSURE_VESSEL_RUNTIME_BASE" in self.env:
@@ -1757,9 +1746,6 @@ class Session:
         self.env.setdefault("VKD3D_DEBUG", "none")
         self.env.setdefault("VKD3D_SHADER_DEBUG", "none")
 
-        #disable XIM support until libx11 >= 1.7 is widespread
-        self.env.setdefault("WINE_ALLOW_XIM", "0")
-
         if "wined3d11" in self.compat_config:
             self.compat_config.add("wined3d")
 
@@ -1777,7 +1763,6 @@ class Session:
         self.check_environment("PROTON_HIDE_INTEL_GPU", "hideintelgpu")
         self.check_environment("PROTON_SET_GAME_DRIVE", "gamedrive")
         self.check_environment("PROTON_SET_STEAM_DRIVE", "steamdrive")
-        self.check_environment("PROTON_NO_XIM", "noxim")
         self.check_environment("PROTON_HEAP_DELAY_FREE", "heapdelayfree")
         self.check_environment("PROTON_HEAP_ZERO_MEMORY", "heapzeromemory")
         self.check_environment("PROTON_DISABLE_NVAPI", "disablenvapi")
@@ -1812,9 +1797,6 @@ class Session:
             self.env.pop("WINEESYNC", "")
         else:
             self.env["WINEESYNC"] = "1"
-
-        if "noxim" not in self.compat_config:
-            self.env.pop("WINE_ALLOW_XIM")
 
         if "nofsync" in self.compat_config:
             self.env.pop("WINEFSYNC", "")
