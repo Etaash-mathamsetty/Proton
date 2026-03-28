@@ -2086,18 +2086,12 @@ class Session:
             self.dlloverrides["winewayland.drv"] = "b"
             if "WINE_WAYLAND_HACKS" not in self.env:
                 self.env["WINE_WAYLAND_HACKS"] = "1"
-            """
-                It is not possible for winewayland to support xalia since
-                there is no way to position toplevel surfaces dynamically in wayland
-            """
+            # It is not possible for winewayland to support xalia since
+            # there is no way to position toplevel surfaces dynamically in wayland
             self.env["PROTON_USE_XALIA"] = "0"
             # Steam input does not work on wayland
             if "PROTON_NO_STEAMINPUT" not in self.env:
                 self.env["PROTON_NO_STEAMINPUT"] = "1"
-            # IME implementation on some compositors is broken
-            # no longer needed since ime is turned on/off based on ime context
-            # if "WAYLANDDRV_NO_IME" not in self.env:
-            #    self.env["WAYLANDDRV_NO_IME"] = "1"
             # FIXME: temporary workaround for libxkbcommon's current integration
             if "XLOCALEDIR" not in self.env:
                 self.env["XLOCALEDIR"] = g_proton.dist_dir + "share/X11/locale"
