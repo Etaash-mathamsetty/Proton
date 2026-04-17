@@ -6,3 +6,7 @@
 /.vagrant/
 /vagrant_share/
 /build/
+.idea/
+.vscode/
+build-debug/
+contrib/

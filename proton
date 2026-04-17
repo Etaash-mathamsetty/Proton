@@ -1330,7 +1330,6 @@ def default_compat_config():
                 "1233880", #Disgaea 4 Complete+
                 ]:
             ret.add("nofsync")
-            ret.add("noesync")
 
         if appid in [
                 # disable dxvknvapi for titles which dislike it
@@ -1686,7 +1685,6 @@ class Session:
         self.check_environment("PROTON_DXVK_D3D8", "dxvkd3d8")
         self.check_environment("PROTON_NO_D3D11", "nod3d11")
         self.check_environment("PROTON_NO_D3D10", "nod3d10")
-        self.check_environment("PROTON_NO_ESYNC", "noesync")
         self.check_environment("PROTON_NO_FSYNC", "nofsync")
         self.check_environment("PROTON_FORCE_LARGE_ADDRESS_AWARE", "forcelgadd")
         self.check_environment("PROTON_OLD_GL_STRING", "oldglstr")
@@ -1701,11 +1699,6 @@ class Session:
         self.check_environment("PROTON_DISABLE_NVAPI", "disablenvapi")
         self.check_environment("PROTON_FORCE_NVAPI", "forcenvapi")
         self.check_environment("PROTON_HIDE_APU", "hideapu")
-
-        if "noesync" in self.compat_config:
-            self.env.pop("WINEESYNC", "")
-        else:
-            self.env["WINEESYNC"] = "1"
 
         if "nofsync" in self.compat_config:
             self.env.pop("WINEFSYNC", "")

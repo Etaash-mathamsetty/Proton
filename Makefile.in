@@ -153,6 +153,38 @@ $(eval $(call rules-meson,dav1d,i386,unix))
 $(eval $(call rules-meson,dav1d,x86_64,unix))
 $(eval $(call rules-meson,dav1d,aarch64,unix))
 
+##
+## libxml2
+##
+
+LIBXML2_MESON_ARGS := \
+	-Ddocs=disabled \
+	-Dicu=disabled \
+	-Dlegacy=enabled \
+	-Dpython=disabled
+
+$(eval $(call rules-source,libxml2,$(SRCDIR)/libxml2))
+$(eval $(call rules-meson,libxml2,i386,unix))
+$(eval $(call rules-meson,libxml2,x86_64,unix))
+$(eval $(call rules-meson,libxml2,aarch64,unix))
+
+##
+## xkbcommon
+##
+
+LIBXKBCOMMON_MESON_ARGS := \
+	-Denable-xkbregistry=true \
+	-Denable-docs=false \
+	-Denable-x11=false \
+	-Denable-bash-completion=false \
+	-Denable-wayland=false
+
+LIBXKBCOMMON_DEPENDS = libxml2
+
+$(eval $(call rules-source,libxkbcommon,$(SRCDIR)/libxkbcommon))
+$(eval $(call rules-meson,libxkbcommon,i386,unix))
+$(eval $(call rules-meson,libxkbcommon,x86_64,unix))
+$(eval $(call rules-meson,libxkbcommon,aarch64,unix))
 
 ##
 ## libsoup
@@ -629,7 +661,7 @@ WINE_x86_64_AUTOCONF_ARGS += \
   VKD3D_PE_CFLAGS="-I$(VULKAN_HEADERS_x86_64_DST)/include -I$(VKD3D_x86_64_DST)/include/vkd3d" \
   VKD3D_PE_LIBS="-L$(VKD3D_x86_64_LIBDIR)/vkd3d/x86_64-windows -l:libvkd3d-1.dll -l:libvkd3d-shader-1.dll -l:libvkd3d-utils-1.dll"
 
-WINE_DEPENDS = gst_orc gstreamer gst_base ffmpeg openfst kaldi vosk
+WINE_DEPENDS = gst_orc gstreamer gst_base ffmpeg openfst kaldi vosk libxml2 libxkbcommon
 WINE_i386_DEPENDS = vkd3d
 WINE_x86_64_DEPENDS = piper vkd3d
 WINE_aarch64_DEPENDS = piper
@@ -820,8 +852,11 @@ VKD3D_PROTON_x86_64_MESON_ARGS = --bindir=$(VKD3D_PROTON_x86_64_DST)/lib/wine/vk
 VKD3D_PROTON_arm64ec_MESON_ARGS = --bindir=$(VKD3D_PROTON_arm64ec_DST)/lib/wine/vkd3d-proton/aarch64-windows
 VKD3D_PROTON_HOST_DEPENDS = glslang
 
+# RDNA3 emulation path for FSR4
+VKD3D_PROTON_MESON_ARGS = -Denable_extended_emulation=true
+
 ifneq ($(UNSTRIPPED_BUILD),)
-	VKD3D_PROTON_MESON_ARGS = -Denable_trace=true
+	VKD3D_PROTON_MESON_ARGS += -Denable_trace=true
 endif
 
 $(eval $(call rules-source,vkd3d-proton,$(SRCDIR)/vkd3d-proton))
