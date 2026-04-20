@@ -1904,6 +1904,9 @@ class Session:
             self.env["WINE_USE_EGL"] = "1"
             # FSHack is not supported on winewayland (yet)
             self.env["WINE_DISABLE_FULLSCREEN_HACK"] = "1"
+            # Enable the move hack
+            if "WINE_MOVE_HACK" not in self.env:
+                self.env["WINE_MOVE_HACK"] = "1"
             # It is not possible for winewayland to support xalia since
             # there is no way to position toplevel surfaces dynamically in wayland
             self.env["PROTON_USE_XALIA"] = "0"
