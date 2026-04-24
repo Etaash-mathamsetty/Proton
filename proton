@@ -1915,6 +1915,14 @@ class Session:
             # Steam input does not work on wayland
             if "PROTON_NO_STEAMINPUT" not in self.env:
                 self.env["PROTON_NO_STEAMINPUT"] = "1"
+                # When steam input is disabled we need the ignored controllers to work again
+                if "SDL_GAMECONTROLLER_IGNORE_DEVICES" in self.env:
+                    del self.env["SDL_GAMECONTROLLER_IGNORE_DEVICES"]
+                # Some other steam input related options we need to remove
+                if "SteamVirtualGamepadInfo" in self.env:
+                    del self.env["SteamVirtualGamepadInfo"]
+                if "SDL_GAMECONTROLLER_ALLOW_STEAM_VIRTUAL_GAMEPAD" in self.env:
+                    del self.env["SDL_GAMECONTROLLER_ALLOW_STEAM_VIRTUAL_GAMEPAD"]
             # FIXME: temporary workaround for libxkbcommon's current integration
             if "XLOCALEDIR" not in self.env:
                 self.env["XLOCALEDIR"] = g_proton.dist_dir + "share/X11/locale"
