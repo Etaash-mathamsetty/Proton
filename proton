@@ -38,6 +38,8 @@ from ctypes import c_ssize_t
 from filelock import FileLock
 from random import randrange
 
+import protonfixes
+
 #To enable debug logging, copy "user_settings.sample.py" to "user_settings.py"
 #and edit it if needed.
 
@@ -2090,7 +2092,26 @@ class Session:
                     "1549250",  # Undecember
                 ]:
             argv = [g_proton.wine_bin, "c:\\Program Files (x86)\\Steam\\steam.exe"]
+        # Don't use steam if it's not a steam game
+        # Prevent this warning for non-steam games:
+        # [S_API FAIL] SteamAPI_Init() failed; no appID found.
+        # Either launch the game from Steam, or put the file steam_appid.txt containing the correct appID in your game folder.
+        elif "UMU_ID" in os.environ and os.environ.get("UMU_USE_STEAM", "0") != "1":
+            if len(sys.argv) >= 3 and sys.argv[2].startswith('/'):
+                log(sys.argv[2])
+                log("Executable is a unix path, launching with 'umu.exe'.")
+                if g_proton.host_pe_arch == "x86_64-windows":
+                    #run with winepreloader directly to avoid restart through start.exe
+                    self.env["WINELOADERNOEXEC"] = "1"
+                    argv = [g_proton.lib_dir + "/wine/x86_64-unix/wine-preloader", g_proton.lib_dir + "/wine/x86_64-unix/wine", "c:\\windows\\system32\\umu.exe"]
+                else:
+                    argv = [g_proton.wine_bin, "c:\\windows\\system32\\umu.exe"]
+            else:
+                log("Executable is inside wine prefix, launching normally.")
+                argv = [g_proton.wine_bin]
         else:
+            if "UMU_ID" in os.environ:
+                append_to_env_str(self.env, "WINEDLLOVERRIDES", "lsteamclient=d", ";")
             if g_proton.host_pe_arch == "x86_64-windows":
                 #run with winepreloader directly to avoid restart through start.exe
                 self.env["WINELOADERNOEXEC"] = "1"
@@ -2131,6 +2152,12 @@ if __name__ == "__main__":
         g_proton.make_default_prefix()
 
     g_session.init_session(sys.argv[1] != "runinprefix")
+
+    # protonfixes execution
+    protonfixes.setup(g_session.env, "PATH", ld_path_var, prepend_to_env_str)
+    protonfixes.setup_mount_drives(setup_dir_drive)
+    protonfixes.winetricks(g_session.env, g_proton.wine_bin, g_proton.wineserver_bin)
+    protonfixes.execute()
 
     #determine mode
     rc = 0
