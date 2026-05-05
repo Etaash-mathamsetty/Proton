@@ -1897,6 +1897,8 @@ class Session:
         if "__GLVND_DISALLOW_PATCHING" not in self.env:
             self.env["__GLVND_DISALLOW_PATCHING"] = "1"
 
+        self.env.setdefault("WINE_MONO_HIDETYPES", "0")
+
         # Proton-EM custom options:
 
         # Don't use wayland backend when WAYLAND_DISPLAY is not set
