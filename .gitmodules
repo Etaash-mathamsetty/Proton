@@ -78,3 +78,9 @@
 [submodule "libxml2"]
 	path = libxml2
 	url = https://gitlab.gnome.org/GNOME/libxml2.git
+[submodule "libxkbcommon"]
+	path = libxkbcommon
+	url = https://github.com/xkbcommon/libxkbcommon.git
+[submodule "protonfixes"]
+	path = protonfixes
+	url = https://github.com/Etaash-mathamsetty/umu-protonfixes
