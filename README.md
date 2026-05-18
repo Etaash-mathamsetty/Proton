@@ -1,9 +1,9 @@
 # Introduction
 
-Proton-EM is a fork of [Proton](https://github.com/valvesoftware/proton) with a modified version of Wine, DXVK, and other submodules to implement the following features:
+**Proton-EM** is a fork of [Proton](https://github.com/valvesoftware/proton) with a modified version of Wine, DXVK, and other submodules to implement the following features:
 
 - Video codec fixes
-    - Thanks to (in no paticular order) LoathingKernel, GloriousEggroll, NelloKudo, and many others for their work on getting videos working with Proton.
+    - Thanks to (in no paticular order) the CodeWeavers team, LoathingKernel, GloriousEggroll, NelloKudo, and many others for their work on getting videos working with Proton.
 - Protonfixes
     - Thanks to GloriousEggroll and LoathingKernel for providing a reference on how to add this to the Makefile.
 - FSR 4.x support, including redstone features like machine learning frame generation
