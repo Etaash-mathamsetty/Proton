@@ -4,10 +4,10 @@
 
 - Video codec fixes
     - Thanks to (in no paticular order) the CodeWeavers team, LoathingKernel, GloriousEggroll, NelloKudo, and many others for their work on getting videos working with Proton.
-- Protonfixes
+- Protonfixes and UMU support
     - Thanks to GloriousEggroll and LoathingKernel for providing a reference on how to add this to the Makefile.
 - FSR 4.x support, including redstone features like machine learning frame generation
-    - FSR4 support on RDNA3
+    - FSR4 support on RDNA3 (Removed from upstream, thanks AMD... At least INT8 FSR4.1 is releasing soon)
     - Anti-Lag 2 on D3D12 games (Upstreamed in Proton experimental)
 - winewayland support with various improvements compared to upstream Wine
     - EDID emulation support (with CTA-861 HDR static metadata extension for HDR)
@@ -15,7 +15,7 @@
     - Server side decorations support
     - Moving fullscreen windows between different outputs
     - Heuristic to determine which monitor is most likely the primary one
-    - Fractional scaling support
+    - Fractional scaling protocol support
     - Support for flashing the task bar icon through `xdg-activation-v1`
     - Locked modifier key support
     - Improved keyboard layout support, dead key support, and various other keyboard fixes
@@ -23,15 +23,19 @@
     - Pointer rawinput support
     - Touchpad scrolling support
     - Window minimization and focus loss support
+    - Window tiling support
     - Improved fullscreen window support (now with black bars :D)
     - Hack to move windows entirely on screen (resolves being unable to interact with portions of windows)
-    - Wayland client surface caching
+    - Wayland client surface caching (fixes DMABUF modifier feedback loops when playing some Vulkan games with direct scanout)
     - Various bug fixes
     - Planned work: Cross Process Rendering, Blit from client surface to toplevel
-- Automatic HDR enablement for DXVK when the output supports it
+- Automatic HDR enablement for DXVK when the display supports it
 - Some ntoskrnl patches for games that use AntiCheatExpert
 - Various other patches to fix bugs or improve performance
 
+## FSR4
+
+WIP
 
 This project aims to provide a good user experience with the end goal of no longer needing to exist due to its code being in the respective upstream sources. A small number of the above features have already been upstreamed, with plans on being upstreaming more in the future.
 
