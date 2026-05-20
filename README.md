@@ -33,10 +33,11 @@
 - Some ntoskrnl patches for games that use AntiCheatExpert
 - Various other patches to fix bugs or improve performance
 
+This project aims to provide a good user experience with the end goal of no longer needing to exist due to its code being in the respective upstream sources. A small number of the above features have already been upstreamed, with plans on being upstreaming more in the future.
+
 ## FSR4
 
 WIP
 
-This project aims to provide a good user experience with the end goal of no longer needing to exist due to its code being in the respective upstream sources. A small number of the above features have already been upstreamed, with plans on being upstreaming more in the future.
 
 Please check the [original Proton README](README-ORIG.md) for the launch options provided by upstream Proton.
