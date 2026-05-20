@@ -407,7 +407,6 @@ GST_BAD_MESON_ARGS += \
 	-Dsctp=enabled \
 	-Dsmoothstreaming=enabled \
 	-Dwebp=enabled \
-	-Dwayland=enabled \
 	-Dx11=enabled \
 	-Dorc=enabled
 
