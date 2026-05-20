@@ -1691,12 +1691,14 @@ all-dist:
 
 STEAMPIPE_FIXUPS_PY := $(SRCDIR)/steampipe_fixups.py
 
+# Deploy is intended to deploy to steam, but we can't do that obviously, so this is now used for remote development
+
 .PHONY: deploy
 deploy: all
-	mkdir -p $(DEPLOY_DIR) && \
-	rsync --delete --exclude compatibilitytool.vdf -arx $(DST_BASE)/ $(DEPLOY_DIR)
-	cp -a $(STEAMPIPE_FIXUPS_PY) $(DEPLOY_DIR)
-	python3 $(STEAMPIPE_FIXUPS_PY) process $(DEPLOY_DIR)
+	mkdir -p $(REDIST_DIR)
+	rsync --delete -arx $(DST_BASE)/ $(REDIST_DIR)
+	rm -Rf $(BUILD_NAME)/
+	mv $(REDIST_DIR) $(BUILD_NAME)
 
 
 ##
