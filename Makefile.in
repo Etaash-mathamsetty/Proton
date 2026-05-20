@@ -421,6 +421,7 @@ GST_BAD_MESON_ARGS += \
 	-Dttml=disabled
 
 GST_BAD_DEPENDS = gst_orc gstreamer gst_base
+GST_BAD_HOST_DEPENDS = gst_orc
 
 $(eval $(call rules-source,gst_bad,$(SRCDIR)/gstreamer/subprojects/gst-plugins-bad/))
 $(eval $(call rules-meson,gst_bad,i386,unix))
