@@ -43,7 +43,7 @@ import protonfixes
 #To enable debug logging, copy "user_settings.sample.py" to "user_settings.py"
 #and edit it if needed.
 
-CURRENT_PREFIX_VERSION="EM-11.0-100"
+CURRENT_PREFIX_VERSION="EM-11.0-101"
 
 PFX="Proton: "
 ld_path_var = "LD_LIBRARY_PATH"
@@ -1907,14 +1907,15 @@ class Session:
             self.dlloverrides["winewayland.drv"] = "b"
             # This is required for OpenGL to work on winewayland
             self.env["WINE_USE_EGL"] = "1"
-            # FSHack is not supported on winewayland (yet)
+            # FSHack is not needed on winewayland
             self.env["WINE_DISABLE_FULLSCREEN_HACK"] = "1"
             # Enable the move hack
-            if "WINE_MOVE_HACK" not in self.env:
-                self.env["WINE_MOVE_HACK"] = "1"
+            self.env.setdefault("WINE_MOVE_HACK", "1")
             # It is not possible for winewayland to support xalia since
             # there is no way to position toplevel surfaces dynamically in wayland
             self.env["PROTON_USE_XALIA"] = "0"
+            # Use surfaceless by default on winewayland
+            self.env.setdefault("GST_GL_WINDOW", "surfaceless")
             # Steam input does not work on wayland
             if "PROTON_NO_STEAMINPUT" not in self.env:
                 self.env["PROTON_NO_STEAMINPUT"] = "1"
@@ -1927,8 +1928,7 @@ class Session:
                 if "SDL_GAMECONTROLLER_ALLOW_STEAM_VIRTUAL_GAMEPAD" in self.env:
                     del self.env["SDL_GAMECONTROLLER_ALLOW_STEAM_VIRTUAL_GAMEPAD"]
             # FIXME: temporary workaround for libxkbcommon's current integration
-            if "XLOCALEDIR" not in self.env:
-                self.env["XLOCALEDIR"] = g_proton.dist_dir + "share/X11/locale"
+            self.env.setdefault("XLOCALEDIR", g_proton.dist_dir + "share/X11/locale")
             # Some strange bug with X displays. I have a hunch it is caused by ffmpeg but it's not logging anything...
             # TODO: Needs retest with proton 11
             if "DISPLAY" in self.env:
@@ -1936,8 +1936,7 @@ class Session:
         else:
             # X11 specific changes to increase compat
             # Surfaceless supports less formats than x11
-            if "GL_GST_WINDOW" not in self.env:
-                self.env["GST_GL_WINDOW"] = "x11"
+            self.env.setdefault("GST_GL_WINDOW", "x11")
 
         # Use SDL backend for inputs instead of hidraw/Steam Input.
         if "sdlinput" in self.compat_config:
