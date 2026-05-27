@@ -344,7 +344,8 @@ GST_BAD_MESON_ARGS := \
 	-Dauto_features=disabled \
 	-Dvideoparsers=enabled \
 	-Dhls=enabled \
-	-Dmpegtsdemux=enabled
+	-Dmpegtsdemux=enabled \
+	-Daudiobuffersplit=enabled
 
 # Borrowed from proton-cachyos
 GST_BAD_MESON_ARGS += \
