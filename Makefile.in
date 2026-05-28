@@ -856,6 +856,30 @@ $(eval $(call rules-cmake,vosk,i386,unix))
 $(eval $(call rules-cmake,vosk,x86_64,unix))
 $(eval $(call rules-cmake,vosk,aarch64,unix))
 
+##
+## libpcap
+## Imported from proton-cachyos
+##
+
+LIBPCAP_CONFIGURE_ARGS := \
+	--enable-shared \
+	--disable-static \
+	--disable-usb \
+	--disable-netmap \
+	--disable-bluetooth \
+	--disable-dbus \
+	--disable-rdma \
+	--with-pcap=linux \
+	--without-libnl
+
+$(eval $(call rules-source,libpcap,$(SRCDIR)/libpcap))
+$(eval $(call rules-configure,libpcap,i386,unix))
+$(eval $(call rules-configure,libpcap,x86_64,unix))
+$(eval $(call rules-configure,libpcap,aarch64,unix))
+
+$(OBJ)/.libpcap-post-source:
+	cd "$(LIBPCAP_SRC)" && autoreconf -fiv
+	touch $@
 
 ##
 ## wine
@@ -889,6 +913,7 @@ WINE_AUTOCONF_ARGS = \
   --with-gstreamer \
   --with-ffmpeg \
   --without-oss \
+  --with-libpcap \
   --disable-tests
 
 WINE_x86_64_AUTOCONF_ARGS = \
@@ -905,7 +930,7 @@ WINE_x86_64_AUTOCONF_ARGS += \
   VKD3D_PE_CFLAGS="-I$(VULKAN_HEADERS_x86_64_DST)/include -I$(VKD3D_x86_64_DST)/include/vkd3d" \
   VKD3D_PE_LIBS="-L$(VKD3D_x86_64_LIBDIR)/vkd3d/x86_64-windows -l:libvkd3d-1.dll -l:libvkd3d-shader-1.dll -l:libvkd3d-utils-1.dll"
 
-WINE_DEPENDS = gst_orc gstreamer gst_base ffmpeg openfst kaldi vosk libxml2 libxkbcommon
+WINE_DEPENDS = gst_orc gstreamer gst_base ffmpeg openfst kaldi vosk libxml2 libxkbcommon libpcap
 WINE_i386_DEPENDS = vkd3d
 WINE_x86_64_DEPENDS = piper vkd3d
 WINE_aarch64_DEPENDS = piper
