@@ -1477,6 +1477,11 @@ $(DIST_FONTS): fonts
 
 all-dist: $(DIST_FONTS)
 
+fonts-distclean::
+	rm -rf $(FONTS_OBJ)
+
+distclean: fonts-distclean
+
 
 ##
 ## Gecko
@@ -1511,6 +1516,11 @@ $(OBJ)/.gecko-x86_64-dist: $(SRC)/contrib/$(GECKO_x86_64_TARBALL)
 
 all-dist: $(OBJ)/.gecko-i386-dist $(OBJ)/.gecko-x86_64-dist
 
+gecko-distclean::
+	rm -rf $(OBJ)/.gecko-{i386,x86_64}-dist
+
+distclean: gecko-distclean
+
 
 ##
 ## wine-mono
@@ -1534,6 +1544,11 @@ $(DIST_WINEMONO): $(SRC)/contrib/$(WINEMONO_TARBALL)
 	touch $@
 
 all-dist: $(DIST_WINEMONO)
+
+mono-distclean::
+	rm -rf $(OBJ)/.wine-mono-dist
+
+distclean: mono-distclean
 
 
 ##
@@ -1561,6 +1576,10 @@ $(DIST_XALIA): $(SRC)/contrib/$(XALIA_ZIP) $(SRC)/xalia-fixups.gudl
 
 all-dist: $(DIST_XALIA)
 
+xalia-distclean::
+	rm -rf $(OBJ)/.xalia-dist
+
+distclean: xalia-distclean
 
 ##
 ## ICU
@@ -1598,6 +1617,10 @@ ifneq ($(findstring aarch64,$(unix_ARCHS)),)
 all-dist: $(OBJ)/.icu-aarch64-dist
 endif
 
+icu-distclean::
+	rm -rf $(OBJ)/.icu-{x86_64,i386}-dist
+
+distclean: icu-distclean
 
 ##
 ## X11 locale
@@ -1792,6 +1815,18 @@ redist: all
 	XZ_OPT="-9 -T$(J)" tar -cJf $(BUILD_NAME).tar.xz $(BUILD_NAME)
 	sha512sum $(BUILD_NAME).tar.xz > $(BUILD_NAME).sha512sum
 	@echo "Proton build available at $(BUILD_NAME).tar.xz"
+
+
+##
+## make distclean
+##
+
+dist-distclean::
+	rm -rf $(OBJ)/wine
+	rm -rf $(OBJ)/dist
+	rm -rf $(OBJ)/compile_commands
+
+distclean: dist-distclean
 
 
 ##
