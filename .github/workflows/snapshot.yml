@@ -116,6 +116,7 @@ jobs:
         --latest=false
         --title "Development ${{ steps.title.outputs.title }}"
         --notes "Version: ${{ needs.version.outputs.full_desc }}"
+        --notes-file ./NIGHTLY_NOTES.md
         --generate-notes
         --notes-start-tag ${{ needs.version.outputs.tag_abbrev }}
         --target ${{ github.ref_name }}
