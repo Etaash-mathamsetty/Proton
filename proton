@@ -1900,7 +1900,6 @@ class Session:
 
         if (os.environ.get("SteamGameId", 0) == "1183470"): # Imperiums: Greek Wars
             self.env.setdefault("WINE_MONO_HIDETYPES", "1")
-        self.env.setdefault("WINE_MONO_HIDETYPES", "0")
 
         # Proton-EM custom options:
 
