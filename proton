@@ -1718,8 +1718,6 @@ class Session:
         self.check_environment("PROTON_PREFER_SDL", "sdlinput")
         self.check_environment("PROTON_USE_SDL", "sdlinput")
         self.check_environment("PROTON_NATIVE_AGS", "nativeags")
-        self.check_environment("PROTON_FSR4_UPGRADE", "fsr4")
-        self.check_environment("PROTON_FSR4_RDNA3_UPGRADE", "fsr4rdna3")
 
         if "nofsync" in self.compat_config:
             self.env.pop("WINEFSYNC", "")
