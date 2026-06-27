@@ -25,6 +25,7 @@
     - Pointer warp protocol support (Now upstreamed by someone else in Wine 11.9)
     - Pointer rawinput support
     - Touchpad scrolling support
+    - Touch input support
     - Window minimization and focus loss support
     - Window tiling support
     - xdg-popup support
@@ -34,7 +35,7 @@
     - Various bug fixes
     - All of this is being upstreamed right now! (I'll add links to MRs later)
     - Not Planned: Cross Process Rendering, Client Surface Composition (afaik these are being worked on upstream)
-- Automatic HDR enablement for DXVK when the display supports it
+- Automatic HDR enablement for DXVK (DXGI) when the display supports it
 - Some ntoskrnl patches for games that use AntiCheatExpert
 - Resolve Adapter LUID collisions on multi-GPU systems.
     - You can run whatever Proton version you like after the collision is resolved because the LUID are stored in the registry.
@@ -64,5 +65,6 @@ This project aims to provide a good user experience with the end goal of no long
 |                       | `FSR_WATERMARK`, `FSR_FG_WATERMARK`               | Enables watermarks for FSR Upscaling and FG. FG watermark is incorrect on 4.1.1 (reports MLFG even when FP8 is not supported). Upscaling watermark works correctly. You can use this to determine which FSR3/4 type you are using (I8 or FP8) |
 |                       | `WAYLANDDRV_PRIMARY_MONITOR`                      | Tell the wayland driver what the primary monitor name is (Example: `eDP-1`). This is a workaround for a missing Wayland Protocol. |
 
+When using the winewayland driver, before reporting a bug please consult the list of known compositor bugs: https://github.com/Etaash-mathamsetty/Proton/issues/82
 
 Please check the [original Proton README](README-ORIG.md) for the launch options provided by upstream Proton.
